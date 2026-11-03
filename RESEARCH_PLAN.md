@@ -2,26 +2,28 @@
 
 **Working title:** *Threshold Transfer Under Shift: Calibration and Vulnerable-Road-User Recall of Modern Real-Time Detectors (YOLO vs NMS-free / DETR-family) on Driving Data*
 
-**For:** the next agent (and the student, Advait Shinde, SJSU CMPE249 Intelligent Autonomous Systems)
+**Scope:** my personal research project at PhD depth; course context below records the original starting point.
 **Prepared:** 3 Nov 2026, from 5 scout agents + 2 adversarial critic agents (summarized in Appendix A)
 **Status:** topic selected, nothing implemented yet. This is a living plan. Sections marked **FIXED** are the core commitments; everything marked **FLEXIBLE** can change as results come in, through the decision gates in §7.
 
 ---
 
-## 0. How to use this document (read first, next agent)
+## 0. How I'm using this plan
 
-1. **Confirm the calendar with the student before anything else.** Ask: proposal due date, final report/demo date, team or solo, and whether the professor must approve the topic. The plan below has a 10-week default and a 6-week compressed version (§7.3). Today is early November 2026, so the semester may end in December; if so, use the compressed version.
-2. **Verify the novelty claims yourself.** The scouts and critics could NOT open arXiv full texts (the cloud network blocked arxiv.org, alphaxiv, Semantic Scholar, OpenReview, Hugging Face). All literature evidence came from search snippets, abstracts, slides and GitHub READMEs. **Ask the student to download the PDFs in §3.1 ("must read") and put them in `papers/`** (or check whether the network now allows arxiv.org). The single most important read is **arXiv 2611.00071** (see §2.3).
+1. **This is my personal research project, with no fixed timeline or professor approval requirement.** The original 10-week and 6-week schedules below are historical planning references, not deadlines. My current scope and approval workflow are in `docs/PROJECT_CHARTER.md` and `CONTRIBUTING.md`.
+2. **Verify the novelty claims against primary sources.** The original scouts and critics could NOT open arXiv full texts (the cloud network blocked arxiv.org, alphaxiv, Semantic Scholar, OpenReview, Hugging Face). Their literature evidence came from search snippets, abstracts, slides and GitHub READMEs. Check whether arxiv.org is now reachable and obtain the PDFs in §3.1 ("must read") in `papers/`. Any missing sources should be recorded explicitly. The single most important read is **arXiv 2611.00071** (see §2.3).
 3. **Respect the compute budget** (§6). One RTX 5060 8 GB locally; $20–30 total cloud. Never start a cloud run without an estimate written in the experiment log.
-4. **Work in the order of the phases (§7), and stop at each gate** to write a 5-line status note to the student: what was found, what it means, what you propose next. The student should make the call at gates G1–G4.
-5. **Honest negative results are acceptable and valued by this professor.** Do not bend the analysis to make the hypothesis come true. Every hypothesis in §2.2 has a pre-written "if false" interpretation.
+4. **Work in the order of the phases (§7), and stop at each gate** to record a short status note: what was found, what it means, and the proposed next step. I'll make the decisions at gates G1–G4.
+5. **I value honest negative results.** Do not bend the analysis to make the hypothesis come true. Every hypothesis in §2.2 has a pre-written "if false" interpretation.
 6. Keep everything reproducible: configs in git, seeds fixed, one CSV row per evaluation (§8).
 
 ---
 
 ## 1. Context (FIXED)
 
-### 1.1 Student and course
+### 1.1 Original course context (historical)
+
+My initial framing drew on CMPE249 Intelligent Autonomous Systems. The assignment requirements below record that context; they are not requirements for my current personal project.
 - Course: CMPE249 Intelligent Autonomous Systems, lectures 1–16 covered the autonomy loop, SAE levels, BEV, end-to-end driving, VLAs, data engines, CNN backbones, FPN/PAN, R-CNN → YOLOv3…v12/YOLO11, anchor-free heads, TAL, DFL, NMS, IoU losses, AP/mAP/AR, TIDE-style error analysis, calibration, KITTI formats and projection, deployment latency/quantization, ViT, DETR → Deformable/DAB/DN/DINO → RT-DETR (varifocal loss, query selection) → D-FINE/DEIM/RF-DETR, LiDAR physics.
 - The course explicitly teaches: "Pedestrian/cyclist false negatives matter more than uniform mAP"; "calibrate confidence for tracker/planner"; "INT8/FP16 can hurt small-object recall & calibration"; "threshold = operating point". **This project is the empirical test of those lecture claims on today's detectors.**
 - Project format (from Lecture 1): tracks = Algorithm / System / **Research** / Deployment. Course lane: **Safety and evaluation** ("Measure and catch failures: OOD detection, uncertainty, regression tests for long-tail scenarios"). Professor values: blue-ocean topics, read → reproduce → diagnose → extend → communicate, honest negative results.
@@ -220,7 +222,7 @@ Rules: never leave a cloud instance idle; check checkpoints every few epochs; if
 **Phase 4: Core analysis RQ1 + RQ2 (Weeks 5–6)**
 - Threshold transfer tables and plots: ΔR and FPPI per model × condition × size bin. Reliability diagrams. TIDE breakdown at τ\*.
 - RQ2 rank correlations with bootstrap CIs.
-- **Gate G3 (mid-project check-in with the student):** what's the story so far?
+- **Gate G3 (my mid-project review):** what's the story so far?
   - **(a)** Families differ a lot → emphasise architecture insight.
   - **(b)** All similar → emphasise thresholding/calibration fix (RQ3).
   - **(c)** Calibration metrics predict ΔR well → emphasise "monitor calibration, not mAP".
@@ -238,12 +240,12 @@ Rules: never leave a cloud instance idle; check checkpoints every few epochs; if
 - **Gate G4:** decide which negative results to include, how to frame them, and the final title.
 
 ### 7.2 What each gate can change
-| Gate | Can change | Cannot change without student approval |
+| Gate | Can change | Cannot change without my approval |
 |---|---|---|
 | G0 | Model list, class mapping, condition set, which repos run locally vs cloud | The core question (RQ1) |
 | G1 | Prominence of RQ0 | — |
 | G2 | Number of models/seeds, training recipe | Dropping all DETR-family models (the comparison would collapse) |
-| G3 | Which extensions; emphasis of the story | Switching topics. If RQ1 is infeasible (e.g., data unusable), switch to **Backup Plan C** (Appendix B) and tell the student. |
+| G3 | Which extensions; emphasis of the story | Switching topics. If RQ1 is infeasible (e.g., data unusable), propose **Backup Plan C** (Appendix B) for my review. |
 | G4 | Framing, title | Results (report what happened) |
 
 ### 7.3 Compressed 6-week version (if the semester ends mid-December)
@@ -307,11 +309,11 @@ repo/
 
 ---
 
-## 10. Instructions for the next agent: first concrete actions
+## 10. My next steps
 
-1. Ask the student (in one message): deadlines (proposal / final), team or solo, do they have BDD100K/ACDC/KITTI accounts, can they download PDFs of the must-read papers, and do they prefer the 10-week or 6-week plan?
-2. Check network access to arxiv.org. If it's blocked, request the PDFs from the student. Read 2611.00071 first; fill in its row in §2.3 with verified facts; update RQ0 if needed.
-3. Create the repo skeleton (§8), README and environment files. Do NOT commit or push anywhere unless the student asks.
+1. Confirm lawful access to BDD100K/ACDC/KITTI and the must-read papers. I have no fixed deadline; progress depends on the research gates, not the historical schedules.
+2. Check network access to arxiv.org. If it's blocked, log which PDFs still need to be obtained. Read 2611.00071 first; fill in its row in §2.3 with verified facts; update RQ0 if needed.
+3. Maintain the repo skeleton (§8), README and environment files. I've authorized commits and pushes; research PRs require GPT–Claude discussion first and my approval before merging.
 4. Write `bdd_to_coco.py` with attribute filtering and the slice counts table, then the ACDC mask-to-box converter, with visual audits.
 5. Smoke-test models on the RTX 5060 (§5); fill in the G0 decision.
 6. Implement and unit-test the metrics module before running any real evaluation.
@@ -361,7 +363,7 @@ repo/
 - **Must-check first:** read 2603.26759 (Physics-Aware Diffusion LiDAR densification) in full; it is the most likely scoop. Search for 2026 papers citing 2105.01765 and LDCM (2605.30115).
 - Cut: PV-RCNN, SECOND, calibration add-on (GACE ICCV'23 already covers it), nuScenes.
 
-## Appendix C: Backup Plan B-lite (only if the student strongly prefers planning)
+## Appendix C: Backup Plan B-lite (only if I choose to focus on planning)
 At equal NDS, compare closed-loop collision/TTC violations for 4 error profiles (distance-dependent misses, temporal flicker, pose noise, latency) on PDM-Closed + PlanTF, about 100 nuPlan-mini scenarios, non-reactive mode first. Run planners on CPU in a Python 3.9 env. Pre-register how synthetic confidence scores are generated. Kendall τ of offline metrics vs closed-loop outcome. Budget: mostly CPU-hours (cut the grid to fit).
 
 ---

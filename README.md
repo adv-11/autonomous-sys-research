@@ -1,8 +1,8 @@
 # Threshold Transfer Under Distribution Shift
 
-Personal research by **Advait Shinde** on whether confidence thresholds selected on clear-day images preserve pedestrian recall under night and adverse-weather shift.
+I'm studying whether confidence thresholds selected on clear-day images preserve pedestrian recall under night and adverse-weather shift.
 
-This project studies real-time object detectors, their operating points, and object-detection calibration. The aim is a rigorous, reproducible research contribution. Novelty, detector comparisons, and safety implications remain hypotheses until verified against primary sources and real experiments. Detection recall alone does not establish driving safety.
+My focus is real-time object detectors, their operating points, and object-detection calibration. I want a rigorous, reproducible research contribution. Novelty, detector comparisons, and safety implications remain hypotheses until verified against primary sources and real experiments. Detection recall alone does not establish driving safety.
 
 ## Research questions
 
@@ -10,7 +10,7 @@ This project studies real-time object detectors, their operating points, and obj
 2. Do calibration metrics add predictive value beyond accuracy and attainable recall?
 3. Which apparent improvements survive independent evaluation, class-policy controls, and uncertainty estimates?
 
-The original [research plan](RESEARCH_PLAN.md) is a starting document whose literature claims require verification. The project is personal research without a course timeline; the course-specific requirements in the original plan are superseded by [the project charter](docs/PROJECT_CHARTER.md).
+My original [research plan](RESEARCH_PLAN.md) is a starting point whose literature claims require verification. This is personal research without a course timeline; [my project charter](docs/PROJECT_CHARTER.md) supersedes the original course requirements.
 
 ## Collaboration
 
@@ -18,7 +18,7 @@ The original [research plan](RESEARCH_PLAN.md) is a starting document whose lite
 - `gpt-research`: GPT evidence, methodology, and reproducibility work.
 - `claude-research`: independent Claude evidence and critique.
 
-The two research subagents exchange findings and discuss disagreements before opening PRs. PRs include a compact summary, source-backed decisions, and relevant images or SVG diagrams. Advait reviews and explicitly approves them on GitHub; integration is sequential: GPT first, then Claude after updating against `main`. AI review is recorded separately from Advait's approval.
+I'm using two research subagents, GPT and Claude, to investigate independently and discuss disagreements before opening PRs. Each PR includes a compact summary, source-backed decisions, and relevant images or SVG diagrams. I review and explicitly approve the PRs on GitHub before they merge: GPT first, then Claude after updating against `main`. AI review is recorded separately from my approval.
 
 ## Status
 

@@ -20,4 +20,4 @@
 
 ## Approval and integration
 
-Awaiting Advait's explicit approval. Integrate GPT research first, then update and approve Claude research against the resulting main branch.
+Awaiting my explicit approval on GitHub. Integrate GPT research first, then update and approve Claude research against the resulting main branch. Keep AI review attribution separate from my approval.
