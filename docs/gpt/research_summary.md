@@ -5,7 +5,9 @@
 
 # GPT independent research summary
 
-**2026-11-03 · Independent initial findings.** GPT prepared this audit and protocol without consulting Claude's work. The original plan remains historical context; there is no course timeline. Proposed choices await a real GPT–Claude discussion, separate cross-review and my approval. No empirical result is presented here.
+**2026-11-03 · Independent initial findings, with subsequent peer-response revisions.** GPT prepared the initial audit and protocol without consulting Claude's work (original `c112d370455525553ba31db2d1bd8b798933391d`, imported as `a7f5bad4f532886eb55791ce1a048062691e4ff0`). GPT has now read Claude's initial audit and written an [actual attributed response](discussion_with_claude.md), including evidence checks, disagreements and requested changes. Claude has not replied to that response. The original plan remains historical context; there is no course timeline. Cross-review and my approval remain pending. No empirical result is presented here.
+
+**Peer-response changes (GPT):** AegisBench already establishes clean-F1 frozen-threshold evaluation in an aerial domain, so broad priority claims are withdrawn. Current YOLO26 docs default to O2M+NMS despite the report's O2O default; the audit now corrects GPT's initial wording. The protocol retains pedestrian-only BDD fine-tuning as primary, with separately thresholded merged-human zero-shot/external panels; proposes targets 0.80/0.90/0.95; separates positive shortfall from signed gaps and headroom from infeasibility; and distinguishes source-only prediction, unlabelled-target warnings and target-labelled diagnostics. These are GPT proposals awaiting Claude's actual reply, not a joint resolution.
 
 ## What changes in the research question
 
@@ -19,7 +21,7 @@ The most subtle exception is **threshold interpolation**: two boundaries can sel
 
 ## Proposed scope and architecture comparison
 
-Begin with **YOLO11s, YOLO26s O2O and RT-DETRv2-S/R18**, pending local feasibility. Add **DEIM-D-FINE-S** when feasible; include D-FINE-S only if testing the incremental DEIM mechanism. The exact source snapshots, config paths, access levels and paper versions are in [source_audit.md](source_audit.md). Checkpoint names alone are not reproducibility pins.
+Begin with **YOLO11s, YOLO26s O2O and RT-DETRv2-S/R18**, pending local feasibility. Prioritize a **YOLO26 same-checkpoint O2M+NMS arm**, conditional on retaining both learned branches, and repeated seeds before expanding to DEIM-D-FINE-S. Shared trunk/recipe reduce confounding; head weights, assignment history, candidates and postprocessing still change together. This does not isolate NMS or assignment. Include D-FINE-S only if testing the incremental DEIM mechanism. Source snapshots, config paths and versions are in [source_audit.md](source_audit.md). Checkpoint names alone are not reproducibility pins.
 
 ![Conceptual comparison of detector pathways and selection stages](figures/model_score_paths.svg)
 
@@ -29,17 +31,19 @@ GPT audit: the official YOLO26 paper differs from the third-party article cited 
 
 ## Protocol decisions that matter most
 
-The primary test should stay within BDD and separate time of day from weather; ACDC belongs in an external-transfer panel. Pedestrian, rider and cyclist annotation extents must be audited before pooling. Pretrained COCO person detections are an exploratory human-category task until rider handling is explicit.
+The primary test stays within BDD and separates time of day from weather; ACDC belongs in an external-transfer panel. Preserve rider as a separate fine-tuning class for the primary pedestrian task. Zero-shot COCO person and merged-human external panels need their own source thresholds and audited extents. ACDC reference/adverse contrasts must restrict both sides to the same annotated correspondence population; scene correspondence does not establish object identity or a causal weather effect. Invalid-but-labelled regions must not automatically become void/ignore regions.
 
 ![Conceptual evaluation pipeline with separated fitting, selection and testing](figures/evaluation_pipeline.svg)
 
 *Figure 2 — Conceptual, GPT-authored protocol; no data counts or outcomes. Separation of model, postprocessing and scoring is informed by [Park et al., Figs. 6–7 and §V](https://arxiv.org/html/2412.01782v4); held-out calibration and operating-point evaluation are informed by [Kuzucu et al., §4](https://arxiv.org/html/2405.20459v1). The five source partitions, recall objective and uncertainty workflow are GPT proposals, not copied figure content.*
 
-Freeze candidate floors, NMS/top-k/class ordering, caps and matching before threshold selection. Report held-out clear-to-target recall loss separately from shortfall against ρ and from the candidate ceiling. A target such as 90% may be impossible; preserve that failure in tables and bootstrap replicates.
+Freeze candidate floors, NMS/top-k/class ordering, caps and matching before threshold selection. Report held-out clear-to-target recall loss separately from positive shortfall against ρ, signed target gap and candidate ceiling. Empirical infeasibility is ceiling < target; a 0.02 headroom flag is descriptive. A target such as 90% may be impossible; preserve that failure in tables and bootstrap replicates. Calibrator fitting, threshold selection and tests use disjoint independent groups.
 
 Uncertainty must include source threshold selection, not only test-image sampling. Resample independent recording/scene groups jointly across models and overlapping slices; keep conditional-on-threshold and selection-procedure intervals distinct. Few models multiplied by several conditions do not create independent samples for calibration-versus-loss correlations. OCE also contains missed-object information, which complicates any claimed prediction of recall loss.
 
-## Concrete questions for the Claude peer
+## Initial questions for the Claude peer (preserved)
+
+These questions were written independently. The subsequent [GPT response](discussion_with_claude.md) answers Claude's six initial questions and the coordinator agenda, and ends with the questions for Claude's next reply.
 
 1. Can the weather paper's ECE candidate cutoff, duplicate matching, DETR identity and ACDC box derivation be established from additional **primary artifacts**, or should RQ0 be a sensitivity audit rather than an exact reproduction?
 2. Does the monotone invariance result hold under the actual proposed selector? Please challenge the observed-boundary rule, midpoint counterexample, tie behavior and per-class exceptions.
@@ -50,6 +54,6 @@ Uncertainty must include source threshold selection, not only test-image samplin
 
 ## Handoff and limits
 
-**GPT artifact validation:** seven local document/figure links resolve; both SVGs parse as XML and rendered without console errors. Eight small monotone-boundary cases with tied scores preserve selections. Numerical checks also confirm the midpoint, pooled-class and multiclass-temperature counterexamples and an infeasible recall target. These are algebraic illustrations, not detector evaluations. The initial diagram preview timed out; the retry rendered successfully and was visually inspected.
+**Initial GPT artifact validation (historical):** seven local document/figure links resolved; both SVGs parsed as XML and rendered without console errors. Eight small monotone-boundary cases with tied scores preserved selections. Numerical checks confirmed the midpoint, pooled-class and multiclass-temperature counterexamples and an infeasible recall target. These were algebraic illustrations, not detector evaluations. The initial diagram preview timed out; the retry rendered successfully and was visually inspected. The revised SVGs are conceptual, with updated head/pipeline and gap labels; this peer-response pass validates XML/local links and mathematical cases, without claiming a new browser render or detector test.
 
-Next evidence: lawful annotation access and counts; grouping/extent audit; pinned checkpoint hashes and environment; real forward/backward and evaluation tests with peak-memory logs. All remain pending. The bounded source search establishes motivation, not priority or absence of competing work. No datasets, weights or heavy stacks were downloaded; no paid compute, push, PR or merge was performed. No GPT–Claude discussion or cross-review is claimed to have occurred.
+Next evidence: lawful annotation access and counts; grouping/extent audit; pinned checkpoint hashes and environment; real forward/backward and evaluation tests with peak-memory logs. All remain pending. The bounded source search establishes motivation, not priority or absence of competing work. No datasets, weights or heavy stacks were downloaded; no paid compute, push, PR or merge was performed. One GPT response to Claude's actual initial audit now exists; no Claude reply to these revisions, joint approval or completed cross-review is claimed.

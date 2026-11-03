@@ -28,9 +28,9 @@
   <text x="835" y="371" class="label">Shared evaluator</text><text x="835" y="400" class="body">Class + IoU + ignore policy</text>
   <path d="M954 425 V454" class="arrow"/>
   <rect x="28" y="463" width="1064" height="78" rx="9" class="box"/>
-  <text x="46" y="493" class="label">Report transferred recall, FPPI, held-out transfer loss, shortfall and candidate ceiling</text>
+  <text x="46" y="493" class="label">Report recall, FPPI, held-out loss, signed gap, positive shortfall and candidate ceiling</text>
   <text x="46" y="521" class="body">Paired group uncertainty · Refit calibration and reselect thresholds in procedure-level replicates</text>
   <text x="28" y="578" class="body" font-weight="700">Strict global monotone map + equivariant recall reselection → identical selected boxes</text>
-  <text x="28" y="605" class="sub">A probability-calibration gain can coexist with unchanged recall. New target labels define an adaptation arm.</text>
+  <text x="28" y="605" class="sub">Rank-based hard NMS / top-k stay invariant before or after the map. New target labels define adaptation.</text>
   <text x="28" y="632" class="small">Foundations: Park et al., Figs. 6–7 / §V; Kuzucu et al., §4. Original layout and proposed splits; no source figure copied.</text>
 </svg>

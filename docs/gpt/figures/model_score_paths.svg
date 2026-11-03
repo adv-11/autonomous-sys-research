@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
   <title id="title">Conceptual detector score and selection pathways</title>
-  <desc id="desc">Four model pathways compare localization-aware training targets and inference selection. YOLO11 uses dense predictions and NMS; YOLO26 one-to-one, RT-DETRv2 and DEIM-D-FINE use selection without ordinary NMS. No empirical outcomes are shown.</desc>
+  <desc id="desc">Four model pathways compare localization-aware training targets and inference selection. YOLO26 one-to-one and one-to-many plus NMS form a conditional same-checkpoint head and pipeline contrast, not an isolated NMS effect. Released branch availability is unverified. No empirical outcomes are shown.</desc>
   <metadata>GPT original conceptual synthesis, 2026-11-03. Primary sources: https://arxiv.org/html/2606.03748v1 ; https://arxiv.org/html/2407.17140v1 ; https://arxiv.org/html/2412.04234v3 ; Ultralytics commit 73c60b7edf7b02b90c07157c87d05957fbfdd68f. Detailed provenance in ../research_summary.md.</metadata>
   <defs>
     <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#61758b" stroke-width="1.5"/></marker>
@@ -16,10 +16,10 @@
   <text x="245" y="154" class="body">Dense head · BCE + task-aligned targets</text><text x="245" y="177" class="small">Assignment includes localization quality</text>
   <path d="M604 160 H644" class="line"/><text x="661" y="154" class="body">Candidate floor → class-aware NMS</text><text x="661" y="178" class="small">Cap → final pedestrian threshold</text>
   <rect x="20" y="213" width="1080" height="84" rx="10" fill="#e5f2ed"/>
-  <text x="35" y="245" class="model">YOLO26s O2O</text><text x="35" y="273" class="small">CNN + multiscale neck</text>
+  <text x="35" y="245" class="model">YOLO26s</text><text x="35" y="273" class="small">Conditional dual-head arm</text>
   <rect x="230" y="225" width="365" height="60" rx="8" class="box"/>
-  <text x="245" y="249" class="body">Dual training heads · O2O inference</text><text x="245" y="272" class="small">Direct box regression · DFL removed</text>
-  <path d="M604 255 H644" class="line"/><text x="661" y="249" class="body">O2O selection → cap</text><text x="661" y="273" class="small">Final threshold · optional O2M is a separate arm</text>
+  <text x="245" y="249" class="body">Dual learned heads · shared trunk/recipe</text><text x="245" y="272" class="small">NMS / assignment effects remain combined</text>
+  <path d="M604 255 H644" class="line"/><text x="661" y="249" class="body">O2O top-k OR O2M + hard NMS</text><text x="661" y="273" class="small">Released checkpoint branches: unverified</text>
   <rect x="20" y="308" width="1080" height="84" rx="10" fill="#ece9f6"/>
   <text x="35" y="340" class="model">RT-DETRv2-S</text><text x="35" y="368" class="small">R18 + hybrid encoder</text>
   <rect x="230" y="320" width="365" height="60" rx="8" class="box"/>
