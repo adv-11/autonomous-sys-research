@@ -1,0 +1,23 @@
+# Local environments, credentials, datasets, checkpoints, and downloaded papers
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+!.env.example
+data/**
+!data/README.md
+papers/**
+!papers/README.md
+*.pt
+*.pth
+*.onnx
+*.engine
+*.ckpt
+outputs/
+*.egg-info/
+build/
+dist/
+
