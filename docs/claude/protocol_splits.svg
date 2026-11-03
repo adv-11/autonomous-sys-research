@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Conceptual protocol: data roles and threshold-transfer loss decomposition (Claude audit proposal, not results)</title>
+  <rect x="0" y="0" width="880" height="420" fill="#ffffff"/>
+  <text x="20" y="26" font-size="15" font-weight="bold" fill="#222">CONCEPTUAL DIAGRAM: proposed data roles (Claude audit, Phase 0). No measured values.</text>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker>
+  </defs>
+  <!-- column headers -->
+  <text x="30" y="62" font-weight="bold" fill="#333">Fit / select (labels allowed)</text>
+  <text x="330" y="62" font-weight="bold" fill="#333">Frozen τ* applied to held-out tests</text>
+  <text x="640" y="62" font-weight="bold" fill="#333">Reported per condition</text>
+  <!-- fit boxes -->
+  <rect x="20" y="75" width="270" height="56" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
+  <text x="32" y="97">BDD100K train, clear daytime</text>
+  <text x="32" y="117" fill="#555">detector fine-tuning only</text>
+  <rect x="20" y="145" width="270" height="56" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
+  <text x="32" y="167">BDD100K val, clear, calibration half</text>
+  <text x="32" y="187" fill="#555">R_max check, τ* for target R*, calibrators</text>
+  <rect x="20" y="215" width="270" height="56" rx="6" fill="#fdf1e3" stroke="#c9822e"/>
+  <text x="32" y="237">ACDC train (per condition)</text>
+  <text x="32" y="257" fill="#555">only for condition-aware (Mondrian) variants</text>
+  <!-- test boxes -->
+  <rect x="320" y="75" width="290" height="44" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
+  <text x="332" y="102">BDD100K val, clear, test half (in-domain)</text>
+  <rect x="320" y="131" width="290" height="44" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
+  <text x="332" y="158">ACDC reference val (normal, matched routes)</text>
+  <rect x="320" y="187" width="290" height="44" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
+  <text x="332" y="214">ACDC val: fog / night / rain / snow</text>
+  <text x="320" y="252" fill="#555" font-size="12">ACDC test labels are withheld (ACDC v5 §3.2).</text>
+  <!-- arrows -->
+  <line x1="290" y1="173" x2="318" y2="97" stroke="#555" marker-end="url(#a)"/>
+  <line x1="290" y1="173" x2="318" y2="153" stroke="#555" marker-end="url(#a)"/>
+  <line x1="290" y1="173" x2="318" y2="209" stroke="#555" marker-end="url(#a)"/>
+  <!-- shift brackets -->
+  <text x="625" y="130" fill="#333">dataset shift: BDD clear → ACDC ref</text>
+  <text x="625" y="186" fill="#333">condition shift: ACDC ref → adverse</text>
+  <!-- decomposition -->
+  <rect x="20" y="295" width="840" height="110" rx="6" fill="#f7f7f7" stroke="#999"/>
+  <text x="32" y="318" font-weight="bold">Loss decomposition at target recall R* (proposed; methodology_objections.md O4)</text>
+  <text x="32" y="342">R_max,c = recall at score → 0 on condition c (capped by max_det/queries, NMS, object size)</text>
+  <text x="32" y="364">Unrecoverable  U_c = max(0, R* − R_max,c)        Threshold transfer  T_c = min(R*, R_max,c) − Recall_c(τ*)</text>
+  <text x="32" y="388">Infeasible if R_max on the calibration half &lt; R* + 0.02. Primary class: VRU-human = pedestrian ∪ rider (O2).</text>
+</svg>
