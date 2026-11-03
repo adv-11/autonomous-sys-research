@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">Conceptual detector score and selection pathways</title>
+  <desc id="desc">Four model pathways compare localization-aware training targets and inference selection. YOLO11 uses dense predictions and NMS; YOLO26 one-to-one, RT-DETRv2 and DEIM-D-FINE use selection without ordinary NMS. No empirical outcomes are shown.</desc>
+  <metadata>GPT original conceptual synthesis, 2026-11-03. Primary sources: https://arxiv.org/html/2606.03748v1 ; https://arxiv.org/html/2407.17140v1 ; https://arxiv.org/html/2412.04234v3 ; Ultralytics commit 73c60b7edf7b02b90c07157c87d05957fbfdd68f. Detailed provenance in ../research_summary.md.</metadata>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#61758b" stroke-width="1.5"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#192d43}.title{font-size:25px;font-weight:700}.sub{font-size:15px;fill:#52667b}.head{font-size:15px;font-weight:700;fill:#52667b}.model{font-size:19px;font-weight:700}.body{font-size:16px}.small{font-size:14px}.box{fill:#fff;stroke:#bdcbd8;stroke-width:1.5}.line{fill:none;stroke:#61758b;stroke-width:2;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1120" height="600" rx="14" fill="#f4f7fa"/>
+  <text x="30" y="40" class="title">Model scores pass through different selection pipelines</text>
+  <text x="30" y="66" class="sub">CONCEPTUAL · GPT synthesis · No accuracy, latency or score-distribution measurements</text>
+  <text x="30" y="103" class="head">PROPOSED SYSTEM</text><text x="242" y="103" class="head">TRAINING / PREDICTION PATH</text><text x="667" y="103" class="head">INFERENCE SELECTION</text>
+  <rect x="20" y="118" width="1080" height="84" rx="10" fill="#e7eef6"/>
+  <text x="35" y="150" class="model">YOLO11s</text><text x="35" y="178" class="small">CNN + multiscale neck</text>
+  <rect x="230" y="130" width="365" height="60" rx="8" class="box"/>
+  <text x="245" y="154" class="body">Dense head · BCE + task-aligned targets</text><text x="245" y="177" class="small">Assignment includes localization quality</text>
+  <path d="M604 160 H644" class="line"/><text x="661" y="154" class="body">Candidate floor → class-aware NMS</text><text x="661" y="178" class="small">Cap → final pedestrian threshold</text>
+  <rect x="20" y="213" width="1080" height="84" rx="10" fill="#e5f2ed"/>
+  <text x="35" y="245" class="model">YOLO26s O2O</text><text x="35" y="273" class="small">CNN + multiscale neck</text>
+  <rect x="230" y="225" width="365" height="60" rx="8" class="box"/>
+  <text x="245" y="249" class="body">Dual training heads · O2O inference</text><text x="245" y="272" class="small">Direct box regression · DFL removed</text>
+  <path d="M604 255 H644" class="line"/><text x="661" y="249" class="body">O2O selection → cap</text><text x="661" y="273" class="small">Final threshold · optional O2M is a separate arm</text>
+  <rect x="20" y="308" width="1080" height="84" rx="10" fill="#ece9f6"/>
+  <text x="35" y="340" class="model">RT-DETRv2-S</text><text x="35" y="368" class="small">R18 + hybrid encoder</text>
+  <rect x="230" y="320" width="365" height="60" rx="8" class="box"/>
+  <text x="245" y="344" class="body">Query decoder · O2O matching + VFL</text><text x="245" y="367" class="small">Declared config uses IoU-aware supervision</text>
+  <path d="M604 350 H644" class="line"/><text x="661" y="344" class="body">Sigmoid → query-class top-k</text><text x="661" y="368" class="small">Final threshold · ordinary NMS absent</text>
+  <rect x="20" y="403" width="1080" height="84" rx="10" fill="#f5eddf"/>
+  <text x="35" y="435" class="model">DEIM-D-FINE-S</text><text x="35" y="463" class="small">Proposed extension</text>
+  <rect x="230" y="415" width="365" height="60" rx="8" class="box"/>
+  <text x="245" y="439" class="body">D-FINE + Dense O2O training + MAL</text><text x="245" y="462" class="small">Training framework; backbone is not “DEIM”</text>
+  <path d="M604 445 H644" class="line"/><text x="661" y="439" class="body">O2O outputs → declared selection/cap</text><text x="661" y="463" class="small">Final threshold · ordinary NMS absent</text>
+  <text x="30" y="523" class="body" font-weight="700">Comparable operating recall requires explicit candidates, class policy and matching.</text>
+  <text x="30" y="551" class="sub">A score of 0.6 has no guaranteed common probabilistic meaning across these systems.</text>
+  <text x="30" y="577" class="small">Provenance: official Ultralytics code; YOLO26 §3; RT-DETRv2 config; DEIM §3. Full URLs in research_summary.md.</text>
+</svg>
