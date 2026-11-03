@@ -18,9 +18,8 @@ The original [research plan](RESEARCH_PLAN.md) is a starting document whose lite
 - `gpt-research`: GPT evidence, methodology, and reproducibility work.
 - `claude-research`: independent Claude evidence and critique.
 
-Research PRs are reviewed across models, objections are resolved in writing, and approved PRs are merged sequentially: GPT first, then Claude after updating against `main`. AI review is recorded as AI review; it is not represented as an independent human review or a formal GitHub approval.
+The two research subagents exchange findings and discuss disagreements before opening PRs. PRs include a compact summary, source-backed decisions, and relevant images or SVG diagrams. Advait reviews and explicitly approves them on GitHub; integration is sequential: GPT first, then Claude after updating against `main`. AI review is recorded separately from Advait's approval.
 
 ## Status
 
 Phase 0: source verification, protocol design, and environment inventory. No training, dataset evaluation, or empirical findings have been produced. See [the gate log](docs/gate_log.md) and [workflow](CONTRIBUTING.md).
-

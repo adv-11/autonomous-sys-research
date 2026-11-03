@@ -6,6 +6,8 @@ On 2026-11-03, Advait clarified that this is a **personal research project at Ph
 
 The user authorized initializing Git in this directory, creating a GitHub repository, conducting GPT and Claude research on separate branches, collaboration, and sequential integration after PRs and approvals. The original plan's instruction against unrequested commits/pushes is satisfied by this authorization.
 
+Advait further specified two research subagents (GPT and Claude), discussion between them **before** PR creation, moderate-length review materials with a compact summary and relevant images/SVG architecture diagrams, and direct human review on GitHub. Publication is authorized; research merges require Advait's explicit approval.
+
 ## Research standard
 
 - Verify paper identity, version, full text, code, dataset access, and licensing against primary sources. Search snippets do not establish a paper's methodology or absence of prior work.
@@ -19,4 +21,3 @@ The user authorized initializing Git in this directory, creating a GitHub reposi
 ## Immediate scope
 
 Finish a source-backed Phase 0 audit and a reviewable protocol/tooling foundation. Dataset acquisition, full GPU compatibility tests, model training, and measured comparisons are separate milestones and remain pending until their prerequisites are met.
-
