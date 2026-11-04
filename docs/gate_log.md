@@ -20,3 +20,11 @@
 - I want the repository to be public and the project prose to read in my voice.
 - Use first person for my goals and decisions, with neutral technical prose and explicit GPT/Claude attribution for AI research.
 - These editorial changes do not verify any research claim or advance G0.
+
+## 2026-11-03 — Phase 0 research and peer discussion
+
+- GPT and Claude completed independent source audits, then exchanged committed questions and answers before PR creation. The attributed exchange and corrections are linked from `docs/gpt/review_resolution.md`; Claude's reply and GPT's final review are on `claude-research`.
+- Proposal-level decisions: BDD pedestrian primary, separate merged-human panels; independent calibrator-fit/threshold-selection/test groups; explicit recall feasibility and candidate ceilings; conditional same-checkpoint YOLO26 head/pipeline comparison; descriptive initial RQ2 analysis.
+- Broad novelty and isolated architectural-cause claims are withdrawn. The reproduction target remains a sensitivity audit with unresolved source provenance.
+- Checks cover document links, SVG structure/rendering and attributed algebraic illustrations. They do not establish empirical results, evaluator correctness or bootstrap coverage.
+- G0 remains **pending**. My review and explicit approval are required before each research PR merges, GPT first and Claude second.

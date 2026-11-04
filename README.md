@@ -22,4 +22,10 @@ I'm using two research subagents, GPT and Claude, to investigate independently a
 
 ## Status
 
-Phase 0: source verification, protocol design, and environment inventory. No training, dataset evaluation, or empirical findings have been produced. See [the gate log](docs/gate_log.md) and [workflow](CONTRIBUTING.md).
+Phase 0 source audits and the GPT–Claude discussion are complete. My review starts with the [GPT research summary](docs/gpt/research_summary.md), its [protocol](docs/gpt/protocol.md) and [review resolution](docs/gpt/review_resolution.md). Claude's independently prepared audit, reply and cross-review are available on the [separate Claude research branch](https://github.com/adv-11/autonomous-sys-research/tree/claude-research/docs/claude).
+
+The proposed design separates calibration fitting, threshold selection and held-out testing; distinguishes candidate-ceiling failures from threshold-related misses; and treats architecture comparisons as comparisons of complete pipelines. The diagrams explain proposed choices, not measured results.
+
+![Conceptual detector architectures and score-selection pathways](docs/gpt/figures/model_score_paths.svg)
+
+No training or dataset evaluation has been performed. G0 remains pending: lawful data access, annotation and group-count audits, checkpoint inspection, environment pins and actual GPU smoke tests. See [the gate log](docs/gate_log.md) and [workflow](CONTRIBUTING.md).
