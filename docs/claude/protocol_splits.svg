@@ -55,9 +55,9 @@
   <rect x="396" y="344" width="564" height="50" rx="6" fill="#f3effa" stroke="#8c7bb5"/>
   <text x="406" y="365" font-weight="bold">Frozen: weights + preprocessing + candidate policy + g + t* + evaluator</text>
   <text x="406" y="384" fill="#444">source-only arm sees no target labels; labels only score locked outputs</text>
-  <line x1="481" y1="206" x2="530" y2="342" stroke="#555" marker-end="url(#a)"/>
-  <line x1="669" y1="206" x2="640" y2="342" stroke="#555" marker-end="url(#a)"/>
-  <line x1="866" y1="342" x2="866" y2="208" stroke="#555" marker-end="url(#a)"/>
+  <path d="M481 206 V218 H681 V334 H640 V342" fill="none" stroke="#555" marker-end="url(#a)"/>
+  <path d="M669 206 V218 H681" fill="none" stroke="#555"/>
+  <path d="M960 369 H973 V218 H866 V208" fill="none" stroke="#555" marker-end="url(#a)"/>
   <line x1="534" y1="344" x2="534" y2="322" stroke="#555" marker-end="url(#a)"/>
   <line x1="824" y1="344" x2="824" y2="322" stroke="#555" marker-end="url(#a)"/>
   <text x="20" y="364" fill="#555" font-size="12">Grouped cross-fitting allowed only with</text>
