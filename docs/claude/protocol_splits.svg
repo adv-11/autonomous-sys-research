@@ -1,43 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" font-family="Helvetica, Arial, sans-serif" font-size="13">
-  <title>Conceptual protocol: data roles and threshold-transfer loss decomposition (Claude audit proposal, not results)</title>
-  <rect x="0" y="0" width="880" height="420" fill="#ffffff"/>
-  <text x="20" y="26" font-size="15" font-weight="bold" fill="#222">CONCEPTUAL DIAGRAM: proposed data roles (Claude audit, Phase 0). No measured values.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="640" viewBox="0 0 980 640" font-family="Helvetica, Arial, sans-serif" font-size="13" role="img" aria-labelledby="t d">
+  <title id="t">Conceptual protocol: independent data roles and recall-gap quantities (Claude proposal, peer-revised; not results)</title>
+  <desc id="d">Independent recording or route groups are assigned once to disjoint roles: detector training, development, calibrator fitting, operating-point selection and held-out tests. ACDC train is used only by a separately labelled target-adaptation arm with its own fit and selection groups. ACDC val is held out; the matched reference/adverse contrast uses only the annotated correspondence subset. No measured values are shown.</desc>
+  <metadata>Claude conceptual diagram. Initial version in commit 4af4f810f36851b462298a9b473dd421f30e6ba3 combined calibrator fitting and threshold selection; redrawn 2026-11-03 after reviewing GPT commit 80519fcee2c99d134a5a6a89559f743772c2ffb8. Original layout; no source figure copied.</metadata>
   <defs>
     <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker>
   </defs>
-  <!-- column headers -->
-  <text x="30" y="62" font-weight="bold" fill="#333">Fit / select (labels allowed)</text>
-  <text x="330" y="62" font-weight="bold" fill="#333">Frozen τ* applied to held-out tests</text>
-  <text x="640" y="62" font-weight="bold" fill="#333">Reported per condition</text>
-  <!-- fit boxes -->
-  <rect x="20" y="75" width="270" height="56" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
-  <text x="32" y="97">BDD100K train, clear daytime</text>
-  <text x="32" y="117" fill="#555">detector fine-tuning only</text>
-  <rect x="20" y="145" width="270" height="56" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
-  <text x="32" y="167">BDD100K val, clear, calibration half</text>
-  <text x="32" y="187" fill="#555">R_max check, τ* for target R*, calibrators</text>
-  <rect x="20" y="215" width="270" height="56" rx="6" fill="#fdf1e3" stroke="#c9822e"/>
-  <text x="32" y="237">ACDC train (per condition)</text>
-  <text x="32" y="257" fill="#555">only for condition-aware (Mondrian) variants</text>
-  <!-- test boxes -->
-  <rect x="320" y="75" width="290" height="44" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
-  <text x="332" y="102">BDD100K val, clear, test half (in-domain)</text>
-  <rect x="320" y="131" width="290" height="44" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
-  <text x="332" y="158">ACDC reference val (normal, matched routes)</text>
-  <rect x="320" y="187" width="290" height="44" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
-  <text x="332" y="214">ACDC val: fog / night / rain / snow</text>
-  <text x="320" y="252" fill="#555" font-size="12">ACDC test labels are withheld (ACDC v5 §3.2).</text>
-  <!-- arrows -->
-  <line x1="290" y1="173" x2="318" y2="97" stroke="#555" marker-end="url(#a)"/>
-  <line x1="290" y1="173" x2="318" y2="153" stroke="#555" marker-end="url(#a)"/>
-  <line x1="290" y1="173" x2="318" y2="209" stroke="#555" marker-end="url(#a)"/>
-  <!-- shift brackets -->
-  <text x="625" y="130" fill="#333">dataset shift: BDD clear → ACDC ref</text>
-  <text x="625" y="186" fill="#333">condition shift: ACDC ref → adverse</text>
-  <!-- decomposition -->
-  <rect x="20" y="295" width="840" height="110" rx="6" fill="#f7f7f7" stroke="#999"/>
-  <text x="32" y="318" font-weight="bold">Loss decomposition at target recall R* (proposed; methodology_objections.md O4)</text>
-  <text x="32" y="342">R_max,c = recall at score → 0 on condition c (capped by max_det/queries, NMS, object size)</text>
-  <text x="32" y="364">Unrecoverable  U_c = max(0, R* − R_max,c)        Threshold transfer  T_c = min(R*, R_max,c) − Recall_c(τ*)</text>
-  <text x="32" y="388">Infeasible if R_max on the calibration half &lt; R* + 0.02. Primary class: VRU-human = pedestrian ∪ rider (O2).</text>
+  <rect x="0" y="0" width="980" height="640" fill="#ffffff"/>
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#222">Disjoint roles: fit the detector, fit the score map, choose t*, then test once</text>
+  <text x="20" y="48" font-size="12" fill="#666">CONCEPTUAL · Claude proposal, peer-revised after GPT 80519fc · no measured values · group counts unknown · G0 pending</text>
+
+  <!-- grouping banner -->
+  <rect x="20" y="62" width="940" height="34" rx="6" fill="#eef1f5" stroke="#8a98a8"/>
+  <text x="32" y="84">Partition once at the largest dependency unit (recording / trip / route); related normal and adverse views stay in one role; emit manifests</text>
+
+  <!-- BDD source roles -->
+  <text x="20" y="122" font-weight="bold" fill="#333">BDD100K source = daytime AND clear (accessible labels only; official test labels not assumed)</text>
+  <rect x="20" y="132" width="170" height="74" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
+  <text x="30" y="153" font-weight="bold">Detector training</text>
+  <text x="30" y="172" fill="#444">fine-tune weights</text>
+  <text x="30" y="190" fill="#444">ped. + rider classes</text>
+  <rect x="208" y="132" width="170" height="74" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
+  <text x="218" y="153" font-weight="bold">Development</text>
+  <text x="218" y="172" fill="#444">recipe; floor/cap audit;</text>
+  <text x="218" y="190" fill="#444">pilot precision</text>
+  <rect x="396" y="132" width="170" height="74" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
+  <text x="406" y="153" font-weight="bold">Calibrator fit</text>
+  <text x="406" y="172" fill="#444">fit declared map g;</text>
+  <text x="406" y="190" fill="#444">raw TP-ECE (RQ2a)</text>
+  <rect x="584" y="132" width="170" height="74" rx="6" fill="#e8f0fb" stroke="#4a78b5"/>
+  <text x="594" y="153" font-weight="bold">Threshold selection</text>
+  <text x="594" y="172" fill="#444">observed boundary t*;</text>
+  <text x="594" y="190" fill="#444">feasibility M_S vs ρ</text>
+  <rect x="772" y="132" width="188" height="74" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
+  <text x="782" y="153" font-weight="bold">Clear held-out test</text>
+  <text x="782" y="172" fill="#444">reference for loss L;</text>
+  <text x="782" y="190" fill="#444">no tuning or refitting</text>
+
+  <!-- ACDC -->
+  <text x="20" y="236" font-weight="bold" fill="#333">ACDC (external panel; Cityscapes-derived instances; invalid mask ≠ void)</text>
+  <rect x="20" y="246" width="358" height="74" rx="6" fill="#fdf1e3" stroke="#c9822e" stroke-dasharray="5,3"/>
+  <text x="30" y="267" font-weight="bold">ACDC train → target-adaptation arm only</text>
+  <text x="30" y="286" fill="#444">disjoint target-fit groups | target-selection groups</text>
+  <text x="30" y="304" fill="#444">baseline: raw-score target-selected threshold</text>
+  <rect x="396" y="246" width="276" height="74" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
+  <text x="406" y="267" font-weight="bold">ACDC val, matched subset</text>
+  <text x="406" y="286" fill="#444">adverse views whose reference is</text>
+  <text x="406" y="304" fill="#444">annotated; same eligibility both arms</text>
+  <rect x="690" y="246" width="270" height="74" rx="6" fill="#eef7ee" stroke="#4f9a55"/>
+  <text x="700" y="267" font-weight="bold">ACDC val, all adverse</text>
+  <text x="700" y="286" fill="#444">reported separately; never</text>
+  <text x="700" y="304" fill="#444">subtracted from the matched subset</text>
+
+  <!-- frozen pipeline -->
+  <rect x="396" y="344" width="564" height="50" rx="6" fill="#f3effa" stroke="#8c7bb5"/>
+  <text x="406" y="365" font-weight="bold">Frozen: weights + preprocessing + candidate policy + g + t* + evaluator</text>
+  <text x="406" y="384" fill="#444">source-only arm sees no target labels; labels only score locked outputs</text>
+  <line x1="481" y1="206" x2="530" y2="342" stroke="#555" marker-end="url(#a)"/>
+  <line x1="669" y1="206" x2="640" y2="342" stroke="#555" marker-end="url(#a)"/>
+  <line x1="866" y1="342" x2="866" y2="208" stroke="#555" marker-end="url(#a)"/>
+  <line x1="534" y1="344" x2="534" y2="322" stroke="#555" marker-end="url(#a)"/>
+  <line x1="824" y1="344" x2="824" y2="322" stroke="#555" marker-end="url(#a)"/>
+  <text x="20" y="364" fill="#555" font-size="12">Grouped cross-fitting allowed only with</text>
+  <text x="20" y="380" fill="#555" font-size="12">fold-specific fit / select and out-of-fold tests;</text>
+  <text x="20" y="396" fill="#555" font-size="12">bootstrap repeats the whole procedure.</text>
+
+  <!-- quantities -->
+  <rect x="20" y="414" width="940" height="212" rx="6" fill="#f7f7f7" stroke="#999"/>
+  <text x="32" y="437" font-weight="bold">Reported per model and condition c (ρ ∈ {0.80, 0.90, 0.95}; primary 0.90; methodology_objections.md O4)</text>
+  <text x="32" y="460">M_c = candidate-ceiling recall (all retained candidates); r_c = recall at t*; r_c ≤ M_c under prefix-greedy matching</text>
+  <text x="32" y="483">Positive shortfall  S_c = (ρ − r_c)+ = U_c + V_c,   U_c = (ρ − M_c)+,   V_c = (min(ρ, M_c) − r_c)+</text>
+  <text x="32" y="506">Signed gap  D_c = ρ − r_c = U_c + T_c,   T_c = min(ρ, M_c) − r_c  (can be negative)</text>
+  <text x="32" y="529">Held-out loss  L_c = r_clear − r_c = (M_clear − M_c) + (W_c − W_clear),   W = M − r  (threshold-removable misses)</text>
+  <text x="32" y="552">INFEASIBLE: M_S &lt; ρ on selection groups · LOW_HEADROOM: 0 ≤ M_S − ρ &lt; 0.02 (descriptive) · UNDEFINED: no eligible GT</text>
+  <text x="32" y="575">Primary: BDD-fine-tuned pedestrian · merged-human (ped. ∪ rider) panels: own task, threshold and denominator</text>
+  <text x="32" y="598" fill="#555" font-size="12">Same strictly increasing scalar map + observed-boundary reselection ⇒ identical selected boxes, before or after rank-based top-k / hard NMS.</text>
+  <text x="32" y="616" fill="#555" font-size="12">Matched ACDC contrast is scene/route-level correspondence, not pedestrian identity and not a causal weather intervention.</text>
 </svg>

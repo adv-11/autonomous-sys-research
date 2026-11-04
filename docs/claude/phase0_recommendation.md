@@ -1,38 +1,44 @@
 # Phase 0 recommendation (Claude audit)
 
-**Claude audit**, 2026-11-03. Independent of the GPT research branch, which Claude has not seen. Supporting documents: [source_audit.md](source_audit.md), [novelty_audit.md](novelty_audit.md), [methodology_objections.md](methodology_objections.md), and the conceptual diagram [protocol_splits.svg](protocol_splits.svg). The diagram is a proposed protocol, not results.
+**Claude audit**, 2026-11-03. Prepared independently of the GPT branch in commit `4af4f810f36851b462298a9b473dd421f30e6ba3`; **peer-revised** after Claude reviewed GPT's actual response commit `80519fcee2c99d134a5a6a89559f743772c2ffb8`. The exchange, agreements, disagreements and dispositions are in [discussion_with_gpt.md](discussion_with_gpt.md). Supporting documents: [source_audit.md](source_audit.md), [novelty_audit.md](novelty_audit.md), [methodology_objections.md](methodology_objections.md) and the conceptual diagram [protocol_splits.svg](protocol_splits.svg), which shows a proposed protocol, not results.
 
-## Summary for discussion
+This is a **Phase 0 proposal**, not a frozen protocol and not a passed gate.
 
-- **Identities.** All five arXiv IDs resolve to the intended papers, except that **2509.25164 is a third-party YOLO26 review**; the official Ultralytics report is **2606.03748**. Full texts were read for all of them, and the plan's main numbers from 2611.00071 are confirmed: YOLO ECE ≈ 0.01–0.02 and DETR ECE 0.44 → 0.58.
-- **RQ0.** The "artifact" hook is plausible but unproven. 2611.00071 uses the original DETR (no RT-DETR), never says which detections enter its ECE, uses an unmatched "class + IoU > 0.5" correctness rule, releases no code, and reports an ACDC rain count (1,661) above ACDC's public rain labels (500). Exact reproduction is impossible; only a re-implementation with a literal-rule ECE variant can test the mechanism.
-- **Novelty.** Narrower than planned. AegisBench (2611.00077, Oct 2026) already freezes clean-validation thresholds and measures silent person-recall collapse in low light (aerial, synthetic corruptions). Kuzucu et al. already show that thresholds and post-hoc calibrators do not transfer cleanly across domains. Still open: target-recall VRU operating points on real driving adverse data, a **same-checkpoint YOLO26 one-to-one vs one-to-many head control**, and dataset-shift vs condition-shift separation using ACDC reference images.
-- **Blocking methodology issues.**
-  - Global monotone recalibration combined with a recall-retuned threshold is provably a no-op for recall (O3).
-  - The 0.90 target needs a feasibility rule and an unrecoverable vs transfer decomposition (O4).
-  - RQ2 is pseudoreplicated and, with target-labelled OCE or mAP, circular (O5).
-  - The COCO/BDD/ACDC person–rider policies need a merged VRU-human primary class (O2).
-  - ACDC labels must come from the official instances, with void and group regions treated as ignore regions (O1).
-- **Gate G0 remains PENDING.** No dataset has been lawfully obtained, no slice counts exist, no model has been smoke-tested on the RTX 5060, no protocol is frozen, and the BDD test-label status and ACDC JSON contents are unresolved.
+## Summary
+
+- **Identities.** All arXiv IDs resolve to the intended papers, except that **2509.25164 is a third-party YOLO26 review**; the official Ultralytics report is **2606.03748**. The plan's main numbers from 2611.00071 are confirmed: YOLO ECE ≈ 0.01–0.02 and DETR ECE 0.44 → 0.58. Full SHA-256 hashes of the inspected PDFs are in the source audit.
+- **RQ0** is a **re-implementation/sensitivity audit**. 2611.00071 uses the original DETR, does not state which detections enter its ECE, uses an unmatched "class + IoU > 0.5" rule, has no code link in the inspected sources, and reports an ACDC rain count (1,661) inconsistent with ACDC's inventory. Exact replication is currently blocked by missing provenance; the duplicate-query explanation is a hypothesis to test with a literal-rule proxy.
+- **Novelty is a combination, not a priority claim.** AegisBench already freezes clean-validation F1 thresholds under shift (aerial); Kuzucu et al. show thresholds and calibrators do not transfer cleanly. What remains is a driving-pedestrian, target-recall study with independent source selection, FPPI cost and pipeline-ceiling diagnostics, plus a conditional YOLO26 same-checkpoint head/pipeline contrast.
+- **Methodology positions after the exchange** (GPT and Claude agree on each, with Claude additions marked in the objections):
+  - One strictly increasing scalar map plus **equivariant** observed-boundary reselection leaves every selected box unchanged, even before rank-based top-k or hard NMS. Real exceptions are classwise/vector maps, non-strict (isotonic) maps, untransformed cutoffs, context-dependent maps and fixed-probability consumers (O3).
+  - Infeasibility means `M_S < ρ`; low headroom (< 0.02) is a descriptive flag. Positive shortfall, signed gap and held-out loss are separate; `L = ΔM + ΔW` decomposes the loss exactly (O4).
+  - Primary task: **BDD-fine-tuned pedestrian**, with separately thresholded merged-human panels (O2).
+  - RQ2 has three information regimes and is descriptive with the initial panel (O5).
+  - Calibrator-fit, threshold-selection and held-out groups are disjoint; ACDC adaptation has its own fit/selection groups (diagram).
+- **Gate G0 remains PENDING.** No dataset has been lawfully obtained; no slice or independent-group counts exist; ACDC JSON contents, invalid/crowd representation and correspondence files are uninspected; YOLO26 checkpoint branch availability is unverified; environment pins are incomplete; no model has been smoke-tested on the RTX 5060.
 
 ## Recommended protocol changes before G0
 
-1. Replace RQ3's "calibrated-space threshold" with the four non-trivial cases in O3. Add the invariance unit test.
-2. Report the loss as U_c and T_c, with feasibility flags for R\* ∈ {0.80, 0.90, 0.95}. Add the F1-optimal frozen threshold to allow comparison with AegisBench.
-3. Split RQ2 into RQ2a (label-free target predictors, so they can warn in advance) and RQ2b (labelled diagnostics). Use within-condition or mixed-effects analysis, a hierarchical bootstrap, and at least two seeds for two models.
-4. Make the YOLO26 dual-head contrast (pinned `ultralytics` version, explicit `nms`) the primary architectural evidence. Describe cross-family DETR results only descriptively.
-5. Use ACDC train for condition-aware calibration and ACDC val for testing (preserving the geographic split). Add ACDC-reference val as the matched clear anchor.
+1. RQ3: strict-map invariance control and unit test; fixed-probability consumer arm (cutoff fixed in advance); optional classwise/context arms with identity-map baselines; target-labelled calibration only as an adaptation arm with a raw-score target-threshold baseline.
+2. Targets 0.80/0.90/0.95 (primary 0.90); report INFEASIBLE / LOW_HEADROOM / UNDEFINED, S = U + V, D = U + T, and `L = (M_clear − M_c) + (W_c − W_clear)`; source-selection F1-optimal threshold as a secondary comparator.
+3. RQ2a source-only raw TP-ECE; RQ2a-U unlabelled-target max-score drop; RQ2b target-labelled diagnostics. All descriptive initially; all pipeline/analysis tuning on non-test groups.
+4. YOLO26 same-checkpoint head/pipeline contrast, conditional on both branches being present before fusion; pinned `ultralytics`, explicit `nms`/`end2end`. Cross-family results are system comparisons.
+5. ACDC: official instances; invalid ≠ void ≠ crowd, with an invalid-overlap sensitivity stratum; matched contrast only on the annotated correspondence subset; all-adverse panel reported separately; ACDC train only for adaptation.
 6. Correct `RESEARCH_PLAN.md` §2.3 and §3.1 through the parent workflow. This audit does not edit shared files.
 
 ## Prerequisites for G0 (none are met yet)
 
-- Lawful access to BDD100K, ACDC (instances and reference set) and KITTI, if used; record versions and checksums.
-- Slice counts: VRU-human instances per BDD time-of-day and weather slice, and per ACDC condition and split, including void and group overlap.
-- An R_max feasibility check per candidate model on the clear calibration split.
-- Smoke tests (training and evaluation) for each repository on the RTX 5060 with torch ≥ 2.7 cu128.
-- A frozen preregistered protocol (class policy, matching, ignore rules, metric configs, analysis plan).
+- Lawful access to BDD100K and ACDC (instances, references, correspondences); record archive versions and file hashes.
+- Annotation audit: class extents, `other person`/crowd/ignored-mapping evaluator behaviour, ACDC invalid and void representation.
+- Independent recording/route group IDs, manifests and counts per role and stratum; a precision criterion fixed from non-test pilot variation.
+- Candidate-ceiling feasibility per model on source-selection groups.
+- YOLO26 checkpoint key inspection for both branches; checkpoint hashes.
+- Complete environment pin (OS, driver, PyTorch, torchvision, CUDA wheel) and actual RTX 5060 forward/backward and evaluation smoke tests with peak-memory logs.
+- A frozen preregistered protocol.
 
-## Questions for the GPT researcher
+## Initial questions for the GPT researcher (preserved)
+
+These were written before the exchange; GPT answered them in `docs/gpt/discussion_with_claude.md` at `80519fc`, and Claude's replies are in [discussion_with_gpt.md](discussion_with_gpt.md).
 
 1. Did your audit find any 2025–2026 work, other than AegisBench (2611.00077), that freezes clear-condition thresholds for **driving** VRUs or uses target-recall operating points? Do you agree the frozen-threshold framing can no longer be claimed as new?
 2. Do you accept the O3 invariance argument? Which of the four non-trivial recalibration cases (per-class with a pooled threshold, pre-top-k or NMS, Mondrian, fixed-probability consumer) should RQ3 keep?
