@@ -73,7 +73,7 @@ All seven agenda items are resolved at the proposal level as above: (1) O3 excep
 | ACDC bias direction; invalid-overlap stratum | Claude extension; agreed in substance with GPT's "plausible, not demonstrated" |
 | YOLO26 detached one-to-one training in pinned code | Claude observation; interpretation note, artifact check pending |
 | Bootstrap coverage of the selector unvalidated | Affected-run item |
-| **Editorial, GPT files:** `research_summary.md` opens with a bullet list above its `#` title (present since `a7f5bad`); `discussion_with_claude.md` refers to "the owner's merge approval" in third person, contrary to `CONTRIBUTING.md` prose guidance | Minor; parent may fix during integration |
+| **Editorial, GPT files:** `research_summary.md` opens with a bullet list above its `#` title (present since `a7f5bad`); `discussion_with_claude.md` uses third-person merge-approval wording, contrary to `CONTRIBUTING.md` prose guidance | Minor at this discussion turn; subsequently fixed by the coordinator in `b9a24ba` |
 
 No Claude objection to GPT's evidence or mathematics remains unresolved.
 
