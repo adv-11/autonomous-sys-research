@@ -2,6 +2,8 @@
 
 **Working title:** *Threshold Transfer Under Shift: Calibration and Vulnerable-Road-User Recall of Modern Real-Time Detectors (YOLO vs NMS-free / DETR-family) on Driving Data*
 
+**Evidence status:** this is my original working plan, including provisional claims from the initial scouts. The subsequent [source audit](docs/gpt/source_audit.md), [peer-discussed protocol](docs/gpt/protocol.md), and [discussion resolution](docs/gpt/review_resolution.md) qualify or supersede conflicting novelty, metric, model-default and experimental-design statements below. I have not frozen the protocol or passed G0.
+
 **Scope:** my personal research project at PhD depth; course context below records the original starting point.
 **Prepared:** 3 Nov 2026, from 5 scout agents + 2 adversarial critic agents (summarized in Appendix A)
 **Status:** topic selected, nothing implemented yet. This is a living plan. Sections marked **FIXED** are the core commitments; everything marked **FLEXIBLE** can change as results come in, through the decision gates in §7.
