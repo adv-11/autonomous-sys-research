@@ -1,0 +1,1381 @@
+{
+ "schema": "threshold-transfer-inventory-v1",
+ "asset_root_name": "det-eval-2d",
+ "files": {
+  "coco_annotations": {
+   "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+   "bytes": 19987840
+  },
+  "kitti_derived_val_annotations": {
+   "sha256": "33b1806f97d8ad77d973de6184908ba36b245805c1b8c6e778c0e4be62996a63",
+   "bytes": 9899582
+  },
+  "kitti_split_train": {
+   "sha256": "b6417a1d9b18c8fdb085128e633d28ff321b7674a6d1b3841b8f43d865b281cb",
+   "lines": 3712
+  },
+  "kitti_split_val": {
+   "sha256": "657ac4bcc1e156e5b106a4ca18e1f88e012787ea1d2b5d0adeea97fee903fa86",
+   "lines": 3769
+  },
+  "weights": {
+   "yolo11s_weights": {
+    "sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+    "bytes": 19313732
+   },
+   "rtdetr_l_weights": {
+    "sha256": "6de60b10d4bc566f00cda0f5b4d64afe4b66d48dc9695d2171effb7859d8e73f",
+    "bytes": 66511432
+   }
+  }
+ },
+ "notes": [
+  "Read-only inspection; no file in the asset root was modified.",
+  "No BDD100K or ACDC data are present; condition (night/weather) metadata is absent.",
+  "group_id is null for every image; no independence claim is possible from these assets."
+ ],
+ "coco": {
+  "top_level_keys": [
+   "annotations",
+   "categories",
+   "images",
+   "info",
+   "licenses"
+  ],
+  "info": {
+   "description": "COCO 2017 Dataset",
+   "url": "http://cocodataset.org",
+   "version": "1.0",
+   "year": 2017,
+   "contributor": "COCO Consortium",
+   "date_created": "2017/09/01"
+  },
+  "category_count": 80,
+  "native_human_categories": [
+   "person"
+  ],
+  "pedestrian_category_present": false,
+  "summary": {
+   "image_count": 5000,
+   "annotation_count": 36781,
+   "empty_image_count": 48,
+   "ignore_count": 446,
+   "iscrowd_count": 446,
+   "images_with_unknown_dimensions": 0,
+   "images_with_unknown_group": 5000,
+   "category_counts_selected": {
+    "person": 11004,
+    "bicycle": 316,
+    "car": 1932,
+    "motorcycle": 371
+   }
+  },
+  "validation": {
+   "invalid_box_policy": "exclude_and_report",
+   "invalid_boxes": {},
+   "invalid_box_examples": [],
+   "out_of_image_bounds": 0,
+   "bounds_policy": "report_only; strict [0,width]x[0,height], tolerance 0; no clipping"
+  },
+  "image_dir": {
+   "file_count": 5000,
+   "total_bytes": 814705164,
+   "name_size_listing_sha256": "55304dfa58b86399878b2c054e6abc394df909366979b85ca5c3f2ea039fe86d",
+   "digest_rule": "sha256 over sorted 'name<TAB>size<LF>' lines; not a content hash"
+  },
+  "manifest_images_missing_on_disk": 0,
+  "disk_images_not_in_manifest": 0,
+  "native_ignore_semantics": "iscrowd (RLE/polygon crowd regions); COCOeval matches crowd by IoA with unlimited absorption, plus area ranges",
+  "group_id_status": "unknown",
+  "condition_metadata": "absent",
+  "dimension_audit": {
+   "checked": 5000,
+   "mismatches": 0,
+   "unreadable": 0,
+   "method": "stdlib JPEG SOF header parse"
+  }
+ },
+ "kitti": {
+  "image_dir": {
+   "file_count": 7481,
+   "total_bytes": 6220741348,
+   "name_size_listing_sha256": "324c64e86c8f3cad41c442160cf0dfc9c102ea56e65e4326f48d703b79acc975",
+   "digest_rule": "sha256 over sorted 'name<TAB>size<LF>' lines; not a content hash"
+  },
+  "label_dir_file_count": 7481,
+  "raw_labels_all": {
+   "label_file_count": 7481,
+   "object_lines_by_class": {
+    "Car": 28742,
+    "Cyclist": 1627,
+    "DontCare": 11295,
+    "Misc": 973,
+    "Pedestrian": 4487,
+    "Person_sitting": 222,
+    "Tram": 511,
+    "Truck": 1094,
+    "Van": 2914
+   },
+   "malformed_lines": 0,
+   "zero_or_reversed_boxes": 0,
+   "empty_label_files": 0
+  },
+  "split_files": {
+   "train": 3712,
+   "val": 3769
+  },
+  "split_overlap": 0,
+  "split_origin": "earlier project's own random image split; not grouped by raw drive",
+  "raw_labels_val": {
+   "label_file_count": 3769,
+   "object_lines_by_class": {
+    "Car": 14385,
+    "Cyclist": 893,
+    "DontCare": 5896,
+    "Misc": 636,
+    "Pedestrian": 2280,
+    "Person_sitting": 166,
+    "Tram": 287,
+    "Truck": 606,
+    "Van": 1617
+   },
+   "malformed_lines": 0,
+   "zero_or_reversed_boxes": 0,
+   "empty_label_files": 0
+  },
+  "derived_val": {
+   "top_level_keys": [
+    "annotations",
+    "categories",
+    "images",
+    "info"
+   ],
+   "info": {
+    "split": "val"
+   },
+   "categories": [
+    "Car",
+    "Pedestrian",
+    "Cyclist"
+   ],
+   "image_count": 3769,
+   "annotation_record_count": 37029,
+   "ignore_reason_counts": {
+    "None": 17558,
+    "dontcare": 17688,
+    "neighbour:Van": 1617,
+    "neighbour:Person_sitting": 166
+   },
+   "invalid_bbox_records": 0,
+   "dontcare_copies_per_raw_region": 3.0,
+   "difficulty_counts": {
+    "None": 3823,
+    "moderate": 5837,
+    "easy": 4322,
+    "hard": 3576
+   }
+  },
+  "canonical_default_conversion": {
+   "blocked": true,
+   "reason": "KITTI native ignore semantics (DontCare IoA, neighbour-class IoU one-to-one, difficulty filtering) cannot be expressed as one generic ignore flag; canonical conversion is blocked. Pass policy='kitti_diagnostic_dontcare_ioa_no_neighbour_images' for the explicitly non-official diagnostic subset."
+  },
+  "diagnostic_conversion": {
+   "ignore_policy": "kitti_diagnostic_dontcare_ioa_no_neighbour_images",
+   "official_kitti_equivalent": false,
+   "excluded_neighbour_image_count": 1342,
+   "native_record_kinds_before_exclusion": {
+    "eligible_native_class": 17558,
+    "dontcare_per_class_copy": 17688,
+    "neighbour:Van": 1617,
+    "neighbour:Person_sitting": 166
+   },
+   "validation": {
+    "invalid_box_policy": "exclude_and_report",
+    "invalid_boxes": {},
+    "invalid_box_examples": [],
+    "out_of_image_bounds": 0,
+    "bounds_policy": "report_only; strict [0,width]x[0,height], tolerance 0; no clipping"
+   },
+   "summary": {
+    "image_count": 2427,
+    "annotation_count": 22238,
+    "empty_image_count": 0,
+    "category_counts": {
+     "Car": 12476,
+     "Cyclist": 4643,
+     "Pedestrian": 5119
+    },
+    "ignore_count": 11646,
+    "iscrowd_count": 11646,
+    "images_with_unknown_dimensions": 0,
+    "images_with_unknown_group": 2427
+   }
+  },
+  "native_ignore_semantics": {
+   "DontCare": "region; IoA vs detection area; unlimited absorption; copied per evaluated class",
+   "neighbour": "Van->Car, Person_sitting->Pedestrian; IoU; absorbs at most one detection",
+   "difficulty": "objects failing level become IoU one-to-one ignores at evaluation time",
+   "Truck/Tram/Misc": "not evaluated; detections on them remain FPs"
+  },
+  "group_id_status": "unknown: train_mapping.txt / train_rand.txt drive mapping not found locally",
+  "condition_metadata": "absent",
+  "dimension_audit": {
+   "checked": 3769,
+   "mismatches": 0,
+   "method": "stdlib PNG IHDR parse"
+  }
+ },
+ "legacy_caches": [
+  {
+   "file": "coco__faster_rcnn_r50_v2.json.gz",
+   "sha256": "8395b290ce36108b449c7eb43185238907e4e8bf8cfac78652e5c4ea6cff202c",
+   "bytes": 7503131,
+   "run": "coco__faster_rcnn_r50_v2",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": null,
+   "vocabulary_size": 91,
+   "vocabulary_head": [
+    "__background__",
+    "person",
+    "bicycle"
+   ],
+   "weights": null,
+   "detector_name": "Faster R-CNN R50-FPN v2",
+   "checkpoint": "torchvision FasterRCNN_ResNet50_FPN_V2_Weights.COCO_V1",
+   "scan": {
+    "row_count": 442923,
+    "valid_row_count": 442923,
+    "invalid_rows": {},
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 100,
+    "images_at_cap": 0,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {
+     "N/A": [
+      12,
+      26,
+      29,
+      30,
+      45,
+      66,
+      68,
+      69,
+      71,
+      83
+     ]
+    },
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": null,
+     "max_eval_det_not_applied": null,
+     "nms_iou": 0.5,
+     "nms_multi_label": null
+    }
+   }
+  },
+  {
+   "file": "coco__fcos_r50.json.gz",
+   "sha256": "065501b3b4fc5e3d3a621f4f09da892b329797b8d049325511c3220034b55ca3",
+   "bytes": 7502527,
+   "run": "coco__fcos_r50",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": null,
+   "vocabulary_size": 91,
+   "vocabulary_head": [
+    "__background__",
+    "person",
+    "bicycle"
+   ],
+   "weights": null,
+   "detector_name": "FCOS R50-FPN",
+   "checkpoint": "torchvision FCOS_ResNet50_FPN_Weights.COCO_V1",
+   "scan": {
+    "row_count": 500000,
+    "valid_row_count": 499998,
+    "invalid_rows": {
+     "box_zero_or_reversed": 2
+    },
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 100,
+    "images_at_cap": 0,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {
+     "N/A": [
+      12,
+      26,
+      29,
+      30,
+      45,
+      66,
+      68,
+      69,
+      71,
+      83
+     ]
+    },
+    "rows_with_duplicate_vocabulary_name": 2836,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": null,
+     "max_eval_det_not_applied": null,
+     "nms_iou": 0.6,
+     "nms_multi_label": null
+    }
+   }
+  },
+  {
+   "file": "coco__grounding_dino_t_vcoco.json.gz",
+   "sha256": "bc2fcb0bcc9d11175baf489b44df6fbfc1e69f96cbf42c965bbccb8fcb329a8b",
+   "bytes": 17720458,
+   "run": "coco__grounding_dino_t_vcoco",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "Grounding DINO-T",
+   "checkpoint": "huggingface IDEA-Research/grounding-dino-tiny",
+   "scan": {
+    "row_count": 1500000,
+    "valid_row_count": 1500000,
+    "invalid_rows": {},
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 5000,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": null,
+     "nms_multi_label": false
+    }
+   }
+  },
+  {
+   "file": "coco__retinanet_r50_v2.json.gz",
+   "sha256": "4ec15abd5d67d27c93b020eab9e7207d2d5f675bee726e8be6db49cc4666a072",
+   "bytes": 7982130,
+   "run": "coco__retinanet_r50_v2",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": null,
+   "vocabulary_size": 91,
+   "vocabulary_head": [
+    "__background__",
+    "person",
+    "bicycle"
+   ],
+   "weights": null,
+   "detector_name": "RetinaNet R50-FPN v2",
+   "checkpoint": "torchvision RetinaNet_ResNet50_FPN_V2_Weights.COCO_V1",
+   "scan": {
+    "row_count": 500000,
+    "valid_row_count": 499910,
+    "invalid_rows": {
+     "box_zero_or_reversed": 90
+    },
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 100,
+    "images_at_cap": 0,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {
+     "N/A": [
+      12,
+      26,
+      29,
+      30,
+      45,
+      66,
+      68,
+      69,
+      71,
+      83
+     ]
+    },
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": null,
+     "max_eval_det_not_applied": null,
+     "nms_iou": 0.5,
+     "nms_multi_label": null
+    }
+   }
+  },
+  {
+   "file": "coco__rtdetr_l.json.gz",
+   "sha256": "34f3ce65eda3a3e09b23851c4b04e7e108c967bd15016bc444449356d6ae2e57",
+   "bytes": 18227467,
+   "run": "coco__rtdetr_l",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "RT-DETR-L@640",
+   "checkpoint": "rtdetr-l.pt",
+   "scan": {
+    "row_count": 1500000,
+    "valid_row_count": 1500000,
+    "invalid_rows": {},
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 5000,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": null,
+     "nms_multi_label": false
+    }
+   }
+  },
+  {
+   "file": "coco__yolo11m.json.gz",
+   "sha256": "af1d5971fd4915a3d6e46d375aa3358948431358b9fd4eec60c001132d33f79f",
+   "bytes": 8321533,
+   "run": "coco__yolo11m",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO11m@640",
+   "checkpoint": "yolo11m.pt",
+   "scan": {
+    "row_count": 554078,
+    "valid_row_count": 554075,
+    "invalid_rows": {
+     "box_zero_or_reversed": 3
+    },
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 1,
+    "max_rows_per_image": 300,
+    "images_at_cap": 574,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "coco__yolo11s.json.gz",
+   "sha256": "27e3ae0c4feae14cd4884dacb2831f77101d991a81ae1520619b245ea1228187",
+   "bytes": 10095497,
+   "run": "coco__yolo11s",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO11s@640",
+   "checkpoint": "yolo11s.pt",
+   "scan": {
+    "row_count": 684311,
+    "valid_row_count": 684285,
+    "invalid_rows": {
+     "box_zero_or_reversed": 26
+    },
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 2,
+    "max_rows_per_image": 300,
+    "images_at_cap": 993,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "coco__yolo_world_l_vcoco.json.gz",
+   "sha256": "396fbdb6d2c2f36a34020980e307a8fbb55f2feb14b9fe11a5ccade2a42d3bd9",
+   "bytes": 10965172,
+   "run": "coco__yolo_world_l_vcoco",
+   "dataset": "coco",
+   "split": "val2017",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO-World-L v2@640",
+   "checkpoint": "yolov8l-worldv2.pt",
+   "scan": {
+    "row_count": 786904,
+    "valid_row_count": 786896,
+    "invalid_rows": {
+     "box_zero_or_reversed": 8
+    },
+    "evaluated_image_count": 5000,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 1287,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__faster_rcnn_r50_v2.json.gz",
+   "sha256": "ab8123ff1c5f598795aa3ba8ddfbe67b0c17c153349ad7cf151ee95ab7a02eba",
+   "bytes": 11726823,
+   "run": "kitti__faster_rcnn_r50_v2",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 91,
+   "vocabulary_head": [
+    "__background__",
+    "person",
+    "bicycle"
+   ],
+   "weights": null,
+   "detector_name": "Faster R-CNN R50-FPN v2",
+   "checkpoint": "torchvision FasterRCNN_ResNet50_FPN_V2_Weights.COCO_V1",
+   "scan": {
+    "row_count": 713040,
+    "valid_row_count": 713040,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 307,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {
+     "N/A": [
+      12,
+      26,
+      29,
+      30,
+      45,
+      66,
+      68,
+      69,
+      71,
+      83
+     ]
+    },
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.5,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__fcos_r50.json.gz",
+   "sha256": "0ab3e1f6658168e5eb056acee882c50f0f05c0044fff9fff363459778d7c997c",
+   "bytes": 15993835,
+   "run": "kitti__fcos_r50",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 91,
+   "vocabulary_head": [
+    "__background__",
+    "person",
+    "bicycle"
+   ],
+   "weights": null,
+   "detector_name": "FCOS R50-FPN",
+   "checkpoint": "torchvision FCOS_ResNet50_FPN_Weights.COCO_V1",
+   "scan": {
+    "row_count": 1130700,
+    "valid_row_count": 1130700,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 3769,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {
+     "N/A": [
+      12,
+      26,
+      29,
+      30,
+      45,
+      66,
+      68,
+      69,
+      71,
+      83
+     ]
+    },
+    "rows_with_duplicate_vocabulary_name": 213,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.6,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__grounding_dino_t_vcoco.json.gz",
+   "sha256": "6d283331b633979590e1dc47c00b9ba9a589bad85c45d03789668815bac20032",
+   "bytes": 14630680,
+   "run": "kitti__grounding_dino_t_vcoco",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "Grounding DINO-T",
+   "checkpoint": "huggingface IDEA-Research/grounding-dino-tiny",
+   "scan": {
+    "row_count": 1130700,
+    "valid_row_count": 1130700,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 3769,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": null,
+     "nms_multi_label": false
+    }
+   }
+  },
+  {
+   "file": "kitti__grounding_dino_t_vkitti.json.gz",
+   "sha256": "b57f8cf9b4d202d14bdf9086e8cd138bd36f6a31410534c7c472ee900ea21c7c",
+   "bytes": 13665856,
+   "run": "kitti__grounding_dino_t_vkitti",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "kitti",
+   "vocabulary_size": 7,
+   "vocabulary_head": [
+    "car",
+    "van",
+    "truck"
+   ],
+   "weights": null,
+   "detector_name": "Grounding DINO-T",
+   "checkpoint": "huggingface IDEA-Research/grounding-dino-tiny",
+   "scan": {
+    "row_count": 1130700,
+    "valid_row_count": 1130700,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 3769,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": null,
+     "nms_multi_label": false
+    }
+   }
+  },
+  {
+   "file": "kitti__retinanet_r50_v2.json.gz",
+   "sha256": "ff3cbfac24675744a361ba3e540ff3ad1cff6d6e12a69161661a3a48b17d50ec",
+   "bytes": 17100877,
+   "run": "kitti__retinanet_r50_v2",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 91,
+   "vocabulary_head": [
+    "__background__",
+    "person",
+    "bicycle"
+   ],
+   "weights": null,
+   "detector_name": "RetinaNet R50-FPN v2",
+   "checkpoint": "torchvision RetinaNet_ResNet50_FPN_V2_Weights.COCO_V1",
+   "scan": {
+    "row_count": 1130700,
+    "valid_row_count": 1130700,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 3769,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {
+     "N/A": [
+      12,
+      26,
+      29,
+      30,
+      45,
+      66,
+      68,
+      69,
+      71,
+      83
+     ]
+    },
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.5,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__rtdetr_l_1280.json.gz",
+   "sha256": "c78e676cbbe574efb298e8d03dc563ad8385c7606f82103347aa5296634df1bc",
+   "bytes": 14971199,
+   "run": "kitti__rtdetr_l_1280",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "RT-DETR-L@1280",
+   "checkpoint": "rtdetr-l.pt",
+   "scan": {
+    "row_count": 1130700,
+    "valid_row_count": 1130700,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 3769,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": null,
+     "nms_multi_label": false
+    }
+   }
+  },
+  {
+   "file": "kitti__rtdetr_l_640.json.gz",
+   "sha256": "c2da0031d8dd822438f91db3575c6be20e338dfa12100f77fc0f19d362ecbe5b",
+   "bytes": 14865804,
+   "run": "kitti__rtdetr_l_640",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "RT-DETR-L@640",
+   "checkpoint": "rtdetr-l.pt",
+   "scan": {
+    "row_count": 1130700,
+    "valid_row_count": 1130700,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 3769,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": null,
+     "nms_multi_label": false
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11m_1280.json.gz",
+   "sha256": "fe8d2e9ce360749bc7840cc8fcf1e09be82505cba67e880a78ea06efd2fd1d92",
+   "bytes": 9212302,
+   "run": "kitti__yolo11m_1280",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO11m@1280",
+   "checkpoint": "yolo11m.pt",
+   "scan": {
+    "row_count": 609811,
+    "valid_row_count": 609811,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 409,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11m_640.json.gz",
+   "sha256": "6af239569e360b11ae37101d422f82f98713369437879f79b8abea3f0f249f15",
+   "bytes": 6354066,
+   "run": "kitti__yolo11m_640",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO11m@640",
+   "checkpoint": "yolo11m.pt",
+   "scan": {
+    "row_count": 446537,
+    "valid_row_count": 446537,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 189,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11s_1280.json.gz",
+   "sha256": "e7c66ce206e09f10e51e5c0aa9b1c815b630775b5e9d0f3055fb7e6472239f85",
+   "bytes": 11413607,
+   "run": "kitti__yolo11s_1280",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO11s@1280",
+   "checkpoint": "yolo11s.pt",
+   "scan": {
+    "row_count": 773268,
+    "valid_row_count": 773268,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 755,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11s_1280_ft.json.gz",
+   "sha256": "58a93b5646bc801a3d175109267b8dd1df375698f9fccd0ee03e92439856332c",
+   "bytes": 1670014,
+   "run": "kitti__yolo11s_1280_ft",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "kitti-ft",
+   "vocabulary_size": 7,
+   "vocabulary_head": [
+    "Car",
+    "Van",
+    "Truck"
+   ],
+   "weights": "runs/finetune/yolo11s_kitti_1280_e20_f1/weights/last.pt",
+   "detector_name": "YOLO11s@1280 KITTI-FT",
+   "checkpoint": "runs/finetune/yolo11s_kitti_1280_e20_f1/weights/last.pt",
+   "scan": {
+    "row_count": 105028,
+    "valid_row_count": 105028,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 1,
+    "max_rows_per_image": 196,
+    "images_at_cap": 0,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11s_1280_ft25.json.gz",
+   "sha256": "bf9348e56dee168452119d324c6ff6655f96324c674f85a6ff0cc98138c829fe",
+   "bytes": 2882153,
+   "run": "kitti__yolo11s_1280_ft25",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "kitti-ft",
+   "vocabulary_size": 7,
+   "vocabulary_head": [
+    "Car",
+    "Van",
+    "Truck"
+   ],
+   "weights": "runs/finetune/yolo11s_kitti_1280_e20_f0.25/weights/last.pt",
+   "detector_name": "YOLO11s@1280 KITTI-FT",
+   "checkpoint": "runs/finetune/yolo11s_kitti_1280_e20_f0.25/weights/last.pt",
+   "scan": {
+    "row_count": 185436,
+    "valid_row_count": 185436,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 279,
+    "images_at_cap": 0,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11s_640.json.gz",
+   "sha256": "ce206a157df888b7de91d3ce3d6355deb6f208c605453592fe23c96a2495156a",
+   "bytes": 8492196,
+   "run": "kitti__yolo11s_640",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO11s@640",
+   "checkpoint": "yolo11s.pt",
+   "scan": {
+    "row_count": 613527,
+    "valid_row_count": 613527,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 441,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo11s_640_ft.json.gz",
+   "sha256": "bbd190a38d4bb80d873ba7c7b1452a827e27e3eeb6d4a30b70e5e18f3b41e98b",
+   "bytes": 3481615,
+   "run": "kitti__yolo11s_640_ft",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "kitti-ft",
+   "vocabulary_size": 7,
+   "vocabulary_head": [
+    "Car",
+    "Van",
+    "Truck"
+   ],
+   "weights": "runs/finetune/yolo11s_kitti_640_e5_f1/weights/last.pt",
+   "detector_name": "YOLO11s@640 KITTI-FT",
+   "checkpoint": "runs/finetune/yolo11s_kitti_640_e5_f1/weights/last.pt",
+   "scan": {
+    "row_count": 230710,
+    "valid_row_count": 230710,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 260,
+    "images_at_cap": 0,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo_world_l_1280_vcoco.json.gz",
+   "sha256": "ae1a8386d3980645440e812051e8d60f16ae34b141b4df3325a3b0ad6231cc50",
+   "bytes": 9314802,
+   "run": "kitti__yolo_world_l_1280_vcoco",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "coco",
+   "vocabulary_size": 80,
+   "vocabulary_head": [
+    "person",
+    "bicycle",
+    "car"
+   ],
+   "weights": null,
+   "detector_name": "YOLO-World-L v2@1280",
+   "checkpoint": "yolov8l-worldv2.pt",
+   "scan": {
+    "row_count": 647647,
+    "valid_row_count": 647647,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 411,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo_world_l_1280_vkitti.json.gz",
+   "sha256": "465c2b0114aab01ae0a8355c66f3ae95b2e86373266cc51ae7facd596e2608f3",
+   "bytes": 7650646,
+   "run": "kitti__yolo_world_l_1280_vkitti",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "kitti",
+   "vocabulary_size": 7,
+   "vocabulary_head": [
+    "car",
+    "van",
+    "truck"
+   ],
+   "weights": null,
+   "detector_name": "YOLO-World-L v2@1280",
+   "checkpoint": "yolov8l-worldv2.pt",
+   "scan": {
+    "row_count": 536489,
+    "valid_row_count": 536489,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 162,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  },
+  {
+   "file": "kitti__yolo_world_l_1280_vkittidesc.json.gz",
+   "sha256": "2f86a528952b5e28170a0633637e9d25e8529d0bf80943cad2dd81f3f8c00b23",
+   "bytes": 8923916,
+   "run": "kitti__yolo_world_l_1280_vkittidesc",
+   "dataset": "kitti",
+   "split": "kitti-val-3769",
+   "vocab_key": "kittidesc",
+   "vocabulary_size": 7,
+   "vocabulary_head": [
+    "car",
+    "van",
+    "truck"
+   ],
+   "weights": null,
+   "detector_name": "YOLO-World-L v2@1280",
+   "checkpoint": "yolov8l-worldv2.pt",
+   "scan": {
+    "row_count": 637297,
+    "valid_row_count": 637297,
+    "invalid_rows": {},
+    "evaluated_image_count": 3769,
+    "empty_output_image_count": 0,
+    "max_rows_per_image": 300,
+    "images_at_cap": 432,
+    "images_over_cap": 0,
+    "rows_below_score_floor": 0,
+    "rows_exceeding_coordinate_rounding": 0,
+    "rows_exceeding_score_rounding": 0,
+    "duplicate_vocabulary_names": {},
+    "rows_with_duplicate_vocabulary_name": 0,
+    "cache_policy": {
+     "score_floor": 0.001,
+     "max_raw_det_per_image": 300,
+     "max_eval_det_not_applied": 100,
+     "nms_iou": 0.7,
+     "nms_multi_label": true
+    }
+   }
+  }
+ ],
+ "bounded_conversion_validation": {
+  "coco__yolo11s_person.json": {
+   "run": "coco__yolo11s",
+   "category_mapping": {
+    "person": "person"
+   },
+   "prediction_count": 123897,
+   "dropped_unmapped_rows": {
+    "total": 560388
+   },
+   "population_restriction": null,
+   "same_image_category_score_tie_groups": 3811,
+   "max_tie_group_size": 4,
+   "predictions_outside_known_image_bounds": 0,
+   "invalid_row_policy": "exclude_and_report",
+   "candidate_id_rule": "'coco__yolo11s:' + original row index zero-padded to 6 digits",
+   "evaluated_image_count": 5000,
+   "invalid_rows": {
+    "box_zero_or_reversed": 26
+   },
+   "output_sha256": "1f4439e26514ad55cbd9b477611a3158f5ed2a91ca136314c4489968334c326f"
+  },
+  "kitti__yolo11s_640_ft_native3.json": {
+   "run": "kitti__yolo11s_640_ft",
+   "category_mapping": {
+    "Car": "Car",
+    "Pedestrian": "Pedestrian",
+    "Cyclist": "Cyclist"
+   },
+   "prediction_count": 101660,
+   "dropped_unmapped_rows": {
+    "Person_sitting": 1585,
+    "Tram": 4455,
+    "Truck": 3740,
+    "Van": 19878
+   },
+   "population_restriction": {
+    "annotation_manifest_canonical_json_sha256": "16c5b48d0b8920db2da9200ed3619ed0387e182a1601c5ec5b6136f9f5bb15a4",
+    "excluded_image_count": 1342,
+    "excluded_row_count": 99392
+   },
+   "same_image_category_score_tie_groups": 2142,
+   "max_tie_group_size": 4,
+   "predictions_outside_known_image_bounds": 0,
+   "invalid_row_policy": "reject",
+   "candidate_id_rule": "'kitti__yolo11s_640_ft:' + original row index zero-padded to 6 digits",
+   "evaluated_image_count": 2427,
+   "invalid_rows": {},
+   "output_sha256": "72e01bdaca68e193029bf26108764b567f43114c9041ebebaf409d9d384f3a4c"
+  },
+  "coco_val2017_annotations.json": {
+   "output_sha256": "feb8c056cc60e2013c65ef1e78f57ce2c42171c801f6c7d9d2f5fe72ed2d12a6"
+  },
+  "kitti_val_diagnostic_annotations.json": {
+   "output_sha256": "0b3bbcb7e520ba2328bffe779d5c5d071598bc660eef0709aaa1eaebeb96f7e6"
+  }
+ },
+ "generated": {
+  "date": "2026-11-05",
+  "by": "Claude (Opus 5.5) via threshold_transfer.data inventory --dims, then compacted",
+  "python": "det-eval-2d .venv Python 3.12.14 (stdlib only used)",
+  "source_commit": "39c6f6d87df7775c3bf1dd36b8de3990d6a4b217"
+ }
+}
