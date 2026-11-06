@@ -38,4 +38,6 @@ The proposed design separates calibration fitting, threshold selection and held-
 
 ![Conceptual detector architectures and score-selection pathways](docs/gpt/figures/model_score_paths.svg)
 
-No new detector training or night/weather evaluation has been performed. Existing COCO/KITTI caches support development-only adapter validation. G0 remains pending: BDD/ACDC access, annotation and group audits, checkpoint inspection, environment pins and actual GPU smoke tests. See [the gate log](docs/gate_log.md) and [workflow](CONTRIBUTING.md).
+ACDC's seven official archives are downloaded, verified and extracted. BDD image, legacy-label and Info candidates are downloaded, with release/checksum discrepancies; revised Detection 2020 JSON remains unacquired through the checked routes. See [the acquisition record](docs/data_acquisition.md) and [review resolution](docs/reviews/2026-11-06_bdd_acquisition_resolution.md).
+
+No new detector training or night/weather evaluation has been performed. Existing COCO/KITTI caches support development-only adapter validation. G0 remains pending: verified BDD releases, annotation policies, defensible group allocation, checkpoint/environment pins and actual GPU smoke tests. See [the gate log](docs/gate_log.md), [workflow](CONTRIBUTING.md) and [task-drift reports](docs/collaboration/task_drift_log.md).

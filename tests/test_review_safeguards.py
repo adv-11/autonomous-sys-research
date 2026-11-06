@@ -65,9 +65,10 @@ class ReviewSafeguards(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "below the recorded"):
             evaluate_transfer(docs, policy=policy, target_recall=.5)
         docs, policy = example()
-        docs["target_test"][1]["provenance"]["cache_policy"] = {"max_raw_det": 100}
-        with self.assertRaisesRegex(ValueError, "pipeline/cache candidate cap mismatch"):
-            evaluate_transfer(docs, policy=policy, target_recall=.5)
+        for field in ("max_raw_det", "max_raw_det_per_image"):
+            docs["target_test"][1]["provenance"]["cache_policy"] = {field: 100}
+            with self.assertRaisesRegex(ValueError, "pipeline/cache candidate cap mismatch"):
+                evaluate_transfer(docs, policy=policy, target_recall=.5)
 
     def test_paired_views_may_share_groups_but_never_image_identity(self):
         docs, policy = example()

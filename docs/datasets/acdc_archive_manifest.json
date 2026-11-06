@@ -1,0 +1,148 @@
+{
+  "dataset": "ACDC anonymized extended release",
+  "recorded_by": "GPT coordinator",
+  "access_date": "2026-11-06",
+  "source_api": "https://acdc.vision.ee.ethz.ch/api/packages",
+  "license_url": "https://acdc.vision.ee.ethz.ch/license",
+  "scope": "Archive metadata only; no dataset annotations or images redistributed.",
+  "archives": [
+    {
+      "bytes": 4173937,
+      "md5": "32598aacfe0f3c5138262849be8f35f3",
+      "sha256": "9e9b3157c3e9d1de5bcf492ccbca0e736f888082042f5df051806b9465643e97",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 17,
+      "package_id": "6436eab79880d97633275d1b",
+      "file_name": "gt_detection_trainval.zip",
+      "extraction_subdirectory": "gt_detection_trainval"
+    },
+    {
+      "bytes": 43621482,
+      "md5": "bd2a6da68f0aba22cb6ae0536aab1a22",
+      "sha256": "c641cc7799cf4a0e204d552b2c4a23a64b77e231057c360dfd7ee6b38d9aa8c4",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 2086,
+      "package_id": "6436ec0f9880d97633275d71",
+      "file_name": "gt_panoptic_trainval.zip",
+      "extraction_subdirectory": "gt_panoptic_trainval"
+    },
+    {
+      "bytes": 133426176,
+      "md5": "54cf06e3f2d8a8c5d297dc55aa107cee",
+      "sha256": "e4fd19c5516e80cba18d50038f1b8721608ee762be2eb15f26e016a59bc5bbcf",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 10032,
+      "package_id": "6436eeae9880d97633275dc9",
+      "file_name": "gt_trainval.zip",
+      "extraction_subdirectory": "gt_trainval"
+    },
+    {
+      "bytes": 1128674,
+      "md5": "4eb91feb6043e539323c6381d58dbbf5",
+      "sha256": "76d3e66c01b92e24bcaa29db861f0b638215a6afcd7229dc6394dcbc9d0f9781",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 5,
+      "package_id": "65cfcaf9084b30d6b1f1779c",
+      "file_name": "gt_detection_trainval_ref.zip",
+      "extraction_subdirectory": "gt_detection_trainval_ref"
+    },
+    {
+      "bytes": 23115405,
+      "md5": "1691582b279ccd92c4955d7194183607",
+      "sha256": "7fc82fdcd71535a194ce2d44ed4eb23a26bc47d7896992f550f21d29aa14ceb5",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 1071,
+      "package_id": "65cfcdfa084b30d6b1f1779d",
+      "file_name": "gt_panoptic_trainval_ref.zip",
+      "extraction_subdirectory": "gt_panoptic_trainval_ref"
+    },
+    {
+      "bytes": 57476002,
+      "md5": "fbf6faa5d10aa884c25889c5561a2e50",
+      "sha256": "a8d29c273490cc8745bbc64a28709dd22fb576b28541617fd8d1fccc6688fb5b",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 3012,
+      "package_id": "65cfd124084b30d6b1f1779e",
+      "file_name": "gt_trainval_ref.zip",
+      "extraction_subdirectory": "gt_trainval_ref"
+    },
+    {
+      "bytes": 16742344108,
+      "md5": "3350587a08502b4dfee47750bfd2a052",
+      "sha256": "f1765e65f077b5f33f9b58fe05b802bdecf24c798f8f95e7d217c223e5bb56d3",
+      "official_md5_match": true,
+      "zip_crc_passed": true,
+      "members": 8225,
+      "package_id": "6436f2259880d97633275dfc",
+      "file_name": "rgb_anon_trainvaltest.zip",
+      "extraction_subdirectory": "rgb_anon_trainvaltest"
+    }
+  ],
+  "status": "complete",
+  "image_verification": {
+    "attribution": "GPT coordinator, 2026-11-06",
+    "archive": "data/acdc/archives/rgb_anon_trainvaltest.zip",
+    "verification_scope": "ZIP membership and PNG header dimensions, not visual correspondence or independent-trip verification",
+    "annotations": [
+      {
+        "file": "instancesonly_train_gt_detection.json",
+        "images": 1600,
+        "missing": 0,
+        "dimension_mismatch": 0
+      },
+      {
+        "file": "instancesonly_val_gt_detection.json",
+        "images": 406,
+        "missing": 0,
+        "dimension_mismatch": 0
+      },
+      {
+        "file": "instancesonly_train_gt_ref_detection.json",
+        "images": 800,
+        "missing": 0,
+        "dimension_mismatch": 0
+      },
+      {
+        "file": "instancesonly_val_gt_ref_detection.json",
+        "images": 203,
+        "missing": 0,
+        "dimension_mismatch": 0
+      }
+    ],
+    "images": 8012,
+    "splits": {
+      "fog/test": 500,
+      "fog/test_ref": 500,
+      "fog/val": 100,
+      "fog/train_ref": 400,
+      "fog/val_ref": 100,
+      "fog/train": 400,
+      "rain/test": 500,
+      "rain/test_ref": 500,
+      "rain/val": 100,
+      "rain/train_ref": 400,
+      "rain/val_ref": 100,
+      "rain/train": 400,
+      "night/test": 500,
+      "night/test_ref": 500,
+      "night/val": 106,
+      "night/train_ref": 400,
+      "night/val_ref": 106,
+      "night/train": 400,
+      "snow/test": 500,
+      "snow/test_ref": 500,
+      "snow/val": 100,
+      "snow/train_ref": 400,
+      "snow/val_ref": 100,
+      "snow/train": 400
+    },
+    "extracted_png_images": 8012,
+    "unfinished_extraction_files": 0
+  }
+}

@@ -15,3 +15,17 @@ I want GPT and Claude to collaborate without needing me to forward their questio
 A live clarification exchange is different from a new formal review. Every new review or re-check gets a fresh delegated review task with the exact diff/commit, prior findings and open objections. The coordinator launches these without requiring another prompt from me, fixes minor findings directly, and avoids review loops that add no material evidence.
 
 My explicit approval is still required for merging each research PR. Peer prompts cannot expand the compute budget, accept dataset terms for me, claim gate passage or approve their own results.
+
+## Coordinator corrective prompts
+
+I want the coordinator to actively steer the LLMs when drift checks reveal unsupported claims, excess scope, stalled work or repetitive optimization. Reporting a problem is not enough: send a focused corrective prompt to the assigned task while it is active, and record the actual response and outcome. If a task has finished, do not restart it through a peer message; fix a small issue directly or create a necessary, separately scoped task under the existing rules.
+
+Use this prompt structure, tailored to the observed evidence:
+
+> **Correction within the current assignment:** [specific quote, file/diff or failed check]. The research milestone is [concrete objective]. Stop [unnecessary or unsupported work]. Complete [smallest useful next action]. Verify it with [source or bounded check], distinguish verified evidence from assumptions, and return [reviewable artifact plus unresolved issue]. Stop when [completion condition]; do not add features, repeat passed checks or expand the task.
+
+- **Possible hallucination:** name the claim and evidence gap without assuming fabrication. Require a primary-source check or an explicit withdrawal/uncertainty label. Do not replace an unsupported claim with another inference.
+- **Drift or overachievement:** reconnect the work to the current research question and gate. Defer optional features and extra infrastructure; keep the required artifact, meaningful validation and evidence.
+- **Stall or performance loop:** identify what the next attempt would teach. Give one bounded diagnostic or a concrete alternative when justified; stop repeating attempts without a changed hypothesis or new evidence. Preserve the failed attempt and remaining blocker.
+
+Report the intervention, response and disposition in the [drift log](task_drift_log.md). These prompts can narrow or correct an active assignment; they do not authorize new scope, paid work, a new review or a merge. Do not manufacture an intervention when the task is already complete or on course.

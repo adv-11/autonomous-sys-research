@@ -1,0 +1,1089 @@
+{
+  "attribution": "GPT real artifact inspection, 2026-11-06; no inference or evaluation",
+  "parent_commit": "63ab281cd13b2c4ee2bbf21e759195d6b4e93901",
+  "detection_2020_status": "NOT_ACQUIRED",
+  "legacy_candidate": {
+    "dataset": "bdd100k",
+    "converter": "GPT bdd_legacy_conditions v1",
+    "source_kind": "legacy2018_candidate",
+    "source_files": [
+      {
+        "relative_path": "bdd100k_labels.berkeley-candidate.zip",
+        "sha256": "7f1f9043c70a6ff0788a323cfb914aeced109a37b7150740d670a347c881394a"
+      }
+    ],
+    "source_member_digest_sha256": "b1320dcc534a0eecb8522a30575b4319e40ec856fd2c9b6dae4e51b2ce93aff5",
+    "archive": {
+      "package_id": null,
+      "sha256": "7f1f9043c70a6ff0788a323cfb914aeced109a37b7150740d670a347c881394a",
+      "md5": "2d0165fd89b11025206e21a25ae1089d",
+      "official_md5_match": false,
+      "official_legacy_md5": "e21be3e7d6a07ee439faf61e769667e4",
+      "bytes": 189638612,
+      "zip_crc": "pass"
+    },
+    "ignore_policy": "not_applicable_no_detection_conversion",
+    "policy_status": "provisional",
+    "official_evaluator_equivalent": false,
+    "group_id_status": "unknown_no_independence_inferred",
+    "condition_metadata_status": "legacy_candidate_unjoined_to_detection2020",
+    "dimensions_status": "unknown_nominal_bounds_reference_only",
+    "summary": {
+      "images": 100000,
+      "splits": {
+        "test": {
+          "images": 20000,
+          "frames": 20000,
+          "missing_condition:weather": 0,
+          "missing_condition:timeofday": 0,
+          "missing_condition:scene": 0,
+          "category:traffic sign": 69006,
+          "native_attribute:occluded:false": 193624,
+          "native_attribute:truncated:false": 342329,
+          "native_attribute:trafficLightColor:\"none\"": 331019,
+          "box_category:traffic sign": 69006,
+          "nonpositive_boxes": 107,
+          "outside_nominal_1280x720": 0,
+          "category:car": 205150,
+          "native_attribute:occluded:true": 174104,
+          "box_category:car": 205150,
+          "category:person": 24650,
+          "box_category:person": 24650,
+          "category:area/drivable": 18428,
+          "objects_without_box2d": 187512,
+          "category:area/alternative": 17746,
+          "category:lane/road curb": 31717,
+          "native_attribute:direction:\"parallel\"": 112904,
+          "native_attribute:style:\"solid\"": 85662,
+          "category:lane/single white": 70774,
+          "native_attribute:style:\"dashed\"": 65676,
+          "boxes": 367728,
+          "zero_box_images": 0,
+          "zero_native_person_images": 13787,
+          "native_attribute:truncated:true": 25399,
+          "category:truck": 8704,
+          "box_category:truck": 8704,
+          "category:lane/single yellow": 5925,
+          "category:lane/double yellow": 10504,
+          "category:motor": 841,
+          "box_category:motor": 841,
+          "category:rider": 1294,
+          "box_category:rider": 1294,
+          "category:lane/double white": 1701,
+          "category:traffic light": 52840,
+          "native_attribute:trafficLightColor:\"green\"": 22472,
+          "box_category:traffic light": 52840,
+          "native_attribute:trafficLightColor:\"red\"": 13210,
+          "category:lane/crosswalk": 30602,
+          "native_attribute:direction:\"vertical\"": 38434,
+          "category:bus": 3217,
+          "box_category:bus": 3217,
+          "category:bike": 1998,
+          "box_category:bike": 1998,
+          "native_attribute:trafficLightColor:\"yellow\"": 1027,
+          "category:lane/single other": 105,
+          "category:train": 28,
+          "box_category:train": 28,
+          "category:lane/double other": 10
+        },
+        "train": {
+          "images": 70000,
+          "frames": 70000,
+          "missing_condition:weather": 0,
+          "missing_condition:timeofday": 0,
+          "missing_condition:scene": 0,
+          "category:traffic light": 186301,
+          "native_attribute:occluded:false": 678981,
+          "native_attribute:truncated:false": 1199006,
+          "native_attribute:trafficLightColor:\"green\"": 80204,
+          "box_category:traffic light": 186301,
+          "nonpositive_boxes": 395,
+          "outside_nominal_1280x720": 0,
+          "category:traffic sign": 239961,
+          "native_attribute:trafficLightColor:\"none\"": 1158116,
+          "box_category:traffic sign": 239961,
+          "native_attribute:truncated:true": 89399,
+          "category:car": 714121,
+          "box_category:car": 714121,
+          "category:area/drivable": 64050,
+          "objects_without_box2d": 654799,
+          "category:lane/road curb": 109868,
+          "native_attribute:direction:\"parallel\"": 392796,
+          "native_attribute:style:\"solid\"": 298735,
+          "boxes": 1288405,
+          "zero_box_images": 0,
+          "zero_native_person_images": 47896,
+          "native_attribute:occluded:true": 609424,
+          "category:person": 91435,
+          "box_category:person": 91435,
+          "category:area/alternative": 61799,
+          "category:lane/single white": 247108,
+          "native_attribute:style:\"dashed\"": 230213,
+          "category:lane/double yellow": 37519,
+          "category:bus": 11688,
+          "box_category:bus": 11688,
+          "native_attribute:trafficLightColor:\"red\"": 46591,
+          "native_attribute:direction:\"vertical\"": 136152,
+          "category:truck": 30012,
+          "box_category:truck": 30012,
+          "category:lane/single yellow": 20220,
+          "category:lane/crosswalk": 108284,
+          "native_attribute:trafficLightColor:\"yellow\"": 3494,
+          "category:rider": 4522,
+          "box_category:rider": 4522,
+          "category:bike": 7227,
+          "box_category:bike": 7227,
+          "category:lane/double white": 5674,
+          "category:motor": 3002,
+          "box_category:motor": 3002,
+          "category:train": 136,
+          "box_category:train": 136,
+          "category:lane/single other": 249,
+          "category:lane/double other": 26,
+          "category:area/unknown": 2
+        },
+        "val": {
+          "images": 10000,
+          "frames": 10000,
+          "missing_condition:weather": 0,
+          "missing_condition:timeofday": 0,
+          "missing_condition:scene": 0,
+          "category:traffic sign": 34915,
+          "native_attribute:occluded:false": 97893,
+          "native_attribute:truncated:false": 172895,
+          "native_attribute:trafficLightColor:\"none\"": 166885,
+          "box_category:traffic sign": 34915,
+          "nonpositive_boxes": 52,
+          "outside_nominal_1280x720": 0,
+          "category:traffic light": 26891,
+          "native_attribute:trafficLightColor:\"green\"": 11506,
+          "box_category:traffic light": 26891,
+          "native_attribute:occluded:true": 87685,
+          "category:car": 102540,
+          "box_category:car": 102540,
+          "native_attribute:truncated:true": 12683,
+          "category:rider": 649,
+          "box_category:rider": 649,
+          "category:motor": 452,
+          "box_category:motor": 452,
+          "category:area/drivable": 9147,
+          "objects_without_box2d": 93711,
+          "category:area/alternative": 8834,
+          "category:lane/single yellow": 2817,
+          "native_attribute:direction:\"parallel\"": 56462,
+          "native_attribute:style:\"solid\"": 42801,
+          "category:lane/double yellow": 5426,
+          "category:lane/road curb": 15821,
+          "category:lane/crosswalk": 15342,
+          "native_attribute:direction:\"vertical\"": 19268,
+          "native_attribute:style:\"dashed\"": 32929,
+          "category:lane/single white": 35452,
+          "boxes": 185578,
+          "zero_box_images": 0,
+          "zero_native_person_images": 6780,
+          "category:person": 13265,
+          "box_category:person": 13265,
+          "native_attribute:trafficLightColor:\"red\"": 6667,
+          "category:bus": 1597,
+          "box_category:bus": 1597,
+          "category:lane/double white": 831,
+          "category:truck": 4247,
+          "box_category:truck": 4247,
+          "category:bike": 1007,
+          "box_category:bike": 1007,
+          "native_attribute:trafficLightColor:\"yellow\"": 520,
+          "category:train": 15,
+          "box_category:train": 15,
+          "category:lane/single other": 40,
+          "category:lane/double other": 1
+        }
+      },
+      "observed_fields": {
+        "object": {
+          "category": 2777733,
+          "id": 2777733,
+          "attributes": 2777733,
+          "box2d": 1841711,
+          "poly2d": 936022
+        },
+        "object_attributes": {
+          "occluded": 1841711,
+          "truncated": 1841711,
+          "trafficLightColor": 1841711,
+          "direction": 756016,
+          "style": 756016
+        },
+        "document": {
+          "name": 100000,
+          "frames": 100000,
+          "attributes": 100000
+        },
+        "frame": {
+          "timestamp": 100000,
+          "objects": 100000
+        },
+        "image_attributes": {
+          "weather": 100000,
+          "scene": 100000,
+          "timeofday": 100000
+        }
+      },
+      "weather_timeofday_cells": {
+        "test": [
+          {
+            "weather": "clear",
+            "timeofday": "dawn/dusk",
+            "images": 565
+          },
+          {
+            "weather": "clear",
+            "timeofday": "daytime",
+            "images": 3572
+          },
+          {
+            "weather": "clear",
+            "timeofday": "night",
+            "images": 6618
+          },
+          {
+            "weather": "clear",
+            "timeofday": "undefined",
+            "images": 1
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "dawn/dusk",
+            "images": 4
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "daytime",
+            "images": 15
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "night",
+            "images": 19
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "dawn/dusk",
+            "images": 377
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "daytime",
+            "images": 2163
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "night",
+            "images": 28
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "dawn/dusk",
+            "images": 167
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "daytime",
+            "images": 1267
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "night",
+            "images": 7
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "dawn/dusk",
+            "images": 88
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "daytime",
+            "images": 614
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "night",
+            "images": 603
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "undefined",
+            "images": 1
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "dawn/dusk",
+            "images": 129
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "daytime",
+            "images": 790
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "night",
+            "images": 631
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "undefined",
+            "images": 1
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "dawn/dusk",
+            "images": 146
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "daytime",
+            "images": 2025
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "night",
+            "images": 130
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "undefined",
+            "images": 39
+          }
+        ],
+        "train": [
+          {
+            "weather": "clear",
+            "timeofday": "dawn/dusk",
+            "images": 2004
+          },
+          {
+            "weather": "clear",
+            "timeofday": "daytime",
+            "images": 12477
+          },
+          {
+            "weather": "clear",
+            "timeofday": "night",
+            "images": 22929
+          },
+          {
+            "weather": "clear",
+            "timeofday": "undefined",
+            "images": 2
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "dawn/dusk",
+            "images": 15
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "daytime",
+            "images": 48
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "night",
+            "images": 67
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "dawn/dusk",
+            "images": 1150
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "daytime",
+            "images": 7562
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "night",
+            "images": 72
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "dawn/dusk",
+            "images": 570
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "daytime",
+            "images": 4267
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "night",
+            "images": 49
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "dawn/dusk",
+            "images": 329
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "daytime",
+            "images": 2532
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "night",
+            "images": 2209
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "undefined",
+            "images": 13
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "dawn/dusk",
+            "images": 437
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "daytime",
+            "images": 2873
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "night",
+            "images": 2259
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "undefined",
+            "images": 2
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "dawn/dusk",
+            "images": 528
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "daytime",
+            "images": 7041
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "night",
+            "images": 443
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "undefined",
+            "images": 122
+          }
+        ],
+        "val": [
+          {
+            "weather": "clear",
+            "timeofday": "dawn/dusk",
+            "images": 307
+          },
+          {
+            "weather": "clear",
+            "timeofday": "daytime",
+            "images": 1764
+          },
+          {
+            "weather": "clear",
+            "timeofday": "night",
+            "images": 3274
+          },
+          {
+            "weather": "clear",
+            "timeofday": "undefined",
+            "images": 1
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "dawn/dusk",
+            "images": 1
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "daytime",
+            "images": 5
+          },
+          {
+            "weather": "foggy",
+            "timeofday": "night",
+            "images": 7
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "dawn/dusk",
+            "images": 182
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "daytime",
+            "images": 1039
+          },
+          {
+            "weather": "overcast",
+            "timeofday": "night",
+            "images": 18
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "dawn/dusk",
+            "images": 95
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "daytime",
+            "images": 638
+          },
+          {
+            "weather": "partly cloudy",
+            "timeofday": "night",
+            "images": 5
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "dawn/dusk",
+            "images": 55
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "daytime",
+            "images": 396
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "night",
+            "images": 286
+          },
+          {
+            "weather": "rainy",
+            "timeofday": "undefined",
+            "images": 1
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "dawn/dusk",
+            "images": 74
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "daytime",
+            "images": 422
+          },
+          {
+            "weather": "snowy",
+            "timeofday": "night",
+            "images": 273
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "dawn/dusk",
+            "images": 64
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "daytime",
+            "images": 994
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "night",
+            "images": 66
+          },
+          {
+            "weather": "undefined",
+            "timeofday": "undefined",
+            "images": 33
+          }
+        ]
+      }
+    }
+  },
+  "image_range_comparison": {
+    "attribution": "GPT 2026-11-06",
+    "comparison": "complete ZIP central directory including ZIP64 records and sixteen deterministic 1MiB payload ranges; not a full byte comparison",
+    "remote": "http://128.32.162.150/bdd100k/bdd100k_images_100k.zip",
+    "size": 5669071832,
+    "checks": [
+      {
+        "start": 5658621343,
+        "end": 5669071831,
+        "status": 206,
+        "content_range": "bytes 5658621343-5669071831/5669071832",
+        "bytes": 10450489,
+        "sha256": "93dfb42e3e855e585916cdd10fa264cc24c89033929d8765beac163e1767a9c4",
+        "matches_local": true
+      },
+      {
+        "start": 0,
+        "end": 1048575,
+        "status": 206,
+        "content_range": "bytes 0-1048575/5669071832",
+        "bytes": 1048576,
+        "sha256": "258c048291aee91fb91ff88ff822ddf499d763913d15493b3a188f8d4dbd87c6",
+        "matches_local": true
+      },
+      {
+        "start": 377868217,
+        "end": 378916792,
+        "status": 206,
+        "content_range": "bytes 377868217-378916792/5669071832",
+        "bytes": 1048576,
+        "sha256": "25e6834bc5af3dc73d5b88e4f9ef2390e80636581e0a9fc12e9bb5e1731a755f",
+        "matches_local": true
+      },
+      {
+        "start": 755736434,
+        "end": 756785009,
+        "status": 206,
+        "content_range": "bytes 755736434-756785009/5669071832",
+        "bytes": 1048576,
+        "sha256": "4709cd679770d03d24699df37d91df2ad419a4cebf1c723e69bdb84e4480e1e6",
+        "matches_local": true
+      },
+      {
+        "start": 1133604651,
+        "end": 1134653226,
+        "status": 206,
+        "content_range": "bytes 1133604651-1134653226/5669071832",
+        "bytes": 1048576,
+        "sha256": "65176684107946feec5a81faa402e327040de01b5eb68827096c74286cdd218c",
+        "matches_local": true
+      },
+      {
+        "start": 1511472868,
+        "end": 1512521443,
+        "status": 206,
+        "content_range": "bytes 1511472868-1512521443/5669071832",
+        "bytes": 1048576,
+        "sha256": "af154a6c7158065d4beaf3879e7e565f7ae7036ff44b47afc0d49221fd1ff7d7",
+        "matches_local": true
+      },
+      {
+        "start": 1889341085,
+        "end": 1890389660,
+        "status": 206,
+        "content_range": "bytes 1889341085-1890389660/5669071832",
+        "bytes": 1048576,
+        "sha256": "eaca6997bf983226a3b950add86806b9eaae374303f667f3682b0642524f2ea7",
+        "matches_local": true
+      },
+      {
+        "start": 2267209302,
+        "end": 2268257877,
+        "status": 206,
+        "content_range": "bytes 2267209302-2268257877/5669071832",
+        "bytes": 1048576,
+        "sha256": "94f46bc44c593a0629001fb26cedaef6492337ca7fecf68df1229cd06137f372",
+        "matches_local": true
+      },
+      {
+        "start": 2645077519,
+        "end": 2646126094,
+        "status": 206,
+        "content_range": "bytes 2645077519-2646126094/5669071832",
+        "bytes": 1048576,
+        "sha256": "e51ed27dbfb0f3bbdcad8fd435ddd726c8bd45d590694369732b32f27bae4028",
+        "matches_local": true
+      },
+      {
+        "start": 3022945736,
+        "end": 3023994311,
+        "status": 206,
+        "content_range": "bytes 3022945736-3023994311/5669071832",
+        "bytes": 1048576,
+        "sha256": "f1330a66bb071e59d714bb6b3ce3c6ae0004c834a78a9e354f804d642cc587a3",
+        "matches_local": true
+      },
+      {
+        "start": 3400813953,
+        "end": 3401862528,
+        "status": 206,
+        "content_range": "bytes 3400813953-3401862528/5669071832",
+        "bytes": 1048576,
+        "sha256": "405b846660f553efa1bc7cdffa343780318625d4815d608ee9f9f42b789c25b3",
+        "matches_local": true
+      },
+      {
+        "start": 3778682170,
+        "end": 3779730745,
+        "status": 206,
+        "content_range": "bytes 3778682170-3779730745/5669071832",
+        "bytes": 1048576,
+        "sha256": "0d2111a3e71fa836a7dc136b854673a0ff436b34514bcadcd4babaf4d34b073a",
+        "matches_local": true
+      },
+      {
+        "start": 4156550387,
+        "end": 4157598962,
+        "status": 206,
+        "content_range": "bytes 4156550387-4157598962/5669071832",
+        "bytes": 1048576,
+        "sha256": "2b93535acbec36c92fe42efabbdbc457a1b9f75684d47597cbc39054b665169a",
+        "matches_local": true
+      },
+      {
+        "start": 4534418604,
+        "end": 4535467179,
+        "status": 206,
+        "content_range": "bytes 4534418604-4535467179/5669071832",
+        "bytes": 1048576,
+        "sha256": "14b911572d0b7881c25886550c0ec8dbac71bfdce9bdf3c9abaa1135314f7483",
+        "matches_local": true
+      },
+      {
+        "start": 4912286821,
+        "end": 4913335396,
+        "status": 206,
+        "content_range": "bytes 4912286821-4913335396/5669071832",
+        "bytes": 1048576,
+        "sha256": "c79466d310b3fdc8d11c427c1f46d977c0a7f39bfb5e756e6a173b11ebc0d849",
+        "matches_local": true
+      },
+      {
+        "start": 5290155038,
+        "end": 5291203613,
+        "status": 206,
+        "content_range": "bytes 5290155038-5291203613/5669071832",
+        "bytes": 1048576,
+        "sha256": "a0597b61e37ec1f9e77c345e43398f5e6f273629faa7508aacd5f2dddb57ced3",
+        "matches_local": true
+      },
+      {
+        "start": 5668023256,
+        "end": 5669071831,
+        "status": 206,
+        "content_range": "bytes 5668023256-5669071831/5669071832",
+        "bytes": 1048576,
+        "sha256": "7b3f58ad52042ee9b87ffa6866357331ee7e516c18a84897f68bc67d5cbe63b4",
+        "matches_local": true
+      }
+    ],
+    "all_ranges_match": true,
+    "official_archive_identity": "UNRESOLVED",
+    "total_bytes_compared": 27227705,
+    "identity_disposition": "Partial range agreement strengthens transport consistency with current HTTP Berkeley host; official MD5 mismatch unresolved. No publisher-authenticated full byte comparison."
+  },
+  "candidate_name_join": {
+    "attribution": "GPT real join inventory 2026-11-06",
+    "images": 100000,
+    "legacy_condition_rows": 100000,
+    "matched_names": 100000,
+    "images_without_conditions": 0,
+    "conditions_without_images": 0,
+    "identity_limit": "Name agreement is not byte-level publisher identity or Detection 2020 annotation verification."
+  },
+  "wrong_detection_url": {
+    "remote": "http://128.32.162.150/bdd100k/bdd100k_det_20_labels.zip",
+    "bytes": 231196019,
+    "members": 2003,
+    "extensions": {
+      ".jpg": 2000
+    },
+    "sample_bytes": 90563,
+    "sample_sha256": "6764c241d7a1017e630e7b187e6efeb2bb2e7745a0912f5ba1ef381971fbb362",
+    "sample_crc": "pass",
+    "sample_magic": "ffd8fffe00104c6176633536",
+    "total_range_bytes": 299863,
+    "sample_name_disposition": "individual image identifier omitted from public summary; retained only in ignored evidence"
+  },
+  "condition_index": {
+    "relative_to_shared_outputs": "acquisition_discovery/bdd_legacy_condition_index.json",
+    "records": 100000,
+    "bytes": 24029644,
+    "sha256": "42c7732fa375e8b6469e43399088a34e5a293646666f9685ee0565a20a497a6c"
+  },
+  "g0": "PENDING",
+  "validation": {
+    "synthetic_bdd_tests": {
+      "run": 8,
+      "status": "pass"
+    },
+    "full_suite": {
+      "run": 75,
+      "status": "pass",
+      "python": "3.14.7",
+      "environment": "PYTHONPATH=src"
+    },
+    "real_legacy_integration": {
+      "images": 100000,
+      "status": "pass",
+      "final_source_rerun": "matches image counts, all split counters and ordered member digest"
+    },
+    "detection2020_integration": "not_run_no_authenticated_artifact",
+    "model_inference": "not_run",
+    "formal_cross_review": "coordinator separate task pending"
+  },
+  "source_checks": {
+    "accessed": "2026-11-06",
+    "pinned_official_repository": "9ac17c6c7c51d2fc83065fccd707cd5b1882a293",
+    "published_detection2020_md5": "b86a3e1b7edbcad421b7dad2b3987c94",
+    "published_image_md5": "5a0359c86a0b8713adab1eee9a3041cb",
+    "measured_existing_mirror_image_md5": "c7a1d4db9af5a4691d5f6fee2a62e132",
+    "measured_existing_mirror_image_sha256": "afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784",
+    "public_transport_label_url": "http://128.32.162.150/bdd100k/bdd100k_labels.zip",
+    "transport": "HTTP; no TLS verification disabled",
+    "revised_label_acquisition": "failed; no acceptable artifact",
+    "discovery_evidence_relative_to_shared_outputs": [
+      "acquisition_discovery/bdd_download_live.html",
+      "acquisition_discovery/bdd_http_index.html",
+      "acquisition_discovery/bdd_endpoint_probes.json",
+      "acquisition_discovery/bdd_2021_probes.json",
+      "acquisition_discovery/bdd_final_label_probes.json",
+      "acquisition_discovery/bdd_hf_label_discovery.json"
+    ],
+    "endpoint_probes": [
+      {
+        "url": "https://dl.yf.io/bdd100k/",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'dl.yf.io'. (_ssl.c:1082)>"
+      },
+      {
+        "url": "http://dl.yf.io/bdd100k/bdd100k_images_100k.zip.md5",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "http://128.32.162.150/bdd100k/bdd100k_images_100k.zip.md5",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "https://bdd-data.berkeley.edu/bdd100k/bdd100k_det_20_labels_trainval.zip",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'bdd-data.berkeley.edu'. (_ssl.c:1082)>"
+      },
+      {
+        "url": "https://bdd-data.berkeley.edu/bdd100k/bdd100k_det_20_labels.zip",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'bdd-data.berkeley.edu'. (_ssl.c:1082)>"
+      },
+      {
+        "url": "https://bdd-data.berkeley.edu/bdd100k/bdd100k_labels_release.zip",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'bdd-data.berkeley.edu'. (_ssl.c:1082)>"
+      },
+      {
+        "url": "https://dl.cv.ethz.ch/bdd100k/data/bdd100k_det_20_labels_trainval.zip",
+        "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+      },
+      {
+        "url": "https://bdd-data.berkeley.edu/data/bdd100k_det_20_labels_trainval.zip",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'bdd-data.berkeley.edu'. (_ssl.c:1082)>"
+      }
+    ],
+    "commented_endpoint_probes": [
+      {
+        "url": "http://128.32.162.150/bdd100k/2021/",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "http://128.32.162.150/bdd100k/2021/bdd100k_det_20_labels_trainval.zip",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "http://128.32.162.150/bdd100k/2021/bdd100k_labels_release.zip",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "http://128.32.162.150/bdd100k/2021/bdd100k_det_20_labels_trainval.zip.md5",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "http://128.32.162.150/bdd100k/bdd100k_labels_release.zip",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "http://128.32.162.150/bdd100k/2022/",
+        "error": "HTTP Error 404: Not Found"
+      }
+    ],
+    "final_probes": [
+      {
+        "url": "https://bdd-data.s3.amazonaws.com/bdd100k_det_20_labels_trainval.zip",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "https://s3-us-west-2.amazonaws.com/bdd-data/bdd100k_det_20_labels_trainval.zip",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "https://dl.cv.ethz.ch/bdd100k/data/det_train.json",
+        "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+      },
+      {
+        "url": "https://web.archive.org/cdx/search/cdx?url=dl.cv.ethz.ch/bdd100k/data/bdd100k_det_20_labels_trainval.zip&output=json&filter=statuscode:200",
+        "status": 200,
+        "length": null,
+        "body": "[]\n"
+      }
+    ]
+  },
+  "info_candidate": {
+    "attribution": "GPT real candidate Info ZIP inspection 2026-11-06",
+    "archive": {
+      "source_url": "http://128.32.162.150/bdd100k/bdd100k_info.zip",
+      "bytes": 5116983841,
+      "sha256": "862f878ccb6916a36a4628953584a8a7147bc3e88250c2176f91448c270c9c28",
+      "md5": "befea4df5719118c7a2471ca3ee87220",
+      "official_md5": "043811ff34b2fca6d50f37d263a65c93",
+      "official_md5_match": false,
+      "zip_crc": "pass"
+    },
+    "records": 100000,
+    "records_by_split": {
+      "train": 70000,
+      "val": 10000,
+      "test": 20000
+    },
+    "records_with_native_rideID": 99999,
+    "records_with_native_rideID_by_split": {
+      "train": 69999,
+      "val": 10000,
+      "test": 20000
+    },
+    "records_without_usable_native_rideID": 1,
+    "invalid_json_or_missing_rideID_counts": {
+      "JSONDecodeError": 1
+    },
+    "zero_byte_members": 1,
+    "native_rideIDs": 60137,
+    "native_rideIDs_by_split": {
+      "train": 42166,
+      "val": 5931,
+      "test": 12041
+    },
+    "split_overlap": [
+      {
+        "splits": [
+          "train",
+          "val"
+        ],
+        "shared_native_rideIDs": 1,
+        "images_in_shared_ids": {
+          "train": 4,
+          "val": 5
+        }
+      },
+      {
+        "splits": [
+          "train",
+          "test"
+        ],
+        "shared_native_rideIDs": 0,
+        "images_in_shared_ids": {
+          "train": 0,
+          "test": 0
+        }
+      },
+      {
+        "splits": [
+          "val",
+          "test"
+        ],
+        "shared_native_rideIDs": 0,
+        "images_in_shared_ids": {
+          "val": 0,
+          "test": 0
+        }
+      }
+    ],
+    "native_rideID_max_images": 48,
+    "native_rideID_size_histogram": {
+      "1": 40065,
+      "2": 11354,
+      "3": 4366,
+      "4": 1983,
+      "5": 938,
+      "6": 526,
+      "7": 320,
+      "8": 207,
+      "9": 101,
+      "10": 76,
+      "11": 56,
+      "12": 32,
+      "13": 31,
+      "14": 24,
+      "15": 18,
+      "16": 10,
+      "17": 9,
+      "18": 6,
+      "19": 4,
+      "20": 2,
+      "21": 2,
+      "22": 3,
+      "24": 1,
+      "25": 1,
+      "34": 1,
+      "48": 1
+    },
+    "name_join_with_legacy_conditions": {
+      "matched": 100000,
+      "info_without_condition": 0,
+      "condition_without_info": 0
+    },
+    "inspection_method": "rideID read from anchored first root JSON field in 4096-byte prefixes; full parse only first12 records and fallbacks; separately read every ZIP member for full CRC verification",
+    "full_parse_fallbacks": 27517,
+    "sampled_full_documents": 12,
+    "sampled_full_document_fields": {
+      "rideID": 12,
+      "accelerometer": 12,
+      "gyro": 12,
+      "timelapse": 12,
+      "locations": 12,
+      "filename": 12,
+      "startTime": 12,
+      "endTime": 12,
+      "id": 9,
+      "gps": 9
+    },
+    "largest_uncompressed_json_bytes": 1239330,
+    "native_group_semantics": "rideID recurrence is observed metadata, not proof of independent trips or a final grouping policy; canonical group_id remains null",
+    "elapsed_seconds": 322.274,
+    "access_date": "2026-11-06",
+    "uncompressed_member_bytes": 59600610595,
+    "zip_member_unreadable_count": 0,
+    "duplicate_member_names": 0,
+    "duplicate_basename_records": 0,
+    "json_syntax_verification": {
+      "complete_parse_attempts": 27526,
+      "complete_parse_successes": 27525,
+      "observed_invalid_json_count": 1,
+      "observed_invalid_json_zero_byte_count": 1,
+      "remaining_prefix_only_records": 72474,
+      "invalid_json_total_over_all_records": null,
+      "limitation": "Full CRC is an integrity check, not JSON syntax validation. JSON syntax beyond the prefix is unverified for prefix-only records.",
+      "parse_operations": 27529,
+      "sample_also_parsed_as_fallback": 3,
+      "count_unit": "distinct documents except parse_operations"
+    },
+    "rideID_verification": {
+      "observation_denominator": 100000,
+      "successful_observations": 99999,
+      "without_observation": 1,
+      "missing_rideID_key_in_fully_parsed_valid_json": 0,
+      "distinct_values": 60137,
+      "values_reused_by_multiple_records": 20072,
+      "records_in_reused_values": 59934,
+      "repeat_occurrences_beyond_first_per_value": 39862,
+      "group_id_policy": "null; no independence established"
+    },
+    "name_join_with_candidate_images": {
+      "matched": 100000,
+      "info_without_image": 0,
+      "image_without_info": 0,
+      "basis": "direct comparison of split-qualified Info and image ZIP member paths, JSON/JPG suffix substitution only"
+    },
+    "local_native_index": {
+      "relative_to_shared_outputs": "acquisition_discovery/bdd_info_native_ride_index.json",
+      "records": 99999,
+      "bytes": 10159898,
+      "sha256": "f9fabd048a7d65d6207ae57f42eeedfa3c4e0b7a90d79e06eb59c429e338c736",
+      "published": false
+    },
+    "postprocessing_provenance": "GPT coordinator correction after Claude review: distinct parse counts subtract the three first-12 samples also parsed as fallbacks. Remaining derived fields were manually computed from the native ride index and ZIP directories; the original probe alone does not emit every final field."
+  }
+}

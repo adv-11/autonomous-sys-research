@@ -60,7 +60,10 @@ def _pipeline_policy(evaluators, mode, limitations):
             if mode == "held_out":
                 raise ValueError(f"{role}: pipeline/cache score floor mismatch")
             limitations.append(f"{role}: pipeline/cache score floors disagree.")
-        native_cap = native.get("max_raw_det") if isinstance(native, dict) else None
+        native_cap = native.get("max_raw_det", native.get("max_raw_det_per_image")) if isinstance(native, dict) else None
+        if isinstance(native, dict) and native.get("max_raw_det") is not None and native.get("max_raw_det_per_image") is not None:
+            if native["max_raw_det"] != native["max_raw_det_per_image"]:
+                raise ValueError("conflicting cache candidate cap declarations")
         if native_cap is not None and native_cap != cap:
             if mode == "held_out":
                 raise ValueError(f"{role}: pipeline/cache candidate cap mismatch")

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc" font-family="Arial, sans-serif">
+  <title id="title">Dataset acquisition and remaining experimental prerequisites</title>
+  <desc id="desc">ACDC's seven official archives are verified and extracted. Three BDD candidate archives are downloaded but release identity and revised detection labels remain unresolved. Annotation policies, grouping and model smoke tests are required before G0 can pass.</desc>
+  <metadata>GPT coordinator, 2026-11-06. Original conceptual diagram using measured acquisition counts. No dataset imagery, annotation geometry or detector results.</metadata>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#52657d"/></marker></defs>
+  <rect width="1040" height="430" rx="12" fill="#f6f8fb"/>
+  <text x="24" y="35" font-size="23" font-weight="bold" fill="#162a42">Acquisition advances the project; experimental prerequisites remain</text>
+  <text x="24" y="60" font-size="14" fill="#52657d">Conceptual flow with verified acquisition counts · GPT coordinator · 2026-11-06</text>
+  <g font-size="16" fill="#162a42">
+    <rect x="24" y="92" width="300" height="124" rx="8" fill="#e5f2ee" stroke="#83aea1"/>
+    <text x="42" y="120" font-size="19" font-weight="bold">ACDC: acquired</text>
+    <text x="42" y="147">7 official archives verified</text>
+    <text x="42" y="172">8,012 images extracted</text>
+    <text x="42" y="197">3,009 labelled image paths checked</text>
+    <rect x="24" y="240" width="300" height="144" rx="8" fill="#fff2d7" stroke="#c9a354"/>
+    <text x="42" y="269" font-size="19" font-weight="bold">BDD: candidates acquired</text>
+    <text x="42" y="296">Images, legacy labels, Info</text>
+    <text x="42" y="321">Published checksums differ</text>
+    <text x="42" y="346">Revised 2020 JSON unacquired</text>
+    <text x="42" y="370" font-size="14">Legacy boxes are not substituted</text>
+    <rect x="380" y="147" width="286" height="180" rx="8" fill="#e7eef9" stroke="#8ca5c7"/>
+    <text x="398" y="178" font-size="19" font-weight="bold">Resolve experimental inputs</text>
+    <text x="398" y="210">Release and annotation policy</text>
+    <text x="398" y="238">Defensible recording groups</text>
+    <text x="398" y="266">Disjoint fit / selection / test</text>
+    <text x="398" y="300" font-size="14">ACDC adaptation allocation on hold</text>
+    <rect x="722" y="147" width="294" height="180" rx="8" fill="#ede9f7" stroke="#a292c2"/>
+    <text x="740" y="178" font-size="19" font-weight="bold">G0: pending</text>
+    <text x="740" y="210">Checkpoint and environment pins</text>
+    <text x="740" y="238">GPU train / evaluation smoke tests</text>
+    <text x="740" y="266">Feasible counts and operating points</text>
+    <text x="740" y="300" font-size="14">Then run the threshold-transfer study</text>
+  </g>
+  <g stroke="#52657d" stroke-width="2" fill="none" marker-end="url(#arrow)"><path d="M324 154 L380 197"/><path d="M324 309 L380 277"/><path d="M666 237 L722 237"/></g>
+  <text x="380" y="382" font-size="15" fill="#52657d">Acquisition / preflight publication proceeds through peer review and my PR approval.</text>
+  <text x="380" y="407" font-size="14" fill="#52657d">The diagram does not claim independent groups or measured detector performance.</text>
+</svg>

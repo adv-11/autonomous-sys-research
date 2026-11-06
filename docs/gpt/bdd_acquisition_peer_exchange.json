@@ -1,0 +1,64 @@
+{
+  "attribution": "Actual GPT and Claude exchanges in the active acquisition/adapter tasks, 2026-11-06; not a formal cross-review.",
+  "disposition": {
+    "native_categories": "preserve verbatim; no union or alias",
+    "group_id": "null until justified by verified grouping metadata",
+    "provenance": "proposed keys accepted as adapter conventions; shared contract unchanged",
+    "ignore": "explicit no-default policy for any future detection converter; legacy metadata inspector emits no detection GT",
+    "correction": "Claude corrected the segmentation-string claim: compressed RLE is a JSON dictionary. The original claim below is retained only as an actual exchanged message, not an accepted finding.",
+    "acdc_split_overlap": "Claude finding; the GPT BDD acquisition subagent did not recheck it. The GPT coordinator independently confirmed it in 8c73ffd; see ../datasets/acdc_split_overlap_check.json. No allocation was selected by the BDD subagent."
+  },
+  "messages": [
+    {
+      "direction": "GPT to Claude",
+      "recorded_at": "2026-11-06T21:52:24.949Z",
+      "text": "PEER PROPOSAL (GPT BDD acquisition, parent 63ab281): Preserve native category names (BDD pedestrian/rider/other person versus ACDC person/rider), no union/alias by default. Keep native recording/sequence fields as attributes or provenance, canonical group_id null unless independently justified grouping metadata supplied; never infer trip independence from filename. Separate archive authenticity, JSON source revision/hash, schema inspection and provisional ignore policy in provenance; observed flags do not establish evaluator eligibility. I am pursuing real Detection 2020 labels and condition attributes; BDD images quarantined for official MD5 mismatch. Does this align with your ACDC adapter assumptions? Please flag concrete interface objections within your active task; no shared contract changes proposed."
+    },
+    {
+      "direction": "Claude to GPT",
+      "message_id": "message:mcp:d5c2812e-5931-4513-81a6-dfd957debf91:thread-send:20f6e1d2-4f63-46c6-9b66-fcba269a4b32",
+      "recorded_at": "2026-11-06T21:52:58.929Z",
+      "text": "PEER FINDING + PEER PROPOSAL (Claude, ACDC adapter, parent 63ab281; reply to your BDD category/group/provenance proposal). Affects: your BDD adapter interface and my src/threshold_transfer/acdc.py; no shared data.py/schema/contract change.\n\n1. Agreement on your four points, as positions I am implementing, not as a contract change: native names (ACDC `person`/`rider` kept verbatim, no alias to BDD `pedestrian`/`other person`, no union by default); canonical `group_id` null; ACDC GoPro sequence token (e.g. `[sequence identifier redacted]`) kept only as `attributes.native_sequence` because ACDC README defines it as \"image sequence\", not an independent trip/recording; provenance separates archive authenticity (package_id, official MD5 match, archive sha256), JSON source sha256, observed schema, and provisional ignore policy with `official_evaluator_equivalent: false`.\n\n2. Real ACDC findings you may want to mirror for BDD: (a) official `rain/instancesonly_rain_train_gt_detection.json` is byte-identical (sha256 33be9416\u2026) to the 4-condition aggregate train file (1600 images/10135 anns). I therefore read only aggregate files and derive condition from `file_name` prefix, rejecting a per-condition file whose prefixes disagree. (b) Image/annotation IDs are global across conditions and across adverse vs ref files (ref images start at 4006), but I still namespace canonical IDs (`acdc:<split>:img<id>`) and fail on collision. (c) `segmentation` is a Python-repr STRING of compressed RLE, not a dict; I drop it from canonical output and record it in `dropped_native_fields`.\n\n3. Concrete proposal for cross-adapter consistency (please accept/object): use these provenance keys in both adapters: `dataset`, `converter`, `source_files: [{relative_path, sha256}]`, `archive: {package_id|null, official_md5_match: bool|null, sha256}`, `ignore_policy`, `policy_status: \"provisional\"`, `official_evaluator_equivalent: false`, `group_id_status`, `condition_metadata_status`, `summary`. Image condition goes in `images[].attributes` with native key names (ACDC: `condition` \u2208 fog/night/rain/snow, `reference: bool`); BDD keeps `weather`/`timeofday` names. No cross-dataset condition harmonisation in adapters.\n\n4. Question: does your BDD adapter emit `ignore=false` everywhere with `iscrowd` retained (my ACDC default `no_ignore_declared`), or `ignore := iscrowd`? I am offering both explicitly selectable, default none (fail closed if not given). Please reply with your choice so the eventual evaluator policy is consistent."
+    },
+    {
+      "direction": "GPT to Claude",
+      "recorded_at": "2026-11-06T21:53:14.084Z",
+      "text": "PEER RESPONSE (GPT): Accept proposed provenance keys as adapter conventions, no shared contract change. I will use explicit ignore_policy argument with no default: no_ignore_declared retains native crowd while ignore=false; any alternative policy gets distinct provisional name and official_evaluator_equivalent=false. Actual BDD schema still being acquired; do not assume native crowd exists. category native and group_id=null as agreed. source_files relative_path is relative to documented extraction/source root, never implies publisher provenance. HTTP Berkeley candidate labels.zip returns189638612 bytes; det_20_labels.zip returns231196019 bytes, actual content verification pending. I will record your exact response/proposal and mine."
+    },
+    {
+      "direction": "Claude to GPT",
+      "message_id": "message:mcp:d5c2812e-5931-4513-81a6-dfd957debf91:thread-send:067ecb8f-21f7-4629-b222-ceee2331f75d",
+      "recorded_at": "2026-11-06T21:56:04.710Z",
+      "text": "PEER FINDING (Claude, correction): my item 2(c) was wrong. ACDC `segmentation` is a JSON object {\"size\":[h,w],\"counts\":str} (compressed RLE), not a Python-repr string; my first inspection script printed it through str(). Verified on all four aggregate files (train 10135, val 2794, train_ref 9631, val_ref 2211, all dict). Please do not record 2(c) as an ACDC finding. Other items unchanged. Thanks for the acceptance of the provenance keys and the explicit no-default ignore_policy; I am recording both."
+    },
+    {
+      "direction": "GPT to Claude",
+      "recorded_at": "2026-11-06T21:57:11.357Z",
+      "text": "PEER FINDING (GPT): Confirmed actual HTTP Berkeley det_20_labels.zip central directory has2003members:2000JPG+3dirs,zeroJSON. labels.zip fully acquired189638612bytes MD5 2d0165fd89b11025206e21a25ae1089d (mismatches official legacyarchive e21be3e7d6a07ee439faf61e769667e4), SHA2567f1f9043c70a6ff0788a323cfb914aeced109a37b7150740d670a347c881394a,CRCpasses. Actual schema100000perimageJSON name/attributes/frames[{timestamp,objects}], native person/bike/motor pluslane/area; cannot label this det2020. Pursuing revisedlabels still. If unavailable I will implement only clearly named legacyconditionmetadata inspector/index, never substitute legacyboxes or emit canonical empty detectionGT. Correction to your RLEfinding received; will record correction, not original erroneous claim."
+    },
+    {
+      "direction": "Claude to GPT",
+      "message_id": "message:mcp:d5c2812e-5931-4513-81a6-dfd957debf91:thread-send:b4c73f8c-a386-4412-a8c2-11a751f73e0c",
+      "recorded_at": "2026-11-06T21:59:30.915Z",
+      "text": "PEER FINDING (Claude, ACDC annotation-only inventory on real official JSON, parent 63ab281; affects protocol.md \u00a7ACDC \"train = adaptation pool, val = evaluation\" and the shared group policy, not your BDD scope). Official ACDC train and val are NOT sequence-disjoint. Identical sequence tokens appear in both splits: fog [sequence identifier redacted]/[sequence identifier redacted]/[sequence identifier redacted] (all 100 fog val images in shared tokens; nearest train frame index gap min 4, median 212), night [sequence identifier redacted] (56/106 val; gap min 12), rain [sequence identifier redacted]/[sequence identifier redacted]/[sequence identifier redacted]/[sequence identifier redacted]/[sequence identifier redacted] (80/100; min 12), snow [sequence identifier redacted]/[additional sequence identifiers redacted]/[sequence identifier redacted]/[sequence identifier redacted] (92/100; min 8). Frame-index units/frame rate are unverified, so \"gap\" is index distance only. GoPro chapter numbering (GOPRnnnn/GP01nnnn/GP02nnnn share nnnn) suggests even more sharing, unverified. Other verified facts: all 24,771 boxes across train/val/train_ref/val_ref are finite, positive and inside 1920x1080; every bbox equals its RLE mask extent and area equals RLE pixel count; 304 train / 63 val iscrowd; 27 train / 8 val empty adverse images; ref annotations cover exactly 800/1600 train and 203/406 val adverse frames via the README pair stem; detection has fewer thing instances than panoptic (train 10135 vs 10481; 9615 exact + 505 IoU\u22650.9; 327 of 361 unmatched panoptic segments are <100 px). My adapter keeps group_id null and does not create groups. Question: do you object to me recording this as an open protocol issue for the coordinator (\"val is not recording-independent of train; any ACDC calibrator-fit/selection/evaluation split needs a declared sequence-level or GoPro-number-level grouping before held-out claims\"), with no grouping chosen by either adapter? I will not edit protocol.md."
+    },
+    {
+      "direction": "GPT to Claude",
+      "recorded_at": "2026-11-06T22:00:35.204Z",
+      "text": "PEER RESPONSE (GPT): No objection to recording that open protocol issue for coordinator, with attribution that these are Claude's real ACDC findings I have not independently rechecked. The token overlap directly disproves official split sequence disjointness; without verified trip metadata it does not establish exact independent recording boundaries. Keep canonical group_id=null, require explicit grouping before held-out adaptation claims, preserve corresponding normal/adverse linkage. No protocol edit or chosen group allocation from this BDD task. BDD legacycandidate has no videoName/trip/sequence fields: all100000rows oneframe timestamp10000, so only source basename preserved, no inferred independence. BDDcandidate real nonpositiveboxes train395,val52,test107 confirms no silent boxrepair/substitution. Revised2020labels still unavailable so likely conditioninspector only, no canonical detectionconversion."
+    }
+  ],
+  "later_status_attempt": {
+    "delivery": "not_delivered",
+    "tool_error": "thread_not_sendable: no running turn that can be steered",
+    "disposition": "No auto/restart message was sent. No new peer agreement or review is inferred."
+  },
+  "coordinator_update": {
+    "received": "2026-11-06",
+    "root_commit": "4960a68",
+    "claude_completed_commit": "633c7e0",
+    "scope": "ACDC manifest and implementation reported complete by coordinator; no independent verification claimed by GPT BDD task. Formal review is separate.",
+    "disposition": "Do not restart Claude; preserve open grouping/version questions for coordinator."
+  },
+  "public_record_redactions": "Dataset sequence identifiers in the messages are redacted at coordinator instruction. Exact original exchanges remain in the task timeline; no substantive position or count is changed."
+}
