@@ -23,7 +23,7 @@
     <text x="600" y="157">Deterministic IoU matching</text>
     <text x="600" y="184">Observed-score boundaries</text>
     <text x="600" y="211">Recall · FPPI · ceilings · gaps</text>
-    <text x="600" y="240" font-size="14">Undefined / infeasible are explicit</text>
+    <text x="600" y="240" font-size="14">Undefined / infeasible: explicit</text>
     <rect x="864" y="98" width="232" height="166" rx="8" fill="#fbefdc" stroke="#c3a16b"/>
     <text x="880" y="126" font-size="18" font-weight="bold">Provenance guards</text>
     <text x="880" y="157">Complete inference coverage</text>
