@@ -1,0 +1,13 @@
+{
+  "asset_root": "../det-eval-2d",
+  "root_resolution": "relative_to_this_repository_root",
+  "coco_annotations": "datasets/coco/annotations/instances_val2017.json",
+  "coco_images": "datasets/coco/val2017",
+  "kitti_images": "datasets/kitti/training/image_2",
+  "kitti_labels": "datasets/kitti/training/label_2",
+  "kitti_derived_val_annotations": "datasets/kitti/coco_gt_val.json",
+  "legacy_predictions": "results/raw",
+  "yolo11s_weights": "weights/yolo11s.pt",
+  "rtdetr_l_weights": "weights/rtdetr-l.pt",
+  "python_environment": ".venv/Scripts/python.exe"
+}

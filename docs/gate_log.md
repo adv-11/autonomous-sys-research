@@ -36,3 +36,10 @@
 - The repository's `data/` contains only its README. External dataset locations have not been supplied. No datasets or annotations are claimed to have been acquired.
 - Next work: dependency-light reference metrics and dataset-preflight/conversion tooling, with meaningful synthetic tests and a shared provisional JSON contract.
 - G0 remains pending. No paid compute, training, checkpoint/GPU validation or real dataset evaluation is authorized by an implementation test passing.
+
+### Local asset discovery later in the same session
+
+- My `det-eval-2d` folder contains COCO val2017, KITTI images/labels, cached predictions, detector weights and a CUDA-capable Python environment. The verified inventory, hashes, provenance and reuse limits are in `docs/local_assets.md`.
+- The earlier “no datasets in this repository” observation remains correct, but data tooling can now inspect these external assets without another download. No BDD100K/ACDC assets were found there.
+- Use existing data and caches for development and diagnostic replay. Prior KITTI results are not fresh confirmatory findings for this project, and cached outputs are score/cap censored.
+- G0 remains pending; importing torch and detecting CUDA does not replace the planned per-model forward/backward/evaluation checks.
