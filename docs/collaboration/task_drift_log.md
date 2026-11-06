@@ -22,3 +22,17 @@ I want periodic checks for drift, unsupported claims, excessive scope and stalle
 ### After PR #5 merged
 
 **Scope check: on course.** The next PR contains the already reviewed ACDC adapter, its synthetic tests, aggregate evidence, diagram and review resolution, plus this publication record. No subagent is active, no new parser feature or optimization is being commissioned, and no completed full-data audit is being repeated. Integration tests check the merged code once; the research bottlenecks remain release identity, grouping and model feasibility. Corrective prompts are reserved for an observed deviation in a future active task.
+
+## 2026-11-06 — Grouping and smoke-test milestone (Claude coordinator)
+
+**Overall: green, with a provider interruption.** Both tasks stayed within their G0-prerequisite scopes. Neither ran a detector on ACDC/BDD, used paid compute or claimed gate passage.
+
+| Work | Evidence and finding | Action |
+|---|---|---|
+| GPT ACDC grouping | Stopped after ~4 minutes: the Codex workspace ran out of credits. Uncommitted draft left in its worktree. | Notified the Claude smoke task that GPT could not answer. On my instruction, reassigned to a Claude task that verified the draft before reuse and attributed it explicitly. |
+| Claude ACDC grouping | Reproduced the draft's counts with the new links disabled; added byte-identity links and computed a precision verdict. The coordinator independently re-hashed the reference images: 12 identical sets, 2 cross-condition. | Accepted. The infeasibility verdict is a finding, not a reason to change the allocation rule after seeing results. |
+| Claude smoke tests | One bounded probe per batch size; one environment retry for an OS DLL block. Recorded values match the JSON log; checkpoint hashes re-verified by the coordinator; `det-eval-2d` unchanged. The note corrects two statements from its own peer reply. | Accepted. DEIM was correctly left untested. |
+
+**Unsupported-claim assessment:** no unsupported performance claims were found. The interrupted GPT exchange is recorded as unanswered, not as agreement.
+
+**Next checkpoint:** GPT cross-review of both commits once Codex has credits again; PR publication follows that review and my approval.
