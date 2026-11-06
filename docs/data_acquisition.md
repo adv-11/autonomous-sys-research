@@ -19,7 +19,9 @@ Six ACDC annotation archives have been downloaded, matched against the official 
 | `gt_trainval.zip` | 133,426,176 | `54cf06e3f2d8a8c5d297dc55aa107cee` |
 | `gt_trainval_ref.zip` | 57,476,002 | `fbf6faa5d10aa884c25889c5561a2e50` |
 
-The full image archives for BDD100K and ACDC are still downloading at this checkpoint. A partial archive is not a completed acquisition. ACDC's image endpoint does not support HTTP byte-range resumption, so it requires an uninterrupted transfer. Its published image MD5 is `3350587a08502b4dfee47750bfd2a052`.
+The BDD image mirror transfer completed at 5,669,071,832 bytes and matches the mirror's SHA-256 `afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784`. Its measured MD5 is `c7a1d4db9af5a4691d5f6fee2a62e132`, which **does not match the official archive MD5**. Its ZIP contains 100,000 image files under `100k/`, but archive-level publisher identity is unverified. It is retained as `bdd100k_images_100k.mirror-unverified.zip` and must not be treated as publisher-verified or used for confirmatory experiments until the discrepancy is resolved.
+
+The full ACDC image archive is still downloading at this checkpoint. A partial archive is not a completed acquisition. ACDC's image endpoint does not support HTTP byte-range resumption, so it requires an uninterrupted transfer. Its published image MD5 is `3350587a08502b4dfee47750bfd2a052`.
 
 ## Local layout
 
