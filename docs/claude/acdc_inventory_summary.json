@@ -1,5 +1,5 @@
 {
- "note": "Claude, 2026-11-06, parent 63ab281. Real annotation-only inventory of official ACDC JSON/PNG annotations by threshold_transfer.acdc (no images, inference or evaluation). Aggregate counts and hashes only; no boxes. invalid_mask from the full --invalid-images -1 run; all other sections from the final-code run and identical where the two runs overlap.",
+ "note": "Claude original annotation inventory; GPT coordinator full rerun after formal-review fixes, 2026-11-06. All 2006 real adverse masks passed the revised PNG decoder; all original counts, histograms and means are unchanged. Auxiliary panoptic hashes and invalid-mask source digests added. No detector inference or experimental result.",
  "dataset": "acdc",
  "scope": "annotation-only; no images, inference or evaluation",
  "files": {
@@ -582,9 +582,31 @@
    }
   }
  },
+ "panoptic_sources": {
+  "train": {
+   "relative_path": "gt_panoptic_trainval/gt_panoptic/train_gt_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "849d2962d8373b167bee28ba4e7d5056efd029d1b64d7ad3acc7778994c452db"
+  },
+  "train_ref": {
+   "relative_path": "gt_panoptic_trainval_ref/gt_panoptic/train_gt_ref_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "45e8dfe1b8fbb7e696a575f665190ba01aafe52ba87ea328a46875037d955187"
+  },
+  "val": {
+   "relative_path": "gt_panoptic_trainval/gt_panoptic/val_gt_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "9790e88139922a4eccd1637b499354648145474127db98ae2d10b6ae5b4c45a5"
+  },
+  "val_ref": {
+   "relative_path": "gt_panoptic_trainval_ref/gt_panoptic/val_gt_ref_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "7456e9930470249070f7dde3c97e701a0481430675992600ef58f85cf8142eec"
+  }
+ },
  "reference_pairing": {
   "train": {
-   "status": "documented_naming_convention: the ACDC README names reference files by the adverse image's {sequence}_frame_{frame} stem with a _ref marker; the correspondence is a scene/viewpoint pairing, not an independent group, and is not yet checked against the RGB image archive",
+   "status": "documented_naming_convention: the ACDC README names reference files by the adverse image's {sequence}_frame_{frame} stem with a _ref marker; the correspondence is a scene/viewpoint pairing, not an independent group; this annotation parser does not verify RGB coverage or visual correspondence",
    "adverse_images": 1600,
    "annotated_reference_images": 800,
    "adverse_with_annotated_reference": 800,
@@ -608,7 +630,7 @@
    }
   },
   "val": {
-   "status": "documented_naming_convention: the ACDC README names reference files by the adverse image's {sequence}_frame_{frame} stem with a _ref marker; the correspondence is a scene/viewpoint pairing, not an independent group, and is not yet checked against the RGB image archive",
+   "status": "documented_naming_convention: the ACDC README names reference files by the adverse image's {sequence}_frame_{frame} stem with a _ref marker; the correspondence is a scene/viewpoint pairing, not an independent group; this annotation parser does not verify RGB coverage or visual correspondence",
    "adverse_images": 406,
    "annotated_reference_images": 203,
    "adverse_with_annotated_reference": 203,
@@ -723,6 +745,11 @@
  "invalid_mask": {
   "train": {
    "images_read": 1600,
+   "source_manifest": {
+    "files": 1600,
+    "sha256": "4654ad4c2d8e193bb273ceba053124347804d0a5f73dffeeecec759ea59531f7",
+    "recipe": "UTF-8 JSON of relative_path/sha256 objects sorted by relative_path; sort_keys=True, separators=(',', ':'); paths relative to gt root"
+   },
    "mean_invalid_pixel_fraction_by_condition": {
     "fog": 0.041146,
     "night": 0.339869,
@@ -789,6 +816,11 @@
   },
   "val": {
    "images_read": 406,
+   "source_manifest": {
+    "files": 406,
+    "sha256": "1b576fb05f96c1d782322e1e8877ec56bdf4149c5584d4fe51ef088791ebe9d9",
+    "recipe": "UTF-8 JSON of relative_path/sha256 objects sorted by relative_path; sort_keys=True, separators=(',', ':'); paths relative to gt root"
+   },
    "mean_invalid_pixel_fraction_by_condition": {
     "fog": 0.035695,
     "night": 0.392789,
