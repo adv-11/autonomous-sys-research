@@ -22,10 +22,20 @@ I'm using two research subagents, GPT and Claude, to investigate independently a
 
 ## Status
 
+The reference evaluator is implemented with a standard-library core, strict input/provenance checks and synthetic regression tests. Start with [the usage guide](docs/evaluator_usage.md), [the implementation and direct peer exchange](docs/gpt/tooling_implementation.md), and [the existing local-asset inventory](docs/local_assets.md). Data/cache adapters are developed on the separate Claude research branch.
+
+```powershell
+$env:PYTHONPATH = 'src'
+uv run --no-project --python 3.11 python -m unittest discover -s tests
+uv run --no-project --python 3.11 python -m threshold_transfer.evaluate --help
+```
+
+![Toolchain across the GPT and Claude tooling PRs](docs/figures/tooling_flow.svg)
+
 Phase 0 source audits and the GPT–Claude discussion are complete. My review starts with the [GPT research summary](docs/gpt/research_summary.md), its [protocol](docs/gpt/protocol.md) and [review resolution](docs/gpt/review_resolution.md). Claude's independently prepared audit, reply and cross-review are available on the [separate Claude research branch](https://github.com/adv-11/autonomous-sys-research/tree/claude-research/docs/claude).
 
 The proposed design separates calibration fitting, threshold selection and held-out testing; distinguishes candidate-ceiling failures from threshold-related misses; and treats architecture comparisons as comparisons of complete pipelines. The diagrams explain proposed choices, not measured results.
 
 ![Conceptual detector architectures and score-selection pathways](docs/gpt/figures/model_score_paths.svg)
 
-No training or dataset evaluation has been performed. G0 remains pending: lawful data access, annotation and group-count audits, checkpoint inspection, environment pins and actual GPU smoke tests. See [the gate log](docs/gate_log.md) and [workflow](CONTRIBUTING.md).
+No new detector training or night/weather evaluation has been performed. Existing COCO/KITTI caches support development-only adapter validation. G0 remains pending: BDD/ACDC access, annotation and group audits, checkpoint inspection, environment pins and actual GPU smoke tests. See [the gate log](docs/gate_log.md) and [workflow](CONTRIBUTING.md).
