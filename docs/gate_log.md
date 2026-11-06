@@ -50,3 +50,12 @@
 - Separate formal cross-reviews followed automatically. The coordinator fixed the reported safeguards and converter defects directly, preserving the reviews and resolution records.
 - The evaluator branch passes 32 tests; the combined adapter/evaluator branch passes 67 on Python 3.11 and 3.12. Real local COCO/KITTI conversions pass direct dictionary integration under explicit diagnostic policies. Unknown-group held-out checks fail as intended.
 - These are implementation and development-asset checks. No BDD/ACDC data, verified condition/group manifests, model-specific training/evaluation smoke tests or new weather-transfer findings are claimed. G0 stays pending.
+
+## 2026-11-06 — Missing dataset acquisition
+
+- I merged the tooling PRs and authorized downloading the missing datasets and continuing the research. PR #3 merged into `main`; PR #4 merged into `gpt-research`, so the approved adapter contribution still needs a main-targeted PR. No research merge was performed by an AI.
+- GPT acquired the seven relevant ACDC archives directly from ETH. All seven match the official MD5 values; image SHA-256, full ZIP integrity and extraction are being completed. The six annotation archives already pass SHA-256 recording and CRC/extraction checks. Raw and converted data remain outside Git.
+- The ACDC image ZIP contains 8,012 PNG images. GPT checked all 3,009 image paths referenced by detection annotations and their PNG dimensions: no missing images or dimension mismatches. This does not verify visual viewpoint correspondence or group independence.
+- Claude implemented an ACDC adapter and inspected actual annotations. GPT independently confirmed train/val sequence-token overlap. The adaptation allocation is on hold pending a defensible group-disjoint design; official split names are insufficient.
+- The BDD image mirror is complete and passes ZIP CRC checks, but its MD5 differs from the published archive MD5. BDD label acquisition and release identification continue separately. Legacy labels are not a substitute for verified Detection 2020 annotations.
+- G0 remains **pending**. Acquisition and annotation inspection are not detector results, verified independent splits, pinned model environments or the required forward/backward/evaluation smoke tests.
