@@ -22,6 +22,10 @@ All seven ACDC archives have been downloaded, matched against the official MD5, 
 
 The BDD image mirror transfer completed at 5,669,071,832 bytes and matches the mirror's SHA-256 `afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784`. Its measured MD5 is `c7a1d4db9af5a4691d5f6fee2a62e132`, which **does not match the official archive MD5**. Its ZIP contains 100,000 image files under `100k/`, but archive-level publisher identity is unverified. It is retained as `bdd100k_images_100k.mirror-unverified.zip` and must not be treated as publisher-verified or used for confirmatory experiments until the discrepancy is resolved.
 
+GPT also acquired the current Berkeley legacy-label candidate (189,638,612 bytes) and Info candidate (5,116,983,841 bytes), both with complete ZIP CRC passes and recorded SHA-256 hashes. Both differ from the corresponding published MD5 values. [The BDD acquisition audit](gpt/bdd_acquisition.md) preserves release and transport limits; [the Info audit](gpt/bdd_acquisition_info.md) distinguishes 27,529 complete JSON parse attempts from 72,471 prefix-only inspections. There are 99,999 usable native ride-ID observations and one empty train member; native ID reuse includes a train/val overlap but does not establish independent trips. These are candidate metadata, not verified detection GT or final group assignments.
+
+**Detection 2020 annotations remain unacquired.** The live button's ZIP central directory contains 2,000 JPGs and no JSON; a decompressed member is a JPEG. The separate legacy-condition tool cannot emit canonical detection annotations. No legacy GT substitution was made.
+
 The full ACDC image archive's SHA-256 is `f1765e65f077b5f33f9b58fe05b802bdecf24c798f8f95e7d217c223e5bb56d3`. All **8,012 PNG images** are extracted, with no unfinished extraction files. Its members include all 3,009 images referenced by the aggregate detection annotations; every referenced PNG header matches the JSON dimensions. This checks file coverage and dimensions, not visual viewpoint correspondence or group independence. ACDC's image endpoint does not support HTTP byte-range resumption, so an interrupted transfer must be restarted.
 
 ## Local layout
@@ -36,4 +40,4 @@ Extraction checked CRCs, rejected path escapes and symbolic links, and refused c
 
 ## Remaining work
 
-Acquire and identify BDD detection/condition labels; complete adapter reviews and annotation policy decisions; inspect correspondence metadata; establish grouping evidence; and cross-review the changes before PR publication. No inference, training, condition comparison or gate passage is claimed here.
+Resolve BDD release identity and access to revised Detection 2020 annotations; complete adapter reviews and annotation policy decisions; inspect correspondence metadata; establish grouping evidence; and cross-review the changes before PR publication. The missing revised labels remain an access blocker after the documented download checks, not an unnoticed dependency. No inference, training, condition comparison or gate passage is claimed here.
