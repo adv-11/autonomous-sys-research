@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560" font-family="Helvetica, Arial, sans-serif" font-size="13" role="img" aria-labelledby="t d">
+  <title id="t">ACDC detection annotations: files used, pair linkage and the train/val sequence overlap (Claude)</title>
+  <desc id="d">The converter reads the four official aggregate detection files. Adverse train has 1600 images and val 406; annotated normal-condition references cover 800 and 203 of them through the README pair stem. Sequence tokens recur across official train and val in every condition. Pair links and sequence tokens are kept as attributes; group_id stays null. Counts are from the official annotation JSON (annotation-only inspection, 2026-11-06); the layout is conceptual.</desc>
+  <metadata>Claude diagram, original layout. Counts measured by threshold_transfer.acdc inventory on official ACDC JSON; no ACDC imagery or annotation geometry reproduced.</metadata>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="560" fill="#ffffff"/>
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#222">ACDC detection annotations as converted: pairs are links, sequences are not groups</text>
+  <text x="20" y="48" font-size="12" fill="#666">Counts measured from official annotation JSON (no images, no inference). Layout conceptual.</text>
+
+  <!-- adverse -->
+  <rect x="20" y="70" width="300" height="150" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+  <text x="34" y="94" font-weight="bold" fill="#223">Adverse train (aggregate file)</text>
+  <text x="34" y="116" fill="#333">1600 images · 10135 instances</text>
+  <text x="34" y="136" fill="#333">fog / night / rain / snow: 400 each</text>
+  <text x="34" y="156" fill="#333">person 1692 · rider 227 · iscrowd 304</text>
+  <text x="34" y="176" fill="#333">empty images 27</text>
+  <text x="34" y="200" font-size="11" fill="#a33">rain per-condition train file = aggregate copy</text>
+
+  <rect x="20" y="300" width="300" height="130" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+  <text x="34" y="324" font-weight="bold" fill="#223">Adverse val (aggregate file)</text>
+  <text x="34" y="346" fill="#333">406 images · 2794 instances</text>
+  <text x="34" y="366" fill="#333">fog 100 · night 106 · rain 100 · snow 100</text>
+  <text x="34" y="386" fill="#333">person 529 · rider 49 · iscrowd 63</text>
+  <text x="34" y="406" fill="#333">empty images 8</text>
+
+  <!-- refs -->
+  <rect x="660" y="70" width="300" height="130" rx="6" fill="#f2f7ee" stroke="#5b8a3c"/>
+  <text x="674" y="94" font-weight="bold" fill="#232">Normal-condition train_ref</text>
+  <text x="674" y="116" fill="#333">800 annotated · 9631 instances</text>
+  <text x="674" y="136" fill="#333">200 per condition</text>
+  <text x="674" y="156" fill="#333">person 2045 · rider 505</text>
+  <text x="674" y="180" font-size="11" fill="#555">other 800 adverse frames: no annotated ref</text>
+
+  <rect x="660" y="300" width="300" height="130" rx="6" fill="#f2f7ee" stroke="#5b8a3c"/>
+  <text x="674" y="324" font-weight="bold" fill="#232">Normal-condition val_ref</text>
+  <text x="674" y="346" fill="#333">203 annotated · 2211 instances</text>
+  <text x="674" y="366" fill="#333">fog 50 · night 53 · rain 50 · snow 50</text>
+  <text x="674" y="386" fill="#333">person 552 · rider 71</text>
+
+  <!-- pair links -->
+  <line x1="320" y1="130" x2="656" y2="130" stroke="#5b8a3c" stroke-width="2" marker-end="url(#a)"/>
+  <text x="400" y="122" font-size="12" fill="#2d5a1a">pair stem {cond}/{split}/{seq}_frame_{n}</text>
+  <text x="400" y="148" font-size="11" fill="#555">attributes.acdc_pair_key (link, not a group)</text>
+  <line x1="320" y1="360" x2="656" y2="360" stroke="#5b8a3c" stroke-width="2" marker-end="url(#a)"/>
+  <text x="430" y="352" font-size="12" fill="#2d5a1a">203 / 406 linked</text>
+
+  <!-- overlap -->
+  <path d="M170,220 L170,300" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <rect x="190" y="236" width="440" height="48" rx="4" fill="#fdf0ee" stroke="#c0392b"/>
+  <text x="200" y="256" font-size="12" fill="#8e2a1f">Same sequence tokens in official train and val (all 4 conditions)</text>
+  <text x="200" y="274" font-size="12" fill="#8e2a1f">val images in shared tokens: fog 100, night 56, rain 80, snow 92</text>
+
+  <!-- converter -->
+  <rect x="20" y="460" width="940" height="80" rx="6" fill="#fafafa" stroke="#999"/>
+  <text x="34" y="484" font-weight="bold" fill="#222">threshold_transfer.acdc → canonical v1 (outside Git)</text>
+  <text x="34" y="504" fill="#333">native person / rider kept · iscrowd kept · ignore only via explicit policy · invalid mask never becomes ignore</text>
+  <text x="34" y="524" fill="#333">group_id = null · sequence, frame, condition, pair key as attributes · all boxes valid, in bounds, equal to RLE extent</text>
+</svg>

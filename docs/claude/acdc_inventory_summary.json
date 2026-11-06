@@ -1,0 +1,889 @@
+{
+ "note": "Claude original annotation inventory; GPT coordinator full rerun after formal-review fixes, 2026-11-06. All 2006 real adverse masks passed the revised PNG decoder; all original counts, histograms and means are unchanged. Auxiliary panoptic hashes and invalid-mask source digests added. No detector inference or experimental result.",
+ "dataset": "acdc",
+ "scope": "annotation-only; no images, inference or evaluation",
+ "files": {
+  "train": {
+   "relative_path": "gt_detection_trainval/gt_detection/instancesonly_train_gt_detection.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "33be9416b6c4c66d55fe61ee0d3dd1e2ecf06fc82db38480aa377e5341c24487",
+   "summary": {
+    "image_count": 1600,
+    "annotation_count": 10135,
+    "empty_image_count": 27,
+    "category_counts": {
+     "bicycle": 392,
+     "bus": 168,
+     "car": 6657,
+     "motorcycle": 250,
+     "person": 1692,
+     "rider": 227,
+     "train": 212,
+     "truck": 537
+    },
+    "iscrowd_count": 304,
+    "ignore_count": 0,
+    "images_with_unknown_group": 1600,
+    "by_condition": {
+     "fog": {
+      "bicycle": 37,
+      "bicycle_iscrowd": 2,
+      "bus": 18,
+      "bus_iscrowd": 0,
+      "car": 1638,
+      "car_iscrowd": 8,
+      "empty_images": 9,
+      "images": 400,
+      "motorcycle": 14,
+      "motorcycle_iscrowd": 1,
+      "person": 176,
+      "person_iscrowd": 2,
+      "rider": 26,
+      "rider_iscrowd": 0,
+      "train": 21,
+      "train_iscrowd": 0,
+      "truck": 360,
+      "truck_iscrowd": 0
+     },
+     "night": {
+      "bicycle": 138,
+      "bicycle_iscrowd": 18,
+      "bus": 57,
+      "bus_iscrowd": 0,
+      "car": 1734,
+      "car_iscrowd": 100,
+      "empty_images": 9,
+      "images": 400,
+      "motorcycle": 121,
+      "motorcycle_iscrowd": 3,
+      "person": 671,
+      "person_iscrowd": 10,
+      "rider": 142,
+      "rider_iscrowd": 2,
+      "train": 98,
+      "train_iscrowd": 0,
+      "truck": 14,
+      "truck_iscrowd": 0
+     },
+     "rain": {
+      "bicycle": 111,
+      "bicycle_iscrowd": 18,
+      "bus": 37,
+      "bus_iscrowd": 0,
+      "car": 1477,
+      "car_iscrowd": 44,
+      "empty_images": 7,
+      "images": 400,
+      "motorcycle": 83,
+      "motorcycle_iscrowd": 6,
+      "person": 242,
+      "person_iscrowd": 5,
+      "rider": 21,
+      "rider_iscrowd": 0,
+      "train": 37,
+      "train_iscrowd": 0,
+      "truck": 31,
+      "truck_iscrowd": 0
+     },
+     "snow": {
+      "bicycle": 106,
+      "bicycle_iscrowd": 10,
+      "bus": 56,
+      "bus_iscrowd": 0,
+      "car": 1808,
+      "car_iscrowd": 55,
+      "empty_images": 2,
+      "images": 400,
+      "motorcycle": 32,
+      "motorcycle_iscrowd": 1,
+      "person": 603,
+      "person_iscrowd": 18,
+      "rider": 38,
+      "rider_iscrowd": 1,
+      "train": 56,
+      "train_iscrowd": 0,
+      "truck": 132,
+      "truck_iscrowd": 0
+     }
+    }
+   },
+   "mask_check": {
+    "mask_bbox_equal": 10135
+   }
+  },
+  "val": {
+   "relative_path": "gt_detection_trainval/gt_detection/instancesonly_val_gt_detection.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "1dc7b900b8f1f2797f2c9238417d438d336ac8907778940402fab852ee434215",
+   "summary": {
+    "image_count": 406,
+    "annotation_count": 2794,
+    "empty_image_count": 8,
+    "category_counts": {
+     "bicycle": 90,
+     "bus": 49,
+     "car": 1865,
+     "motorcycle": 60,
+     "person": 529,
+     "rider": 49,
+     "train": 46,
+     "truck": 106
+    },
+    "iscrowd_count": 63,
+    "ignore_count": 0,
+    "images_with_unknown_group": 406,
+    "by_condition": {
+     "fog": {
+      "bicycle": 11,
+      "bicycle_iscrowd": 0,
+      "bus": 5,
+      "bus_iscrowd": 0,
+      "car": 496,
+      "car_iscrowd": 3,
+      "empty_images": 1,
+      "images": 100,
+      "motorcycle": 11,
+      "motorcycle_iscrowd": 0,
+      "person": 62,
+      "person_iscrowd": 0,
+      "rider": 11,
+      "rider_iscrowd": 0,
+      "train": 3,
+      "train_iscrowd": 0,
+      "truck": 41,
+      "truck_iscrowd": 0
+     },
+     "night": {
+      "bicycle": 56,
+      "bicycle_iscrowd": 18,
+      "car": 266,
+      "car_iscrowd": 8,
+      "empty_images": 6,
+      "images": 106,
+      "motorcycle": 21,
+      "motorcycle_iscrowd": 1,
+      "person": 158,
+      "person_iscrowd": 2,
+      "rider": 26,
+      "rider_iscrowd": 0,
+      "train": 24,
+      "train_iscrowd": 0,
+      "truck": 8,
+      "truck_iscrowd": 0
+     },
+     "rain": {
+      "bicycle": 10,
+      "bicycle_iscrowd": 1,
+      "bus": 32,
+      "bus_iscrowd": 0,
+      "car": 540,
+      "car_iscrowd": 14,
+      "empty_images": 0,
+      "images": 100,
+      "motorcycle": 12,
+      "motorcycle_iscrowd": 0,
+      "person": 134,
+      "person_iscrowd": 2,
+      "rider": 10,
+      "rider_iscrowd": 0,
+      "train": 9,
+      "train_iscrowd": 0,
+      "truck": 16,
+      "truck_iscrowd": 0
+     },
+     "snow": {
+      "bicycle": 13,
+      "bicycle_iscrowd": 3,
+      "bus": 12,
+      "bus_iscrowd": 0,
+      "car": 563,
+      "car_iscrowd": 4,
+      "empty_images": 1,
+      "images": 100,
+      "motorcycle": 16,
+      "motorcycle_iscrowd": 0,
+      "person": 175,
+      "person_iscrowd": 7,
+      "rider": 2,
+      "rider_iscrowd": 0,
+      "train": 10,
+      "train_iscrowd": 0,
+      "truck": 41,
+      "truck_iscrowd": 0
+     }
+    }
+   },
+   "mask_check": {
+    "mask_bbox_equal": 2794
+   }
+  },
+  "train_ref": {
+   "relative_path": "gt_detection_trainval_ref/gt_detection/instancesonly_train_gt_ref_detection.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "2123a3cb3996d478b4186e71df9b3a336b66a82f3b23b5dbefa7b2e19eae22ed",
+   "summary": {
+    "image_count": 800,
+    "annotation_count": 9631,
+    "empty_image_count": 1,
+    "category_counts": {
+     "bicycle": 599,
+     "bus": 123,
+     "car": 5558,
+     "motorcycle": 335,
+     "person": 2045,
+     "rider": 505,
+     "train": 143,
+     "truck": 323
+    },
+    "iscrowd_count": 32,
+    "ignore_count": 0,
+    "images_with_unknown_group": 800,
+    "by_condition": {
+     "fog": {
+      "bicycle": 47,
+      "bicycle_iscrowd": 1,
+      "bus": 32,
+      "bus_iscrowd": 0,
+      "car": 1583,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 200,
+      "motorcycle": 53,
+      "motorcycle_iscrowd": 0,
+      "person": 222,
+      "person_iscrowd": 0,
+      "rider": 56,
+      "rider_iscrowd": 0,
+      "train": 9,
+      "train_iscrowd": 0,
+      "truck": 225,
+      "truck_iscrowd": 0
+     },
+     "night": {
+      "bicycle": 201,
+      "bicycle_iscrowd": 15,
+      "bus": 26,
+      "bus_iscrowd": 0,
+      "car": 1376,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 200,
+      "motorcycle": 101,
+      "motorcycle_iscrowd": 0,
+      "person": 784,
+      "person_iscrowd": 0,
+      "rider": 184,
+      "rider_iscrowd": 0,
+      "train": 43,
+      "train_iscrowd": 0,
+      "truck": 11,
+      "truck_iscrowd": 0
+     },
+     "rain": {
+      "bicycle": 132,
+      "bicycle_iscrowd": 11,
+      "bus": 36,
+      "bus_iscrowd": 0,
+      "car": 1308,
+      "car_iscrowd": 0,
+      "empty_images": 1,
+      "images": 200,
+      "motorcycle": 103,
+      "motorcycle_iscrowd": 0,
+      "person": 378,
+      "person_iscrowd": 0,
+      "rider": 81,
+      "rider_iscrowd": 0,
+      "train": 39,
+      "train_iscrowd": 0,
+      "truck": 48,
+      "truck_iscrowd": 0
+     },
+     "snow": {
+      "bicycle": 219,
+      "bicycle_iscrowd": 5,
+      "bus": 29,
+      "bus_iscrowd": 0,
+      "car": 1291,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 200,
+      "motorcycle": 78,
+      "motorcycle_iscrowd": 0,
+      "person": 661,
+      "person_iscrowd": 0,
+      "rider": 184,
+      "rider_iscrowd": 0,
+      "train": 52,
+      "train_iscrowd": 0,
+      "truck": 39,
+      "truck_iscrowd": 0
+     }
+    }
+   },
+   "mask_check": {
+    "mask_bbox_equal": 9631
+   }
+  },
+  "val_ref": {
+   "relative_path": "gt_detection_trainval_ref/gt_detection/instancesonly_val_gt_ref_detection.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "75f71206c37320734932f2c3edfb7961428eea5bee23f6676787293af43d7a61",
+   "summary": {
+    "image_count": 203,
+    "annotation_count": 2211,
+    "empty_image_count": 0,
+    "category_counts": {
+     "bicycle": 137,
+     "bus": 33,
+     "car": 1287,
+     "motorcycle": 59,
+     "person": 552,
+     "rider": 71,
+     "train": 36,
+     "truck": 36
+    },
+    "iscrowd_count": 18,
+    "ignore_count": 0,
+    "images_with_unknown_group": 203,
+    "by_condition": {
+     "fog": {
+      "bicycle": 9,
+      "bicycle_iscrowd": 1,
+      "bus": 4,
+      "bus_iscrowd": 0,
+      "car": 408,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 50,
+      "motorcycle": 14,
+      "motorcycle_iscrowd": 0,
+      "person": 76,
+      "person_iscrowd": 0,
+      "rider": 9,
+      "rider_iscrowd": 0,
+      "train": 3,
+      "train_iscrowd": 0,
+      "truck": 21,
+      "truck_iscrowd": 0
+     },
+     "night": {
+      "bicycle": 60,
+      "bicycle_iscrowd": 13,
+      "car": 209,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 53,
+      "motorcycle": 20,
+      "motorcycle_iscrowd": 0,
+      "person": 213,
+      "person_iscrowd": 0,
+      "rider": 21,
+      "rider_iscrowd": 0,
+      "train": 16,
+      "train_iscrowd": 0
+     },
+     "rain": {
+      "bicycle": 21,
+      "bicycle_iscrowd": 2,
+      "bus": 24,
+      "bus_iscrowd": 0,
+      "car": 314,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 50,
+      "motorcycle": 9,
+      "motorcycle_iscrowd": 0,
+      "person": 98,
+      "person_iscrowd": 0,
+      "rider": 9,
+      "rider_iscrowd": 0,
+      "train": 6,
+      "train_iscrowd": 0,
+      "truck": 10,
+      "truck_iscrowd": 0
+     },
+     "snow": {
+      "bicycle": 47,
+      "bicycle_iscrowd": 2,
+      "bus": 5,
+      "bus_iscrowd": 0,
+      "car": 356,
+      "car_iscrowd": 0,
+      "empty_images": 0,
+      "images": 50,
+      "motorcycle": 16,
+      "motorcycle_iscrowd": 0,
+      "person": 165,
+      "person_iscrowd": 0,
+      "rider": 32,
+      "rider_iscrowd": 0,
+      "train": 11,
+      "train_iscrowd": 0,
+      "truck": 5,
+      "truck_iscrowd": 0
+     }
+    }
+   },
+   "mask_check": {
+    "mask_bbox_equal": 2211
+   }
+  }
+ },
+ "condition_files": [
+  {
+   "condition": "fog",
+   "images": 400,
+   "annotations": 2290,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "train",
+   "sha256": "1f5b8f58ef4d3a16e584c729d1ea74cc1f2e738adb2c59ed790a7f21ab9d5a75"
+  },
+  {
+   "condition": "night",
+   "images": 400,
+   "annotations": 2975,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "train",
+   "sha256": "312a7ec9ee59362926c6011f67a4716fdb8ed85a664bbedad5bbd0380cd1e6f1"
+  },
+  {
+   "condition": "rain",
+   "images": 1600,
+   "annotations": 10135,
+   "foreign_condition_images": 1200,
+   "exact_aggregate_subset": false,
+   "split": "train",
+   "sha256": "33be9416b6c4c66d55fe61ee0d3dd1e2ecf06fc82db38480aa377e5341c24487"
+  },
+  {
+   "condition": "snow",
+   "images": 400,
+   "annotations": 2831,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "train",
+   "sha256": "74ba02341758fc4ddf011fcb0aebdb954ebfa6eaad399a69f83f5b6f3b94be49"
+  },
+  {
+   "condition": "fog",
+   "images": 100,
+   "annotations": 640,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "val",
+   "sha256": "7617e229088f0cc67ce477382ae48cde87d2deba1998267b6f8a1779b639e53b"
+  },
+  {
+   "condition": "night",
+   "images": 106,
+   "annotations": 559,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "val",
+   "sha256": "2c52aa2c1b1bbfc0f0dea44c418cc895632cb5a6092489dc048ce398c9bbe683"
+  },
+  {
+   "condition": "rain",
+   "images": 100,
+   "annotations": 763,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "val",
+   "sha256": "fdea051f880e5c67c885a255abf1ff6fdca570d9099fc8505e89fb4eef37a492"
+  },
+  {
+   "condition": "snow",
+   "images": 100,
+   "annotations": 832,
+   "foreign_condition_images": 0,
+   "exact_aggregate_subset": true,
+   "split": "val",
+   "sha256": "5674d4894b7a9b34f4f4b5c02adc5beec8bcf60ec871d8a39945c6eff8341c02"
+  }
+ ],
+ "panoptic_crosscheck": {
+  "train": {
+   "detection_instances": 10135,
+   "panoptic_thing_segments": 10481,
+   "exact_bbox_area_matches": 9615,
+   "near_matches_bbox_iou_ge_0.9": 505,
+   "detection_unmatched": 15,
+   "panoptic_unmatched": 361,
+   "panoptic_unmatched_area_lt_100px": 327,
+   "panoptic_iscrowd_by_category": {
+    "bicycle": 48,
+    "bus": 0,
+    "car": 209,
+    "motorcycle": 11,
+    "person": 35,
+    "rider": 3,
+    "train": 0,
+    "truck": 0
+   }
+  },
+  "train_ref": {
+   "detection_instances": 9631,
+   "panoptic_thing_segments": 9630,
+   "exact_bbox_area_matches": 9625,
+   "near_matches_bbox_iou_ge_0.9": 0,
+   "detection_unmatched": 6,
+   "panoptic_unmatched": 5,
+   "panoptic_unmatched_area_lt_100px": 0,
+   "panoptic_iscrowd_by_category": {
+    "bicycle": 29,
+    "bus": 0,
+    "car": 2,
+    "motorcycle": 0,
+    "person": 0,
+    "rider": 0,
+    "train": 0,
+    "truck": 0
+   }
+  },
+  "val": {
+   "detection_instances": 2794,
+   "panoptic_thing_segments": 2878,
+   "exact_bbox_area_matches": 2653,
+   "near_matches_bbox_iou_ge_0.9": 140,
+   "detection_unmatched": 1,
+   "panoptic_unmatched": 85,
+   "panoptic_unmatched_area_lt_100px": 85,
+   "panoptic_iscrowd_by_category": {
+    "bicycle": 23,
+    "bus": 0,
+    "car": 29,
+    "motorcycle": 1,
+    "person": 11,
+    "rider": 0,
+    "train": 0,
+    "truck": 0
+   }
+  },
+  "val_ref": {
+   "detection_instances": 2211,
+   "panoptic_thing_segments": 2209,
+   "exact_bbox_area_matches": 2205,
+   "near_matches_bbox_iou_ge_0.9": 0,
+   "detection_unmatched": 6,
+   "panoptic_unmatched": 4,
+   "panoptic_unmatched_area_lt_100px": 0,
+   "panoptic_iscrowd_by_category": {
+    "bicycle": 15,
+    "bus": 0,
+    "car": 1,
+    "motorcycle": 0,
+    "person": 0,
+    "rider": 0,
+    "train": 0,
+    "truck": 0
+   }
+  }
+ },
+ "panoptic_sources": {
+  "train": {
+   "relative_path": "gt_panoptic_trainval/gt_panoptic/train_gt_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "849d2962d8373b167bee28ba4e7d5056efd029d1b64d7ad3acc7778994c452db"
+  },
+  "train_ref": {
+   "relative_path": "gt_panoptic_trainval_ref/gt_panoptic/train_gt_ref_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "45e8dfe1b8fbb7e696a575f665190ba01aafe52ba87ea328a46875037d955187"
+  },
+  "val": {
+   "relative_path": "gt_panoptic_trainval/gt_panoptic/val_gt_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "9790e88139922a4eccd1637b499354648145474127db98ae2d10b6ae5b4c45a5"
+  },
+  "val_ref": {
+   "relative_path": "gt_panoptic_trainval_ref/gt_panoptic/val_gt_ref_panoptic.json",
+   "relative_to": "documented ACDC extraction root",
+   "sha256": "7456e9930470249070f7dde3c97e701a0481430675992600ef58f85cf8142eec"
+  }
+ },
+ "reference_pairing": {
+  "train": {
+   "status": "documented_naming_convention: the ACDC README names reference files by the adverse image's {sequence}_frame_{frame} stem with a _ref marker; the correspondence is a scene/viewpoint pairing, not an independent group; this annotation parser does not verify RGB coverage or visual correspondence",
+   "adverse_images": 1600,
+   "annotated_reference_images": 800,
+   "adverse_with_annotated_reference": 800,
+   "by_condition": {
+    "fog": {
+     "adverse_images": 400,
+     "with_annotated_reference": 200
+    },
+    "night": {
+     "adverse_images": 400,
+     "with_annotated_reference": 200
+    },
+    "rain": {
+     "adverse_images": 400,
+     "with_annotated_reference": 200
+    },
+    "snow": {
+     "adverse_images": 400,
+     "with_annotated_reference": 200
+    }
+   }
+  },
+  "val": {
+   "status": "documented_naming_convention: the ACDC README names reference files by the adverse image's {sequence}_frame_{frame} stem with a _ref marker; the correspondence is a scene/viewpoint pairing, not an independent group; this annotation parser does not verify RGB coverage or visual correspondence",
+   "adverse_images": 406,
+   "annotated_reference_images": 203,
+   "adverse_with_annotated_reference": 203,
+   "by_condition": {
+    "fog": {
+     "adverse_images": 100,
+     "with_annotated_reference": 50
+    },
+    "night": {
+     "adverse_images": 106,
+     "with_annotated_reference": 53
+    },
+    "rain": {
+     "adverse_images": 100,
+     "with_annotated_reference": 50
+    },
+    "snow": {
+     "adverse_images": 100,
+     "with_annotated_reference": 50
+    }
+   }
+  }
+ },
+ "sequences": {
+  "status": "diagnostic: shared GoPro numbers suggest shared physical recordings across official splits; not verified, not used as groups",
+  "by_condition": {
+   "fog": {
+    "train_sequences": 11,
+    "val_sequences": 3,
+    "identical_tokens_in_train_and_val": [
+     "GOPR0476",
+     "GP010476",
+     "GP020475"
+    ],
+    "gopro_numbers_in_train_and_val": [
+     "0475",
+     "0476"
+    ],
+    "val_images_in_shared_tokens": 100,
+    "val_frame_gap_to_nearest_train_frame_same_token": {
+     "min": 4,
+     "median": 212,
+     "max": 466
+    }
+   },
+   "night": {
+    "train_sequences": 5,
+    "val_sequences": 2,
+    "identical_tokens_in_train_and_val": [
+     "GOPR0351"
+    ],
+    "gopro_numbers_in_train_and_val": [
+     "0351"
+    ],
+    "val_images_in_shared_tokens": 56,
+    "val_frame_gap_to_nearest_train_frame_same_token": {
+     "min": 12,
+     "median": 88,
+     "max": 186
+    }
+   },
+   "rain": {
+    "train_sequences": 8,
+    "val_sequences": 8,
+    "identical_tokens_in_train_and_val": [
+     "GOPR0400",
+     "GOPR0402",
+     "GP010400",
+     "GP020402",
+     "GP030400"
+    ],
+    "gopro_numbers_in_train_and_val": [
+     "0400",
+     "0402",
+     "0571"
+    ],
+    "val_images_in_shared_tokens": 80,
+    "val_frame_gap_to_nearest_train_frame_same_token": {
+     "min": 12,
+     "median": 158,
+     "max": 433
+    }
+   },
+   "snow": {
+    "train_sequences": 10,
+    "val_sequences": 8,
+    "identical_tokens_in_train_and_val": [
+     "GOPR0122",
+     "GOPR0604",
+     "GOPR0606",
+     "GOPR0607",
+     "GP010607",
+     "GP030176"
+    ],
+    "gopro_numbers_in_train_and_val": [
+     "0122",
+     "0176",
+     "0604",
+     "0606",
+     "0607"
+    ],
+    "val_images_in_shared_tokens": 92,
+    "val_frame_gap_to_nearest_train_frame_same_token": {
+     "min": 8,
+     "median": 101,
+     "max": 369
+    }
+   }
+  }
+ },
+ "group_id_status": "unknown: ACDC sequence tokens are GoPro file/chapter names (GOPRnnnn, GP01nnnn, ...), not verified independent trips; group_id is null",
+ "invalid_mask": {
+  "train": {
+   "images_read": 1600,
+   "source_manifest": {
+    "files": 1600,
+    "sha256": "4654ad4c2d8e193bb273ceba053124347804d0a5f73dffeeecec759ea59531f7",
+    "recipe": "UTF-8 JSON of relative_path/sha256 objects sorted by relative_path; sort_keys=True, separators=(',', ':'); paths relative to gt root"
+   },
+   "mean_invalid_pixel_fraction_by_condition": {
+    "fog": 0.041146,
+    "night": 0.339869,
+    "rain": 0.032121,
+    "snow": 0.042818
+   },
+   "images_with_any_invalid_by_condition": {
+    "fog": 400,
+    "night": 400,
+    "rain": 400,
+    "snow": 400
+   },
+   "instance_invalid_fraction_histogram": {
+    "fog:person": {
+     "0": 148,
+     "(0,0.1]": 1,
+     "(0.1,0.5]": 1,
+     "(0.5,1]": 26
+    },
+    "fog:rider": {
+     "0": 24,
+     "(0,0.1]": 0,
+     "(0.1,0.5]": 0,
+     "(0.5,1]": 2
+    },
+    "night:person": {
+     "0": 456,
+     "(0,0.1]": 101,
+     "(0.1,0.5]": 48,
+     "(0.5,1]": 66
+    },
+    "night:rider": {
+     "0": 65,
+     "(0,0.1]": 34,
+     "(0.1,0.5]": 28,
+     "(0.5,1]": 15
+    },
+    "rain:person": {
+     "0": 197,
+     "(0,0.1]": 4,
+     "(0.1,0.5]": 8,
+     "(0.5,1]": 33
+    },
+    "rain:rider": {
+     "0": 15,
+     "(0,0.1]": 1,
+     "(0.1,0.5]": 1,
+     "(0.5,1]": 4
+    },
+    "snow:person": {
+     "0": 526,
+     "(0,0.1]": 9,
+     "(0.1,0.5]": 12,
+     "(0.5,1]": 56
+    },
+    "snow:rider": {
+     "0": 37,
+     "(0,0.1]": 0,
+     "(0.1,0.5]": 0,
+     "(0.5,1]": 1
+    }
+   },
+   "bin_boundaries_status": "descriptive inspection bins, not frozen protocol strata"
+  },
+  "val": {
+   "images_read": 406,
+   "source_manifest": {
+    "files": 406,
+    "sha256": "1b576fb05f96c1d782322e1e8877ec56bdf4149c5584d4fe51ef088791ebe9d9",
+    "recipe": "UTF-8 JSON of relative_path/sha256 objects sorted by relative_path; sort_keys=True, separators=(',', ':'); paths relative to gt root"
+   },
+   "mean_invalid_pixel_fraction_by_condition": {
+    "fog": 0.035695,
+    "night": 0.392789,
+    "rain": 0.026662,
+    "snow": 0.033346
+   },
+   "images_with_any_invalid_by_condition": {
+    "fog": 100,
+    "night": 106,
+    "rain": 100,
+    "snow": 100
+   },
+   "instance_invalid_fraction_histogram": {
+    "fog:person": {
+     "0": 57,
+     "(0,0.1]": 0,
+     "(0.1,0.5]": 1,
+     "(0.5,1]": 4
+    },
+    "fog:rider": {
+     "0": 8,
+     "(0,0.1]": 0,
+     "(0.1,0.5]": 1,
+     "(0.5,1]": 2
+    },
+    "night:person": {
+     "0": 88,
+     "(0,0.1]": 31,
+     "(0.1,0.5]": 21,
+     "(0.5,1]": 18
+    },
+    "night:rider": {
+     "0": 9,
+     "(0,0.1]": 7,
+     "(0.1,0.5]": 4,
+     "(0.5,1]": 6
+    },
+    "rain:person": {
+     "0": 116,
+     "(0,0.1]": 1,
+     "(0.1,0.5]": 4,
+     "(0.5,1]": 13
+    },
+    "rain:rider": {
+     "0": 8,
+     "(0,0.1]": 0,
+     "(0.1,0.5]": 0,
+     "(0.5,1]": 2
+    },
+    "snow:person": {
+     "0": 151,
+     "(0,0.1]": 2,
+     "(0.1,0.5]": 4,
+     "(0.5,1]": 18
+    },
+    "snow:rider": {
+     "0": 1,
+     "(0,0.1]": 0,
+     "(0.1,0.5]": 0,
+     "(0.5,1]": 1
+    }
+   },
+   "bin_boundaries_status": "descriptive inspection bins, not frozen protocol strata"
+  }
+ }
+}
