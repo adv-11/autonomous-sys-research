@@ -8,6 +8,7 @@ Native dataset-specific ignore attributes are opaque; converters own that policy
 from __future__ import annotations
 
 from collections import defaultdict
+from fractions import Fraction
 import math
 
 from .schema import identifier, number, validate_documents
@@ -170,9 +171,11 @@ class ReferenceEvaluator:
                 "boundary_tie_count": None, "headroom": quantity(None), "headroom_flag": None}
         if not self.gt_count:
             return {**base, "status": "UNDEFINED"}
-        headroom = ceiling["recall"]["value"] - target_recall
+        exact_headroom = Fraction(ceiling["tp"], self.gt_count) - Fraction(str(target_recall))
+        headroom = float(exact_headroom)
         base["headroom"] = quantity(headroom)
-        base["headroom_flag"] = "INFEASIBLE" if headroom < 0 else ("LOW_HEADROOM" if headroom < 0.02 else "ADEQUATE")
+        base["headroom_flag"] = "INFEASIBLE" if headroom < 0 else (
+            "LOW_HEADROOM" if exact_headroom < Fraction(1, 50) else "ADEQUATE")
         if headroom < 0:
             return {**base, "status": "INFEASIBLE"}
         # Full-prefix labels are unchanged by removing any lower-scoring suffix.

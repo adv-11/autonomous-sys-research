@@ -36,6 +36,11 @@ def example():
               "roles": {role: {"dataset_id": "synthetic", "group_namespace": "synthetic-trips",
                          "population": f"synthetic {role}", "group_provenance": "synthetic independent trip construction"}
                         for role in ROLES}}
+    for _, predictions in docs.values():
+        predictions["provenance"]["inference_pipeline"] = {
+            "model_id": "synthetic-example", "checkpoint_sha256": "0" * 64,
+            "preprocessing": "synthetic fixed boxes", "precision": "synthetic-fp64",
+            "category_mapping": {}, "candidate_policy": {"score_floor": 0.0, "max_detections": 300}}
     return docs, policy
 
 
