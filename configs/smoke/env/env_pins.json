@@ -1,0 +1,77 @@
+{
+ "recorded_by": "Claude",
+ "host_os": "Windows-11-10.0.26200-SP0",
+ "os_version": "10.0.26200",
+ "nvidia_smi": "NVIDIA GeForce RTX 5060 Laptop GPU, 616.64, 8151 MiB, 98.06.45.40.18",
+ "uv": "uv 0.12.11 (4b53f66b7 2026-09-08 x86_64-pc-windows-msvc)",
+ "environments": {
+  "det_eval_ultralytics": {
+   "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+   "platform": "Windows-11-10.0.26200-SP0",
+   "torch": "2.11.0+cu128",
+   "torchvision": "0.26.0+cu128",
+   "cuda_runtime": "12.8",
+   "cudnn": 91900,
+   "cuda_available": true,
+   "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+   "capability": [
+    12,
+    0
+   ],
+   "arch_list": [
+    "sm_75",
+    "sm_80",
+    "sm_86",
+    "sm_90",
+    "sm_100",
+    "sm_120"
+   ],
+   "ultralytics": "8.4.197",
+   "numpy": "2.5.4",
+   "scipy": "absent (ModuleNotFoundError)",
+   "faster_coco_eval": "absent (ModuleNotFoundError)",
+   "pycocotools": "present",
+   "PIL": "13.0.0",
+   "cv2": "5.0.0",
+   "interpreter": "C:/Users/Advait/det-eval-2d/.venv/Scripts/python.exe",
+   "freeze_file": "det_eval_ultralytics_freeze.txt",
+   "freeze_sha256": "5fe2919bdd4462df6fefe16f17b5a8517314664ca1db6e609b31e219a599f34d",
+   "package_count": 69,
+   "policy": "existing det-eval-2d venv used read-only; nothing installed; freeze compared before/after the smoke"
+  },
+  "rtdetrv2": {
+   "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+   "platform": "Windows-11-10.0.26200-SP0",
+   "torch": "2.11.0+cu128",
+   "torchvision": "0.26.0+cu128",
+   "cuda_runtime": "12.8",
+   "cudnn": 91900,
+   "cuda_available": true,
+   "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+   "capability": [
+    12,
+    0
+   ],
+   "arch_list": [
+    "sm_75",
+    "sm_80",
+    "sm_86",
+    "sm_90",
+    "sm_100",
+    "sm_120"
+   ],
+   "ultralytics": "absent (ModuleNotFoundError)",
+   "numpy": "2.5.4",
+   "scipy": "1.18.1",
+   "faster_coco_eval": "1.8.0",
+   "pycocotools": "present",
+   "PIL": "13.0.0",
+   "cv2": "absent (ModuleNotFoundError)",
+   "interpreter": "C:/Users/Advait/ar-work/venv-rtdetrv2/Scripts/python.exe",
+   "freeze_file": "rtdetrv2_freeze.txt",
+   "freeze_sha256": "0e45088df974eb08c19fd9b896a930f155f477c1eace0a599ae4791b41888fcb",
+   "package_count": 25,
+   "policy": "new uv venv outside Git: uv venv --python 3.12; uv pip install --index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://pypi.org/simple --index-strategy unsafe-best-match torch==2.11.0+cu128 torchvision==0.26.0+cu128 'faster-coco-eval>=1.6.6' PyYAML tensorboard scipy packaging pycocotools (onnx/onnxruntime-gpu from requirements.txt omitted: export-only)"
+  }
+ }
+}

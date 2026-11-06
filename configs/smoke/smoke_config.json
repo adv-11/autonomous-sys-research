@@ -1,0 +1,44 @@
+{
+  "purpose": "Claude G0 mechanical model-feasibility smoke on local development assets (COCO val2017 only). Not a performance test.",
+  "work_root": "C:/Users/Advait/ar-work",
+  "det_eval_root": "C:/Users/Advait/det-eval-2d",
+  "coco_annotations": "datasets/coco/annotations/instances_val2017.json",
+  "coco_annotations_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+  "coco_images": "datasets/coco/val2017",
+  "selection_seed": "threshold-transfer-smoke-v1",
+  "train_seed": "threshold-transfer-smoke-train-v1",
+  "train_pool_size": 128,
+  "quotas": [["crowded_count", 12], ["iscrowd_person", 8], ["small_person", 10],
+             ["empty", 8], ["no_person_nonempty", 4], ["general", 8]],
+  "imgsz": 640,
+  "iterations": 20,
+  "probe_iterations": 3,
+  "batch_candidates": [8, 16, 24, 32, 48, 64],
+  "fit_rule": "no CUDA OOM, no automatic batch reduction, finite losses, and torch.cuda.max_memory_reserved <= 7.5 GiB (below the 8 GB device so Windows sysmem fallback cannot hide an overflow)",
+  "fit_reserved_limit_bytes": 8053063680,
+  "candidate_policy": {"score_floor": 0.001, "max_detections": 300},
+  "sensitivity_policy": {"score_floor": 0.001, "max_detections": 1000},
+  "evaluator": {"categories": ["person"], "ignore_policy": "same_category_ioa",
+                "bounds_policy": "allow_outside", "target_recall": 0.8},
+  "models": {
+    "yolo11s": {
+      "framework": "ultralytics", "weights": "C:/Users/Advait/det-eval-2d/weights/yolo11s.pt",
+      "sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+      "optimizer": "SGD", "lr0": 0.01, "nms": null, "iou": 0.7, "agnostic_nms": false
+    },
+    "yolo26s": {
+      "framework": "ultralytics", "weights": "C:/Users/Advait/ar-work/weights/yolo26s.pt",
+      "url": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+      "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "optimizer": "MuSGD", "lr0": 0.01, "nms": false, "iou": 0.7, "agnostic_nms": false
+    },
+    "rtdetrv2_r18vd": {
+      "framework": "rtdetrv2", "repo": "C:/Users/Advait/ar-work/rtdetr-src/rtdetrv2_pytorch",
+      "repo_commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "config": "configs/rtdetrv2/rtdetrv2_r18vd_120e_coco.yml",
+      "weights": "C:/Users/Advait/ar-work/weights/rtdetrv2_r18vd_120e_coco_rerun_48.1.pth",
+      "url": "https://github.com/lyuwenyu/storage/releases/download/v0.2/rtdetrv2_r18vd_120e_coco_rerun_48.1.pth",
+      "sha256": "2ace52184b620204004509b72752ac7bfe64aadaf7fc1d076b18df8ab5a5c77e"
+    }
+  }
+}
