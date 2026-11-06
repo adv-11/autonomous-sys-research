@@ -43,3 +43,10 @@
 - The earlier “no datasets in this repository” observation remains correct, but data tooling can now inspect these external assets without another download. No BDD100K/ACDC assets were found there.
 - Use existing data and caches for development and diagnostic replay. Prior KITTI results are not fresh confirmatory findings for this project, and cached outputs are score/cap censored.
 - G0 remains pending; importing torch and detecting CUDA does not replace the planned per-model forward/backward/evaluation checks.
+
+### Reference-tooling milestone
+
+- GPT implemented deterministic reference evaluation and Claude implemented data/cache preflight. Their actual direct interface prompts and decisions are recorded in the implementation notes; I did not need to relay prompts.
+- Separate formal cross-reviews followed automatically. The coordinator fixed the reported safeguards and converter defects directly, preserving the reviews and resolution records.
+- The evaluator branch passes 32 tests; the combined adapter/evaluator branch passes 67 on Python 3.11 and 3.12. Real local COCO/KITTI conversions pass direct dictionary integration under explicit diagnostic policies. Unknown-group held-out checks fail as intended.
+- These are implementation and development-asset checks. No BDD/ACDC data, verified condition/group manifests, model-specific training/evaluation smoke tests or new weather-transfer findings are claimed. G0 stays pending.
