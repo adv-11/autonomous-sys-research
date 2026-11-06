@@ -11,25 +11,25 @@
     <text x="40" y="157">COCO / KITTI annotations</text>
     <text x="40" y="184">Capped, rounded cache rows</text>
     <text x="40" y="211">Native categories + ignores</text>
-    <text x="40" y="240" font-size="14">Read-only reuse; record provenance</text>
+    <text x="40" y="240" font-size="14">Read-only reuse; log provenance</text>
     <rect x="304" y="98" width="240" height="166" rx="8" fill="#e5f2ee" stroke="#83aea1"/>
     <text x="320" y="126" font-size="18" font-weight="bold">Claude: data adapters</text>
     <text x="320" y="157">Explicit mappings / policies</text>
     <text x="320" y="184">Canonical IDs, boxes, scores</text>
     <text x="320" y="211">Coverage + exclusion records</text>
-    <text x="320" y="240" font-size="14">Reject ambiguity; never repair silently</text>
+    <text x="320" y="240" font-size="14">Explicit policy; no silent repair</text>
     <rect x="584" y="98" width="240" height="166" rx="8" fill="#ede9f7" stroke="#a292c2"/>
     <text x="600" y="126" font-size="18" font-weight="bold">GPT: reference evaluator</text>
     <text x="600" y="157">Deterministic IoU matching</text>
     <text x="600" y="184">Observed-score boundaries</text>
-    <text x="600" y="211">Recall / FPPI / ceilings / gaps</text>
-    <text x="600" y="240" font-size="14">Undefined and infeasible stay explicit</text>
+    <text x="600" y="211">Recall · FPPI · ceilings · gaps</text>
+    <text x="600" y="240" font-size="14">Undefined / infeasible are explicit</text>
     <rect x="864" y="98" width="232" height="166" rx="8" fill="#fbefdc" stroke="#c3a16b"/>
     <text x="880" y="126" font-size="18" font-weight="bold">Provenance guards</text>
     <text x="880" y="157">Complete inference coverage</text>
-    <text x="880" y="184">Declared pipeline consistency</text>
+    <text x="880" y="184">Pipeline consistency</text>
     <text x="880" y="211">Dataset / group / role checks</text>
-    <text x="880" y="240" font-size="14">Declarations still need external audit</text>
+    <text x="880" y="240" font-size="14">Declared, not authenticated</text>
   </g>
   <g stroke="#52657d" stroke-width="2" marker-end="url(#arrow)"><path d="M266 181 H300"/><path d="M546 181 H580"/><path d="M826 181 H860"/></g>
   <rect x="24" y="298" width="1072" height="96" rx="8" fill="#fff" stroke="#a9b7c7"/>
