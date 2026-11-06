@@ -59,3 +59,10 @@
 - Claude implemented an ACDC adapter and inspected actual annotations. The GPT coordinator independently confirmed train/val sequence-token overlap; [the evidence](datasets/acdc_split_overlap_check.json) distinguishes this check from the GPT BDD subagent. The adaptation allocation is on hold pending a defensible group-disjoint design; official split names are insufficient.
 - BDD image, legacy-label and Info candidate archives are complete and pass ZIP CRC checks, but their MD5 values differ from the published archive values. The live Detection 2020 button supplies images rather than JSON; revised labels remain unacquired. Legacy labels are not substituted. Info native-ID inspection finds a train/val overlap, with full-parse versus prefix-only denominators explicitly recorded; no independent group assignments are claimed.
 - G0 remains **pending**. Acquisition and annotation inspection are not detector results, verified independent splits, pinned model environments or the required forward/backward/evaluation smoke tests.
+
+### Acquisition merged; ACDC adapter follows
+
+- I merged [PR #5](https://github.com/adv-11/autonomous-sys-research/pull/5) into `main` at `2d93bbd23d16f2958b9bef51c56717ac666052e3` on 2026-11-06. This also integrates the adapter contribution previously approved in PR #4.
+- The coordinator updated `claude-research` against that merged `main` for the next sequential PR. The ACDC change includes Claude's implementation, actual peer discussion, GPT's separate formal review and the direct resolution of both P2 findings. No new implementation was added during this synchronization.
+- Validation covers 108 combined synthetic tests on Python 3.11/3.12, all 24,771 real detection mask areas/bboxes, and the revised decoder on all 2,006 adverse invalid masks. These checks do not select an experimental allocation or measure detector performance.
+- G0 remains pending. The next research work must address the remaining data/grouping and model feasibility prerequisites; it should not repeat completed parser work.
