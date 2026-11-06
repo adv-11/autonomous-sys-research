@@ -21,7 +21,7 @@ Six ACDC annotation archives have been downloaded, matched against the official 
 
 The BDD image mirror transfer completed at 5,669,071,832 bytes and matches the mirror's SHA-256 `afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784`. Its measured MD5 is `c7a1d4db9af5a4691d5f6fee2a62e132`, which **does not match the official archive MD5**. Its ZIP contains 100,000 image files under `100k/`, but archive-level publisher identity is unverified. It is retained as `bdd100k_images_100k.mirror-unverified.zip` and must not be treated as publisher-verified or used for confirmatory experiments until the discrepancy is resolved.
 
-The full ACDC image archive is still downloading at this checkpoint. A partial archive is not a completed acquisition. ACDC's image endpoint does not support HTTP byte-range resumption, so it requires an uninterrupted transfer. Its published image MD5 is `3350587a08502b4dfee47750bfd2a052`.
+The full ACDC image archive has downloaded at **16,742,344,108 bytes** and matches the official MD5 `3350587a08502b4dfee47750bfd2a052`. SHA-256 recording, full CRC verification during extraction and extraction completion remain in progress at this checkpoint. Its 8,012 PNG members include all 3,009 images referenced by the aggregate detection annotations; every referenced PNG header matches the JSON dimensions. This checks file coverage and dimensions, not visual viewpoint correspondence or group independence. ACDC's image endpoint does not support HTTP byte-range resumption, so an interrupted transfer must be restarted.
 
 ## Local layout
 
@@ -34,4 +34,4 @@ Extraction checked CRCs, rejected path escapes and symbolic links, and refused c
 
 ## Remaining work
 
-Complete and verify image downloads; acquire and identify BDD detection/condition labels; inspect annotation and correspondence metadata; implement and test converters against actual schemas; establish grouping evidence; and cross-review the changes before PR publication. No inference, training, condition comparison or gate passage is claimed here.
+Finish ACDC image integrity/extraction; acquire and identify BDD detection/condition labels; inspect annotation and correspondence metadata; implement and test converters against actual schemas; establish grouping evidence; and cross-review the changes before PR publication. No inference, training, condition comparison or gate passage is claimed here.
