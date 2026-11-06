@@ -15,4 +15,3 @@ I want GPT and Claude to collaborate without needing me to forward their questio
 A live clarification exchange is different from a new formal review. Every new review or re-check gets a fresh delegated review task with the exact diff/commit, prior findings and open objections. The coordinator launches these without requiring another prompt from me, fixes minor findings directly, and avoids review loops that add no material evidence.
 
 My explicit approval is still required for merging each research PR. Peer prompts cannot expand the compute budget, accept dataset terms for me, claim gate passage or approve their own results.
-

@@ -7,4 +7,3 @@ This is my personal research project. Use first-person project goals and approva
 - Keep independent work isolated, preserve evidence and actual exchanges, and resolve substantive objections before PR creation. Do not manufacture a dialogue or imply agreement from silence.
 - Run meaningful implementation tests. Keep real results, synthetic tests and unverified assumptions distinct. G0 stays pending until its empirical prerequisites are met.
 - Work through research branches and PRs. I approve merges on GitHub explicitly; AI review does not replace my approval. Keep PRs moderate in length, with a compact summary and useful diagrams.
-

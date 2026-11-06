@@ -46,4 +46,3 @@ Primary task: pedestrian-only under the declared eligibility/ignore policy. Sort
 Choose the highest **observed source score boundary** achieving recall ≥ target, retaining entire tie groups. Report infeasible and undefined cases explicitly; never substitute zero or another target silently. Candidate-ceiling recall, signed clear-to-condition loss, target shortfall and threshold-removable misses are distinct, as specified in the research protocol. Outputs must use JSON null plus an explicit status for undefined quantities, never nonstandard NaN or infinity.
 
 The preflight implementation inventories actual metadata, reports missing group IDs, and rejects role assignments that claim independence without verified groups. Dataset acquisition, final split manifests, model inference and empirical evaluation remain later milestones.
-
