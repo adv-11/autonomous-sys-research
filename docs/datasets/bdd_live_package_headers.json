@@ -1,0 +1,31 @@
+{
+  "checked_by": "GPT coordinator after Claude formal review",
+  "access_date": "2026-11-06",
+  "limitation": "HTTP headers and current sizes are release-history evidence, not publisher authentication or proof of original release identity.",
+  "packages": [
+    {
+      "url": "http://128.32.162.150/bdd100k/bdd100k_images_100k.zip",
+      "status": 200,
+      "content_length": 5669071832,
+      "last_modified": "Thu, 06 Feb 2025 17:01:54 GMT"
+    },
+    {
+      "url": "http://128.32.162.150/bdd100k/bdd100k_labels.zip",
+      "status": 200,
+      "content_length": 189638612,
+      "last_modified": "Thu, 06 Feb 2025 17:02:15 GMT"
+    },
+    {
+      "url": "http://128.32.162.150/bdd100k/bdd100k_info.zip",
+      "status": 200,
+      "content_length": 5116983841,
+      "last_modified": "Thu, 06 Feb 2025 17:02:14 GMT"
+    },
+    {
+      "url": "http://128.32.162.150/bdd100k/bdd100k_det_20_labels.zip",
+      "status": 200,
+      "content_length": 231196019,
+      "last_modified": "Thu, 06 Feb 2025 17:19:15 GMT"
+    }
+  ]
+}

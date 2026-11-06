@@ -6,7 +6,7 @@
     "provenance": "proposed keys accepted as adapter conventions; shared contract unchanged",
     "ignore": "explicit no-default policy for any future detection converter; legacy metadata inspector emits no detection GT",
     "correction": "Claude corrected the segmentation-string claim: compressed RLE is a JSON dictionary. The original claim below is retained only as an actual exchanged message, not an accepted finding.",
-    "acdc_split_overlap": "Claude finding; GPT did not independently recheck it. Open protocol issue recorded for the coordinator, no protocol change or allocation selected."
+    "acdc_split_overlap": "Claude finding; the GPT BDD acquisition subagent did not recheck it. The GPT coordinator independently confirmed it in 8c73ffd; see ../datasets/acdc_split_overlap_check.json. No allocation was selected by the BDD subagent."
   },
   "messages": [
     {

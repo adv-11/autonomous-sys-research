@@ -21,16 +21,18 @@ The existing scan read the anchored first root `rideID` string from a 4,096-byte
 | Verification | Count |
 |---|---:|
 | All member records attempted | 100,000 |
-| Complete JSON parse attempts | 27,529 |
-| Complete JSON parse successes | 27,528 |
+| Distinct records with complete JSON parse attempts | 27,526 |
+| Distinct records with complete JSON parse successes | 27,525 |
 | Observed invalid JSON | 1 |
 | Zero-byte JSON members | 1 |
-| Remaining prefix-only records; complete JSON syntax unverified | 72,471 |
+| Remaining prefix-only records; complete JSON syntax unverified | 72,474 |
 | Unreadable ZIP members in full CRC pass | 0 |
 | Successful native `rideID` observations | 99,999 |
 | Records without a usable `rideID` observation | 1 |
 
-The zero-byte member is in train and accounts for the single observed JSON decoding failure and missing observation. No missing `rideID` key occurred in successfully fully parsed JSON. The **total invalid-JSON count across all 100,000 records is not established**, because 72,471 records received prefix inspection rather than complete syntax parsing. Successful observation means a native string was read; it does not claim a fully validated document for every such record.
+The zero-byte member is in train and accounts for the single observed JSON decoding failure and missing observation. No missing `rideID` key occurred in successfully fully parsed JSON. The **total invalid-JSON count across all 100,000 records is not established**, because 72,474 records received prefix inspection rather than complete syntax parsing. Successful observation means a native string was read; it does not claim a fully validated document for every such record.
+
+**Coordinator correction after Claude review:** 27,517 fallback parse operations plus 12 sample operations give 27,529 operations, but three sample documents were also fallbacks. Distinct documents are therefore 27,526, with 27,525 successes. The coordinator independently checked the first-12/fallback intersection. Ride-ID counts are unchanged. The original probe does not emit every final inventory field: JSON-verification denominators, ride-ID summaries, image joins, uncompressed bytes and duplicate-name totals were derived in post-processing from the native index and ZIP directories. These are explicit derived summaries, not additional full-document validation.
 
 The twelve fully parsed initial documents contain `rideID`, accelerometer/gyro arrays, `timelapse`, `locations`, `filename`, `startTime`, and `endTime`; nine also contain `id` and `gps`. This is a sampled schema observation, not an assertion that every record has every field. The raw sample is not published.
 

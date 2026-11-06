@@ -1,0 +1,23 @@
+{
+  "checked_by": "GPT coordinator, separate from GPT BDD acquisition subagent",
+  "original_confirmation_commit": "8c73ffdf85fac7e3adf34c3f7fff04c1a1e5cdd2",
+  "access_date": "2026-11-06",
+  "inputs": [
+    {
+      "relative_path": "data/acdc/extracted/gt_detection_trainval/gt_detection/instancesonly_train_gt_detection.json",
+      "sha256": "33be9416b6c4c66d55fe61ee0d3dd1e2ecf06fc82db38480aa377e5341c24487"
+    },
+    {
+      "relative_path": "data/acdc/extracted/gt_detection_trainval/gt_detection/instancesonly_val_gt_detection.json",
+      "sha256": "1dc7b900b8f1f2797f2c9238417d438d336ac8907778940402fab852ee434215"
+    }
+  ],
+  "method": "For each val image, compare (condition directory, sequence directory) with the set of train keys. Count val images whose key occurs in train. No identifiers are published.",
+  "val_images_sharing_train_sequence_token": {
+    "fog": 100,
+    "night": 56,
+    "rain": 80,
+    "snow": 92
+  },
+  "limitation": "Sequence-token overlap proves the official split is not sequence-disjoint; it does not define independent recording/trip groups."
+}

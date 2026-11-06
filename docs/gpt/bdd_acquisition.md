@@ -22,6 +22,8 @@ C:/Users/Advait/autonomous-sys-research/data/bdd100k/archives/bdd100k_labels.ber
 
 The primary page associates this public transport endpoint with BDD, but HTTP transport and a mismatching archive checksum do not authenticate the original release. It is a **legacy-schema candidate**, not publisher-verified legacy data and not revised 2020 data. The [pinned data license](https://github.com/bdd100k/bdd100k/blob/9ac17c6c7c51d2fc83065fccd707cd5b1882a293/doc/source/license.rst) permits educational, research and not-for-profit use; GPT used public downloads without an account or acceptance API. Raw files and the derived index remain local and ignored.
 
+The pinned specification lists legacy labels at **107 MB**, Info at **3.9 GB**, images at **5.3 GB**, and Detection 2020 labels at **53 MB**. The acquired legacy candidate is 189,638,612 bytes (about 181 MiB), substantially larger than the stated legacy package. Together with its unexpected test-split boxes, this suggests a materially different package; recompression alone is not established. The coordinator independently checked the four current HTTP headers on 2026-11-06: all advertise **2025-02-06 Last-Modified dates**, with current lengths matching the acquired candidates or the wrong JPG package. [Exact header evidence](../datasets/bdd_live_package_headers.json) preserves the times and lengths. These are server-reported metadata, not authenticated release dates or proof of identity.
+
 ### Image discrepancy
 
 The existing [Hugging Face mirror at `c45de4b`](https://huggingface.co/datasets/Xing1210/bdd100k/tree/c45de4b70434647956b4fea75fbbbadc18218f08) has 5,669,071,832 bytes, SHA-256 `afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784` matching its LFS object, and MD5 `c7a1d4db9af5a4691d5f6fee2a62e132`, differing from the official image checksum. GPT compared the complete ZIP central directory (including ZIP64 records) and sixteen deterministic 1 MiB payload ranges against the current HTTP Berkeley image archive: all **17 ranges matched**, totaling 27,227,705 bytes. The remote length also matches. Every candidate condition filename joins an image archive member in the same split, with no missing names in either direction.
@@ -56,7 +58,7 @@ Reproduce from a checkout without installing anything:
 
 ```powershell
 $env:PYTHONPATH = (Join-Path (Get-Location) src)
-$python = 'C:/Users/Advait/AppData/Roaming/uv/python/cpython-3.14-windows-x86_64-none/python.exe'
+$python = 'C:/Users/Advait/det-eval-2d/.venv/Scripts/python.exe'
 & $python -m unittest discover -s tests -v
 & $python -m threshold_transfer.bdd_legacy_conditions `
   C:/Users/Advait/autonomous-sys-research/data/bdd100k/archives/bdd100k_labels.berkeley-candidate.zip `
@@ -66,7 +68,7 @@ $python = 'C:/Users/Advait/AppData/Roaming/uv/python/cpython-3.14-windows-x86_64
 
 ## Direct peer exchange and unresolved work
 
-GPT and Claude exchanged actual scoped messages in their active tasks; [the preserved exchange](bdd_acquisition_peer_exchange.json) records the proposal, responses, correction, and dispositions. Both accepted native category preservation, unknown canonical groups, explicit ignore policy for future detection conversion, and separated archive/JSON/policy provenance as conventions, without changing the shared contract. Claude corrected an initial RLE representation claim; the correction is preserved and the erroneous claim is not accepted as a finding. Claude's reported ACDC sequence overlap is an open protocol issue for the coordinator, not a GPT-verified result or a grouping choice made here. This exchange is not the separate formal review.
+GPT and Claude exchanged actual scoped messages in their active tasks; [the preserved exchange](bdd_acquisition_peer_exchange.json) records the proposal, responses, correction, and dispositions. Both accepted native category preservation, unknown canonical groups, explicit ignore policy for future detection conversion, and separated archive/JSON/policy provenance as conventions, without changing the shared contract. Claude corrected an initial RLE representation claim; the correction is preserved and the erroneous claim is not accepted as a finding. The **GPT BDD acquisition subagent** did not recheck Claude's ACDC overlap counts or select groups. The **GPT coordinator** independently confirmed them in `8c73ffd`; [its aggregate evidence](../datasets/acdc_split_overlap_check.json) names the inputs and method. This exchange is not the separate formal review. The acquisition task used Python 3.14.7; the coordinator and Claude review also pass all 75 tests on Python 3.12.14 and 3.11.16.
 
 Remaining blockers:
 

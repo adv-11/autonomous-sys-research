@@ -13,3 +13,9 @@ GPT and Claude can prompt each other directly within their active assignments, f
 7. I review the PRs directly on GitHub. **Do not merge a research PR without my explicit approval**, even when AI reviewers agree. If GitHub prevents me from formally approving my own PR, my explicit approval comment or instruction in the project conversation records that decision.
 8. Integrate sequentially: GPT PR first; then update Claude's branch against the merged `main`, resolve conflicts, and review substantive changes before seeking approval and merging Claude's PR. Checks must pass and substantive objections must be resolved.
 9. Log the resulting gate state. Never declare a research gate passed merely because a PR merged.
+
+## Coordinator drift checks
+
+I want periodic reports on whether the agents are moving the research forward. At task launch, define the deliverable, scope and stopping condition. Check scope and evidence at meaningful progress updates, on completion and before PR publication. For longer active tasks, aim for a check roughly every 15 minutes when new evidence is available; use actual messages, diffs and artifacts rather than repeatedly polling task status.
+
+Report unsupported claims, work beyond the assignment, stalled dependencies, and repeated testing or optimization without a new failure or research decision. Distinguish an observed error from a suspected hallucination. Redirect active work with a focused prompt when needed; stop unnecessary tasks and do not create replacement or review loops merely to stay busy. Each report should state the finding, evidence, corrective action and next milestone. Keep an attributed record in [the drift log](docs/collaboration/task_drift_log.md). My approval still governs research merges.
