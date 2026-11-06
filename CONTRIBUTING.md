@@ -2,6 +2,8 @@
 
 I use first-person prose for my project goals and decisions, and neutral technical prose where it reads better. Keep GPT and Claude contributions explicitly attributed; first-person writing must not imply I personally performed an AI-assisted source check or experiment.
 
+GPT and Claude can prompt each other directly within their active assignments, following [the peer protocol](docs/collaboration/peer_protocol.md). The coordinator handles follow-up review tasks automatically; I do not need to relay prompts.
+
 1. Work on `gpt-research` and `claude-research`; never push research changes directly to `main`.
 2. Keep evidence URLs, access dates, exact versions, and verification limitations in research documents. Do not overwrite the original plan's uncertain claims as verified facts.
 3. Commit reproducible configs and meaningful tests with code. Keep datasets, credentials, papers, and weights out of Git.

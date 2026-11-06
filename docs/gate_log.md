@@ -28,3 +28,25 @@
 - Broad novelty and isolated architectural-cause claims are withdrawn. The reproduction target remains a sensitivity audit with unresolved source provenance.
 - Checks cover document links, SVG structure/rendering and attributed algebraic illustrations. They do not establish empirical results, evaluator correctness or bootstrap coverage.
 - G0 remains **pending**. My review and explicit approval are required before each research PR merges, GPT first and Claude second.
+
+## 2026-11-05 — Merged initial research; implementation resumes
+
+- I merged both initial PRs on GitHub and authorized continuing the work. The host records PR #2 at `93937a89ae140cede3312c61d35c70d448680135`, followed by PR #1 at `a23aad138fe6117431277ab8157492b3ca5fa04e`. Both contributions are now present on `main`.
+- I want the agents to prompt each other directly. The new peer protocol supports focused live exchanges; the coordinator starts any later formal review tasks without requiring me to relay messages.
+- The repository's `data/` contains only its README. External dataset locations have not been supplied. No datasets or annotations are claimed to have been acquired.
+- Next work: dependency-light reference metrics and dataset-preflight/conversion tooling, with meaningful synthetic tests and a shared provisional JSON contract.
+- G0 remains pending. No paid compute, training, checkpoint/GPU validation or real dataset evaluation is authorized by an implementation test passing.
+
+### Local asset discovery later in the same session
+
+- My `det-eval-2d` folder contains COCO val2017, KITTI images/labels, cached predictions, detector weights and a CUDA-capable Python environment. The verified inventory, hashes, provenance and reuse limits are in `docs/local_assets.md`.
+- The earlier “no datasets in this repository” observation remains correct, but data tooling can now inspect these external assets without another download. No BDD100K/ACDC assets were found there.
+- Use existing data and caches for development and diagnostic replay. Prior KITTI results are not fresh confirmatory findings for this project, and cached outputs are score/cap censored.
+- G0 remains pending; importing torch and detecting CUDA does not replace the planned per-model forward/backward/evaluation checks.
+
+### Reference-tooling milestone
+
+- GPT implemented deterministic reference evaluation and Claude implemented data/cache preflight. Their actual direct interface prompts and decisions are recorded in the implementation notes; I did not need to relay prompts.
+- Separate formal cross-reviews followed automatically. The coordinator fixed the reported safeguards and converter defects directly, preserving the reviews and resolution records.
+- The evaluator branch passes 32 tests; the combined adapter/evaluator branch passes 67 on Python 3.11 and 3.12. Real local COCO/KITTI conversions pass direct dictionary integration under explicit diagnostic policies. Unknown-group held-out checks fail as intended.
+- These are implementation and development-asset checks. No BDD/ACDC data, verified condition/group manifests, model-specific training/evaluation smoke tests or new weather-transfer findings are claimed. G0 stays pending.
