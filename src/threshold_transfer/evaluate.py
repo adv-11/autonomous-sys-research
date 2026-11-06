@@ -11,12 +11,71 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 
 from .metrics import ReferenceEvaluator, held_out_loss_decomposition, target_gap_decomposition
-from .schema import identifier, json_value, load_json
+from .schema import identifier, json_value, load_json, number
 
 ROLES = ("source_selection", "clear_test", "target_test")
+
+
+def _pipeline_policy(evaluators, mode, limitations):
+    """Compare declared pipeline contents; declarations do not prove provenance."""
+    pipelines, floors = {}, {}
+    for role, evaluator in evaluators.items():
+        provenance = evaluator.predictions["provenance"]
+        pipeline = provenance.get("inference_pipeline")
+        native = provenance.get("cache_policy", {})
+        native_floor = native.get("score_floor") if isinstance(native, dict) else None
+        if native_floor is not None:
+            number(native_floor, "cache score floor", 0, 1)
+        if pipeline is None:
+            if mode == "held_out":
+                raise ValueError(f"{role}: held_out requires inference_pipeline provenance")
+            limitations.append(f"{role}: inference pipeline identity is unverified.")
+            floors[role] = native_floor
+            continue
+        if not isinstance(pipeline, dict):
+            raise ValueError("inference_pipeline must be an object")
+        for field in ("model_id", "preprocessing", "precision"):
+            identifier(pipeline.get(field), f"pipeline {field}")
+        checkpoint = pipeline.get("checkpoint_sha256")
+        if not isinstance(checkpoint, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", checkpoint):
+            raise ValueError("pipeline checkpoint_sha256 must be a full SHA-256")
+        mapping = pipeline.get("category_mapping")
+        if not isinstance(mapping, dict):
+            raise ValueError("pipeline category_mapping must be an explicit object")
+        for source, target in mapping.items():
+            identifier(source, "mapping source")
+            identifier(target, "mapping target")
+        candidate = pipeline.get("candidate_policy")
+        if not isinstance(candidate, dict):
+            raise ValueError("pipeline candidate_policy must be an object")
+        floor = number(candidate.get("score_floor"), "pipeline score floor", 0, 1)
+        cap = candidate.get("max_detections")
+        if isinstance(cap, bool) or not isinstance(cap, int) or cap <= 0:
+            raise ValueError("pipeline max_detections must be a positive integer")
+        if native_floor is not None and native_floor != floor:
+            if mode == "held_out":
+                raise ValueError(f"{role}: pipeline/cache score floor mismatch")
+            limitations.append(f"{role}: pipeline/cache score floors disagree.")
+        native_cap = native.get("max_raw_det") if isinstance(native, dict) else None
+        if native_cap is not None and native_cap != cap:
+            if mode == "held_out":
+                raise ValueError(f"{role}: pipeline/cache candidate cap mismatch")
+            limitations.append(f"{role}: pipeline/cache candidate caps disagree.")
+        # The more restrictive known floor controls visibility, even diagnostically.
+        floors[role] = max(floor, native_floor) if native_floor is not None else floor
+        pipelines[role] = pipeline
+    same = len(pipelines) == len(ROLES) and all(
+        p == pipelines["source_selection"] for p in pipelines.values())
+    if pipelines and not same:
+        if mode == "held_out":
+            raise ValueError("held_out requires identical inference pipelines across all roles")
+        limitations.append("Inference pipelines differ or are incomplete across roles; diagnostic only.")
+    return {"status": "DECLARED_IDENTICAL" if same else "UNVERIFIED_OR_DIFFERENT",
+            "score_floors": floors}
 
 
 def _role_policy(evaluators, policy):
@@ -52,8 +111,15 @@ def _role_policy(evaluators, policy):
         namespaces[dataset] = namespace
         doc = evaluators[role].annotations
         native_dataset = doc["provenance"].get("dataset")
+        if mode == "held_out" and native_dataset is None:
+            raise ValueError(f"{role}: held_out requires annotation provenance.dataset")
         if native_dataset is not None and native_dataset != dataset:
             raise ValueError("dataset_id must agree with annotation provenance.dataset")
+        coverage = evaluators[role].predictions["provenance"].get("evaluated_image_ids")
+        if coverage is None:
+            if mode == "held_out":
+                raise ValueError(f"{role}: held_out requires complete evaluated_image_ids")
+            limitations.append(f"{role}: inference coverage is unverified; evaluated_image_ids absent.")
         filters = declaration.get("attribute_filter", {})
         if not isinstance(filters, dict) or not all(isinstance(k, str) for k in filters):
             raise ValueError("attribute_filter must be an object")
@@ -74,23 +140,25 @@ def _role_policy(evaluators, policy):
                                f"group provenance {'missing' if evidence is None else 'declared'}; independence unverified.")
         populations[role] = (image_keys, group_keys)
         counts[role] = {"images": len(image_keys), "groups": len(group_keys), "missing_group_ids": missing}
-    pairs = [("source_selection", "clear_test"), ("source_selection", "target_test")]
-    if relationship == "disjoint":
-        pairs.append(("clear_test", "target_test"))
+    pairs = [("source_selection", "clear_test"), ("source_selection", "target_test"),
+             ("clear_test", "target_test")]
     for left, right in pairs:
         for index, unit in ((0, "image"), (1, "group")):
+            if index == 1 and relationship == "paired" and left == "clear_test":
+                continue
             if populations[left][index] & populations[right][index]:
                 raise ValueError(f"declared {unit} overlap between {left} and {right}")
+    pipeline_validation = _pipeline_policy(evaluators, mode, limitations)
     limitations.append("Role/population/group provenance is caller-declared; unrecorded dependence, "
                        "prior development exposure and dishonest namespaces cannot be detected.")
     limitations.append("Population descriptions label roles; only supplied attribute_filter entries "
                        "are checked. Clear/daytime semantics are not inferred from filenames.")
     return {"mode": mode, "test_relationship": relationship, "counts": counts,
             "status": "DECLARED_HELD_OUT" if mode == "held_out" else "DIAGNOSTIC",
-            "limitations": limitations}
+            "pipeline_validation": pipeline_validation, "limitations": limitations}
 
 
-def evaluate_transfer(documents, *, policy, target_recall):
+def evaluate_transfer(documents, *, policy, target_recall, include_matches=False):
     """documents maps each role to (canonical annotations, canonical predictions).
 
     No test labels participate in threshold selection. Selection failure propagates
@@ -107,6 +175,16 @@ def evaluate_transfer(documents, *, policy, target_recall):
                   for role in ROLES}
     separation = _role_policy(evaluators, policy)
     selection = evaluators["source_selection"].select_threshold(target_recall)
+    visibility = {}
+    for role, floor in separation["pipeline_validation"]["score_floors"].items():
+        threshold = selection["threshold"]
+        below = threshold < floor if threshold is not None and floor is not None else None
+        visibility[role] = {"score_floor": floor, "threshold_below_floor": below}
+        if below:
+            message = f"{role}: selected threshold is below the recorded cache score floor"
+            if policy["population_mode"] == "held_out":
+                raise ValueError(message)
+            separation["limitations"].append(message + "; operating point is censored.")
     populations, provenance = {}, {}
     for role in ROLES:
         evaluator = evaluators[role]
@@ -124,6 +202,12 @@ def evaluate_transfer(documents, *, policy, target_recall):
         clear["operating_point"]["recall"]["value"] if clear["operating_point"] else None,
         target["operating_point"]["recall"]["value"] if target["operating_point"] else None,
         clear["candidate_ceiling"]["recall"]["value"], target["candidate_ceiling"]["recall"]["value"])
+    if not include_matches:
+        points = [selection["candidate_ceiling"], selection["operating_point"]]
+        points.extend(p[key] for p in populations.values() for key in ("candidate_ceiling", "operating_point"))
+        for point in points:
+            if point is not None:
+                point.pop("matches", None)
     return {"schema_version": "threshold-transfer-reference-result-v1", "researcher": "GPT",
             "protocol": "greedy_score_prefix_iou_0.50_reference_not_official_AP",
             "units": "recall/precision/gaps in fractions; FPPI in false positives per image",
@@ -132,7 +216,8 @@ def evaluate_transfer(documents, *, policy, target_recall):
                 "gt_order": "IoU descending, annotation_id ascending", "eligible_gt_first": True,
                 "ignore_overlap": "intersection / prediction area >= 0.50; reusable regions",
                 "ignore_policy": policy["ignore_policy"]},
-            "role_validation": separation, "selection": selection, "populations": populations,
+            "role_validation": separation, "candidate_visibility": visibility,
+            "match_rows_included": bool(include_matches), "selection": selection, "populations": populations,
             "held_out_loss": loss, "input_provenance": provenance,
             "pending": ["Official AP", "Full OCE", "Published LaECE", "Bootstrap coverage", "Empirical G0 prerequisites"]}
 
@@ -151,6 +236,7 @@ def main(argv=None):
     parser.add_argument("--policy", required=True, type=Path)
     parser.add_argument("--target-recall", required=True, type=float)
     parser.add_argument("--output", type=Path, help="default: stdout")
+    parser.add_argument("--include-matches", action="store_true", help="include potentially large per-candidate rows")
     args = parser.parse_args(argv)
     try:
         documents, files = {}, {}
@@ -163,7 +249,8 @@ def main(argv=None):
             input_paths.extend((ann, pred))
         if args.output is not None and args.output.resolve() in {p.resolve() for p in input_paths}:
             raise ValueError("output cannot overwrite an input file")
-        result = evaluate_transfer(documents, policy=load_json(args.policy), target_recall=args.target_recall)
+        result = evaluate_transfer(documents, policy=load_json(args.policy), target_recall=args.target_recall,
+                                   include_matches=args.include_matches)
         result["input_files"] = files
         result["policy_file"] = _file_record(args.policy)
         rendered = json.dumps(result, allow_nan=False, indent=2, sort_keys=True) + "\n"
@@ -172,7 +259,7 @@ def main(argv=None):
         else:
             sys.stdout.write(rendered)
         return 0
-    except (ValueError, OSError, TypeError) as error:
+    except (ValueError, OSError, TypeError, RecursionError) as error:
         sys.stderr.write(json.dumps({"status": "ERROR", "error": str(error)}, allow_nan=False) + "\n")
         return 2
 

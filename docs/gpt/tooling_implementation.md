@@ -27,6 +27,7 @@ point = ev.operating_point(0.8)           # score >= 0.8, whole ties
 
 `categories` selects exact native names, with no implicit aliases or merging.
 Multiple selected categories are pooled for counts but matched within category.
+This is not the merged-human panel: that task requires explicit, provenance-recorded relabelling of GT and predictions into one human category.
 Candidate/annotation IDs are globally unique within their respective collections.
 Boxes are finite positive `[x,y,width,height]`; scores are finite in `[0,1]`.
 Malformed values, duplicate IDs/JSON keys, unknown image references, numeric
@@ -124,7 +125,7 @@ identity is `(dataset_id,image_id)`; group identity is
 `(group_namespace,group_id)`. One dataset must use the same group namespace
 across roles. Source-selection image/group overlap with either test is always
 rejected, including in diagnostic mode. `test_relationship: paired` permits
-shared groups/images between the two tests, never with selection; it does not
+shared groups between distinct test images, never with selection; it does not
 certify the correctness of scene correspondence. `disjoint` checks both tests
 against each other too.
 
@@ -145,6 +146,8 @@ infeasible/undefined evaluations return exit 0 with explicit statuses; invalid
 inputs return exit 2 and a JSON error on stderr. No inference is performed.
 
 ## Validation evidence
+
+**Coordinator resolution:** the initial implementation below received Claude's [formal review](../reviews/2026-11-05_gpt_evaluator_review.md). S1–S3 and selected low-severity issues were fixed directly with seven additional regression tests; see [the resolution](../reviews/2026-11-05_evaluator_resolution.md). The evaluator suite now has 32 tests. Held-out mode additionally requires native dataset identity, complete inference coverage and identical declared pipeline provenance. Diagnostic mode reports missing/different pipelines and threshold censoring. Match rows are omitted from transfer JSON unless `--include-matches` is supplied. These changes do not authenticate declarations or pass G0.
 
 GPT ran, using the existing sibling environment unchanged:
 
