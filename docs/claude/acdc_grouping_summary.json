@@ -1,0 +1,926 @@
+{
+  "author": "Claude (Opus 5.5), completing a GPT draft (incomplete; Codex credits exhausted); not GPT-reviewed",
+  "base_commit": "e5a7e92",
+  "inspection_date": "2026-11-06",
+  "status": "proposal only; Advait approval pending; G0 pending",
+  "scope": "RGB paths, raw-byte SHA-256 and detection annotation counts; no image decoding, no detector output",
+  "policy": "acdc-recording-v1",
+  "seed": "acdc-grouping-v1-2026-11-06",
+  "allocation_rule": "Within a stratum, order components by SHA256(seed + newline + group ID), ties by ID; first ceil(n/4) -> calibrator_fit, next ceil(n/4) -> threshold_selection, rest -> held_out. A stratum with n < 3 is descriptive_only. Components without labelled adverse images are unlabelled_only. No counts, labels or detector output are used.",
+  "inputs": [
+    {
+      "relative_path": "gt_detection_trainval/gt_detection/instancesonly_train_gt_detection.json",
+      "sha256": "33be9416b6c4c66d55fe61ee0d3dd1e2ecf06fc82db38480aa377e5341c24487"
+    },
+    {
+      "relative_path": "gt_detection_trainval_ref/gt_detection/instancesonly_train_gt_ref_detection.json",
+      "sha256": "2123a3cb3996d478b4186e71df9b3a336b66a82f3b23b5dbefa7b2e19eae22ed"
+    },
+    {
+      "relative_path": "gt_detection_trainval/gt_detection/instancesonly_val_gt_detection.json",
+      "sha256": "1dc7b900b8f1f2797f2c9238417d438d336ac8907778940402fab852ee434215"
+    },
+    {
+      "relative_path": "gt_detection_trainval_ref/gt_detection/instancesonly_val_gt_ref_detection.json",
+      "sha256": "75f71206c37320734932f2c3edfb7961428eea5bee23f6676787293af43d7a61"
+    }
+  ],
+  "readme": {
+    "relative_path": "gt_detection_trainval/README.md",
+    "sha256": "31c5abfb020bfcf37a6728fb5dc7dc031a288789e802db6a9d5ffb4e32ff1f9d"
+  },
+  "local_full_manifest": {
+    "sha256": "04c6a0ad1a805d666a09f5a24d4634b1ba248858749ccaa3e60f4249e794fcf3",
+    "recipe": "SHA-256 of canonical ASCII JSON (sort_keys, separators (',', ':'), ensure_ascii, allow_nan=False, no newline); images sorted by path with raw-byte SHA-256, size, candidate group, proposed role; star witness edges."
+  },
+  "tree": {
+    "images": 8012,
+    "stems_with_adverse_and_reference": 4006,
+    "by_condition_split": {
+      "fog/test": 500,
+      "fog/test_ref": 500,
+      "fog/train": 400,
+      "fog/train_ref": 400,
+      "fog/val": 100,
+      "fog/val_ref": 100,
+      "night/test": 500,
+      "night/test_ref": 500,
+      "night/train": 400,
+      "night/train_ref": 400,
+      "night/val": 106,
+      "night/val_ref": 106,
+      "rain/test": 500,
+      "rain/test_ref": 500,
+      "rain/train": 400,
+      "rain/train_ref": 400,
+      "rain/val": 100,
+      "rain/val_ref": 100,
+      "snow/test": 500,
+      "snow/test_ref": 500,
+      "snow/train": 400,
+      "snow/train_ref": 400,
+      "snow/val": 100,
+      "snow/val_ref": 100
+    },
+    "chapter_and_pair_components": 60,
+    "recording_numbers": 26,
+    "components_without_identical_bytes_edges": 26,
+    "components": 24,
+    "components_spanning_conditions": 2,
+    "labelled_adverse_components_by_condition_signature": {
+      "fog": 5,
+      "fog+snow": 1,
+      "night": 3,
+      "night+snow": 1,
+      "rain": 4,
+      "snow": 4
+    },
+    "components_by_condition": {
+      "fog": 6,
+      "night": 7,
+      "rain": 5,
+      "snow": 8
+    },
+    "labelled_adverse_components_by_condition": {
+      "fog": 6,
+      "night": 4,
+      "rain": 4,
+      "snow": 6
+    },
+    "tokens_recurring_across_conditions": 0,
+    "tokens_recurring_across_splits": 28,
+    "recording_numbers_recurring_across_conditions": 0,
+    "recording_numbers_recurring_across_splits": 15,
+    "recording_numbers_with_multiple_chapters": 19,
+    "byte_identical_file_groups": 12,
+    "chapter_continuity": {
+      "adjacent_same_split_chapter_pairs": 39,
+      "pairs_straddling_chapter_boundary": 27,
+      "max_frame_index": 1061
+    },
+    "session_proxy_blocks_by_gap": {
+      "0": {
+        "fog": 6,
+        "night": 7,
+        "rain": 5,
+        "snow": 8
+      },
+      "2": {
+        "fog": 1,
+        "night": 6,
+        "rain": 2,
+        "snow": 4
+      },
+      "10": {
+        "fog": 1,
+        "night": 4,
+        "rain": 2,
+        "snow": 4
+      }
+    },
+    "components_by_role": {
+      "calibrator_fit": 5,
+      "descriptive_only": 2,
+      "held_out": 6,
+      "threshold_selection": 5,
+      "unlabelled_only": 6
+    },
+    "witness_edges_by_type": {
+      "chapter": 7952,
+      "pair": 4006,
+      "recording": 7986,
+      "identical_bytes": 13
+    }
+  },
+  "totals": {
+    "adverse": {
+      "images": 2006,
+      "components": 18,
+      "largest_component_images": 306,
+      "largest_component_image_share": 0.15254237288135594,
+      "empty_images_all_classes": 35,
+      "empty_images_noncrowd_person": 1184,
+      "empty_images_noncrowd_human": 1075,
+      "person_noncrowd": 2175,
+      "person_crowd": 46,
+      "rider_noncrowd": 273,
+      "rider_crowd": 3
+    },
+    "annotated_reference": {
+      "images": 1003,
+      "components": 18,
+      "largest_component_images": 153,
+      "largest_component_image_share": 0.15254237288135594,
+      "empty_images_all_classes": 1,
+      "empty_images_noncrowd_person": 404,
+      "empty_images_noncrowd_human": 284,
+      "person_noncrowd": 2597,
+      "person_crowd": 0,
+      "rider_noncrowd": 576,
+      "rider_crowd": 0
+    },
+    "paired_adverse": {
+      "images": 1003,
+      "components": 18,
+      "largest_component_images": 153,
+      "largest_component_image_share": 0.15254237288135594,
+      "empty_images_all_classes": 13,
+      "empty_images_noncrowd_person": 578,
+      "empty_images_noncrowd_human": 526,
+      "person_noncrowd": 1059,
+      "person_crowd": 23,
+      "rider_noncrowd": 124,
+      "rider_crowd": 2
+    }
+  },
+  "panels": {
+    "adverse": {
+      "calibrator_fit": {
+        "fog": {
+          "images": 233,
+          "components": 2,
+          "largest_component_images": 142,
+          "largest_component_image_share": 0.6094420600858369,
+          "empty_images_all_classes": 2,
+          "empty_images_noncrowd_person": 160,
+          "empty_images_noncrowd_human": 149,
+          "person_noncrowd": 156,
+          "person_crowd": 2,
+          "rider_noncrowd": 31,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 104,
+          "components": 1,
+          "largest_component_images": 104,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 62,
+          "empty_images_noncrowd_human": 38,
+          "person_noncrowd": 113,
+          "person_crowd": 3,
+          "rider_noncrowd": 51,
+          "rider_crowd": 2
+        },
+        "rain": {
+          "images": 8,
+          "components": 1,
+          "largest_component_images": 8,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 1,
+          "empty_images_noncrowd_human": 1,
+          "person_noncrowd": 61,
+          "person_crowd": 2,
+          "rider_noncrowd": 1,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 70,
+          "components": 1,
+          "largest_component_images": 70,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 27,
+          "empty_images_noncrowd_human": 26,
+          "person_noncrowd": 84,
+          "person_crowd": 4,
+          "rider_noncrowd": 7,
+          "rider_crowd": 0
+        }
+      },
+      "threshold_selection": {
+        "fog": {
+          "images": 193,
+          "components": 2,
+          "largest_component_images": 164,
+          "largest_component_image_share": 0.8497409326424871,
+          "empty_images_all_classes": 8,
+          "empty_images_noncrowd_person": 184,
+          "empty_images_noncrowd_human": 182,
+          "person_noncrowd": 18,
+          "person_crowd": 0,
+          "rider_noncrowd": 2,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 50,
+          "components": 1,
+          "largest_component_images": 50,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 6,
+          "empty_images_noncrowd_person": 24,
+          "empty_images_noncrowd_human": 21,
+          "person_noncrowd": 51,
+          "person_crowd": 0,
+          "rider_noncrowd": 12,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 13,
+          "components": 1,
+          "largest_component_images": 13,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 9,
+          "empty_images_noncrowd_human": 9,
+          "person_noncrowd": 11,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 140,
+          "components": 1,
+          "largest_component_images": 140,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 2,
+          "empty_images_noncrowd_person": 73,
+          "empty_images_noncrowd_human": 64,
+          "person_noncrowd": 175,
+          "person_crowd": 5,
+          "rider_noncrowd": 13,
+          "rider_crowd": 0
+        }
+      },
+      "held_out": {
+        "fog": {
+          "images": 7,
+          "components": 1,
+          "largest_component_images": 7,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 5,
+          "empty_images_noncrowd_human": 5,
+          "person_noncrowd": 7,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 203,
+          "components": 1,
+          "largest_component_images": 203,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 9,
+          "empty_images_noncrowd_person": 103,
+          "empty_images_noncrowd_human": 79,
+          "person_noncrowd": 400,
+          "person_crowd": 5,
+          "rider_noncrowd": 59,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 479,
+          "components": 2,
+          "largest_component_images": 258,
+          "largest_component_image_share": 0.5386221294363257,
+          "empty_images_all_classes": 7,
+          "empty_images_noncrowd_person": 322,
+          "empty_images_noncrowd_human": 308,
+          "person_noncrowd": 297,
+          "person_crowd": 5,
+          "rider_noncrowd": 30,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 57,
+          "components": 2,
+          "largest_component_images": 54,
+          "largest_component_image_share": 0.9473684210526315,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 29,
+          "empty_images_noncrowd_human": 28,
+          "person_noncrowd": 51,
+          "person_crowd": 0,
+          "rider_noncrowd": 6,
+          "rider_crowd": 0
+        }
+      },
+      "descriptive_only": {
+        "fog": {
+          "images": 67,
+          "components": 1,
+          "largest_component_images": 67,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 39,
+          "empty_images_noncrowd_human": 37,
+          "person_noncrowd": 55,
+          "person_crowd": 0,
+          "rider_noncrowd": 4,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 149,
+          "components": 1,
+          "largest_component_images": 149,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 70,
+          "empty_images_noncrowd_human": 57,
+          "person_noncrowd": 253,
+          "person_crowd": 4,
+          "rider_noncrowd": 44,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 0,
+          "components": 0,
+          "largest_component_images": 0,
+          "largest_component_image_share": null,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 0,
+          "empty_images_noncrowd_human": 0,
+          "person_noncrowd": 0,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 233,
+          "components": 2,
+          "largest_component_images": 157,
+          "largest_component_image_share": 0.6738197424892703,
+          "empty_images_all_classes": 1,
+          "empty_images_noncrowd_person": 76,
+          "empty_images_noncrowd_human": 71,
+          "person_noncrowd": 443,
+          "person_crowd": 16,
+          "rider_noncrowd": 13,
+          "rider_crowd": 1
+        }
+      }
+    },
+    "annotated_reference": {
+      "calibrator_fit": {
+        "fog": {
+          "images": 117,
+          "components": 2,
+          "largest_component_images": 71,
+          "largest_component_image_share": 0.6068376068376068,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 63,
+          "empty_images_noncrowd_human": 53,
+          "person_noncrowd": 206,
+          "person_crowd": 0,
+          "rider_noncrowd": 43,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 52,
+          "components": 1,
+          "largest_component_images": 52,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 16,
+          "empty_images_noncrowd_human": 9,
+          "person_noncrowd": 118,
+          "person_crowd": 0,
+          "rider_noncrowd": 39,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 4,
+          "components": 1,
+          "largest_component_images": 4,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 1,
+          "empty_images_noncrowd_human": 1,
+          "person_noncrowd": 22,
+          "person_crowd": 0,
+          "rider_noncrowd": 2,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 36,
+          "components": 1,
+          "largest_component_images": 36,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 11,
+          "empty_images_noncrowd_human": 4,
+          "person_noncrowd": 108,
+          "person_crowd": 0,
+          "rider_noncrowd": 38,
+          "rider_crowd": 0
+        }
+      },
+      "threshold_selection": {
+        "fog": {
+          "images": 96,
+          "components": 2,
+          "largest_component_images": 82,
+          "largest_component_image_share": 0.8541666666666666,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 81,
+          "empty_images_noncrowd_human": 73,
+          "person_noncrowd": 29,
+          "person_crowd": 0,
+          "rider_noncrowd": 17,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 25,
+          "components": 1,
+          "largest_component_images": 25,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 10,
+          "empty_images_noncrowd_human": 5,
+          "person_noncrowd": 49,
+          "person_crowd": 0,
+          "rider_noncrowd": 10,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 7,
+          "components": 1,
+          "largest_component_images": 7,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 3,
+          "empty_images_noncrowd_human": 1,
+          "person_noncrowd": 10,
+          "person_crowd": 0,
+          "rider_noncrowd": 3,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 69,
+          "components": 1,
+          "largest_component_images": 69,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 19,
+          "empty_images_noncrowd_human": 12,
+          "person_noncrowd": 215,
+          "person_crowd": 0,
+          "rider_noncrowd": 48,
+          "rider_crowd": 0
+        }
+      },
+      "held_out": {
+        "fog": {
+          "images": 4,
+          "components": 1,
+          "largest_component_images": 4,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 2,
+          "empty_images_noncrowd_human": 2,
+          "person_noncrowd": 4,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 101,
+          "components": 1,
+          "largest_component_images": 101,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 28,
+          "empty_images_noncrowd_human": 18,
+          "person_noncrowd": 396,
+          "person_crowd": 0,
+          "rider_noncrowd": 61,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 239,
+          "components": 2,
+          "largest_component_images": 129,
+          "largest_component_image_share": 0.5397489539748954,
+          "empty_images_all_classes": 1,
+          "empty_images_noncrowd_person": 96,
+          "empty_images_noncrowd_human": 70,
+          "person_noncrowd": 444,
+          "person_crowd": 0,
+          "rider_noncrowd": 85,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 28,
+          "components": 2,
+          "largest_component_images": 26,
+          "largest_component_image_share": 0.9285714285714286,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 14,
+          "empty_images_noncrowd_human": 8,
+          "person_noncrowd": 47,
+          "person_crowd": 0,
+          "rider_noncrowd": 21,
+          "rider_crowd": 0
+        }
+      },
+      "descriptive_only": {
+        "fog": {
+          "images": 33,
+          "components": 1,
+          "largest_component_images": 33,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 17,
+          "empty_images_noncrowd_human": 12,
+          "person_noncrowd": 59,
+          "person_crowd": 0,
+          "rider_noncrowd": 5,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 75,
+          "components": 1,
+          "largest_component_images": 75,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 14,
+          "empty_images_noncrowd_human": 6,
+          "person_noncrowd": 434,
+          "person_crowd": 0,
+          "rider_noncrowd": 95,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 0,
+          "components": 0,
+          "largest_component_images": 0,
+          "largest_component_image_share": null,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 0,
+          "empty_images_noncrowd_human": 0,
+          "person_noncrowd": 0,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 117,
+          "components": 2,
+          "largest_component_images": 78,
+          "largest_component_image_share": 0.6666666666666666,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 29,
+          "empty_images_noncrowd_human": 10,
+          "person_noncrowd": 456,
+          "person_crowd": 0,
+          "rider_noncrowd": 109,
+          "rider_crowd": 0
+        }
+      }
+    },
+    "paired_adverse": {
+      "calibrator_fit": {
+        "fog": {
+          "images": 117,
+          "components": 2,
+          "largest_component_images": 71,
+          "largest_component_image_share": 0.6068376068376068,
+          "empty_images_all_classes": 1,
+          "empty_images_noncrowd_person": 81,
+          "empty_images_noncrowd_human": 74,
+          "person_noncrowd": 79,
+          "person_crowd": 2,
+          "rider_noncrowd": 15,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 52,
+          "components": 1,
+          "largest_component_images": 52,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 32,
+          "empty_images_noncrowd_human": 19,
+          "person_noncrowd": 36,
+          "person_crowd": 2,
+          "rider_noncrowd": 23,
+          "rider_crowd": 1
+        },
+        "rain": {
+          "images": 4,
+          "components": 1,
+          "largest_component_images": 4,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 1,
+          "empty_images_noncrowd_human": 1,
+          "person_noncrowd": 22,
+          "person_crowd": 1,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 36,
+          "components": 1,
+          "largest_component_images": 36,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 13,
+          "empty_images_noncrowd_human": 12,
+          "person_noncrowd": 41,
+          "person_crowd": 2,
+          "rider_noncrowd": 3,
+          "rider_crowd": 0
+        }
+      },
+      "threshold_selection": {
+        "fog": {
+          "images": 96,
+          "components": 2,
+          "largest_component_images": 82,
+          "largest_component_image_share": 0.8541666666666666,
+          "empty_images_all_classes": 5,
+          "empty_images_noncrowd_person": 91,
+          "empty_images_noncrowd_human": 90,
+          "person_noncrowd": 9,
+          "person_crowd": 0,
+          "rider_noncrowd": 1,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 25,
+          "components": 1,
+          "largest_component_images": 25,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 3,
+          "empty_images_noncrowd_person": 14,
+          "empty_images_noncrowd_human": 12,
+          "person_noncrowd": 21,
+          "person_crowd": 0,
+          "rider_noncrowd": 6,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 7,
+          "components": 1,
+          "largest_component_images": 7,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 6,
+          "empty_images_noncrowd_human": 6,
+          "person_noncrowd": 3,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 69,
+          "components": 1,
+          "largest_component_images": 69,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 1,
+          "empty_images_noncrowd_person": 36,
+          "empty_images_noncrowd_human": 34,
+          "person_noncrowd": 81,
+          "person_crowd": 2,
+          "rider_noncrowd": 6,
+          "rider_crowd": 0
+        }
+      },
+      "held_out": {
+        "fog": {
+          "images": 4,
+          "components": 1,
+          "largest_component_images": 4,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 3,
+          "empty_images_noncrowd_human": 3,
+          "person_noncrowd": 1,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 101,
+          "components": 1,
+          "largest_component_images": 101,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 3,
+          "empty_images_noncrowd_person": 46,
+          "empty_images_noncrowd_human": 35,
+          "person_noncrowd": 202,
+          "person_crowd": 1,
+          "rider_noncrowd": 25,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 239,
+          "components": 2,
+          "largest_component_images": 129,
+          "largest_component_image_share": 0.5397489539748954,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 152,
+          "empty_images_noncrowd_human": 144,
+          "person_noncrowd": 157,
+          "person_crowd": 2,
+          "rider_noncrowd": 17,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 28,
+          "components": 2,
+          "largest_component_images": 26,
+          "largest_component_image_share": 0.9285714285714286,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 14,
+          "empty_images_noncrowd_human": 13,
+          "person_noncrowd": 21,
+          "person_crowd": 0,
+          "rider_noncrowd": 4,
+          "rider_crowd": 0
+        }
+      },
+      "descriptive_only": {
+        "fog": {
+          "images": 33,
+          "components": 1,
+          "largest_component_images": 33,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 20,
+          "empty_images_noncrowd_human": 20,
+          "person_noncrowd": 25,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "night": {
+          "images": 75,
+          "components": 1,
+          "largest_component_images": 75,
+          "largest_component_image_share": 1.0,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 36,
+          "empty_images_noncrowd_human": 32,
+          "person_noncrowd": 125,
+          "person_crowd": 2,
+          "rider_noncrowd": 20,
+          "rider_crowd": 0
+        },
+        "rain": {
+          "images": 0,
+          "components": 0,
+          "largest_component_images": 0,
+          "largest_component_image_share": null,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 0,
+          "empty_images_noncrowd_human": 0,
+          "person_noncrowd": 0,
+          "person_crowd": 0,
+          "rider_noncrowd": 0,
+          "rider_crowd": 0
+        },
+        "snow": {
+          "images": 117,
+          "components": 2,
+          "largest_component_images": 78,
+          "largest_component_image_share": 0.6666666666666666,
+          "empty_images_all_classes": 0,
+          "empty_images_noncrowd_person": 33,
+          "empty_images_noncrowd_human": 31,
+          "person_noncrowd": 236,
+          "person_crowd": 9,
+          "rider_noncrowd": 4,
+          "rider_crowd": 1
+        }
+      }
+    }
+  },
+  "precision_design_illustration": {
+    "held_out_fog": {
+      "groups": 1,
+      "half_width_pp": null,
+      "max_sigma_b_pp": null
+    },
+    "held_out_night": {
+      "groups": 1,
+      "half_width_pp": null,
+      "max_sigma_b_pp": null
+    },
+    "held_out_rain": {
+      "groups": 2,
+      "half_width_pp": {
+        "5": 44.92,
+        "10": 89.84,
+        "15": 134.77
+      },
+      "max_sigma_b_pp": 0.56
+    },
+    "held_out_snow": {
+      "groups": 2,
+      "half_width_pp": {
+        "5": 44.92,
+        "10": 89.84,
+        "15": 134.77
+      },
+      "max_sigma_b_pp": 0.56
+    },
+    "held_out_pooled_adverse": {
+      "groups": 6,
+      "half_width_pp": {
+        "5": 5.25,
+        "10": 10.5,
+        "15": 15.74
+      },
+      "max_sigma_b_pp": 4.76
+    },
+    "all_labelled_fog": {
+      "groups": 6,
+      "half_width_pp": {
+        "5": 5.25,
+        "10": 10.5,
+        "15": 15.74
+      },
+      "max_sigma_b_pp": 4.76
+    },
+    "all_labelled_night": {
+      "groups": 4,
+      "half_width_pp": {
+        "5": 7.96,
+        "10": 15.91,
+        "15": 23.86
+      },
+      "max_sigma_b_pp": 3.14
+    },
+    "all_labelled_rain": {
+      "groups": 4,
+      "half_width_pp": {
+        "5": 7.96,
+        "10": 15.91,
+        "15": 23.86
+      },
+      "max_sigma_b_pp": 3.14
+    },
+    "all_labelled_snow": {
+      "groups": 6,
+      "half_width_pp": {
+        "5": 5.25,
+        "10": 10.5,
+        "15": 15.74
+      },
+      "max_sigma_b_pp": 4.76
+    },
+    "all_labelled_pooled_adverse": {
+      "groups": 18,
+      "half_width_pp": {
+        "5": 2.49,
+        "10": 4.97,
+        "15": 7.46
+      },
+      "max_sigma_b_pp": 10.05
+    }
+  },
+  "feasibility_verdict": {
+    "verdict": "INFEASIBLE_FOR_5PP_HALF_WIDTH",
+    "held_out_components_by_condition": {
+      "fog": 1,
+      "night": 1,
+      "rain": 2,
+      "snow": 2
+    },
+    "detail": "group-disjoint allocation exists but supports descriptive reporting only; see docs/claude/acdc_grouping.md for alternatives"
+  }
+}
