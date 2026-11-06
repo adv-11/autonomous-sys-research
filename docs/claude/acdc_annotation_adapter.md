@@ -84,3 +84,9 @@ The parent acquisition records archive authenticity (package ID, official MD5, a
 - CLI: inventory/convert, missing policy, refusal to write into the data root or the repository.
 
 Without `PYTHONPATH=src`, one pre-existing GPT CLI test fails because its subprocess cannot import the uninstalled package. That is environmental and unrelated to this change. The real integration command was `PYTHONPATH=src python -m threshold_transfer.acdc inventory --root <abs>/data/acdc/extracted --invalid-images -1 --out <scratch>/inventory.json`, which ran for about 9.5 minutes. A second run without invalid masks, using the final code, added the frame-gap diagnostic. The two runs agree on every overlapping section, and both were merged into the committed summary.
+
+## Coordinator update after formal review
+
+GPT's [formal review](../reviews/2026-11-06_acdc_adapter_review.md) independently supports the annotation counts and all 24,771 mask areas/bboxes, but identified malformed-input and PNG-structure defects. The [resolution record](../reviews/2026-11-06_acdc_adapter_resolution.md) describes the direct fixes, auxiliary provenance additions and regression validation. The historical 88-test report above describes the original Claude snapshot; the revised combined suite passes 100 tests on both interpreters. Full invalid-mask validation of the revised decoder is still running.
+
+The RGB archive is now acquired and verified. The [acquisition record](../data_acquisition.md) and [archive manifest](../datasets/acdc_archive_manifest.json) record complete extraction, official MD5/SHA-256/CRC checks and all 3,009 detection-manifest image paths/dimensions matching. This closes file availability and dimension checks, without verifying visual viewpoint correspondence or independent groups. The original findings and peer exchange above retain their original inspection context.

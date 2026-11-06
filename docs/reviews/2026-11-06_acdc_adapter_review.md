@@ -6,7 +6,7 @@
 
 The isolated checkout started at the hold commit. GPT locally merged the implementation for testing; the resulting test tree was `618e2761c2e32ff578a63e62ef7c8e8a8212340d`. Only this review document is authored in the review commit. No implementation, shared/GPT/Claude document, or source asset was edited. No peer/child was contacted, acquisition restarted, package installed, inference/training run, push, PR, or research/main merge occurred.
 
-**Recommendation: request changes on two P2 robustness findings before accepting the adapter's fail-closed guarantee.** The verified snapshot's annotation-only counts and mask geometry are supported. These findings do not invalidate those counts. The protocol hold is appropriate and remains necessary; this review does not authorize adaptation allocation, independent-group inference, or G0 passage. The project owner's explicit GitHub merge approval remains required.
+**Recommendation: request changes on two P2 robustness findings before accepting the adapter's fail-closed guarantee.** The verified snapshot's annotation-only counts and mask geometry are supported. These findings do not invalidate those counts. The protocol hold is appropriate and remains necessary; this review does not authorize adaptation allocation, independent-group inference, or G0 passage. My explicit GitHub merge approval remains required.
 
 ## Must fix
 

@@ -21,6 +21,8 @@ read from a local extraction outside Git and never written back into the reposit
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import re
 import struct
 import sys
@@ -51,8 +53,10 @@ IGNORE_POLICIES = {
 }
 PAIR_STATUS = ("documented_naming_convention: the ACDC README names reference files by the "
                "adverse image's {sequence}_frame_{frame} stem with a _ref marker; the "
-               "correspondence is a scene/viewpoint pairing, not an independent group, and "
-               "is not yet checked against the RGB image archive")
+               "correspondence is a scene/viewpoint pairing, not an independent group; "
+               "this annotation parser does not verify RGB coverage or visual correspondence")
+MAX_MASK_PIXELS = 16_777_216
+MAX_MASK_PNG_BYTES = 64 * 1024 * 1024
 GROUP_STATUS = ("unknown: ACDC sequence tokens are GoPro file/chapter names (GOPRnnnn, "
                 "GP01nnnn, ...), not verified independent trips; group_id is null")
 AGGREGATE_FILES = {
@@ -75,7 +79,7 @@ def parse_file_name(name: Any) -> dict:
     The two ``_ref`` markers must agree. The returned ``pair_key`` is the README naming
     stem shared by an adverse image and its normal-condition reference.
     """
-    match = _NAME.match(name) if isinstance(name, str) else None
+    match = _NAME.fullmatch(name) if isinstance(name, str) else None
     if not match or bool(match.group(3)) != bool(match.group(6)):
         raise PreflightError(f"unexpected ACDC file_name {name!r}")
     condition, split, ref, sequence, frame = match.group(1, 2, 3, 4, 5)
@@ -96,6 +100,8 @@ def gopro_recording(sequence: str) -> str | None:
 def parse_segmentation(value: Any, height: int, width: int) -> list[int]:
     """Parse ACDC's ``{"size": [h, w], "counts": str}`` compressed COCO RLE into run lengths."""
     if (not isinstance(value, dict) or set(value) != {"size", "counts"}
+            or not isinstance(value["size"], list) or len(value["size"]) != 2
+            or any(type(v) is not int for v in value["size"])
             or value["size"] != [height, width] or not isinstance(value["counts"], str)):
         raise PreflightError("segmentation must be {'size': [h, w], 'counts': str} matching the image")
     return decode_rle_counts(value["counts"], height * width)
@@ -169,30 +175,65 @@ def rle_columns(counts: list[int], height: int):
 
 
 def read_png_gray8(path: Path) -> tuple[int, int, bytes]:
-    """Minimal stdlib decoder for 8-bit grayscale, non-interlaced PNG (ACDC invIds)."""
-    data = Path(path).read_bytes()
+    """Decode grayscale8 masks; reject invalid structure and bound input/inflation.
+
+    Supported masks have at most MAX_MASK_PIXELS pixels and MAX_MASK_PNG_BYTES
+    encoded bytes. These resource limits exceed the inspected 1920x1080 masks.
+    """
+    with Path(path).open("rb") as source:
+        data = source.read(MAX_MASK_PNG_BYTES + 1)
+    if len(data) > MAX_MASK_PNG_BYTES:
+        raise PreflightError(f"{Path(path).name}: PNG exceeds the encoded mask size limit")
     if data[:8] != b"\x89PNG\r\n\x1a\n":
         raise PreflightError(f"{Path(path).name}: not a PNG")
-    position, idat, header = 8, [], None
+    position, idat, header, idat_ended, ended = 8, [], None, False, False
     while position < len(data):
-        length, kind = struct.unpack(">I4s", data[position:position + 8])
+        if len(data) - position < 12:
+            raise PreflightError(f"{Path(path).name}: truncated PNG chunk")
+        length, kind = struct.unpack_from(">I4s", data, position)
+        end = position + 12 + length
+        if length > 0x7fffffff or end > len(data):
+            raise PreflightError(f"{Path(path).name}: invalid PNG chunk length")
+        if any(not (65 <= c <= 90 or 97 <= c <= 122) for c in kind) or kind[2] & 32:
+            raise PreflightError(f"{Path(path).name}: invalid PNG chunk type")
         body = data[position + 8:position + 8 + length]
-        if len(body) != length or zlib.crc32(kind + body) != struct.unpack(
-                ">I", data[position + 8 + length:position + 12 + length])[0]:
+        if zlib.crc32(kind + body) != struct.unpack_from(">I", data, position + 8 + length)[0]:
             raise PreflightError(f"{Path(path).name}: corrupt PNG chunk")
+        if header is None and kind != b"IHDR":
+            raise PreflightError(f"{Path(path).name}: IHDR must be the first PNG chunk")
         if kind == b"IHDR":
+            if header is not None or length != 13:
+                raise PreflightError(f"{Path(path).name}: duplicate or malformed IHDR")
             header = struct.unpack(">IIBBBBB", body)
+            width, height = header[:2]
+            if (header[2:] != (8, 0, 0, 0, 0) or not 0 < width <= 0x7fffffff
+                    or not 0 < height <= 0x7fffffff or width * height > MAX_MASK_PIXELS):
+                raise PreflightError(f"{Path(path).name}: unsupported grayscale8 dimensions or format")
         elif kind == b"IDAT":
+            if idat_ended:
+                raise PreflightError(f"{Path(path).name}: IDAT chunks must be consecutive")
             idat.append(body)
         elif kind == b"IEND":
+            if length or not idat or end != len(data):
+                raise PreflightError(f"{Path(path).name}: invalid IEND or trailing PNG data")
+            ended = True
             break
-        position += 12 + length
-    if header is None or header[2:] != (8, 0, 0, 0, 0):
-        raise PreflightError(f"{Path(path).name}: expected 8-bit grayscale non-interlaced PNG")
+        elif not kind[0] & 32:
+            raise PreflightError(f"{Path(path).name}: unsupported critical PNG chunk")
+        elif idat:
+            idat_ended = True
+        position = end
+    if header is None or not ended:
+        raise PreflightError(f"{Path(path).name}: PNG is missing IHDR or IEND")
     width, height = header[0], header[1]
-    raw = zlib.decompress(b"".join(idat))
-    if len(raw) != height * (width + 1):
-        raise PreflightError(f"{Path(path).name}: wrong decompressed size")
+    expected = height * (width + 1)
+    try:
+        decoder = zlib.decompressobj()
+        raw = decoder.decompress(b"".join(idat), expected + 1)
+    except zlib.error as error:
+        raise PreflightError(f"{Path(path).name}: invalid PNG compressed stream") from error
+    if (len(raw) != expected or not decoder.eof or decoder.unconsumed_tail or decoder.unused_data):
+        raise PreflightError(f"{Path(path).name}: incomplete or oversized PNG compressed stream")
     out = bytearray(width * height)
     previous = bytearray(width)
     for row in range(height):
@@ -223,11 +264,22 @@ def read_png_gray8(path: Path) -> tuple[int, int, bytes]:
 # --------------------------------------------------------------------- conversion
 
 
+def _native_records(doc: Mapping[str, Any], key: str) -> list[dict]:
+    if not isinstance(doc, dict) or not isinstance(doc.get(key), list):
+        raise PreflightError(f"{key} must be a list of objects")
+    records = doc[key]
+    if any(not isinstance(record, dict) for record in records):
+        raise PreflightError(f"{key} must be a list of objects")
+    return records
+
+
 def _categories(doc: Mapping[str, Any]) -> dict[int, str]:
     observed = {}
-    for record in doc.get("categories", []):
+    for record in _native_records(doc, "categories"):
         if not isinstance(record, dict) or set(record) != {"id", "name", "supercategory"}:
             raise PreflightError("unexpected ACDC category record")
+        if type(record["id"]) is not int:
+            raise PreflightError("native category id must be an integer")
         if record["id"] in observed:
             raise PreflightError(f"duplicate category id {record['id']!r}")
         observed[record["id"]] = (record["name"], record["supercategory"])
@@ -251,13 +303,18 @@ def convert_acdc(doc: Mapping[str, Any], *, split: str, reference: bool, ignore_
     """
     if split not in SPLITS or not isinstance(reference, bool):
         raise PreflightError(f"split must be one of {SPLITS} and reference a bool")
-    if ignore_policy not in IGNORE_POLICIES:
+    if not isinstance(ignore_policy, str) or ignore_policy not in IGNORE_POLICIES:
         raise PreflightError(f"ignore_policy must be explicitly one of {sorted(IGNORE_POLICIES)}")
     if not isinstance(doc, dict) or not {"images", "annotations", "categories"} <= set(doc):
         raise PreflightError("ACDC detection document needs images, annotations, categories")
+    _json_value(doc)
+    for key in ("images", "annotations", "categories"):
+        _native_records(doc, key)
     if set(doc) - {"images", "annotations", "categories", "info", "licenses"}:
         raise PreflightError(f"unexpected top-level keys {sorted(set(doc) - {'images', 'annotations', 'categories'})}")
     if source is not None:
+        if not isinstance(source, dict):
+            raise PreflightError("source must be an object")
         _json_value(source)
     names = _categories(doc)
     role = _role(split, reference)
@@ -305,9 +362,9 @@ def convert_acdc(doc: Mapping[str, Any], *, split: str, reference: bool, ignore_
         image = by_native.get(record["image_id"]) if isinstance(record["image_id"], int) else None
         if image is None or isinstance(record["image_id"], bool):
             raise PreflightError(f"annotation {native}: unknown image {record['image_id']!r}")
-        if record["category_id"] not in names or isinstance(record["category_id"], bool):
+        if type(record["category_id"]) is not int or record["category_id"] not in names:
             raise PreflightError(f"annotation {native}: unknown category {record['category_id']!r}")
-        if record["iscrowd"] not in (0, 1) or isinstance(record["iscrowd"], bool):
+        if type(record["iscrowd"]) is not int or record["iscrowd"] not in (0, 1):
             raise PreflightError(f"annotation {native}: iscrowd must be 0/1")
         reason = _check_box_xywh(record["bbox"])
         if reason:
@@ -435,12 +492,27 @@ def sequence_report(documents: list[Mapping[str, Any]]) -> dict:
 def condition_file_check(aggregate: Mapping[str, Any], per_condition: Mapping[str, Any],
                          condition: str) -> dict:
     """Is a per-condition file exactly the aggregate subset for that condition?"""
+    def indexed(doc, key):
+        out = {}
+        for record in _native_records(doc, key):
+            native = record.get("id")
+            if type(native) is not int or native in out:
+                raise PreflightError(f"invalid or duplicate condition-file {key} id")
+            if key == "images":
+                parse_file_name(record.get("file_name"))
+            elif type(record.get("image_id")) is not int:
+                raise PreflightError("condition-file annotation image_id must be an integer")
+            out[native] = record
+        return out
+    for doc in (aggregate, per_condition):
+        _categories(doc)
+    aggregate_images, aggregate_anns = indexed(aggregate, "images"), indexed(aggregate, "annotations")
     prefix = f"{condition}/"
-    expected_images = {i["id"]: i for i in aggregate["images"] if i["file_name"].startswith(prefix)}
+    expected_images = {k: i for k, i in aggregate_images.items() if i["file_name"].startswith(prefix)}
     expected_ids = set(expected_images)
-    expected_anns = {a["id"]: a for a in aggregate.get("annotations", []) if a["image_id"] in expected_ids}
-    images = {i["id"]: i for i in per_condition["images"]}
-    anns = {a["id"]: a for a in per_condition.get("annotations", [])}
+    expected_anns = {k: a for k, a in aggregate_anns.items() if a["image_id"] in expected_ids}
+    images = indexed(per_condition, "images")
+    anns = indexed(per_condition, "annotations")
     foreign = sum(not i["file_name"].startswith(prefix) for i in per_condition["images"])
     return {"condition": condition, "images": len(images), "annotations": len(anns),
             "foreign_condition_images": foreign,
@@ -461,14 +533,29 @@ def panoptic_crosscheck(converted: Mapping[str, Any], panoptic: Mapping[str, Any
     Per frame and (category, iscrowd): exact (bbox, area) matches first, then greedy
     bbox-IoU >= ``near_iou`` matches. Descriptive only; detection boxes stay the source.
     """
-    stem = {i["id"]: parse_file_name(i["file_name"])["pair_key"] for i in panoptic["images"]}
+    stem = {}
+    for image in _native_records(panoptic, "images"):
+        native = image.get("id")
+        if type(native) not in (int, str) or native in stem:
+            raise PreflightError("invalid or duplicate panoptic image id")
+        stem[native] = parse_file_name(image.get("file_name"))["pair_key"]
     if len(set(stem.values())) != len(stem):
         raise PreflightError("panoptic frames are not unique")
     pan, det = defaultdict(list), defaultdict(list)
     crowd = Counter()
-    for record in panoptic["annotations"]:
-        for s in record["segments_info"]:
-            if s["category_id"] in EXPECTED_CATEGORIES:
+    for record in _native_records(panoptic, "annotations"):
+        native = record.get("image_id")
+        if type(native) not in (int, str) or native not in stem:
+            raise PreflightError("unknown panoptic image id")
+        for s in _native_records(record, "segments_info"):
+            category = s.get("category_id")
+            if type(category) is not int:
+                raise PreflightError("panoptic category_id must be an integer")
+            if category in EXPECTED_CATEGORIES:
+                if type(s.get("iscrowd")) is not int or s["iscrowd"] not in (0, 1):
+                    raise PreflightError("panoptic iscrowd must be 0/1")
+                if _check_box_xywh(s.get("bbox")) or type(s.get("area")) is not int or s["area"] <= 0:
+                    raise PreflightError("invalid panoptic bbox or area")
                 pan[(stem[record["image_id"]], s["category_id"], bool(s["iscrowd"]))].append(
                     (tuple(map(float, s["bbox"])), s["area"]))
                 crowd[EXPECTED_CATEGORIES[s["category_id"]][0]] += bool(s["iscrowd"])
@@ -520,9 +607,12 @@ def invalid_overlap_native(doc: Mapping[str, Any], gt_root: Path, *,
     bins = ("0", "(0,0.1]", "(0.1,0.5]", "(0.5,1]")
     hist = defaultdict(lambda: dict.fromkeys(bins, 0))
     image_fraction = defaultdict(list)
+    source_files = []
     for image in images:
         path = Path(gt_root) / image["segm_file"].replace("_gt_labelIds.png", "_gt_invIds.png")
         width, height, pixels = read_png_gray8(path)
+        source_files.append({"relative_path": path.relative_to(gt_root).as_posix(),
+                             "sha256": sha256_file(path)})
         if (width, height) != (image["width"], image["height"]) or set(pixels) - {0, 1}:
             raise PreflightError(f"{path.name}: unexpected invIds dimensions or values")
         condition = parse_file_name(image["file_name"])["condition"]
@@ -536,7 +626,13 @@ def invalid_overlap_native(doc: Mapping[str, Any], gt_root: Path, *,
             fraction = invalid / total
             key = bins[0] if fraction == 0 else bins[1] if fraction <= 0.1 else bins[2] if fraction <= 0.5 else bins[3]
             hist[f"{condition}:{names[a['category_id']]}"][key] += 1
+    manifest_bytes = json.dumps(sorted(source_files, key=lambda x: x["relative_path"]),
+                                sort_keys=True, separators=(",", ":")).encode("utf-8")
     return {"images_read": len(images),
+            "source_manifest": {"files": len(source_files),
+                                "sha256": hashlib.sha256(manifest_bytes).hexdigest(),
+                                "recipe": "UTF-8 JSON of relative_path/sha256 objects sorted by relative_path; "
+                                          "sort_keys=True, separators=(',', ':'); paths relative to gt root"},
             "mean_invalid_pixel_fraction_by_condition": {
                 c: round(sum(v) / len(v), 6) for c, v in sorted(image_fraction.items())},
             "images_with_any_invalid_by_condition": {
@@ -575,11 +671,12 @@ def inventory(root: Path, *, invalid_limit: int | None = 0) -> dict:
             entry = condition_file_check(natives[(split, False)], load_json(root / relative), condition)
             entry.update(split=split, sha256=sha256_file(root / relative))
             condition_files.append(entry)
-    panoptic = {}
+    panoptic, panoptic_sources = {}, {}
     for split in SPLITS:
         for reference, relative in ((False, f"gt_panoptic_trainval/gt_panoptic/{split}_gt_panoptic.json"),
                                     (True, f"gt_panoptic_trainval_ref/gt_panoptic/{split}_gt_ref_panoptic.json")):
             if (root / relative).exists():
+                panoptic_sources[_role(split, reference)] = _source(root, relative)
                 panoptic[_role(split, reference)] = panoptic_crosscheck(
                     converted[(split, reference)], load_json(root / relative))
     report = {
@@ -589,6 +686,7 @@ def inventory(root: Path, *, invalid_limit: int | None = 0) -> dict:
                   for k, v in sources.items()},
         "condition_files": condition_files,
         "panoptic_crosscheck": panoptic,
+        "panoptic_sources": panoptic_sources,
         "reference_pairing": {s: reference_pairing(converted[(s, False)], converted[(s, True)]) for s in SPLITS},
         "sequences": sequence_report([converted[(s, False)] for s in SPLITS]),
         "group_id_status": GROUP_STATUS,
