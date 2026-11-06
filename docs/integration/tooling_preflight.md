@@ -32,3 +32,9 @@ These are coordinator answers from code inspection and real integration, not a f
 - **Q4:** strict-known bounds validation applies to GT and predictions. Both unchanged real pairs passed.
 
 G0 remains pending: BDD/ACDC access and artifact inspection, verified groups/conditions and split manifests, inference provenance, model-specific training/evaluation smoke tests, and subsequent statistical validation. My approval is still required for research PR merges.
+
+## Post-review validation
+
+After the [adapter corrections](../reviews/2026-11-05_data_resolution.md), 67 combined synthetic tests pass on both Python 3.11 and Python 3.12. The coordinator regenerated both real pairs from native files and passed their dictionaries directly to the evaluator, without relying on JSON serialization to normalize object keys. Strict bounds and count consistency checks pass; unknown-group held-out checks still fail as intended. The earlier detection project's Git working tree remains clean.
+
+COCO counts remain 5,000 images / 36,781 annotations / 123,897 predictions, and the diagnostic KITTI counts remain 2,427 / 22,238 / 101,660. These are compatibility checks, not newly estimated weather-transfer performance. Current generated output identities are recorded under gitignored `outputs/integration/review_fixed/validation.json`; that file also records the exact native source/cache hashes. The earlier table identifies the previous integration run, not every later provenance declaration.

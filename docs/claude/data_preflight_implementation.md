@@ -4,6 +4,8 @@
 
 Files: [`src/threshold_transfer/data.py`](../../src/threshold_transfer/data.py), [`tests/test_data.py`](../../tests/test_data.py), compact evidence [`data_preflight_inventory_summary.json`](data_preflight_inventory_summary.json), acquisition note [`dataset_acquisition_preflight.md`](dataset_acquisition_preflight.md). No shared path (`docs/data_contract.md`, `pyproject.toml`, `__init__.py`, GPT files) was edited.
 
+**Coordinator update after cross-review:** GPT's [review](../reviews/2026-11-05_claude_data_review.md) identified focused input/provenance defects. The [resolution](../reviews/2026-11-05_data_resolution.md) records direct fixes and nine regression tests. The combined suite now passes 67 tests on Python 3.11 and 3.12. Source aliases are protected, completed output is replaced atomically, JSON/category/geometry checks fail closed, converter dictionaries work directly with the evaluator, and role PASS means declared-group consistency rather than verified independence. The initial implementation/test history below is retained; prose count errors are corrected.
+
 ## Design
 
 ```mermaid

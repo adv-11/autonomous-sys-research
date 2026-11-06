@@ -788,9 +788,10 @@ def convert_legacy_predictions(cache, *, category_mapping: Mapping[str, str],
 def check_roles(manifest: Mapping[str, Any], roles: Mapping[str, str], *, mode: str) -> dict:
     """Check an image->role assignment against manifest group IDs.
 
-    ``mode='held_out'`` declares independent splits: fails on any unknown group, any group
+    ``mode='held_out'`` checks declared groups: fails on any unknown group, any group
     spanning roles, or unknown images. ``mode='diagnostic'`` tolerates unknown groups but
-    still fails on known groups spanning roles and never reports independence.
+    still fails on known groups spanning roles. Neither mode verifies grouping provenance
+    or reports independently established splits; PASS is declared-group consistency only.
     """
     if mode not in ("held_out", "diagnostic"):
         raise PreflightError("mode must be 'held_out' or 'diagnostic'")
