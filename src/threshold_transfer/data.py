@@ -23,9 +23,12 @@ import gzip
 import hashlib
 import json
 import math
+import os
 import struct
 import sys
+import tempfile
 from collections import Counter, defaultdict
+from functools import wraps
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -57,13 +60,71 @@ def canonical_id(value: Any, what: str) -> str:
         raise PreflightError(f"{what}: invalid identifier {value!r}")
     if isinstance(value, int):
         return str(value)
-    if isinstance(value, str) and value != "":
+    if isinstance(value, str) and value.strip():
         return value
     raise PreflightError(f"{what}: identifier must be int or nonempty str, got {value!r}")
 
 
 def _is_number(v: Any) -> bool:
-    return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
+    try:
+        return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
+    except OverflowError:
+        return False
+
+
+def _json_value(value: Any) -> None:
+    """Validate public dictionaries before any result/file is returned or replaced."""
+    if value is None or isinstance(value, (str, bool)):
+        return
+    if isinstance(value, (int, float)):
+        if not _is_number(value):
+            raise PreflightError("nonfinite or unrepresentable JSON number")
+    elif isinstance(value, list):
+        for item in value:
+            _json_value(item)
+    elif isinstance(value, dict) and all(isinstance(k, str) for k in value):
+        for item in value.values():
+            _json_value(item)
+    else:
+        raise PreflightError("expected JSON-compatible values with string object keys")
+
+
+def _report_value(value: Any) -> Any:
+    """Make rejected-data examples serializable without repairing any geometry."""
+    if isinstance(value, (int, float)) and not isinstance(value, bool) and not _is_number(value):
+        return f"rejected-number:{value!r}"
+    if isinstance(value, list):
+        return [_report_value(v) for v in value]
+    if isinstance(value, dict):
+        return {str(k): _report_value(v) for k, v in value.items()}
+    if value is None or isinstance(value, (str, bool, int, float)):
+        return value
+    return f"rejected-value:{value!r}"
+
+
+def _checked_result(function):
+    @wraps(function)
+    def checked(*args, **kwargs):
+        result = function(*args, **kwargs)
+        _json_value(result)
+        return result
+    return checked
+
+
+def _native_document(doc, dataset_tag, split, source):
+    if not isinstance(doc, dict):
+        raise PreflightError("annotation document must be an object")
+    if not isinstance(dataset_tag, str) or not dataset_tag.strip():
+        raise PreflightError("dataset_tag must be a nonempty string")
+    if split is not None and (not isinstance(split, str) or not split.strip()):
+        raise PreflightError("split must be a nonempty string or null")
+    if source is not None:
+        if not isinstance(source, dict):
+            raise PreflightError("source provenance must be an object")
+        _json_value(source)
+    for key in ("images", "annotations", "categories"):
+        if not isinstance(doc.get(key), list) or any(not isinstance(r, dict) for r in doc[key]):
+            raise PreflightError(f"{key} must be a list of objects")
 
 
 def sha256_file(path: Path, chunk: int = 1 << 20) -> str:
@@ -77,16 +138,54 @@ def sha256_file(path: Path, chunk: int = 1 << 20) -> str:
 def load_json(path: Path) -> Any:
     path = Path(path)
     opener = gzip.open if path.suffix == ".gz" else open
-    with opener(path, "rt", encoding="utf-8") as f:
-        return json.load(f)
+    def unique(pairs):
+        result = {}
+        for k, v in pairs:
+            if k in result:
+                raise PreflightError(f"duplicate JSON key: {k}")
+            result[k] = v
+        return result
+    def reject(value):
+        raise PreflightError(f"nonstandard JSON constant: {value}")
+    try:
+        with opener(path, "rt", encoding="utf-8") as f:
+            result = json.load(f, object_pairs_hook=unique, parse_constant=reject)
+        _json_value(result)
+        return result
+    except (OSError, ValueError, UnicodeError, OverflowError, RecursionError) as error:
+        raise PreflightError(f"cannot read JSON {path.name}: {error}") from error
 
 
-def write_json(obj: Any, path: Path) -> None:
+def _protect_output(path, inputs=(), roots=()):
+    destination = Path(path).resolve()
+    for source in inputs:
+        source = Path(source).resolve()
+        if destination == source or (destination.exists() and source.exists() and
+                                      os.path.samefile(destination, source)):
+            raise PreflightError("output cannot overwrite a consumed input")
+    if any(destination.is_relative_to(Path(root).resolve()) for root in roots):
+        raise PreflightError("output cannot be inside a protected source asset tree")
+
+
+def write_json(obj: Any, path: Path, *, protected_inputs=(), protected_roots=()) -> None:
     path = Path(path)
+    _protect_output(path, protected_inputs, protected_roots)
+    _json_value(obj)
+    rendered = json.dumps(obj, allow_nan=False) + "\n"
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, allow_nan=False)
-        f.write("\n")
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent,
+                                         prefix=f".{path.name}.", suffix=".tmp", delete=False) as f:
+            temporary = Path(f.name)
+            f.write(rendered)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(temporary, path)
+        temporary = None
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def _decimals(v: float) -> int:
@@ -104,7 +203,21 @@ def _check_box_xywh(bbox: Any) -> str | None:
         return "bbox_nonfinite_or_nonnumeric"
     if bbox[2] <= 0 or bbox[3] <= 0:
         return "bbox_nonpositive_width_or_height"
+    x, y, w, h = map(float, bbox)
+    if not all(math.isfinite(v) for v in (x + w, y + h, w * h)):
+        return "bbox_overflowing_extent_or_area"
+    if w * h <= 0 or x + w <= x or y + h <= y:
+        return "bbox_unrepresentable_positive_extent_or_area"
     return None
+
+
+def _legacy_bbox(row):
+    x1, y1, x2, y2 = map(float, row[1:5])
+    box = [x1, y1, x2 - x1, y2 - y1]
+    reason = _check_box_xywh(box)
+    if reason:
+        raise PreflightError(reason)
+    return box
 
 
 def _out_of_bounds(bbox: list[float], width: Any, height: Any) -> bool:
@@ -140,6 +253,8 @@ def _convert_images(doc: Mapping[str, Any], split: str | None) -> tuple[list[dic
             # No weather/timeofday metadata is fabricated.
             "attributes": {},
         }
+        if out["file_name"] is not None and not isinstance(out["file_name"], str):
+            raise PreflightError("image file_name must be a string or null")
         images.append(out)
         by_id[iid] = out
     return images, by_id
@@ -152,10 +267,12 @@ def _category_names(doc: Mapping[str, Any]) -> dict[Any, str]:
     names: dict[Any, str] = {}
     seen = set()
     for c in cats:
-        cid, name = c.get("id"), c.get("name")
+        if not isinstance(c, dict):
+            raise PreflightError("category record must be an object")
+        cid, name = canonical_id(c.get("id"), "category id"), c.get("name")
         if cid in names:
             raise PreflightError(f"duplicate category id {cid!r}")
-        if not isinstance(name, str) or not name or name in seen:
+        if not isinstance(name, str) or not name.strip() or name in seen:
             raise PreflightError(f"category {cid!r}: missing or duplicate name {name!r}")
         names[cid] = name
         seen.add(name)
@@ -180,30 +297,32 @@ def _base_annotations(doc, by_image, cat_names, dataset_tag, invalid_policy, ext
         iid = canonical_id(a.get("image_id"), f"annotation {native_id} image_id")
         if iid not in by_image:
             raise PreflightError(f"annotation {native_id} references unknown image {iid!r}")
-        if a.get("category_id") not in cat_names:
+        category_id = canonical_id(a.get("category_id"), f"annotation {native_id} category_id")
+        if category_id not in cat_names:
             raise PreflightError(f"annotation {native_id} has unknown category_id {a.get('category_id')!r}")
+        iscrowd = a.get("iscrowd", 0)
+        if not isinstance(iscrowd, (int, bool)) or iscrowd not in (0, 1):
+            raise PreflightError(f"annotation {native_id}: iscrowd {iscrowd!r} not 0/1")
         reason = _check_box_xywh(a.get("bbox"))
         if reason:
             invalid[reason] += 1
             if len(invalid_examples) < 20:
-                invalid_examples.append({"annotation_id": aid, "bbox": a.get("bbox"), "reason": reason})
+                invalid_examples.append({"annotation_id": aid, "bbox": _report_value(a.get("bbox")), "reason": reason})
             if invalid_policy == "reject":
                 raise PreflightError(f"annotation {native_id}: {reason} bbox={a.get('bbox')!r}")
             continue
         img = by_image[iid]
         if _out_of_bounds(a["bbox"], img["width"], img["height"]):
             oob += 1
-        iscrowd = a.get("iscrowd", 0)
-        if iscrowd not in (0, 1, True, False):
-            raise PreflightError(f"annotation {native_id}: iscrowd {iscrowd!r} not 0/1")
         native = {"category_id": a.get("category_id")}
         for k in extra_native:
             if k in a:
                 native[k] = a[k]
+        _json_value(native)
         out.append({
             "annotation_id": aid,
             "image_id": iid,
-            "category": cat_names[a["category_id"]],
+            "category": cat_names[category_id],
             "bbox": [float(v) for v in a["bbox"]],
             "ignore": False,
             "iscrowd": bool(iscrowd),
@@ -233,9 +352,11 @@ def _summary(images, annotations) -> dict:
     }
 
 
+@_checked_result
 def convert_coco(doc, *, dataset_tag: str, split: str | None, ignore_policy: str,
                  invalid_box_policy: str = "reject", source: Mapping[str, Any] | None = None) -> dict:
     """Convert a plain COCO instances document. Fails closed on KITTI-derived fields."""
+    _native_document(doc, dataset_tag, split, source)
     if ignore_policy not in COCO_IGNORE_POLICIES:
         raise PreflightError(f"ignore_policy must be explicitly one of {sorted(COCO_IGNORE_POLICIES)}")
     for a in doc.get("annotations", []):
@@ -259,7 +380,7 @@ def convert_coco(doc, *, dataset_tag: str, split: str | None, ignore_policy: str
             "ignore_policy": ignore_policy,
             "official_evaluator_equivalent": False,
             "categories": sorted(cat_names.values()),
-            "native_category_ids": {name: cid for cid, name in cat_names.items()},
+            "native_category_ids": {c["name"]: c["id"] for c in doc["categories"]},
             "dropped_native_fields": ["segmentation"],
             "group_id_status": "unknown: no verified independent group metadata",
             "condition_metadata_status": "absent: no weather/timeofday attributes in source",
@@ -269,6 +390,7 @@ def convert_coco(doc, *, dataset_tag: str, split: str | None, ignore_policy: str
     }
 
 
+@_checked_result
 def convert_kitti_derived(doc, *, dataset_tag: str, split: str | None, policy: str | None,
                           invalid_box_policy: str = "reject",
                           source: Mapping[str, Any] | None = None) -> dict:
@@ -282,6 +404,7 @@ def convert_kitti_derived(doc, *, dataset_tag: str, split: str | None, policy: s
     images containing any neighbour record are removed, DontCare becomes ``ignore=True``
     (same-category IoA in the evaluator), and no difficulty filter is applied.
     """
+    _native_document(doc, dataset_tag, split, source)
     if policy != KITTI_DIAGNOSTIC_POLICY:
         raise PreflightError(
             "KITTI native ignore semantics (DontCare IoA, neighbour-class IoU one-to-one, "
@@ -291,10 +414,32 @@ def convert_kitti_derived(doc, *, dataset_tag: str, split: str | None, policy: s
         )
     cat_names = _category_names(doc)
     images, by_id = _convert_images(doc, split)
+    # Policy population exclusions must survive a record's invalid-box exclusion.
+    neighbour_images: set[str] = set()
+    for native in doc["annotations"]:
+        iid = canonical_id(native.get("image_id"), "KITTI image_id")
+        if iid not in by_id:
+            raise PreflightError(f"KITTI record references unknown image {iid!r}")
+        if any(k not in native for k in ("kitti_ignore", "ignore_reason")):
+            raise PreflightError("KITTI record missing native ignore fields")
+        kig, crowd, reason = native["kitti_ignore"], native.get("iscrowd", 0), native["ignore_reason"]
+        if any(not isinstance(flag, (int, bool)) or flag not in (0, 1) for flag in (kig, crowd)):
+            raise PreflightError("KITTI ignore flags must be native 0/1 booleans")
+        if reason is None:
+            if kig or crowd:
+                raise PreflightError("KITTI ignore flag without ignore_reason")
+        elif reason == "dontcare":
+            if not kig or not crowd:
+                raise PreflightError("KITTI dontcare record flags inconsistent")
+        elif isinstance(reason, str) and reason.startswith("neighbour:"):
+            if crowd or not kig:
+                raise PreflightError("KITTI neighbour record flags inconsistent")
+            neighbour_images.add(iid)
+        else:
+            raise PreflightError(f"unsupported native ignore_reason {reason!r}")
     anns, report = _base_annotations(doc, by_id, cat_names, dataset_tag, invalid_box_policy,
                                      KITTI_NATIVE_KEYS + ("area",))
     kinds: Counter = Counter()
-    neighbour_images: set[str] = set()
     for a in anns:
         n = a["attributes"]["native"]
         missing = [k for k in ("kitti_ignore", "ignore_reason") if k not in n]
@@ -345,7 +490,7 @@ def convert_kitti_derived(doc, *, dataset_tag: str, split: str | None, policy: s
                 "data, not an untouched confirmatory test.",
             ],
             "categories": sorted(cat_names.values()),
-            "native_category_ids": {name: cid for cid, name in cat_names.items()},
+            "native_category_ids": {c["name"]: c["id"] for c in doc["categories"]},
             "native_record_kinds_before_exclusion": dict(kinds),
             "excluded_neighbour_image_count": len(neighbour_images),
             "excluded_neighbour_image_ids": sorted(neighbour_images, key=_id_sort_key),
@@ -368,18 +513,25 @@ def _legacy_meta(cache: Mapping[str, Any]) -> tuple[dict, list[str], list[str]]:
     if not isinstance(cache, Mapping) or set(cache) != {"meta", "detections"}:
         raise PreflightError("legacy cache must be exactly {meta, detections}")
     meta = cache["meta"]
+    if not isinstance(meta, dict):
+        raise PreflightError("legacy meta must be an object")
+    _json_value(meta)
     if not isinstance(cache["detections"], list):
         raise PreflightError("legacy 'detections' must be a list of rows")
     for k in ("image_ids", "vocabulary", "detector"):
         if k not in meta:
             raise PreflightError(f"legacy meta missing {k!r}")
+    if not isinstance(meta["image_ids"], list) or not isinstance(meta["detector"], dict):
+        raise PreflightError("legacy image_ids must be a list and detector an object")
     ids = [canonical_id(i, "meta image id") for i in meta["image_ids"]]
     if len(set(ids)) != len(ids):
         raise PreflightError("duplicate image ids in legacy meta after canonicalisation")
-    if meta.get("num_images") is not None and meta["num_images"] != len(ids):
+    if meta.get("num_images") is not None and (
+            isinstance(meta["num_images"], bool) or not isinstance(meta["num_images"], int)
+            or meta["num_images"] != len(ids)):
         raise PreflightError(f"meta num_images {meta['num_images']} != len(image_ids) {len(ids)}")
     vocab = meta["vocabulary"]
-    if not isinstance(vocab, list) or not all(isinstance(v, str) and v for v in vocab):
+    if not isinstance(vocab, list) or not all(isinstance(v, str) and v.strip() for v in vocab):
         raise PreflightError("legacy vocabulary must be a list of nonempty strings")
     # Duplicate names occur in real caches (torchvision's 91-slot COCO list has ten 'N/A'
     # placeholders). They are tolerated only while unmapped; see convert_legacy_predictions.
@@ -395,6 +547,13 @@ def duplicate_vocabulary(vocab: list[str]) -> dict[str, list[int]]:
 
 def cache_policy(meta: Mapping[str, Any]) -> dict:
     det = meta.get("detector", {})
+    if not isinstance(det, dict):
+        raise PreflightError("detector metadata must be an object")
+    floor, cap = det.get("score_thresh"), det.get("max_raw_det")
+    if floor is not None and (not _is_number(floor) or not 0 <= floor <= 1):
+        raise PreflightError("invalid detector score floor")
+    if cap is not None and (isinstance(cap, bool) or not isinstance(cap, int) or cap <= 0):
+        raise PreflightError("invalid detector raw candidate cap")
     return {
         "score_floor": det.get("score_thresh"),
         "max_raw_det_per_image": det.get("max_raw_det"),
@@ -444,6 +603,11 @@ def scan_legacy_rows(cache: Mapping[str, Any]) -> dict:
             elif x2 <= x1 or y2 <= y1:
                 r = "box_zero_or_reversed"
             else:
+                try:
+                    _legacy_bbox(row)
+                except (PreflightError, OverflowError) as error:
+                    r = f"box_not_representable:{error}"
+            if r is None:
                 per_image[iid_c] += 1
                 dup_rows += lab in dup_index
                 if pol["score_floor"] is not None and s < pol["score_floor"]:
@@ -472,12 +636,13 @@ def scan_legacy_rows(cache: Mapping[str, Any]) -> dict:
         "rows_exceeding_score_rounding": score_excess,
         "duplicate_vocabulary_names": dup,
         "rows_with_duplicate_vocabulary_name": dup_rows,
-        "label_index_histogram": dict(sorted(Counter(
-            r[6] for i, r in enumerate(cache["detections"]) if i not in bad).items())),
+        "label_index_histogram": {str(k): v for k, v in sorted(Counter(
+            r[6] for i, r in enumerate(cache["detections"]) if i not in bad).items())},
         "cache_policy": pol,
     }
 
 
+@_checked_result
 def convert_legacy_predictions(cache, *, category_mapping: Mapping[str, str],
                                annotations: Mapping[str, Any] | None = None,
                                restrict_to_manifest: bool = False,
@@ -491,8 +656,14 @@ def convert_legacy_predictions(cache, *, category_mapping: Mapping[str, str],
     """
     if invalid_row_policy not in INVALID_POLICIES:
         raise PreflightError(f"invalid_row_policy must be one of {INVALID_POLICIES}")
-    if not category_mapping:
+    if not isinstance(category_mapping, Mapping) or not category_mapping:
         raise PreflightError("an explicit, nonempty category_mapping is required")
+    if any(not isinstance(k, str) or not k.strip() for k in category_mapping):
+        raise PreflightError("category_mapping keys must be nonempty strings")
+    if source is not None:
+        if not isinstance(source, dict):
+            raise PreflightError("source provenance must be an object")
+        _json_value(source)
     meta, ids, vocab = _legacy_meta(cache)
     unknown_keys = sorted(set(category_mapping) - set(vocab))
     if unknown_keys:
@@ -501,16 +672,24 @@ def convert_legacy_predictions(cache, *, category_mapping: Mapping[str, str],
     if ambiguous:
         raise PreflightError(f"category_mapping keys are duplicated in the vocabulary (ambiguous): {ambiguous}")
     for k, v in category_mapping.items():
-        if not isinstance(v, str) or not v:
+        if not isinstance(v, str) or not v.strip():
             raise PreflightError(f"category_mapping[{k!r}] must be a nonempty category name")
     if annotations is not None:
+        if (not isinstance(annotations, dict) or not isinstance(annotations.get("images"), list)
+                or not isinstance(annotations.get("annotations"), list)
+                or not isinstance(annotations.get("provenance"), dict)):
+            raise PreflightError("annotations must be a canonical manifest")
+        _json_value(annotations)
+        manifest_ids = [canonical_id(i.get("image_id"), "manifest image_id") for i in annotations["images"]]
+        if len(set(manifest_ids)) != len(manifest_ids):
+            raise PreflightError("duplicate manifest image_id")
         cats = set(annotations.get("provenance", {}).get("categories") or
                    {a["category"] for a in annotations["annotations"]})
         missing = sorted(set(category_mapping.values()) - cats)
         if missing:
             raise PreflightError(f"mapping targets absent from annotation categories: {missing}")
     run = meta.get("run")
-    if not isinstance(run, str) or not run:
+    if not isinstance(run, str) or not run.strip():
         raise PreflightError("legacy meta needs a nonempty 'run' to namespace candidate IDs")
     scan = scan_legacy_rows(cache)
     bad = scan.pop("invalid_row_indices")
@@ -551,12 +730,11 @@ def convert_legacy_predictions(cache, *, category_mapping: Mapping[str, str],
         if name not in category_mapping:
             dropped_unmapped[name] += 1
             continue
-        x1, y1, x2, y2 = (float(v) for v in row[1:5])
         preds.append({
             "candidate_id": f"{run}:{idx:0{width}d}",
             "image_id": iid,
             "category": category_mapping[name],
-            "bbox": [x1, y1, x2 - x1, y2 - y1],
+            "bbox": _legacy_bbox(row),
             "score": float(row[5]),
         })
     if annotations is not None and restrict_to_manifest:
@@ -606,6 +784,7 @@ def convert_legacy_predictions(cache, *, category_mapping: Mapping[str, str],
 # ------------------------------------------------------------------ group/role check
 
 
+@_checked_result
 def check_roles(manifest: Mapping[str, Any], roles: Mapping[str, str], *, mode: str) -> dict:
     """Check an image->role assignment against manifest group IDs.
 
@@ -615,8 +794,30 @@ def check_roles(manifest: Mapping[str, Any], roles: Mapping[str, str], *, mode: 
     """
     if mode not in ("held_out", "diagnostic"):
         raise PreflightError("mode must be 'held_out' or 'diagnostic'")
-    groups = {i["image_id"]: i.get("group_id") for i in manifest["images"]}
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("images"), list):
+        raise PreflightError("role manifest must have an images list")
+    if not isinstance(roles, Mapping):
+        raise PreflightError("role assignments must be an object")
+    groups = {}
+    for image in manifest["images"]:
+        if not isinstance(image, dict):
+            raise PreflightError("role image must be an object")
+        iid = image.get("image_id")
+        if not isinstance(iid, str):
+            raise PreflightError("canonical role image_id must be a nonempty string")
+        canonical_id(iid, "role image_id")
+        if iid in groups:
+            raise PreflightError(f"duplicate role image_id: {iid}")
+        group = image.get("group_id")
+        if group is not None and (not isinstance(group, str) or not group.strip()):
+            raise PreflightError("group_id must be a nonempty string or null")
+        groups[iid] = group
+    for iid, role in roles.items():
+        if not isinstance(iid, str) or not iid.strip() or not isinstance(role, str):
+            raise PreflightError("role assignment keys/values must be strings with nonempty IDs")
     errors: list[str] = []
+    if not roles:
+        errors.append("empty assignment cannot establish role consistency")
     bad_roles = sorted({r for r in roles.values() if r not in ROLES})
     if bad_roles:
         errors.append(f"unknown roles {bad_roles}; allowed {list(ROLES)}")
@@ -643,13 +844,14 @@ def check_roles(manifest: Mapping[str, Any], roles: Mapping[str, str], *, mode: 
     return {
         "mode": mode,
         "status": status,
-        "independent_split_declared": status == "PASS",
+        "independent_split_declared": False,
+        "declared_groups_consistent": status == "PASS",
         "errors": errors,
         "role_counts": dict(Counter(roles.values())),
         "unknown_group_images": unknown_group_images,
         "known_group_count": len(group_roles),
-        "limitations": [] if status == "PASS" else
-        ["no independence claim; image-level role assignment is not a grouped split"],
+        "limitations": ["Consistency checks on declared groups only; independent grouping provenance "
+                        "requires external evidence. No verified independence claim is made."],
     }
 
 
@@ -918,6 +1120,24 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--out", type=Path)
     a = ap.parse_args(argv)
     try:
+        inputs = [getattr(a, name) for name in ("input", "annotations", "roles", "config")
+                  if getattr(a, name, None) is not None]
+        roots = []
+        if a.cmd == "inventory":
+            config = load_json(a.config)
+            if not isinstance(config, dict) or not isinstance(config.get("asset_root"), str):
+                raise PreflightError("inventory config needs an asset_root string")
+            root = (a.asset_root if a.asset_root else a.config.resolve().parent.parent / config["asset_root"]).resolve()
+            roots.append(root)
+            directory_keys = {"coco_images", "kitti_images", "kitti_labels", "legacy_predictions"}
+            for key, value in config.items():
+                if key in ("asset_root", "root_resolution"):
+                    continue
+                if not isinstance(value, str):
+                    raise PreflightError("configured asset paths must be strings")
+                (roots if key in directory_keys else inputs).append(root / value)
+        if getattr(a, "out", None):
+            _protect_output(a.out, inputs, roots)
         if a.cmd == "inventory":
             result = inventory(a.config, dims=a.dims, asset_root=a.asset_root)
         elif a.cmd == "convert-coco":
@@ -935,13 +1155,15 @@ def main(argv: list[str] | None = None) -> int:
                                                 invalid_row_policy=a.invalid_row_policy, source=_source(a.input))
         else:
             result = check_roles(load_json(a.annotations), load_json(a.roles), mode=a.mode)
-    except PreflightError as e:
+        if getattr(a, "out", None):
+            write_json(result, a.out, protected_inputs=inputs, protected_roots=roots)
+        else:
+            _json_value(result)
+            print(json.dumps(result, indent=1, allow_nan=False))
+    except (PreflightError, OSError, ValueError, TypeError, AttributeError, KeyError,
+            OverflowError, RecursionError, UnicodeError) as e:
         print(f"PREFLIGHT ERROR: {e}", file=sys.stderr)
         return 2
-    if getattr(a, "out", None):
-        write_json(result, a.out)
-    else:
-        print(json.dumps(result, indent=1, allow_nan=False))
     if a.cmd == "check-roles" and result["status"] == "FAIL":
         return 3
     return 0

@@ -34,6 +34,6 @@
 3. Inspect the real JSON schemas: BDD attribute location, `crowd`/`ignore`/`other person` records; ACDC bbox extent, crowd and invalid-mask representation. Then extend `data.py` with converters that preserve native flags and fail closed, and agree any contract change with GPT.
 4. Establish verified group IDs: BDD trip/route evidence, ACDC normal/adverse correspondence kept in one group. Then build grouped role manifests and pass `check_roles(..., mode="held_out")`.
 5. Count images, eligible objects, empty images, ignored objects and independent groups per condition cell before allocation decisions.
-6. The remaining G0 items in [`docs/gpt/protocol.md`](../gpt/protocol.md#L124): pinned environments, checkpoint hashes, and an actual RTX 5060 forward/backward plus evaluation smoke test.
+6. The remaining G0 items in [the protocol](../gpt/protocol.md#7-minimal-evidence-needed-next): pinned environments, checkpoint hashes, and an actual RTX 5060 forward/backward plus evaluation smoke test.
 
 Nothing in this note, the COCO/KITTI inventory or the cache replay passes G0.
