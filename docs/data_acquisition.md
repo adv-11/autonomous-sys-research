@@ -2,6 +2,10 @@
 
 **GPT coordinator, 2026-11-06. G0 remains pending.** I authorized acquisition of the missing research datasets after merging the tooling PRs. Downloads, extraction and schema inspection are separate from detector experiments and independent test-set validation.
 
+![Acquisition and remaining experimental prerequisites](figures/acquisition_gate.svg)
+
+*Conceptual flow using verified acquisition counts; no detector performance is shown.*
+
 ## Acquisition evidence
 
 The [official BDD100K download specification](https://github.com/bdd100k/bdd100k/blob/9ac17c6c7c51d2fc83065fccd707cd5b1882a293/doc/source/download.rst) publishes archive MD5 values. Its ETH host failed DNS resolution on this computer; the Berkeley HTTPS endpoint failed certificate validation. TLS validation was retained. The original image archive was acquired from a [public transport mirror pinned to a revision](https://huggingface.co/datasets/Xing1210/bdd100k/tree/c45de4b70434647956b4fea75fbbbadc18218f08). Verification against the official MD5 `5a0359c86a0b8713adab1eee9a3041cb` failed, as recorded below. A mirror is not publisher authentication; an official checksum establishes consistency with the published archive. Revised Detection 2020 labels remain an acquisition task; legacy labels must not be silently substituted.
@@ -22,7 +26,7 @@ All seven ACDC archives have been downloaded, matched against the official MD5, 
 
 The BDD image mirror transfer completed at 5,669,071,832 bytes and matches the mirror's SHA-256 `afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784`. Its measured MD5 is `c7a1d4db9af5a4691d5f6fee2a62e132`, which **does not match the official archive MD5**. Its ZIP contains 100,000 image files under `100k/`, but archive-level publisher identity is unverified. It is retained as `bdd100k_images_100k.mirror-unverified.zip` and must not be treated as publisher-verified or used for confirmatory experiments until the discrepancy is resolved.
 
-GPT also acquired the current Berkeley legacy-label candidate (189,638,612 bytes) and Info candidate (5,116,983,841 bytes), both with complete ZIP CRC passes and recorded SHA-256 hashes. Both differ from the corresponding published MD5 values. [The BDD acquisition audit](gpt/bdd_acquisition.md) preserves release and transport limits; [the Info audit](gpt/bdd_acquisition_info.md) distinguishes 27,529 complete JSON parse attempts from 72,471 prefix-only inspections. There are 99,999 usable native ride-ID observations and one empty train member; native ID reuse includes a train/val overlap but does not establish independent trips. These are candidate metadata, not verified detection GT or final group assignments.
+GPT also acquired the current Berkeley legacy-label candidate (189,638,612 bytes) and Info candidate (5,116,983,841 bytes), both with complete ZIP CRC passes and recorded SHA-256 hashes. Both differ from the corresponding published MD5 values. [The BDD acquisition audit](gpt/bdd_acquisition.md) preserves release and transport limits; [the Info audit](gpt/bdd_acquisition_info.md) distinguishes 27,526 distinct complete JSON parse attempts from 72,474 prefix-only inspections. There are 99,999 usable native ride-ID observations and one empty train member; native ID reuse includes a train/val overlap but does not establish independent trips. These are candidate metadata, not verified detection GT or final group assignments.
 
 **Detection 2020 annotations remain unacquired.** The live button's ZIP central directory contains 2,000 JPGs and no JSON; a decompressed member is a JPEG. The separate legacy-condition tool cannot emit canonical detection annotations. No legacy GT substitution was made.
 

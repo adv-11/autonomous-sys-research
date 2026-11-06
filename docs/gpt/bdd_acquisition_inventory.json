@@ -1049,13 +1049,16 @@
     "duplicate_member_names": 0,
     "duplicate_basename_records": 0,
     "json_syntax_verification": {
-      "complete_parse_attempts": 27529,
-      "complete_parse_successes": 27528,
+      "complete_parse_attempts": 27526,
+      "complete_parse_successes": 27525,
       "observed_invalid_json_count": 1,
       "observed_invalid_json_zero_byte_count": 1,
-      "remaining_prefix_only_records": 72471,
+      "remaining_prefix_only_records": 72474,
       "invalid_json_total_over_all_records": null,
-      "limitation": "Full CRC is an integrity check, not JSON syntax validation. JSON syntax beyond the prefix is unverified for prefix-only records."
+      "limitation": "Full CRC is an integrity check, not JSON syntax validation. JSON syntax beyond the prefix is unverified for prefix-only records.",
+      "parse_operations": 27529,
+      "sample_also_parsed_as_fallback": 3,
+      "count_unit": "distinct documents except parse_operations"
     },
     "rideID_verification": {
       "observation_denominator": 100000,
@@ -1080,6 +1083,7 @@
       "bytes": 10159898,
       "sha256": "f9fabd048a7d65d6207ae57f42eeedfa3c4e0b7a90d79e06eb59c429e338c736",
       "published": false
-    }
+    },
+    "postprocessing_provenance": "GPT coordinator correction after Claude review: distinct parse counts subtract the three first-12 samples also parsed as fallbacks. Remaining derived fields were manually computed from the native ride index and ZIP directories; the original probe alone does not emit every final field."
   }
 }
