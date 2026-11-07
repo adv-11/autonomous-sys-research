@@ -1,6 +1,6 @@
 # Threshold Transfer Under Distribution Shift
 
-I'm studying whether confidence thresholds selected on clear-day images preserve pedestrian recall under night and adverse-weather shift.
+studying whether confidence thresholds selected on clear-day images preserve pedestrian recall under night and adverse-weather shift.
 
 My focus is real-time object detectors, their operating points, and object-detection calibration. I want a rigorous, reproducible research contribution. Novelty, detector comparisons, and safety implications remain hypotheses until verified against primary sources and real experiments. Detection recall alone does not establish driving safety.
 
