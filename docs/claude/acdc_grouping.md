@@ -12,7 +12,7 @@ Files: [`acdc_grouping.py`](../../src/threshold_transfer/acdc_grouping.py), [`te
 
 - The ACDC images form **24 dependency components**. Of these, **18 contain labelled adverse images**: 6 touch fog, 4 night, 4 rain and 6 snow. Two components span two conditions.
 - A seeded, label-free, group-disjoint allocation exists. It leaves **1 held-out component for fog, 1 for night, 2 for rain and 2 for snow**. The fog held-out role has 7 images and 7 non-crowd persons.
-- **Verdict: infeasible for the protocol's ~5 pp half-width criterion.** I should not fit an ACDC adaptation arm for confirmatory claims. The recommended alternative is [below](#recommended-alternative).
+- **Verdict: insufficient support for confirmatory ~5 pp precision** (a conservative design decision; revised after GPT review F1). I should not fit an ACDC adaptation arm for confirmatory claims. The recommended alternative is [below](#recommended-alternative).
 
 ## Dependency edges and evidence
 
@@ -27,7 +27,7 @@ A reference image reuses the adverse token, so its filename says nothing about w
 
 **Unknown and not blocked:** the same route or day across different recordings, shared normal drives without identical bytes, and sessions. Recording numbers within a condition form runs of consecutive numbers. If recordings whose numbers differ by ≤2 were treated as one session, fog would collapse from 6 components to 1, night from 7 to 6, rain from 5 to 2 and snow from 8 to 4 (`session_proxy_blocks_by_gap`). This is a sensitivity analysis chosen after seeing the numbering, not a frozen policy. Numbers across conditions are also close in places, which is consistent with mixed-condition outings but does not prove them.
 
-**Leakage, verified:** official train, val and test share chapters, and 15 recording numbers recur across splits. The protocol's earlier "train for adaptation, val for evaluation" allocation would therefore have leaked through every edge type.
+**Leakage, verified:** official train, val and test share chapters, and 15 recording numbers recur across splits. The protocol's earlier "train for adaptation, val for evaluation" allocation would therefore have leaked through this chapter/recording overlap. Byte identity does not add train↔val leakage: all 12 identical sets lie within one official split (7 train, 1 val, 4 test). It is additional cross-condition dependency evidence. *(Corrected after GPT review F2, which found the earlier "every edge type" wording overstated.)*
 
 ## Allocation rule (fixed before outcomes; no detector output)
 
@@ -57,7 +57,7 @@ Totals: 2,006 labelled adverse images with 2,175 non-crowd and 46 crowd persons,
 
 ## Precision feasibility
 
-The protocol (§6) asks for a group-level pilot, which I cannot run without detector output. A label-free design bound still settles the question. Assume G equally weighted independent groups with between-group recall SD σ_b. The half-width is then about t₀.₉₇₅,G−1·σ_b/√G (an assumption, not data):
+The protocol (§6) asks for a group-level pilot, which I cannot run without detector output. The table below is an **illustration under stated assumptions, not a bound** for the protocol's object-weighted ratio recall or its refitted threshold-selection procedure. Assume G equally weighted independent groups with between-group recall SD σ_b. The half-width is then about t₀.₉₇₅,G−1·σ_b/√G (an assumption, not data):
 
 | groups G | half-width at σ_b = 5 / 10 / 15 pp | largest σ_b meeting 5 pp |
 |---:|---|---:|
@@ -67,12 +67,12 @@ The protocol (§6) asks for a group-level pilot, which I cannot run without dete
 | 4 (all night or rain) | 8.0 / 15.9 / 23.9 pp | 3.1 pp |
 | 18 (all labelled adverse, pooled) | 2.5 / 5.0 / 7.5 pp | 10.1 pp |
 
-With 1–2 held-out groups per condition, a group bootstrap is degenerate whatever the object count. Even if every labelled component of a condition were used for evaluation alone, 4–6 groups would need σ_b ≤ 3–5 pp. Components are also only *candidate* groups: the session analysis and the shared reference drives suggest fewer truly independent units than 18.
+**Verdict: insufficient support for confirmatory ~5 pp precision** (`INSUFFICIENT_SUPPORT_FOR_CONFIRMATORY_5PP`). This is a conservative design decision, not a proved impossibility. Fog and night each have one held-out component, so a group bootstrap is degenerate and between-group uncertainty cannot be estimated. Rain and snow have two each: a two-group bootstrap is not degenerate (equal-size groups at 90% and 91% resample to 90%, 90.5% and 91%), but it is extremely weak and its coverage is unvalidated. Even if every labelled component of a condition were used for evaluation alone, the illustration would need σ_b ≤ 3–5 pp with 4–6 groups. No component-count cutoff replaces the pilot and coverage validation. *(Revised after GPT review F1: the original eight-component floor and "settles the question" wording were withdrawn.)* Components are also only *candidate* groups: the session analysis and the shared reference drives suggest fewer truly independent units than 18.
 
 ## Recommended alternative
 
 1. **ACDC as a source-only descriptive external panel.** Evaluate all 2,006 labelled adverse images (and the 1,003-image paired subset for the anchor contrast) once, at the BDD-selected threshold. Report component counts and largest shares per cell. Any recording-cluster bootstrap carries an explicit small-G caveat, with no claim of nominal coverage. Cross-condition contrasts must note the shared components (fog–snow, night–snow).
-2. **Adaptation only as exploratory grouped cross-fitting.** Within a condition, hold out one component at a time and fit the calibrator and select the threshold on the remaining components, with a fold-specific algorithm declared in advance (protocol §2). Report per-fold results, not a confirmatory interval.
+2. **Adaptation only as exploratory grouped cross-fitting.** Within a condition, hold out one complete global component at a time (including its references and any other conditions it spans). Fit the calibrator and select the threshold on *separate* inner groups from the remaining components, with a fold-specific algorithm declared in advance (protocol §2); fitting and selecting on the same labels would not satisfy the protocol (GPT review, answer 5). Report per-fold results, not a confirmatory interval.
 3. The fixed three-role allocation above stays on record as the mechanically valid group-disjoint proposal. I do not recommend it for inference.
 
 ## Proposed adapter interface (not implemented)

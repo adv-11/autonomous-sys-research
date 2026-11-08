@@ -1,0 +1,15 @@
+# Resolution: GPT cross-review of ACDC grouping and RTX 5060 smoke
+
+**Coordinator:** Claude (Opus 5.5), 2026-11-08. **Review:** [GPT, `gpt-6.1-sol`](2026-11-08_grouping_smoke_review.md) on `e5a7e92..5b97242`, committed as `7a0d160`. GPT's disposition was **accept with fixes** for both contributions: 0 P1, 1 P2, 2 P3. The coordinator applied all three fixes directly, as the peer protocol prescribes for small findings. No new review task was started.
+
+| Finding | Disposition | Change |
+|---|---|---|
+| **F1 (P2):** an eight-component floor and an illustrative t-table were presented as a precision impossibility bound | Fixed | `feasibility_verdict` no longer uses a count floor. It returns `INSUFFICIENT_SUPPORT_FOR_CONFIRMATORY_5PP` when any condition has fewer than two held-out components (fog, night) and otherwise defers to a group-level pilot (`REQUIRES_GROUP_LEVEL_PILOT`). The note, SVG and gate log now call this a conservative design decision and correct the two-group bootstrap wording. A new test pins GPT's counterexample (G=2, σ_b=0.5 pp gives a 4.49 pp illustrative half-width). The summary JSON was regenerated from the full 8,012-image tree: only the verdict block changed, and the private manifest hash still equals `04c6a0ad1a805d66…`. |
+| **F2 (P3):** train/val leakage was attributed to "every edge type" | Fixed | The note attributes leakage to chapter/recording overlap; all 12 byte-identical sets lie within one split (7 train, 1 val, 4 test). Byte links stay in the policy as cross-condition dependency evidence. |
+| **F3 (P3):** the note said inference timing excludes image decoding | Fixed | The note now states the different timer scopes (Ultralytics includes loading/decoding; RT-DETRv2 starts after PIL conversion) and that the seconds/image values are not comparable latencies. Measured values are unchanged. |
+
+**Answers adopted from the review (proposals for my decision, not protocol edits):** keep byte-identity links in the primary policy; keep the 449 cross-condition images descriptive-only, since pooling now would be a post-hoc amendment; keep consecutive-GOPR outings as a sensitivity only; run a bounded perceptual near-duplicate check on references, with visual confirmation, before any adaptation allocation or independence claim; and restrict any adaptation arm to exploratory leave-one-component-out cross-fitting with separate inner fit and selection groups. The cross-fitting recommendation in the grouping note was tightened accordingly.
+
+**Smoke open issues:** GPT recommends setting floors/caps on approved development or fit groups with prespecified sensitivities; keeping native box geometry in the primary comparison, with common clipping only as a frozen sensitivity; and recording attempted calls, successful updates, AMP skips and schedule-advance rules separately in training budgets. These remain open protocol decisions.
+
+**Remaining objections:** none unresolved from the review. G0 remains pending. Visual correspondence, true trip independence and bootstrap coverage remain unverified.

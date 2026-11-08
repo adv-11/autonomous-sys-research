@@ -232,17 +232,27 @@ def precision_design(group_counts, sigmas_pp=(5, 10, 15), target_pp=5.0):
     return rows
 
 
-def feasibility_verdict(held_out_components, *, minimum=8):
-    """Label-free verdict. ``minimum`` held-out components per condition is a proposed
-    floor below which a group bootstrap cannot support a ~5 pp half-width under any
-    plausible between-recording spread (see ``precision_design``)."""
-    worst = min(held_out_components.values(), default=0)
-    if worst >= minimum:
-        return {"verdict": "NOT_RULED_OUT", "detail": "requires a group-level pilot (protocol §6)"}
-    return {"verdict": "INFEASIBLE_FOR_5PP_HALF_WIDTH",
-            "held_out_components_by_condition": dict(held_out_components),
-            "detail": "group-disjoint allocation exists but supports descriptive reporting "
-                      "only; see docs/claude/acdc_grouping.md for alternatives"}
+def feasibility_verdict(held_out_components):
+    """Label-free, conservative design decision (not a proved precision bound).
+
+    A condition with fewer than two held-out components cannot estimate between-group
+    uncertainty at all, so the allocation is rejected for confirmatory ~5 pp claims.
+    Otherwise no component count substitutes for the protocol's group-level pilot and
+    coverage validation (protocol §6), so the verdict only defers to that pilot."""
+    counts = dict(held_out_components)
+    single = sorted(c for c, g in counts.items() if g < 2)
+    if not counts or single:
+        return {"verdict": "INSUFFICIENT_SUPPORT_FOR_CONFIRMATORY_5PP",
+                "held_out_components_by_condition": counts,
+                "conditions_below_two_components": single,
+                "detail": "conservative design decision, not an impossibility bound: conditions "
+                          "with <2 held-out components cannot estimate between-group "
+                          "uncertainty; supports descriptive reporting only; see "
+                          "docs/claude/acdc_grouping.md for alternatives"}
+    return {"verdict": "REQUIRES_GROUP_LEVEL_PILOT",
+            "held_out_components_by_condition": counts,
+            "detail": "no count cutoff establishes 5 pp precision; requires a group-level "
+                      "pilot and bootstrap coverage validation (protocol §6)"}
 
 
 def chapter_continuity(parsed):

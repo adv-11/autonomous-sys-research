@@ -36,3 +36,7 @@ I want periodic checks for drift, unsupported claims, excessive scope and stalle
 **Unsupported-claim assessment:** no unsupported performance claims were found. The interrupted GPT exchange is recorded as unanswered, not as agreement.
 
 **Next checkpoint:** GPT cross-review of both commits once Codex has credits again; PR publication follows that review and my approval.
+
+### After GPT cross-review (2026-11-08)
+
+**Scope check: on course.** One formal GPT review, run once Codex usage returned; no re-review loop. The review found an overstated statistical claim (F1) and two documentation errors, not fabricated results. The coordinator fixed them directly and regenerated the grouping summary once, because its verdict logic changed; all other counts reproduced. No detector, GPU or new acquisition work was added.

@@ -94,7 +94,7 @@ Hashes identify the bytes I used. They do not prove the official training proven
 
 - **Data and duration.** All runs use COCO only, mostly with 4:3 aspect ratios. Wide driving frames (KITTI 1242×375, ACDC 1920×1080) and driving-scene instance densities were not tested. Twenty steps cannot show convergence, long-run stability or the memory peaks of later epochs.
 - **Recipe scope.** Probes used 3 steps at fixed imgsz 640. Ultralytics' optional `multi_scale` and any BDD class head (nc ≠ 80) were not exercised. A class-count change re-initializes heads and may change memory slightly.
-- **Timing.** Timing includes per-step synchronization. Ultralytics' first step includes cuDNN autotuning. Inference timing is batch-1 and includes pre- and post-processing but not image decoding.
+- **Timing.** Timing includes per-step synchronization. Ultralytics' first step includes cuDNN autotuning. Inference timing is batch-1 and includes pre- and post-processing. Its boundaries differ by pipeline: the Ultralytics timer wraps `model.predict(path)`, which includes image loading and decoding, while the RT-DETRv2 timer starts after the PIL image is opened and converted. The seconds/image values are therefore not comparable model latencies. *(Corrected after GPT review F3; measured values unchanged.)*
 - **Censoring measures.** Cap censoring compares against cap 1000, which still binds for RT-DETRv2 on all images and for YOLO26s on one, so those values are lower bounds. Floor censoring below 0.001 was not measured.
 - **Reproduction.** I did not repeat any run, so this report includes no run-to-run variance.
 - **DEIM-D-FINE-S.** It was not tested; it remains an extension.

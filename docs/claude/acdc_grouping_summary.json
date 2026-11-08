@@ -914,13 +914,17 @@
     }
   },
   "feasibility_verdict": {
-    "verdict": "INFEASIBLE_FOR_5PP_HALF_WIDTH",
+    "verdict": "INSUFFICIENT_SUPPORT_FOR_CONFIRMATORY_5PP",
     "held_out_components_by_condition": {
       "fog": 1,
       "night": 1,
       "rain": 2,
       "snow": 2
     },
-    "detail": "group-disjoint allocation exists but supports descriptive reporting only; see docs/claude/acdc_grouping.md for alternatives"
+    "conditions_below_two_components": [
+      "fog",
+      "night"
+    ],
+    "detail": "conservative design decision, not an impossibility bound: conditions with <2 held-out components cannot estimate between-group uncertainty; supports descriptive reporting only; see docs/claude/acdc_grouping.md for alternatives"
   }
 }

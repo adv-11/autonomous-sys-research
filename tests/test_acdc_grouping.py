@@ -210,9 +210,17 @@ class CountAndDesignTests(unittest.TestCase):
         self.assertAlmostEqual(rows["two"]["half_width_pp"]["5"], 12.706 * 5 / 2 ** 0.5, places=2)
         self.assertIsNone(rows["one"]["half_width_pp"])
         self.assertIsNone(rows["many"]["half_width_pp"])  # outside the tabulated range
-        self.assertEqual(G.feasibility_verdict({"fog": 2, "rain": 9})["verdict"],
-                         "INFEASIBLE_FOR_5PP_HALF_WIDTH")
-        self.assertEqual(G.feasibility_verdict({"fog": 8})["verdict"], "NOT_RULED_OUT")
+        verdict = G.feasibility_verdict({"fog": 1, "rain": 2})
+        self.assertEqual(verdict["verdict"], "INSUFFICIENT_SUPPORT_FOR_CONFIRMATORY_5PP")
+        self.assertEqual(verdict["conditions_below_two_components"], ["fog"])
+        # Two groups are weak but not degenerate, and no count floor proves 5 pp precision:
+        # the illustration itself meets 5 pp at G=2 when sigma_b is tiny (GPT review F1).
+        self.assertLess(G.precision_design({"two": 2}, sigmas_pp=(0.5,))["two"]
+                        ["half_width_pp"]["0.5"], 5)
+        self.assertEqual(G.feasibility_verdict({"fog": 2, "rain": 2})["verdict"],
+                         "REQUIRES_GROUP_LEVEL_PILOT")
+        self.assertEqual(G.feasibility_verdict({})["verdict"],
+                         "INSUFFICIENT_SUPPORT_FOR_CONFIRMATORY_5PP")
 
     def test_chapter_continuity_detects_straddle(self):
         paths = [name("GOPR0001", 1040, "val"), name("GP010001", 3, "val"),
