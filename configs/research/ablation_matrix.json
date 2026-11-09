@@ -1,0 +1,281 @@
+{
+  "schema_version": "research-ablation-design-v1",
+  "author": "GPT scientific-design researcher",
+  "date": "2026-11-09",
+  "base_commit": "9794d81914d43cfbb44d4aa3d127e57145385d42",
+  "status": "PROPOSED_DESIGN_NOT_RUN_AUTHORIZATION",
+  "g0_status": "PENDING",
+  "resource_steering": "User GPU job is running. Current assignments CPU-only: no GPU probe/inference/training, utilization polling, competing process, wait/retry/start or automatic overnight job. Planned GPU pilot BLOCKED; future launch needs a coordinated window and concrete resource/resume plan from coordinator.",
+  "authority": "docs/decisions/2026-11-09_research_direction.md",
+  "contribution_hypothesis": "Condition-associated ceiling-versus-threshold loss and policy-dependent transfer conclusions survive controls for known threshold, calibration, cap and geometry effects.",
+  "result_status": "No detector-performance results. One authorized real-metadata CPU feasibility regeneration is labelled separately below; expected performance observables are measurements to collect, not invented results.",
+  "systems": [
+    "YOLO11s",
+    "YOLO26s_O2O_explicit_nms_false_fresh_load",
+    "YOLO26s_O2M_explicit_nms_true_fresh_load_same_checkpoint",
+    "RT-DETRv2-S_R18_pinned_focal_postprocessor"
+  ],
+  "baseline": {
+    "score_floor": 0.0001,
+    "requested_cap": 3000,
+    "floor_comparator": "Native per-pipeline comparator recorded; Ultralytics >, RT-DETR exporter >=. Do not silently equalize.",
+    "class_selection": "all_classes_native_selection_then_evaluation_population_filter",
+    "geometry": "native_original_image_coordinates_allow_outside",
+    "precision": "native_fp32_development_capture_no_score_rounding",
+    "nms": "class_aware_hard_iou_0.70_for_O2M_only",
+    "source_policy_selection": "Freeze on approved external development/source fit groups before held-out inference; no ACDC target-recall tuning.",
+    "effective_limits": "Record realized head, max_nms, query, export, floor and final cap separately; requested 3000 is not an exhaustion assertion."
+  },
+  "observables_all_core_arms": [
+    "eligible_GT_count_image_count_empty_count_component_count_largest_share",
+    "source_threshold_observed_score_boundary_whole_ties_and_source_headroom",
+    "source_and_target_recall_FPPI_TP_FP_FN",
+    "all_candidate_ceiling_M_threshold_removable_W_and_signed_loss_components",
+    "nonnegative_target_shortfall_U_plus_V_and_signed_gap",
+    "INFEASIBLE_UNDEFINED_LOW_HEADROOM_and_unsupported_statuses_with_denominators",
+    "per_stage_omission_bounds_binding_counts_ties_timeout_and_unknown_flags",
+    "candidate_ID_births_deaths_TP_transitions_and_geometric_changes",
+    "finite_pool_completeness_fraction_unknown_fraction_and_margin_in_native_score_units"
+  ],
+  "axes": [
+    {
+      "id": "A01_cap",
+      "priority": "core",
+      "levels": [100, 300, 1000, 3000],
+      "control": "Same checkpoint/head, image, raw outputs, floor 1e-4, NMS and geometry. Both maximal-policy fixed threshold and policy-specific source reselection.",
+      "falsifiable_question": "Does condition-associated transfer loss or its ceiling/threshold composition change beyond a shared decrease in candidate count?",
+      "observables": ["per-condition_delta_M_delta_W_delta_L", "feasibility_changes", "above-threshold_ID_differences", "cross-class_budget_competition"],
+      "interpretation_limit": "Known budget effects are prior art. A larger requested cap is neither an uncensored detector nor proof that above-threshold outputs differ.",
+      "cache_rule": "Reuse only when actual native lower-cap replay preserves primitive-ID multisets above thresholds and selector prefix proof applies; ties may invalidate identity nesting."
+    },
+    {
+      "id": "A02_floor",
+      "priority": "core",
+      "levels": [0.0001, 0.001, 0.01],
+      "control": "Cap 3000, fixed raw score space, same selectors and comparator; separate final threshold from acquisition floor.",
+      "falsifiable_question": "Are floor-sensitive ceilings relevant to the frozen operating point, or only to very low-score tails?",
+      "observables": ["strict_floor_equality_cases", "delta_ceiling", "delta_recall_at_common_threshold", "floor_bound_vs_threshold"],
+      "interpretation_limit": "Inactive exporter floor does not imply absence of earlier head censoring. Completeness at t=f differs for > and >= acquisition.",
+      "cache_rule": "Higher floor can be replayed if downstream operators are prefix-consistent; changed time-limit behavior requires actual execution or unsupported status."
+    },
+    {
+      "id": "A03_head",
+      "priority": "core",
+      "levels": ["YOLO26s_O2O", "YOLO26s_O2M"],
+      "control": "Same weight file/hash, separately fresh-loaded, explicit resolved nms/end2end/head flags before fusion, common images and development budgets.",
+      "falsifiable_question": "Which differences survive documented head selection and native candidate semantics?",
+      "observables": ["branch_presence", "primitive_ID_semantics", "native_head_topk_and_max_nms", "M_W_FPPI_and_policy_interactions"],
+      "interpretation_limit": "Branches have different learned parameters/loss weighting and post-processing; this is not an isolated causal effect of NMS.",
+      "cache_rule": "No output-cache reuse across heads; checkpoint identity is shared, candidate pools are not."
+    },
+    {
+      "id": "A04_geometry",
+      "priority": "core",
+      "levels": ["native", "clip_all_final_boxes_to_image_before_matching"],
+      "control": "Same candidates, scores, IDs and threshold policy; never clip before NMS or silently repair native boxes.",
+      "falsifiable_question": "Does a system contrast depend on final box boundary conventions?",
+      "observables": ["outside_image_count", "collapsed_or_removed_count", "IoU_match_transition", "delta_M_delta_recall_FPPI"],
+      "interpretation_limit": "Ultralytics clipping cannot be undone from exported boxes. This does not equalize preprocessing or infer a weather mechanism.",
+      "cache_rule": "Final coordinates suffice; keep original geometry plus explicit invalid/collapsed status."
+    },
+    {
+      "id": "A05_score_map",
+      "priority": "core_negative_control",
+      "levels": ["raw_identity", "global_s_squared", "positive_slope_scalar_Platt_on_separate_fit_groups"],
+      "control": "Freeze candidates and scalar score meaning; one global strict map, observed-boundary reselection and unchanged tie IDs. Deterministic s-squared needs no fitting.",
+      "falsifiable_question": "Does the implementation violate the existing monotone-reselection invariance theorem?",
+      "observables": ["selected_ID_equality", "TP_FP_FN_equality", "ECE_change_without_recall_change", "float_order_or_tie_violations"],
+      "interpretation_limit": "Algebraically identical subsets cannot establish improved recall. Rounded/saturated transforms may cease to be strict; isotonic and multiclass temperature are deferred distinct arms.",
+      "cache_rule": "Offline on full-precision fixed candidates; reject exact-invariance claims if computed order/equalities change."
+    },
+    {
+      "id": "A06_cutoff",
+      "priority": "core_negative_control",
+      "levels": ["reselect_observed_source_boundary", "map_raw_boundary_g_t", "keep_same_numeric_raw_cutoff_after_map"],
+      "control": "A05 map and identical cached candidates; use source-only labels for reselection. For cap/floor contrasts also retain maximal-policy raw threshold unchanged.",
+      "falsifiable_question": "Is an apparent calibration benefit solely the effect of changing the operating policy?",
+      "observables": ["reselected_vs_mapped_boundary_equality", "fixed_numeric_cutoff_ID_changes", "recall_FPPI_tradeoff"],
+      "interpretation_limit": "A changed numeric cutoff is a changed deployment decision, not evidence that recalibration recovers missing candidates.",
+      "cache_rule": "Offline. No GPU or additional labels beyond the declared selection split."
+    },
+    {
+      "id": "A07_threshold_objective",
+      "priority": "core",
+      "levels": ["recall_0.80", "recall_0.90_primary", "recall_0.95", "source_F1_max_highest_observed_boundary"],
+      "control": "Identical source selection groups, matching and population. Keep every infeasible objective rather than dropping models.",
+      "falsifiable_question": "Do conclusions persist across source operating objectives and feasible headroom?",
+      "observables": ["threshold", "feasibility", "signed_target_gap", "FPPI", "L_and_M_W_components"],
+      "interpretation_limit": "Empirical attainment is not population recall control. F1 comparison is a policy comparator, not exact AegisBench replication.",
+      "cache_rule": "Offline source selection; four objectives share inference."
+    },
+    {
+      "id": "A08_class_filter_order",
+      "priority": "second_tier",
+      "levels": ["native_all_class_then_population_filter", "population_filter_before_each_relevant_topk"],
+      "control": "One checkpoint/head, same primitive pool and score expansion. Distinguish true person-only ranking from filtering argmax labels; name each variant.",
+      "falsifiable_question": "Does the transfer conclusion reduce to known cross-class candidate competition?",
+      "observables": ["person_candidates_displaced_by_other_classes", "ID_changes", "delta_M_L_FPPI"],
+      "interpretation_limit": "This is an explicitly different pipeline; a final all-class cache cannot recover discarded person candidates. Class-aware NMS may commute with filtering, but the global cap generally does not.",
+      "cache_rule": "Requires sufficient primitive full class scores and indices before head top-k; otherwise actual affected inference or unsupported."
+    },
+    {
+      "id": "A09_NMS_IoU",
+      "priority": "second_tier",
+      "levels": [0.5, 0.7, 0.9],
+      "control": "YOLO26s O2M from one checkpoint only; fixed dense input, max_nms, scores, ties, class offsets and geometry. Baseline 0.7 already exists.",
+      "falsifiable_question": "Are differences attributable to suppression at fixed learned weights rather than an O2O/O2M architecture claim?",
+      "observables": ["suppressed_high_score_candidates", "duplicates_and_FPPI", "ceiling_changes", "timeout_status"],
+      "interpretation_limit": "NMS changes the finite pool and may remove high-scoring true or false detections. No pre-NMS completeness follows from a post-NMS kth score.",
+      "cache_rule": "Only a full relevant pre-NMS tensor supports replay; otherwise rerun native pipeline, not post-NMS JSON."
+    },
+    {
+      "id": "A10_population",
+      "priority": "second_tier",
+      "levels": ["ACDC_merged_human_person_plus_rider", "ACDC_person_only_label_panel"],
+      "control": "Separate eligibility, denominators and source thresholds. Bridge uses COCO-person outputs; BDD pedestrian-trained primary remains a separate experiment.",
+      "falsifiable_question": "Does ontology/extent mismatch explain an apparent transfer contrast?",
+      "observables": ["eligible_GT_counts", "rider_confusion", "per_population_M_recall_FPPI"],
+      "interpretation_limit": "COCO person is not a trained BDD pedestrian-only class. Never alias rider to pedestrian after observing results.",
+      "cache_rule": "Offline only if sufficient class outputs and original annotations remain; do not pool thresholds or populations."
+    },
+    {
+      "id": "A11_warning",
+      "priority": "second_tier_conditional",
+      "levels": ["completeness_failure_or_unknown_and_threshold_minus_bound", "mean_confidence", "max_confidence", "minimum_retained_score", "candidate_count_and_cap_binding", "image_luminance_contrast_and_simple_blur"],
+      "control": "Same groups and information budget; source inner fit/selection only. Predeclare luminance mean/SD and variance of grayscale Laplacian as image features; no learned embedding campaign.",
+      "falsifiable_question": "Does the proposed warning add held-out information about transfer loss beyond the simple quantities from which it is derived?",
+      "observables": ["per_component_association_with_loss", "incremental_error_or_rank_association", "false_alarms_when_candidates_change_but_recall_does_not", "unknown_rate"],
+      "interpretation_limit": "A deterministic truncation warning is not a correctness/recall/weather guarantee. Minimum score and cap-binding are essential close baselines. Sparse groups may make model fitting unsupported; use descriptive associations then.",
+      "cache_rule": "Offline scalar summaries and already permitted image-statistic inspection only; no target-label fitting or warning-triggered adaptive inference in this milestone."
+    },
+    {
+      "id": "A12_seed_replication",
+      "priority": "promotion_before_model_zoo",
+      "levels": [17, 42, 73],
+      "control": "Future independently trained checkpoints under identical approved data splits, successful-update/effective-batch budgets and recipe; YOLO26 heads share each seed checkpoint.",
+      "falsifiable_question": "Is a core mechanism stable across optimization randomness?",
+      "observables": ["per_seed_effect_sign_and_magnitude", "feasibility", "updates_attempts_AMP_skips_images_wall_time_memory"],
+      "interpretation_limit": "Seeds are not new environmental groups. Existing pretrained checkpoints are not three replications. No training is authorized here.",
+      "cache_rule": "No candidate reuse across trained seeds; policy settings may reuse within a seed only under the same selector checks."
+    }
+  ],
+  "minimal_run_list": [
+    {"id": "D0", "stage": "BLOCKED_GPU_planned_Claude_development_only", "work": "Prepared plan only: 32 deterministic KITTI images x 4 systems at baseline; no target GT tuning or current execution authorization.", "forward_image_count": 128},
+    {"id": "D1", "stage": "BLOCKED_GPU_planned_native_replay", "work": "When separately coordinated: at least one actual native lower-cap replay per system; count here conservatively assumes all 32 images per system. Match ID multisets/full-precision rows; tie exceptions explicit.", "additional_forward_image_count_upper_bound": 128},
+    {"id": "S0", "stage": "after_separate_data_fold_and_inference_adoption", "work": "Six OAT policy settings x 4 systems x 4 threshold objectives, each common-threshold and reselected contrast. One maximal acquisition per system/population where reuse valid.", "offline_source_selection_count_per_fold": 96},
+    {"id": "S1", "stage": "same_future_cache", "work": "At baseline/rho .90, global s-squared with observed reselection and same numeric cutoff (8 additional evaluations); mapped-boundary equality is checked in the same control. Baseline clipping x 4 systems x 4 objectives (16 evaluations).", "additional_offline_evaluation_count_per_fold": 24},
+    {"id": "S2", "stage": "conditional_second_tier", "work": "Only after a core mechanism survives: class-order baseline per system; NMS .5/.9 on YOLO26 O2M; separate population thresholds; warning baseline comparison. No Cartesian combinations."},
+    {"id": "R0", "stage": "conditional_future_replication", "work": "Repeat the smallest informative contrast at seeds 17/42/73 before DEIM or more model families; requires separate training/compute assignment."}
+  ],
+  "policy_settings_OAT": [
+    {"floor": 0.0001, "cap": 3000},
+    {"floor": 0.0001, "cap": 100},
+    {"floor": 0.0001, "cap": 300},
+    {"floor": 0.0001, "cap": 1000},
+    {"floor": 0.001, "cap": 3000},
+    {"floor": 0.01, "cap": 3000}
+  ],
+  "cache_reuse_requirements": [
+    "Identical checkpoint/image/preprocessing/precision/head and primitive pool identity.",
+    "Stable IDs from primitive anchor or query plus class before selection; fresh row numbers are not sufficient.",
+    "Observed-boundary scores and ties retained without rounding; compare multisets if native ID metadata is absent and report identity-level proof unavailable.",
+    "Document every selector and truncation, strictness, class order, realized head k and max_nms; finite output count alone proves nothing.",
+    "Prove deterministic hard-NMS prefix consistency for any before-NMS floor/cap replay, with fixed boxes/class/ties and no timeout; score-changing or learned suppression requires separate reasoning.",
+    "Check actual native lower-budget output on development data, including tie handling; an empirical replay match alone is not a universal selector proof.",
+    "When a required tensor or bound is absent, mark the replay/certificate unsupported or unknown; do not silently approximate.",
+    "A fixed native finite query pool is a reference pool, never proof that all real objects are represented."
+  ],
+  "bridge": {
+    "algorithm_version": "acdc-normal-loco-v1-proposal",
+    "status": "DESIGN_ONLY_NOT_CANONICAL_ALLOCATION",
+    "group_policy": "acdc-recording-reference-closure-v2-proposal",
+    "base_group_policy": "acdc-recording-v1",
+    "base_manifest_sha256": "04c6a0ad1a805d666a09f5a24d4634b1ba248858749ccaa3e60f4249e794fcf3",
+    "closure_rule": "Transitive global closure of base graph plus visually confirmed same-capture reference edges; content-address sorted member paths using existing group-ID recipe. Same-place/different-pass, uncertain and similarity-only links remain explicit sensitivities. No primary merge made here.",
+    "closure_adoption_prerequisite": "Audit cross-review and explicit graph/fold adoption before any bridge execution. 31 component pairs remain unreviewed; no expanded visual review or more regeneration in this task. Base graph alone is insufficient.",
+    "closure_id_format": "acdc-reference-closure-v2: + SHA256(canonical ASCII compact JSON of sorted member paths)",
+    "seed": "acdc-normal-loco-v1-2026-11-09",
+    "outer_unit": "entire_global_component_all_conditions_all_reference_and_adverse_views",
+    "excluded": ["every_closure_touching_an_original_descriptive_only_component_including_all_449_labelled_adverse_images_and_refs_plus_newly_linked_views", "components_without_labelled_adverse_images"],
+    "eligible_inner_components": "other_eligible_components_touching_outer_condition_with_annotated_references",
+    "inner_order": "ascending (SHA256(UTF8(seed + newline + outer_gid + newline + condition + newline + inner_gid)).hexdigest(), inner_gid)",
+    "inner_fit_count": "floor(n_inner_components/2)",
+    "inner_selection": "remaining_components_after_fit_prefix",
+    "minimum_inner_components": 2,
+    "source_only": "Fit on normal reference fit groups; select on normal reference selection groups; no outer labels or images fit anything.",
+    "target_labelled_optional": "Fit on adverse fit groups; select on adverse selection groups with equally informed raw-score baseline; additional exploratory arm.",
+    "failure_rules": ["n_inner<2:INFEASIBLE_FOLD_under_declared_common_split_calibration_procedure; not_a_proof_against_every_raw_threshold_procedure; no_alternative_raw_allocation", "selection_GT=0:UNDEFINED", "selection_ceiling<rho:INFEASIBLE", "zero_fit_eligible_GT_or_degenerate_calibrator:UNDEFINED_CALIBRATION_ARM_raw_remains_conditional", "outer_GT=0:UNDEFINED_RECALL_keep_FPPI", "no_reallocation_seed_search_or_fallback_threshold"],
+    "aggregation": "Each eligible outer image once per condition; sum TP/sum GT only with complete feasible coverage, else incomplete-coverage status plus separately labelled feasible-fold diagnostic denominator.",
+    "role_change": "New explicit fold overlay reallocates earlier fit/selection/held_out groups only inside this proposed bridge. Original allocation and 449-image descriptive-only restriction remain; canonical manifests unchanged.",
+    "uncertainty": "16 eligible labelled components is a PRE-CLOSURE upper estimate only. Claude reports same-capture closure 24->15 total components; this is not a bridge fold count. Recompute eligibility, condition counts and feasibility. No IID-trip, nominal-coverage or five-point precision claim.",
+    "original_primary": "BDD Detection 2020 verified clear-day training/selection remains blocked and unchanged; normal references are not verified clear daytime."
+  },
+  "observed_CPU_feasibility_regeneration": {
+    "author": "GPT independently regenerated Claude's proposed closure arithmetic once; visual classifications supplied by Claude, not independently re-reviewed",
+    "kind": "REAL_METADATA_NOT_DETECTOR_PERFORMANCE",
+    "bridge_execution": "ON_HOLD_COMPLETE_FOUR_CONDITION_BRIDGE_NOT_SUPPORTED",
+    "edge_ledger_sha256": "17b5e7e603934551bd1949f1212de700e9da57049b1bcf8b95c51f4b78224184",
+    "peer_closure_manifest_sha256": "36e11e40c80093e11c3f0f24755a154ecb07ff598a8871b3e913fab24d126da1",
+    "same_capture_v2": {
+      "edge_count": 10,
+      "all_closures": 15,
+      "excluded_adverse": 794,
+      "excluded_annotated_references": 397,
+      "eligible_adverse": 1212,
+      "eligible_annotated_references": 606,
+      "unique_eligible_labelled_closures": 12,
+      "outer_condition_cells_retained_including_failures": 14,
+      "conditions": {
+        "fog": {"adverse": 291, "closures": 4, "outer_cells": 4, "zero_fit_GT_calibration_undefined_cells": 2, "raw_arm": "conditional_group_selection_GT_support_empirical_recall_feasibility_unknown"},
+        "night": {"adverse": 154, "closures": 2, "outer_cells": 2, "insufficient_inner_groups_cells": 2, "calibration_procedure": "INFEASIBLE", "raw_arm": "no_replacement_procedure_under_this_design; not_mathematically_impossible_in_general"},
+        "rain": {"adverse": 500, "closures": 4, "outer_cells": 4, "status": "group_GT_support_only_empirical_feasibility_unknown"},
+        "snow": {"adverse": 267, "closures": 4, "outer_cells": 4, "status": "group_GT_support_only_empirical_feasibility_unknown"}
+      },
+      "calibration_cells_passing_positive_fit_and_selection_GT_metadata_guard": 10,
+      "guard_limit": "Ten is not a count of measured feasible calibrations; detector correctness labels, score nondegeneracy and recall ceilings remain unseen."
+    },
+    "pessimistic_all_nonrejected_sensitivity": {
+      "status": "STRUCTURAL_SENSITIVITY_NOT_VERIFIED_MERGES_OR_EXHAUSTIVE_BOUND_ON_UNOBSERVED_DEPENDENCIES",
+      "includes": "10 same-capture + 2 same-place-other-pass + 3 uncertain + 31 unreviewed component-pair flags; excludes 15 rejected",
+      "all_closures": 4,
+      "excluded_adverse": 1738,
+      "excluded_annotated_references": 868,
+      "eligible_adverse": 268,
+      "eligible_annotated_references": 135,
+      "unique_eligible_labelled_closures": 3,
+      "per_condition_adverse_and_closures": {"fog": [7, 1], "night": [0, 0], "rain": [258, 1], "snow": [3, 1]},
+      "supported_declared_LOCO_folds": 0
+    },
+    "stop": "No further graph regeneration, allocation variants, seed search, extra visual review or fold rescue. No independence/coverage proof, no selective complete-case benefit claim. Original v1 unchanged."
+  },
+  "compute_estimates_not_measurements": {
+    "current_GPT_GPU_training_download_paid_compute": 0,
+    "Claude_assigned_development_forward_image_count_upper_bound": 256,
+    "future_all_labelled_ACDC_adverse_plus_reference_rows_before_exclusions": 3009,
+    "future_bridge_rows_before_new_reference_closure_upper_estimate": 2335,
+    "bridge_row_estimate_derivation": "2006-449 adverse + 1003-(33+75+117) annotated references BEFORE new closure. Additional exclusions may reduce support. Deduplicate exact image identity and regenerate after closure before inference.",
+    "historical_preclosure_baseline_bridge_forward_images_four_systems_upper_estimate": 9340,
+    "historical_preclosure_all_policy_acquisition_without_cache_reuse_upper_estimate": 56040,
+    "historical_preclosure_outer_fold_upper_estimate": 16,
+    "historical_preclosure_S0_source_selection_upper_estimate": 1536,
+    "historical_preclosure_S0_S1_offline_evaluation_upper_estimate": 1920,
+    "historical_preclosure_baseline_Platt_fit_upper_estimate": 64,
+    "historical_preclosure_optional_target_labelled_fit_upper_estimate": 64,
+    "historical_preclosure_class_order_full_reinference_upper_estimate": 9340,
+    "historical_preclosure_NMS_two_extra_IoU_full_reinference_upper_estimate": 4670,
+    "postclosure_note": "Complete bridge unsupported; these earlier counts are workload arithmetic only, not a feasible allocation. V2 eligible row count is 1818 before arm-specific failures; no alternative partial experiment is authorized or scheduled.",
+    "future_training_seed_count_three_families_times_three_seeds": 9,
+    "future_training_budget_rule": "Successful updates, fixed effective batch, stop at >2x attempts; scheduler/warmup/EMA advance on success; images/time/memory/skips logged. No update count or paid budget approved here.",
+    "runtime_cost": "Unknown on driving images; COCO smoke timer scopes differ. Obtain a bounded estimate from the authorized pilot, not extrapolated comparable latency. Reuse raw forward outputs across folds; never multiply inference by fold count."
+  },
+  "stop_and_promotion": {
+    "development_stop": "Current GPU pilot BLOCKED; return prepared/tested CPU artifacts. Original 32-image and native-replay plan, 30 GPU-minute/7.5-GiB bounds, are estimates/limits only, never permission to compete with the user or start overnight automatically.",
+    "implementation_stop": "Any strict-monotone/reselected ID mismatch requires a numerical/selector explanation before performance interpretation. Any leakage or unknown timeout blocks adaptation use.",
+    "research_effect_trigger": "Exploratory practical trigger: >=0.02 absolute change in transfer loss or a loss component in a prespecified controlled contrast. This is a resource-allocation heuristic, not significance, precision or novelty evidence.",
+    "promotion": "Mechanism not explained solely by known threshold/cap/class-order/geometry effects, useful FPPI context, stable direction in all three future seeds and supported groups, plus verified closest-prior distinction. No requirement to manufacture rank reversal.",
+    "kill_A": "No material controlled interaction, instability across seeds/dependency sensitivities, or complete explanation by known effects: withdraw mechanism contribution claim and publish scoped negative/descriptive audit if useful.",
+    "kill_B": "Standalone certificate novelty rejected already; absent metadata means unknown rather than more infrastructure.",
+    "kill_C": "No incremental held-out value over close scalar/count/image baselines, unsupported small-G fit, or target-label tuning: stop warning-method claim.",
+    "scope_stop": "No unrestricted Cartesian sweep, library construction, target-policy search or new model family. New dependencies/runs require coordinator assignment; no request for routine choices."
+  }
+}
