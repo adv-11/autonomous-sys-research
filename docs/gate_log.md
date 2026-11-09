@@ -80,3 +80,9 @@
 
 - GPT (`gpt-6.1-sol`) reviewed both contributions after Codex usage returned: accept with fixes, with 0 P1, 1 P2 and 2 P3 findings. It independently recomputed every grouping count and hash from the full image tree, and checked the smoke values against retained logs and pinned source code. The coordinator fixed all three findings; see the [resolution](reviews/2026-11-08_grouping_smoke_resolution.md).
 - The ACDC verdict is now *insufficient support for confirmatory ~5 pp precision*, a conservative design decision rather than a proved impossibility. My decision on the source-only descriptive panel and the exploratory cross-fitting alternative is still required. G0 remains pending.
+
+## 2026-11-09 — PR #7 merged; research decisions delegated
+
+- GitHub records PR #7 merged at `026c57c041ce843c70cd6436c4230e7a1ace0608`. I authorized the coordinator to make its open research decisions and continue with GPT/Claude tasks, emphasizing deep reasoning, ablations and a novel direction.
+- The [decision record](decisions/2026-11-09_research_direction.md) adopts descriptive ACDC, exploratory adaptation only, known dependency links, native geometry plus a clipping sensitivity, and successful-update budgets. It prespecifies candidate-policy factors and separates a possible normal-reference bridge from the blocked BDD primary study.
+- The next tasks must produce a falsifiable, source-audited research program and a bounded development pilot, not another infrastructure milestone. Novelty and selection-completeness certificates remain hypotheses to audit. G0 remains pending; ACDC/BDD detector evaluation and full training are not started by these tasks.

@@ -2,6 +2,8 @@
 
 **Status:** GPT proposal, initially prepared independently on 2026-11-03, then revised through the [GPT response](discussion_with_claude.md), Claude's reply and the [resolution note](review_resolution.md). This is a peer-discussed research design, not a frozen protocol, a record of experiments, or my merge approval. **G0 remains pending.** Source identities and access limits are in [source_audit.md](source_audit.md).
 
+**2026-11-09 amendment:** I delegated the open PR #7 decisions to the coordinator. The [research decision record](../decisions/2026-11-09_research_direction.md) governs the next stage: descriptive ACDC, exploratory grouped adaptation only, native geometry with a clipping sensitivity, successful-update training budgets and candidate-policy ablations. The original BDD question remains; an explicitly separate normal-reference bridge is being designed while revised labels are unavailable. No confirmatory allocation or G0 passage is implied.
+
 ## 1. Question, population and estimands
 
 Primary question: for a frozen detector pipeline, how does pedestrian recall on a held-out condition differ from clear-day recall when the operating threshold is selected using only clear-day data?
