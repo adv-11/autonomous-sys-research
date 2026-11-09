@@ -1,0 +1,38 @@
+{
+ "author": "Claude (Opus 5.5), 2026-11-09, base 9794d81; not GPT-reviewed",
+ "pipelines": {
+  "rtdetrv2_r18vd": {
+   "reason": "capture not run (GPU occupied by an unrelated user job; coordinator stopped the GPU portion)",
+   "status": "BLOCKED"
+  },
+  "yolo11s": {
+   "reason": "capture not run (GPU occupied by an unrelated user job; coordinator stopped the GPU portion)",
+   "status": "BLOCKED"
+  },
+  "yolo26s_o2m": {
+   "reason": "capture not run (GPU occupied by an unrelated user job; coordinator stopped the GPU portion)",
+   "status": "BLOCKED"
+  },
+  "yolo26s_o2o": {
+   "reason": "capture not run (GPU occupied by an unrelated user job; coordinator stopped the GPU portion)",
+   "status": "BLOCKED"
+  }
+ },
+ "selected_size_counts": {
+  "1224x370": 2,
+  "1238x374": 1,
+  "1242x375": 29
+ },
+ "selection": {
+  "population": 7481,
+  "population_sizes": {
+   "1224x370": 770,
+   "1238x374": 358,
+   "1241x376": 296,
+   "1242x375": 6057
+  },
+  "selection_seed": "kitti-dev-pilot-v1-2026-11-09"
+ },
+ "status": "CAPTURE_DISABLED_REVIEW_AND_RESOURCE_HOLD_NO_DETECTOR_RESULTS",
+ "review_status": "Historical 176 tests do not establish GPU readiness; public captured-grid approval is disabled."
+}

@@ -1,0 +1,95 @@
+{
+  "purpose": "Claude dependency audit and bounded KITTI development pilot (2026-11-09, base 9794d81). Fixed before any perceptual distance or detector output was computed. Not a performance test; G0 pending.",
+  "private_output_dir": "outputs/dependency_pilot",
+  "near_duplicate_audit": {
+    "acdc_root": "C:/Users/Advait/autonomous-sys-research/data/acdc/extracted",
+    "rgb_subdir": "rgb_anon_trainvaltest/rgb_anon",
+    "group_manifest": "C:/Users/Advait/.t3/worktrees/autonomous-sys-research/t3-c5491ae6/outputs/acdc_grouping/full_manifest.json",
+    "group_manifest_sha256": "04c6a0ad1a805d666a09f5a24d4634b1ba248858749ccaa3e60f4249e794fcf3",
+    "population": "all 4,006 normal-condition reference images (paths containing a *_ref split)",
+    "representation": {
+      "primary": "64-bit pHash: PIL grayscale (L), LANCZOS resize to 32x32, orthonormal 2-D DCT-II, top-left 8x8 block, bit = coefficient > median of those 64 coefficients (DC included)",
+      "secondary": "64-bit dHash: PIL grayscale, LANCZOS resize to 9 wide x 8 high, bit = right pixel > left pixel; recorded for every flagged pair, never used to add flags",
+      "input_check": "raw-byte SHA-256 and size of each decoded reference compared against the manifest (the bytes are read once for decoding; no separate 8,012-file hash pass)"
+    },
+    "phash_thresholds": [
+      0,
+      2,
+      4,
+      8
+    ],
+    "max_visual_review_pairs": 30,
+    "review_unit": "one representative image pair (closest pHash, then dHash) per unordered cross-component pair; cross-condition component pairs first, then same-condition, each by distance",
+    "review_labels": [
+      "confirmed_same_place",
+      "uncertain",
+      "rejected_different_place"
+    ],
+    "rules": "Flags and visual labels are proposals. No primary component is merged automatically. Confirmed and uncertain edges feed separate sensitivity counts. Exact-byte edges stay primary; the 449 cross-condition images stay descriptive-only."
+  },
+  "kitti_pilot": {
+    "image_dir": "C:/Users/Advait/det-eval-2d/datasets/kitti/training/image_2",
+    "expected_png_count": 7481,
+    "selection_seed": "kitti-dev-pilot-v1-2026-11-09",
+    "selection_rule": "sort every image_2 *.png file name by SHA256(seed + ':' + file name), ties by name; take the first 32. No labels or detector outputs are read.",
+    "images": 32,
+    "imgsz": 640,
+    "capture_policy": {
+      "score_floor": 0.0001,
+      "max_detections": 3000
+    },
+    "sensitivity_caps": [
+      100,
+      300,
+      1000,
+      3000
+    ],
+    "sensitivity_floors": [
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "native_check_policies": [
+      {
+        "score_floor": 0.001,
+        "max_detections": 300
+      },
+      {
+        "score_floor": 0.01,
+        "max_detections": 100
+      }
+    ],
+    "person_class": "person",
+    "nms_iou": 0.7,
+    "max_gpu_minutes": 30,
+    "max_reserved_gib": 7.5,
+    "pipelines": {
+      "yolo11s": {
+        "model": "yolo11s",
+        "nms": null,
+        "expect_end2end": false
+      },
+      "yolo26s_o2o": {
+        "model": "yolo26s",
+        "nms": false,
+        "expect_end2end": true
+      },
+      "yolo26s_o2m": {
+        "model": "yolo26s",
+        "nms": true,
+        "expect_end2end": false
+      },
+      "rtdetrv2_r18vd": {
+        "model": "rtdetrv2_r18vd"
+      }
+    },
+    "models_and_environments": "configs/smoke/smoke_config.json (weights, SHA-256, repo commit, config); Ultralytics in det-eval-2d/.venv and RT-DETRv2 in ar-work/venv-rtdetrv2, both read-only"
+  },
+  "execution_hold": {
+    "capture": "DISABLED_PENDING_REVIEW_FIXES_AND_COORDINATED_GPU_WINDOW",
+    "audit_cli_reprocessing": "DISABLED_PENDING_CACHE_AND_OUTPUT_VALIDATION",
+    "captured_grid_approval": false,
+    "historical_preanalysis_config_commit": "c5fcffba2c54aa481e1b69b6f4a432714af4271f",
+    "rule": "No automatic unlock or scheduled run; original caches are historical evidence, not a runtime certificate."
+  }
+}
