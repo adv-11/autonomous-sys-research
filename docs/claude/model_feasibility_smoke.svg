@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 330" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <title>Claude model-feasibility smoke pipeline (conceptual diagram, not measured results)</title>
+  <style>
+    .box{fill:#f5f7fa;stroke:#4a5568;stroke-width:1.2}
+    .gpu{fill:#eef6ee;stroke:#2f6f3a;stroke-width:1.2}
+    .out{fill:#fdf6e7;stroke:#9a6b12;stroke-width:1.2}
+    .h{font-weight:bold}
+    .s{font-size:10.5px;fill:#333}
+    .a{stroke:#4a5568;stroke-width:1.2;fill:none;marker-end:url(#arr)}
+  </style>
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#4a5568"/></marker></defs>
+  <rect width="860" height="330" fill="#ffffff"/>
+  <text x="430" y="20" text-anchor="middle" class="h">G0 mechanical smoke: COCO val2017 only (no ACDC/BDD)  ·  conceptual diagram</text>
+
+  <rect class="box" x="15" y="40" width="190" height="110" rx="6"/>
+  <text x="25" y="60" class="h">prepare_data.py</text>
+  <text x="25" y="78" class="s">sha256-checked COCO val2017 JSON</text>
+  <text x="25" y="93" class="s">50 eval images, 6 hash-ordered strata:</text>
+  <text x="25" y="108" class="s">crowded · iscrowd · small · empty ·</text>
+  <text x="25" y="123" class="s">person-free · general</text>
+  <text x="25" y="138" class="s">128-image train pool (incl. the 50)</text>
+
+  <rect class="gpu" x="245" y="40" width="270" height="110" rx="6"/>
+  <text x="255" y="60" class="h">Training probe (fresh process per batch)</text>
+  <text x="255" y="78" class="s">batch 8 → 16 → 24 → 32 → 48 → 64, 3 steps each,</text>
+  <text x="255" y="93" class="s">stop at first OOM / auto-reduction / reserved &gt; 7.5 GiB</text>
+  <text x="255" y="111" class="h">Final run: 20 optimizer steps, imgsz 640</text>
+  <text x="255" y="126" class="s">native recipe (AMP, EMA, augmentation); per step:</text>
+  <text x="255" y="141" class="s">finite loss, GradScaler skip, wall time, peak VRAM</text>
+
+  <rect class="gpu" x="245" y="175" width="270" height="110" rx="6"/>
+  <text x="255" y="195" class="h">Inference: official checkpoint, 50 images</text>
+  <text x="255" y="213" class="s">YOLO11s: dense head + class-aware NMS 0.7</text>
+  <text x="255" y="228" class="s">YOLO26s: O2O head, nms=False set explicitly</text>
+  <text x="255" y="243" class="s">RT-DETRv2-S: top-k over query × class</text>
+  <text x="255" y="261" class="s">floor 0.001; cap 300 (primary) and 1000</text>
+  <text x="255" y="276" class="s">(sensitivity) → cap-censoring count</text>
+
+  <rect class="out" x="555" y="175" width="290" height="110" rx="6"/>
+  <text x="565" y="195" class="h">smoke.export_candidates → canonical v1</text>
+  <text x="565" y="213" class="s">raw candidates, no clipping or rounding,</text>
+  <text x="565" y="228" class="s">empty images kept in evaluated_image_ids,</text>
+  <text x="565" y="243" class="s">schema validation (bounds: allow_outside)</text>
+  <text x="565" y="261" class="h">threshold_transfer.evaluate (diagnostic)</text>
+  <text x="565" y="276" class="s">3 disjoint COCO role splits: pipeline proof only</text>
+
+  <rect class="out" x="555" y="40" width="290" height="110" rx="6"/>
+  <text x="565" y="60" class="h">Recorded evidence</text>
+  <text x="565" y="78" class="s">env pins: OS, driver, CUDA, cuDNN, uv freeze ×2</text>
+  <text x="565" y="93" class="s">checkpoint URL + SHA-256, RT-DETR commit</text>
+  <text x="565" y="108" class="s">model_feasibility_smoke.json (raw logs)</text>
+  <text x="565" y="123" class="s">PASS/FAIL per model = mechanical only</text>
+  <text x="565" y="141" class="h" fill="#9a2a12">G0 remains PENDING</text>
+
+  <path class="a" d="M205,95 L245,95"/>
+  <path class="a" d="M205,120 C225,120 225,230 245,230"/>
+  <path class="a" d="M515,230 L555,230"/>
+  <path class="a" d="M515,95 L555,95"/>
+  <path class="a" d="M700,175 L700,150"/>
+  <text x="15" y="315" class="s">Ultralytics 8.4.197 in det-eval-2d venv (read-only); RT-DETRv2 at lyuwenyu/RT-DETR@df2a96c in a separate pinned uv venv. DEIM-D-FINE-S not tested.</text>
+</svg>
