@@ -40,3 +40,11 @@ I want periodic checks for drift, unsupported claims, excessive scope and stalle
 ### After GPT cross-review (2026-11-08)
 
 **Scope check: on course.** One formal GPT review, run once Codex usage returned; no re-review loop. The review found an overstated statistical claim (F1) and two documentation errors, not fabricated results. The coordinator fixed them directly and regenerated the grouping summary once, because its verdict logic changed; all other counts reproduced. No detector, GPU or new acquisition work was added.
+
+## 2026-11-09 — Novelty milestone intervention
+
+**Finding: productive narrowing, with an access-loop risk.** The active GPT research task found close prior coverage of threshold-aware calibration, cross-class ranking/candidate limits and clean-threshold transfer. A prefix certificate or a cap effect alone is not a defensible novelty claim. Its newly identified tracking-calibration prior has verified identity but incomplete method access; the agent explicitly retained that limit.
+
+**Prompt sent:** the coordinator directed GPT to make the falsifiable mechanism audit the contribution hypothesis, keep the certificate as a supporting control, stop repeated blocked-publisher retries, and finish the exact fold design, prioritized ablation configuration and counterexamples. The original BDD question and unseen ACDC/BDD detector outcomes remain protected. No new scope, GPU run or review task was added.
+
+**Response/outcome:** the corrective prompt was delivered to the active task. Final artifacts and the agent's disposition are pending; no completed redirection or novelty is inferred from delivery alone. The coordinator verified the two older papers' identities and abstract-level findings, rather than claiming an independent full-method audit. Next checkpoint: the committed design and the pilot's concrete metadata must agree on native selection semantics.

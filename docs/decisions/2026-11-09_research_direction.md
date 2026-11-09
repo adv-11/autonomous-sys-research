@@ -19,6 +19,8 @@ The candidate contribution is **candidate-policy-aware threshold transfer**: dis
 
 Novelty is a hypothesis. GPT must compare this direction with the closest calibration, threshold-transfer, risk-control and candidate-selection work using primary sources. A simple top-k prefix fact is not by itself a PhD contribution. If closely covered, narrow or reject the claim and identify what empirical or theoretical result would add substance. Negative controls and negative results stay in the report.
 
+**Milestone correction:** the GPT research task reports close coverage of calibration/shift and cross-class candidate-ranking effects by [Kuzucu et al.](https://arxiv.org/abs/2405.20459) and [Dave et al.](https://arxiv.org/abs/2102.01066v2). The coordinator independently verified their identities and abstract-level findings; the task's detailed source ledger is still in progress. Drop standalone novelty claims for cap effects or a prefix certificate. The contribution hypothesis is now the falsifiable mechanism audit of condition-associated ceiling-versus-threshold loss and policy-dependent transfer conclusions, with the certificate only a supporting control. A reported tracking-calibration paper remains partially accessed; neither missing full text nor a blocked publisher page justifies excluding it as prior work.
+
 | Priority | Ablation | Question and control |
 |---|---|---|
 | Core | Candidate cap and floor | Does a transfer conclusion persist as the candidate pool expands? Separate score filtering from top-k truncation; never call a finite ceiling detector capacity. |
