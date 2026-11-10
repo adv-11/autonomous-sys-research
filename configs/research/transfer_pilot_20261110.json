@@ -1,0 +1,93 @@
+{
+  "researcher": "GPT Sol",
+  "base": "6847916241d7a08444bdf4313bb7703c9e112ebd",
+  "seed": "sol-transfer-pilot-2026-11-10-v1",
+  "policies": [
+    {
+      "id": "maximal",
+      "floor": 0.0001,
+      "cap": 3000
+    },
+    {
+      "id": "cap100",
+      "floor": 0.0001,
+      "cap": 100
+    },
+    {
+      "id": "cap300",
+      "floor": 0.0001,
+      "cap": 300
+    },
+    {
+      "id": "floor01",
+      "floor": 0.01,
+      "cap": 3000
+    }
+  ],
+  "objectives": [
+    0.8,
+    0.9,
+    0.95
+  ],
+  "imgsz": 640,
+  "batch": 8,
+  "half": false,
+  "rect": false,
+  "device": "0",
+  "classes": [
+    0
+  ],
+  "class_selection": "native person-only before final cap",
+  "nms_iou": 0.7,
+  "agnostic_nms": false,
+  "augment": false,
+  "geometry": "native xyxy converted to xywh; allow_outside; no repair",
+  "evaluator": "threshold_transfer.metrics.ReferenceEvaluator; IoU .50; same_category_ioa .50 provisional",
+  "task": "COCO person outputs/GT; ACDC person+rider merged human; diagnostic only",
+  "manifest_sha256": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+  "annotations": [
+    {
+      "kind": "COCO annotation",
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f"
+    },
+    {
+      "kind": "ACDC adverse val annotation",
+      "sha256": "1dc7b900b8f1f2797f2c9238417d438d336ac8907778940402fab852ee434215"
+    },
+    {
+      "kind": "ACDC normal val annotation",
+      "sha256": "75f71206c37320734932f2c3edfb7961428eea5bee23f6676787293af43d7a61"
+    }
+  ],
+  "sample_counts": {
+    "source_selection": 256,
+    "coco_reference": 256,
+    "fog": 32,
+    "fog_paired": 16,
+    "fog_normal": 16,
+    "night": 32,
+    "night_paired": 12,
+    "night_normal": 12,
+    "rain": 32,
+    "rain_paired": 15,
+    "rain_normal": 15,
+    "snow": 32,
+    "snow_paired": 17,
+    "snow_normal": 17
+  },
+  "smoke_exclusions": 128,
+  "budget": {
+    "max_CU": 10,
+    "max_minutes": 90,
+    "admission_CU_per_hour": 6
+  },
+  "H1": "rho .90: abs(B_night)>abs(D_night) and abs(B_night)>abs(B_COCOref); infeasible => untestable",
+  "models": {
+    "yolo11s": {
+      "sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5"
+    },
+    "yolo26s": {
+      "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+    }
+  }
+}

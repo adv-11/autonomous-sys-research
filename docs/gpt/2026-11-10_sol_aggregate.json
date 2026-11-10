@@ -1,0 +1,340 @@
+{
+  "researcher": "GPT Sol",
+  "role": "diagnostic",
+  "g0": "PENDING",
+  "panels": {
+    "source_selection": {
+      "images": 256,
+      "gt": 579,
+      "empty_human_images": 116,
+      "crowd_regions": 14,
+      "native_gt_categories": {
+        "person": 579
+      }
+    },
+    "coco_reference": {
+      "images": 256,
+      "gt": 528,
+      "empty_human_images": 120,
+      "crowd_regions": 12,
+      "native_gt_categories": {
+        "person": 528
+      }
+    },
+    "fog": {
+      "images": 32,
+      "gt": 27,
+      "empty_human_images": 16,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "person": 22,
+        "rider": 5
+      }
+    },
+    "fog_paired": {
+      "images": 16,
+      "gt": 13,
+      "empty_human_images": 8,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "person": 12,
+        "rider": 1
+      }
+    },
+    "fog_normal": {
+      "images": 16,
+      "gt": 32,
+      "empty_human_images": 6,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "person": 30,
+        "rider": 2
+      }
+    },
+    "night": {
+      "images": 32,
+      "gt": 77,
+      "empty_human_images": 13,
+      "crowd_regions": 1,
+      "native_gt_categories": {
+        "person": 68,
+        "rider": 9
+      }
+    },
+    "night_paired": {
+      "images": 12,
+      "gt": 25,
+      "empty_human_images": 5,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "person": 20,
+        "rider": 5
+      }
+    },
+    "night_normal": {
+      "images": 12,
+      "gt": 35,
+      "empty_human_images": 3,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "person": 30,
+        "rider": 5
+      }
+    },
+    "rain": {
+      "images": 32,
+      "gt": 40,
+      "empty_human_images": 22,
+      "crowd_regions": 1,
+      "native_gt_categories": {
+        "person": 39,
+        "rider": 1
+      }
+    },
+    "rain_paired": {
+      "images": 15,
+      "gt": 22,
+      "empty_human_images": 12,
+      "crowd_regions": 1,
+      "native_gt_categories": {
+        "person": 22
+      }
+    },
+    "rain_normal": {
+      "images": 15,
+      "gt": 27,
+      "empty_human_images": 5,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "rider": 3,
+        "person": 24
+      }
+    },
+    "snow": {
+      "images": 32,
+      "gt": 72,
+      "empty_human_images": 11,
+      "crowd_regions": 4,
+      "native_gt_categories": {
+        "person": 72
+      }
+    },
+    "snow_paired": {
+      "images": 17,
+      "gt": 37,
+      "empty_human_images": 6,
+      "crowd_regions": 2,
+      "native_gt_categories": {
+        "person": 37
+      }
+    },
+    "snow_normal": {
+      "images": 17,
+      "gt": 60,
+      "empty_human_images": 4,
+      "crowd_regions": 0,
+      "native_gt_categories": {
+        "person": 53,
+        "rider": 7
+      }
+    }
+  },
+  "models": {
+    "yolo11s": {
+      "status": {
+        "status": "ERROR",
+        "model": "yolo11s",
+        "coverage": {},
+        "started": 1794350817.6433768,
+        "policies": [
+          {
+            "id": "maximal",
+            "floor": 0.0001,
+            "cap": 3000
+          },
+          {
+            "id": "cap100",
+            "floor": 0.0001,
+            "cap": 100
+          },
+          {
+            "id": "cap300",
+            "floor": 0.0001,
+            "cap": 300
+          },
+          {
+            "id": "floor01",
+            "floor": 0.01,
+            "cap": 3000
+          }
+        ],
+        "torch": "2.14.1+cu130",
+        "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+        "ultralytics": "8.4.197",
+        "checkpoint_sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+        "device": "NVIDIA L4",
+        "total_memory_bytes": 23659151360,
+        "head_before": {
+          "type": "Detect",
+          "end2end": false,
+          "one2one_cv2": false,
+          "one2one_cv3": false,
+          "cv2": true,
+          "cv3": true
+        },
+        "expected_images": 700,
+        "error": "AssertionError('nonpositive native box; no repair allowed')",
+        "traceback": "Traceback (most recent call last):\n  File \"/content/packet/experiments/2026-11-10_transfer_pilot.py\", line 226, in infer\n    assert x2>x1 and y2>y1, \"nonpositive native box; no repair allowed\"\n           ^^^^^^^^^^^^^^^\nAssertionError: nonpositive native box; no repair allowed\n",
+        "ended": 1794350826.909893
+      },
+      "policies": {
+        "maximal": {
+          "status": "INVALID_PARTIAL",
+          "validated_complete_policy_images": 0,
+          "expected_images": 700,
+          "objectives": {
+            "0.8": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.9": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.95": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            }
+          }
+        },
+        "cap100": {
+          "status": "NOT_RUN",
+          "validated_complete_policy_images": 0,
+          "expected_images": 700,
+          "objectives": {
+            "0.8": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.9": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.95": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            }
+          }
+        },
+        "cap300": {
+          "status": "NOT_RUN",
+          "validated_complete_policy_images": 0,
+          "expected_images": 700,
+          "objectives": {
+            "0.8": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.9": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.95": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            }
+          }
+        },
+        "floor01": {
+          "status": "NOT_RUN",
+          "validated_complete_policy_images": 0,
+          "expected_images": 700,
+          "objectives": {
+            "0.8": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.9": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            },
+            "0.95": {
+              "status": "UNAVAILABLE_NO_VALID_COVERAGE",
+              "threshold": null
+            }
+          }
+        }
+      },
+      "captured_source_sha256": {
+        "yolo11s_fuse_source.py": "e91a7e21399f63f624eb4f66009bc4277ca1dd205eec12b74b71e0f82c11a0a0",
+        "yolo11s_head_source.py": "667a5dc59e89d7a6f042fb94f50cf36456eae4b8e044a867dac9bfb41a5f62ad",
+        "yolo11s_nms_source.py": "386cd0e3e38fddef5d434fbcfd58264bedfa37295534e9a2b7174a3436d4db62",
+        "yolo11s_predict_source.py": "1711eaacf6f577d5277e0933a5437881e2c3ba833d13358d3dc4244424b5edc2"
+      },
+      "H1": [
+        {
+          "policy": "cap100",
+          "status": "UNTESTABLE",
+          "satisfies": null,
+          "reason": "No complete native policy coverage; not a source-infeasibility result"
+        },
+        {
+          "policy": "cap300",
+          "status": "UNTESTABLE",
+          "satisfies": null,
+          "reason": "No complete native policy coverage; not a source-infeasibility result"
+        },
+        {
+          "policy": "floor01",
+          "status": "UNTESTABLE",
+          "satisfies": null,
+          "reason": "No complete native policy coverage; not a source-infeasibility result"
+        }
+      ]
+    }
+  },
+  "manifest_sha256": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+  "limitations": [
+    "COCO is not verified clear/day; image disjointness does not establish training independence.",
+    "ACDC scene/view dependencies; independent group count unknown; no IID intervals or primary BDD claim.",
+    "Native finite-pipeline output ceilings, not detector capacity; no completeness certificate.",
+    "Person-only native predict classes=[0]; O2O head-level top-k may precede person filtering.",
+    "Provisional merged-human and crowd ignore policies; no official-AP equivalence."
+  ],
+  "packet_record": {
+    "bytes": 490741760,
+    "sha256": "d2cd1a7f669c401417f06e9b712dbc32b20b2f8b54055b18a1b9adcc8e938a24",
+    "config_sha256": "704dbfbba0085e6ca69632c584820b246fcbb017f7669079e8993220009a5bf1",
+    "manifest_sha256": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+    "synthetic_check": "PASS"
+  },
+  "sent_code_record": {
+    "sent_script_sha256": "46017cd38f12059b21d780e94b601f678dbea0eae928c18e8818adbcabdd73e1",
+    "infer_function_sha256": "3c33338c98a81a466d9df7767e0fad73d84a8d765cb63b72174c615ccad82085",
+    "current_infer_function_sha256": "15467a32da0a4d320e996c95a9e55bb7bfa30990cdce524ba7ade2951a8f3334",
+    "post_run_change": "Persist native batches before validation and partial rows on error; not GPU-executed",
+    "post_run_capture_correction_GPU_executed": false
+  },
+  "execution": {
+    "status": "ERROR",
+    "first_allocation_utc": "2026-11-10T22:35:33.215941+00:00",
+    "ended_utc": "2026-11-10T22:48:16.241139+00:00",
+    "outer_elapsed_seconds": 763.0277009999991,
+    "admission_CU_hr": 1.94,
+    "displayed_balance_before_CU": 299.97,
+    "displayed_balance_after_CU": 299.66,
+    "displayed_delta_CU": 0.31,
+    "final_active_assignments": 0.0,
+    "final_usage_rate_CU_hr": 0.0,
+    "owned_teardown_verified": true,
+    "failure_sequence": [
+      "large upload connection reset before inference",
+      "native nonpositive-extent box; invalid partial"
+    ],
+    "optional_models_not_run": [
+      "yolo26s_o2o",
+      "yolo26s_o2m"
+    ],
+    "evidence_gap": "Initial script did not persist the failing native batch; raw box/count/location unavailable"
+  }
+}
