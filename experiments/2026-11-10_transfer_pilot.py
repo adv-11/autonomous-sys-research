@@ -347,6 +347,11 @@ def aggregate(root, destination):
             "Native finite-pipeline output ceilings, not detector capacity; no completeness certificate.",
             "Person-only native predict classes=[0]; O2O head-level top-k may precede person filtering.",
             "Provisional merged-human and crowd ignore policies; no official-AP equivalence."])
+    if (root/"evidence_final.tar.gz").exists():
+        public["retrieved_evidence"]={"archive_sha256":sha(root/"evidence_final.tar.gz"),
+            "archive_bytes":(root/"evidence_final.tar.gz").stat().st_size,
+            "artifact_count":sum(p.is_file() for p in results.iterdir()),
+            "native_batch_count":len(list(results.glob("*_native_batch_*.json")))}
     # This execution's records only. Historical failure evidence remains separate.
     launch_root=root
     if (launch_root/"packet_record.json").exists():
@@ -416,6 +421,11 @@ def aggregate(root, destination):
                 m["candidate_count"] for m in raw["measurements"])
             assert status["coverage"][policy["id"]]["candidate_count"]==sum(m["candidate_count"] for m in raw["measurements"])
             assert status["coverage"][policy["id"]]["zero_area_count"]==len(raw.get("degenerate_predictions",[]))
+            native_paths=sorted(results.glob(name+"_"+policy["id"]+"_native_batch_*.json"))
+            assert len(native_paths)==math.ceil(len(expected)/read(root/"packet/config.json")["batch"])
+            native_images=[i for path in native_paths for i in read(path)]
+            assert len(native_images)==len(expected) and {i["image_id"] for i in native_images}==expected
+            assert sum(len(i["xyxy"]) for i in native_images)==status["coverage"][policy["id"]]["candidate_count"]
             policy_evaluators={}
             for panel_name,panel in manifest["panels"].items():
                 policy_evaluators[panel_name]=pilot_evaluator(panel,raw)
