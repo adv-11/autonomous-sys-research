@@ -51,10 +51,58 @@ def order(image):
     return hashlib.sha256((SEED + "\n" + image["file_name"]).encode()).hexdigest()
 
 
+def pilot_evaluator(panel, raw):
+    """Positive geometry uses the reference matcher; native zero area is explicit FP."""
+    from threshold_transfer.metrics import ReferenceEvaluator
+    ids = {i["image_id"] for i in panel["images"]}
+    coverage = raw["provenance"]["evaluated_image_ids"]
+    assert len(coverage) == len(set(coverage)) and ids <= set(coverage)
+    positive = [p for p in raw["predictions"] if p["image_id"] in ids]
+    ev = ReferenceEvaluator(panel, dict(schema_version=PY_SCHEMA,
+        provenance=dict(evaluated_image_ids=sorted(ids)), predictions=positive),
+        categories=["human"], ignore_policy="same_category_ioa", bounds_policy="allow_outside")
+    seen = {p["candidate_id"] for p in positive}
+    for pred in raw.get("degenerate_predictions", []):
+        if pred["image_id"] not in ids:
+            continue
+        x1,y1,x2,y2 = pred["native_xyxy"]
+        assert all(math.isfinite(v) for v in [x1,y1,x2,y2,pred["score"]])
+        assert x2 >= x1 and y2 >= y1 and (x2 == x1 or y2 == y1)
+        assert pred["category"] == "human" and 0 <= pred["score"] <= 1
+        assert pred["candidate_id"] not in seen
+        seen.add(pred["candidate_id"])
+        ev.rows.append(dict(candidate_id=pred["candidate_id"], image_id=pred["image_id"],
+            category="human", score=pred["score"], outcome="FP", annotation_id=None,
+            native_zero_area=True))
+    ev.rows.sort(key=lambda p: (-p["score"], p["candidate_id"]))
+    return ev
+
+
 def native_subset(doc, images):
     ids = {i["id"] for i in images}
     return dict(images=images, annotations=[a for a in doc["annotations"] if a["image_id"] in ids],
                 categories=doc["categories"])
+
+
+def zero_area_check():
+    """Tiny synthetic accounting check, not empirical evidence."""
+    panel=dict(schema_version=PY_SCHEMA, provenance={},
+        images=[dict(image_id="i",width=10,height=10),dict(image_id="empty",width=10,height=10)],
+        annotations=[dict(annotation_id="g",image_id="i",category="human",bbox=[0,0,2,2],ignore=False,iscrowd=False),
+            dict(annotation_id="crowd",image_id="i",category="human",bbox=[0,0,10,10],ignore=False,iscrowd=True)])
+    tp=dict(candidate_id="z_tp",image_id="i",category="human",bbox=[0,0,2,2],score=.8)
+    zero=dict(candidate_id="a_zero",image_id="i",category="human",bbox=[1,1,0,1],native_xyxy=[1,1,1,2],score=.8)
+    raw=dict(predictions=[tp],degenerate_predictions=[zero],provenance=dict(evaluated_image_ids=["i","empty"]))
+    for score in (.8,.9):
+        zero["score"]=score
+        ev=pilot_evaluator(panel,raw)
+        chosen=ev.select_threshold(.9)
+        point=chosen["operating_point"]
+        assert chosen["threshold"]==.8 and (point["tp"],point["fp"],point["ignored"],point["fppi"]["value"])==(1,1,0,.5)
+        assert ev.rows[0]["candidate_id"]=="a_zero" and point["binary_tp_ece"]["count"]==2
+        assert chosen["boundary_tie_count"]==(2 if score==.8 else 1)
+        assert ev.operating_point(math.nextafter(.8,1))["tp"]==0
+    print("PASS synthetic TP + zero-area FP: score order, ties, inclusive boundary, FPPI, no crowd absorption, ECE")
 
 
 def prepare(root):
@@ -202,7 +250,7 @@ def infer(root, model_name):
         status["expected_images"]=len(images)
         for policy in config["policies"]:
             torch.cuda.reset_peak_memory_stats()
-            preds=[]; coverage=[]; measurement=[]; batch_stats=[]
+            preds=[]; degenerates=[]; coverage=[]; measurement=[]
             begun=time.monotonic()
             for start in range(0,len(images),config["batch"]):
                 batch=images[start:start+config["batch"]]
@@ -212,12 +260,14 @@ def infer(root, model_name):
                 if nms is not None:
                     kwargs["nms"]=nms
                 outputs=list(model.predict([str(root/i["file_name"]) for i in batch],**kwargs))
-                # Added after the failed pilot: preserve native geometry BEFORE validation.
-                # This capture correction has not been GPU-executed in this assignment.
-                write(result/(model_name+"_"+policy["id"]+f"_native_batch_{start:04d}.json"),
-                    [dict(image_id=i["image_id"],xyxy=o.boxes.xyxy.detach().cpu().tolist(),
+                # Private raw capture intentionally permits nonfinite JSON tokens so even
+                # invalid native values survive; validated/public documents remain strict.
+                native = [dict(image_id=batch[j]["image_id"] if j < len(batch) else None,
+                        xyxy=o.boxes.xyxy.detach().cpu().tolist(),
                         scores=o.boxes.conf.detach().cpu().tolist(),classes=o.boxes.cls.detach().cpu().tolist(),
-                        speed=o.speed) for i,o in zip(batch,outputs)])
+                        speed=o.speed) for j,o in enumerate(outputs)]
+                (result/(model_name+"_"+policy["id"]+f"_native_batch_{start:04d}.json")).write_text(
+                    json.dumps(native, indent=2, allow_nan=True), encoding="utf-8")
                 assert not censored, f"native output-stage censoring: {censored}"
                 assert len(outputs)==len(batch), "incomplete native batch"
                 for image,out in zip(batch,outputs):
@@ -228,11 +278,15 @@ def infer(root, model_name):
                     classes=out.boxes.cls.detach().cpu().tolist()
                     assert len(boxes)==len(scores)==len(classes)
                     for j,(box,score,cls) in enumerate(zip(boxes,scores,classes)):
-                        assert cls==0 and all(math.isfinite(v) for v in box+[score])
+                        assert cls==0 and all(math.isfinite(v) for v in box+[score]) and 0 <= score <= 1
                         x1,y1,x2,y2=box
-                        assert x2>x1 and y2>y1, "nonpositive native box; no repair allowed"
-                        preds.append(dict(candidate_id=image["image_id"]+f":{j:04d}",image_id=image["image_id"],
-                            category="human",bbox=[x1,y1,x2-x1,y2-y1],score=score))
+                        assert x2>=x1 and y2>=y1, "reversed native box; no repair allowed"
+                        pred=dict(candidate_id=image["image_id"]+f":{j:04d}",image_id=image["image_id"],
+                            category="human",bbox=[x1,y1,x2-x1,y2-y1],score=score)
+                        if x2==x1 or y2==y1:
+                            degenerates.append(dict(**pred,native_xyxy=box))
+                        else:
+                            preds.append(pred)
                     coverage.append(image["image_id"])
                     measurement.append(dict(image_id=image["image_id"],candidate_count=len(boxes),speed=out.speed))
                 if start==0 or start%128==0:
@@ -240,9 +294,18 @@ def infer(root, model_name):
             assert len(coverage)==len(images) and len(set(coverage))==len(images)
             status["coverage"][policy["id"]]=dict(complete=len(coverage),seconds=time.monotonic()-begun,
                 peak_allocated_bytes=torch.cuda.max_memory_allocated(),peak_reserved_bytes=torch.cuda.max_memory_reserved(),
-                candidate_count=len(preds),images_at_cap=sum(i["candidate_count"]==policy["cap"] for i in measurement))
+                candidate_count=len(preds)+len(degenerates),zero_area_count=len(degenerates),
+                images_at_cap=sum(i["candidate_count"]==policy["cap"] for i in measurement))
             write(result/(model_name+"_"+policy["id"]+".json"),dict(schema_version=PY_SCHEMA,predictions=preds,
+                degenerate_predictions=degenerates,
                 provenance=dict(evaluated_image_ids=coverage,policy=policy,model=model_name),measurements=measurement))
+            panel=manifest["panels"]["source_selection"]
+            ev=pilot_evaluator(panel,dict(predictions=preds,degenerate_predictions=degenerates,
+                provenance=dict(evaluated_image_ids=coverage)))
+            point=ev.operating_point()
+            print(json.dumps(dict(policy_complete=policy["id"],source_tp=point["tp"],source_gt=ev.gt_count,
+                source_M=point["recall"]["value"],source_ceiling_FPPI=point["fppi"]["value"],
+                objectives={str(r):ev.select_threshold(r)["status"] for r in config["objectives"]})),flush=True)
             predictor=model.predictor
             active_head=predictor.model.model.model[-1]
             status["effective_runtime"]=dict(nms=getattr(predictor.args,"nms",None),
@@ -260,6 +323,7 @@ def infer(root, model_name):
             status["partial_policy"]=policy["id"]
             status["validated_complete_images_in_partial_policy"]=len(coverage)
             write(result/(model_name+"_partial.json"),dict(predictions=preds,
+                degenerate_predictions=degenerates,
                 validated_complete_image_ids=coverage,status="INVALID_PARTIAL_NOT_FOR_EVALUATION"))
         raise
     finally:
@@ -275,26 +339,27 @@ def aggregate(root, destination):
     results=root/"results"
     public=dict(researcher="GPT Sol",role="diagnostic",g0="PENDING",panels={},models={},
         manifest_sha256=sha(root/"packet/manifest.json"),
+        aggregation_provenance=dict(script_sha256=sha(Path(__file__)),
+            reference_evaluator_sha256=sha(REPO/"src/threshold_transfer/metrics.py"),
+            geometry_accounting=read(root/"packet/config.json").get("zero_area_accounting")),
         limitations=["COCO is not verified clear/day; image disjointness does not establish training independence.",
             "ACDC scene/view dependencies; independent group count unknown; no IID intervals or primary BDD claim.",
             "Native finite-pipeline output ceilings, not detector capacity; no completeness certificate.",
             "Person-only native predict classes=[0]; O2O head-level top-k may precede person filtering.",
             "Provisional merged-human and crowd ignore policies; no official-AP equivalence."])
-    # Preserve this assignment's resource/code records without publishing CLI histories.
-    launch_root=root.parent if root.name=="attempt2" else root
+    # This execution's records only. Historical failure evidence remains separate.
+    launch_root=root
     if (launch_root/"packet_record.json").exists():
-        public["packet_record"]=read(launch_root/"packet_record.json")
+        public["original_packet_record"]=read(launch_root/"packet_record.json")
     if (launch_root/"code_record.json").exists():
         public["sent_code_record"]=read(launch_root/"code_record.json")
-        public["sent_code_record"].pop("final_infer_matches_sent",None)
-        public["sent_code_record"]["post_run_capture_correction_GPU_executed"]=False
     if (root/"operation.json").exists():
         operation=read(root/"operation.json")
         def observed(log,pattern):
             path=Path(log)
             match=re.search(pattern,path.read_text(encoding="utf-8")) if path.exists() else None
             return float(match.group(1)) if match else None
-        before=observed(launch_root/"admission.log",r"Current balance:\s*([\d.]+)")
+        before=observed(launch_root/"before_usage.log",r"Current balance:\s*([\d.]+)")
         after=observed(root/"final_usage.log",r"Current balance:\s*([\d.]+)")
         active=observed(root/"final_usage.log",r"Active assignments:\s*(\d+)")
         rate=observed(root/"final_usage.log",r"Usage rate:\s*([\d.]+)")
@@ -303,10 +368,12 @@ def aggregate(root, destination):
             admission_CU_hr=operation.get("admission_rate_CU_hr"),
             displayed_balance_before_CU=before,displayed_balance_after_CU=after,
             displayed_delta_CU=round(before-after,2) if before is not None and after is not None else None,
-            final_active_assignments=active,final_usage_rate_CU_hr=rate,owned_teardown_verified=active==0 and rate==0,
-            failure_sequence=["large upload connection reset before inference", "native nonpositive-extent box; invalid partial"],
-            optional_models_not_run=["yolo26s_o2o","yolo26s_o2m"],
-            evidence_gap="Initial script did not persist the failing native batch; raw box/count/location unavailable")
+            final_active_assignments=active,final_usage_rate_CU_hr=rate,
+            owned_teardown_verified=operation.get("owned_teardown_verified",False),
+            failure_sequence=operation.get("failures",[]),
+            direct_process_returncode=operation.get("direct_process_returncode"),
+            prior_displayed_CU=0.31,prior_failure_note="2026-11-10_sol_results.md",
+            optional_models_not_run=["yolo26s_o2o","yolo26s_o2m"])
     for name,panel in manifest["panels"].items():
         eligible=[a for a in panel["annotations"] if not(a["ignore"] or a["iscrowd"])]
         counts=collections.Counter(a["image_id"] for a in eligible)
@@ -315,7 +382,11 @@ def aggregate(root, destination):
             crowd_regions=sum(a["iscrowd"] for a in panel["annotations"]),
             native_gt_categories=dict(collections.Counter(a["attributes"]["pilot_native_category"] for a in eligible)))
     def compact(point):
-        return {k:v for k,v in point.items() if k not in ("matches","binary_tp_ece")}
+        result={k:v for k,v in point.items() if k not in ("matches","binary_tp_ece")}
+        zero=sum(r.get("native_zero_area",False) for r in point["matches"])
+        result.update(zero_area_fp=zero,zero_area_fppi=zero/point["image_count"],
+            binary_tp_ece={k:v for k,v in point["binary_tp_ece"].items() if k!="bins"})
+        return result
     def val(point,key="recall"):
         return point[key]["value"] if point else None
     def sub(x,y):
@@ -326,6 +397,9 @@ def aggregate(root, destination):
             continue
         name=status["model"]
         model=dict(status=status,policies={})
+        if status["status"]=="COMPLETE" and (root/"operation.json").exists():
+            assert read(root/"operation.json").get("direct_process_returncode")==0
+            assert read(results/"process_status.json")["returncode"]==0
         model["captured_source_sha256"]={p.name:sha(p) for p in results.glob(name+"_*_source.py")}
         public["models"][name]=model
         evaluators={}
@@ -334,14 +408,17 @@ def aggregate(root, destination):
             if not pred_path.exists():
                 continue
             raw=read(pred_path)
+            coverage=raw["provenance"]["evaluated_image_ids"]
+            expected={i["image_id"] for p in manifest["panels"].values() for i in p["images"]}
+            assert len(coverage)==len(expected) and set(coverage)==expected
+            assert status["coverage"][policy["id"]]["complete"]==len(expected)
+            assert len(raw["predictions"])+len(raw.get("degenerate_predictions",[]))==sum(
+                m["candidate_count"] for m in raw["measurements"])
+            assert status["coverage"][policy["id"]]["candidate_count"]==sum(m["candidate_count"] for m in raw["measurements"])
+            assert status["coverage"][policy["id"]]["zero_area_count"]==len(raw.get("degenerate_predictions",[]))
             policy_evaluators={}
             for panel_name,panel in manifest["panels"].items():
-                ids={i["image_id"] for i in panel["images"]}
-                assert ids <= set(raw["provenance"]["evaluated_image_ids"])
-                pred=dict(schema_version=PY_SCHEMA,provenance=dict(evaluated_image_ids=sorted(ids)),
-                    predictions=[p for p in raw["predictions"] if p["image_id"] in ids])
-                policy_evaluators[panel_name]=ReferenceEvaluator(panel,pred,categories=["human"],
-                    ignore_policy="same_category_ioa",bounds_policy="allow_outside")
+                policy_evaluators[panel_name]=pilot_evaluator(panel,raw)
             evaluators[policy["id"]]=policy_evaluators
         for policy_id,evs in evaluators.items():
             policy_result=dict(ceilings={p:compact(e.operating_point()) for p,e in evs.items()},objectives={})
@@ -361,6 +438,8 @@ def aggregate(root, destination):
                     point=dict(reselected=compact(reselected) if reselected else None,fixed_maximal_threshold=compact(fixed) if fixed else None,
                         M=ceiling,W_reselected=sub(ceiling,val(reselected)),W_fixed=sub(ceiling,val(fixed)),
                         B=sub(val(reselected),val(fixed)),D=sub(val(fixed),val(base)))
+                    point["signed_count_changes"]={k:dict(B=sub(reselected[k] if reselected else None,fixed[k] if fixed else None),
+                        D=sub(fixed[k] if fixed else None,base[k] if base else None)) for k in ("tp","fp")}
                     if p!="source_selection":
                         ref=evs["coco_reference"]
                         ref_point=ref.operating_point(selection["threshold"]) if reselected else None
@@ -389,6 +468,8 @@ def aggregate(root, destination):
                 satisfies=abs(night["B"])>abs(night["D"]) and abs(night["B"])>abs(ref["B"]) if feasible else None,
                 B_night=night["B"],D_night=night["D"],B_coco_reference=ref["B"]))
         model["H1"]=h1
+        model["H1_verdict"]=("SUPPORT_IN_AT_LEAST_ONE_PRESPECIFIED_CONTRAST" if any(h["satisfies"] for h in h1)
+            else "NO_SUPPORT" if any(h["status"]=="TESTABLE" for h in h1) else "UNTESTABLE")
         if not evaluators:
             model["policies"]={p["id"]:dict(status="INVALID_PARTIAL" if p["id"]=="maximal" else "NOT_RUN",
                 validated_complete_policy_images=0,expected_images=status["expected_images"],
@@ -397,6 +478,14 @@ def aggregate(root, destination):
             model["H1"]=[dict(policy=p["id"],status="UNTESTABLE",satisfies=None,
                 reason="No complete native policy coverage; not a source-infeasibility result")
                 for p in POLICIES if p["id"]!="maximal"]
+        else:
+            for policy_id,policy_result in model["policies"].items():
+                policy_result["ceiling_changes_from_maximal"]={}
+                for panel,point in policy_result["ceilings"].items():
+                    base=model["policies"]["maximal"]["ceilings"][panel]
+                    policy_result["ceiling_changes_from_maximal"][panel]={
+                        "tp":point["tp"]-base["tp"], "fp":point["fp"]-base["fp"],
+                        "recall":sub(val(point),val(base)), "fppi":sub(val(point,"fppi"),val(base,"fppi"))}
     write(destination,public)
     print(json.dumps(dict(panels=public["panels"],models={k:dict(status=v["status"]["status"],H1=v["H1"],
         source_M={p:r["ceilings"]["source_selection"]["recall"]["value"] for p,r in v["policies"].items() if "ceilings" in r}) for k,v in public["models"].items()})))
@@ -404,11 +493,12 @@ def aggregate(root, destination):
 
 if __name__=="__main__":
     parser=argparse.ArgumentParser()
-    parser.add_argument("mode",choices=["prepare","infer","aggregate"])
+    parser.add_argument("mode",choices=["prepare","infer","aggregate","zero-area-check"])
     parser.add_argument("root")
     parser.add_argument("--model",default="yolo11s")
     parser.add_argument("--output")
     args=parser.parse_args()
-    if args.mode=="prepare": prepare(args.root)
+    if args.mode=="zero-area-check": zero_area_check()
+    elif args.mode=="prepare": prepare(args.root)
     elif args.mode=="infer": infer(args.root,args.model)
     else: aggregate(args.root,args.output)

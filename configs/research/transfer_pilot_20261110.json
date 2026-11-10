@@ -42,6 +42,12 @@
   "agnostic_nms": false,
   "augment": false,
   "geometry": "native xyxy converted to xywh; allow_outside; no repair",
+  "zero_area_accounting": "2026-11-10_native_zero_area: finite unreversed native zero area preserved separately, explicit FP at inclusive threshold, no crowd absorption; positive area uses unchanged ReferenceEvaluator",
+  "completion_provenance": {
+    "base": "3d2244e1495106594e0c16781f5fb71066a9e185",
+    "original_packet_sha256": "d2cd1a7f669c401417f06e9b712dbc32b20b2f8b54055b18a1b9adcc8e938a24",
+    "delivery": "Original packet/chunks unchanged; corrected script and config uploaded separately"
+  },
   "evaluator": "threshold_transfer.metrics.ReferenceEvaluator; IoU .50; same_category_ioa .50 provisional",
   "task": "COCO person outputs/GT; ACDC person+rider merged human; diagnostic only",
   "manifest_sha256": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
