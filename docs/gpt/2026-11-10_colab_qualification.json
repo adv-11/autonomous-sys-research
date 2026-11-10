@@ -1,0 +1,36 @@
+{
+  "status": "QUALIFICATION_FAILED_REPAIR_REQUIRED",
+  "author": "GPT coordinator",
+  "date": "2026-11-10",
+  "initial_displayed_compute_units": 300.0,
+  "final_displayed_compute_units": 300.0,
+  "billing_note": "Displayed balance may lag; not evidence of zero consumption.",
+  "gpu": "NVIDIA L4",
+  "device_memory_bytes": 23659151360,
+  "observed_compute_units_per_hour": 1.94,
+  "successful_updates": 0,
+  "final_active_assignments": 0,
+  "attempts": [
+    {
+      "result_status": "FAIL",
+      "error_type": "AttributeError",
+      "error": "'dict' object has no attribute 'box'",
+      "successful_updates": 0,
+      "remote_elapsed_seconds": 16.95911494699999,
+      "outer_elapsed_seconds": 53.59399999999732,
+      "stop_exit_code": 0,
+      "summary_sha256": "5677fb9a657c89fab4b791eef41f6ae229ee3c96d68ecec476e1ca1fa4c4fba5"
+    },
+    {
+      "result_status": "FAIL",
+      "error_type": "RuntimeError",
+      "error": "element 0 of tensors does not require grad and does not have a grad_fn",
+      "successful_updates": 0,
+      "remote_elapsed_seconds": 15.762816748000034,
+      "outer_elapsed_seconds": 31.39100000000326,
+      "stop_exit_code": 0,
+      "summary_sha256": "519e51d221e189b23e33e074e99319431b5e00977df305becb63cda5a53bf5fa"
+    }
+  ],
+  "qualification_script_sha256": "c985298d06a753122c0874e8de43f169a776930cd791e99dc97cfcc76e34faa2"
+}
