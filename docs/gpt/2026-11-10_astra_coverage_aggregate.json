@@ -1,0 +1,1948 @@
+{
+  "researcher": "GPT Astra",
+  "role": "Exploratory CPU per-object diagnosis and focused scientific review",
+  "base": "a2072cef6bf2e020a77c1ee54cd8de432d8508a4",
+  "g0": "PENDING",
+  "resolution": 640,
+  "prospective_1280_H2_result": "NOT_OBSERVED_BY_THIS_ANALYSIS",
+  "provenance": {
+    "manifest_sha256": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+    "analysis_script_sha256": "5f36e00dbf56fa62d175639578c613fe5e4a150acff895895483a96cae49164a",
+    "private_per_gt_sha256": "7caef9d8674ae671284e779745189516e876a7309989b23d038e570d1d03ea90",
+    "reference_evaluator_sha256": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
+    "pilot_script_sha256": "04cd37e75a811b0e43b6d26d40434cf2cd09afd878e83101e7730466bdf8c647",
+    "sent_script_sha256": "63f2b2659b4ee3f6b4d044e54cb41c3baec0e166ed72daed1c7a16ff167a0628",
+    "sent_and_current_function_equal": {
+      "infer": true,
+      "pilot_evaluator": true
+    }
+  },
+  "methods": {
+    "height": "GT bbox height * 640 / max(original width, original height)",
+    "height_bins": [
+      "<8",
+      "8\u201316",
+      "16\u201332",
+      ">=32"
+    ],
+    "native_task": "COCO person; ACDC person+rider merged human; stratification does not rematch or alter task",
+    "oracle": "Per eligible GT maximum IoU across positive-area same-image native human candidates; candidate reuse allowed; no-candidate maximum is 0",
+    "matching": "Unchanged ReferenceEvaluator score-ordered one-to-one IoU>=.50; same_category_ioa ignore after eligible matching",
+    "zero_area": "Explicit FP with no ignore absorption; IoU zero against positive GT; excluded only from positive-geometry oracle",
+    "uncertainty": "Descriptive fixed-panel counts; no IID/bootstrap interval or person-level paired causal estimate"
+  },
+  "coverage": {
+    "maximal": {
+      "images": 700,
+      "native_batches": 88,
+      "candidates": 44104,
+      "zero_area": 118,
+      "prediction_sha256": "2a92c5e6e870ade8234141fc998c6e354e7aced396d277ea35cae804d27b8c3d"
+    },
+    "cap100": {
+      "images": 700,
+      "native_batches": 88,
+      "candidates": 28954,
+      "zero_area": 97,
+      "prediction_sha256": "caf9453018a4aab91c2c756bd7d240203bda46ac21205ab183a7c304041ff7c6"
+    },
+    "cap300": {
+      "images": 700,
+      "native_batches": 88,
+      "candidates": 39894,
+      "zero_area": 118,
+      "prediction_sha256": "41a3dc8ff934d601a8e332728416fa6af92d6cc575624184a2989b33b6c4872d"
+    },
+    "floor01": {
+      "images": 700,
+      "native_batches": 88,
+      "candidates": 6869,
+      "zero_area": 0,
+      "prediction_sha256": "035072f681a1fec7d32a88e5f39f240d42415027b8244076941118f455151201"
+    }
+  },
+  "source_objectives": {
+    "0.8": {
+      "target_recall": 0.8,
+      "threshold": 0.24039360880851746,
+      "next_lower_score": 0.2398192286491394,
+      "boundary_gap": 0.0005743801593780518,
+      "boundary_tie_count": 1,
+      "headroom": {
+        "value": 0.1309153713298791,
+        "status": "DEFINED"
+      },
+      "headroom_flag": "ADEQUATE",
+      "status": "FEASIBLE"
+    },
+    "0.9": {
+      "target_recall": 0.9,
+      "threshold": 0.043987125158309937,
+      "next_lower_score": 0.04389350861310959,
+      "boundary_gap": 9.36165452003479e-05,
+      "boundary_tie_count": 1,
+      "headroom": {
+        "value": 0.0309153713298791,
+        "status": "DEFINED"
+      },
+      "headroom_flag": "ADEQUATE",
+      "status": "FEASIBLE"
+    },
+    "0.95": {
+      "target_recall": 0.95,
+      "threshold": null,
+      "next_lower_score": null,
+      "boundary_gap": null,
+      "boundary_tie_count": null,
+      "headroom": {
+        "value": -0.0190846286701209,
+        "status": "DEFINED"
+      },
+      "headroom_flag": "INFEASIBLE",
+      "status": "INFEASIBLE"
+    }
+  },
+  "h1": [
+    {
+      "policy": "cap100",
+      "source_threshold": 0.043987125158309937,
+      "night": {
+        "tp": {
+          "B": 0,
+          "D": 0
+        },
+        "fp": {
+          "B": 0,
+          "D": 0
+        },
+        "B": 0.0,
+        "D": 0.0
+      },
+      "coco_reference": {
+        "tp": {
+          "B": 0,
+          "D": 0
+        },
+        "fp": {
+          "B": 0,
+          "D": 0
+        },
+        "B": 0.0,
+        "D": 0.0
+      },
+      "satisfies": false
+    },
+    {
+      "policy": "cap300",
+      "source_threshold": 0.043987125158309937,
+      "night": {
+        "tp": {
+          "B": 0,
+          "D": 0
+        },
+        "fp": {
+          "B": 0,
+          "D": 0
+        },
+        "B": 0.0,
+        "D": 0.0
+      },
+      "coco_reference": {
+        "tp": {
+          "B": 0,
+          "D": 0
+        },
+        "fp": {
+          "B": 0,
+          "D": 0
+        },
+        "B": 0.0,
+        "D": 0.0
+      },
+      "satisfies": false
+    },
+    {
+      "policy": "floor01",
+      "source_threshold": 0.043987125158309937,
+      "night": {
+        "tp": {
+          "B": 0,
+          "D": 0
+        },
+        "fp": {
+          "B": 0,
+          "D": 0
+        },
+        "B": 0.0,
+        "D": 0.0
+      },
+      "coco_reference": {
+        "tp": {
+          "B": 0,
+          "D": 0
+        },
+        "fp": {
+          "B": 0,
+          "D": 0
+        },
+        "B": 0.0,
+        "D": 0.0
+      },
+      "satisfies": false
+    }
+  ],
+  "baseline_reproduction": {
+    "source_selection": {
+      "ceiling": {
+        "image_count": 256,
+        "eligible_gt": 579,
+        "tp": 539,
+        "fp": 11929,
+        "ignored": 4273,
+        "fn": 40,
+        "recall": {
+          "value": 0.9309153713298791,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 46.59765625,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 256,
+        "eligible_gt": 579,
+        "tp": 522,
+        "fp": 480,
+        "ignored": 242,
+        "fn": 57,
+        "recall": {
+          "value": 0.9015544041450777,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 1.875,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "coco_reference": {
+      "ceiling": {
+        "image_count": 256,
+        "eligible_gt": 528,
+        "tp": 482,
+        "fp": 12206,
+        "ignored": 3692,
+        "fn": 46,
+        "recall": {
+          "value": 0.9128787878787878,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 47.6796875,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 256,
+        "eligible_gt": 528,
+        "tp": 423,
+        "fp": 539,
+        "ignored": 197,
+        "fn": 105,
+        "recall": {
+          "value": 0.8011363636363636,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 2.10546875,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "fog": {
+      "ceiling": {
+        "image_count": 32,
+        "eligible_gt": 27,
+        "tp": 23,
+        "fp": 1486,
+        "ignored": 0,
+        "fn": 4,
+        "recall": {
+          "value": 0.8518518518518519,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 46.4375,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 32,
+        "eligible_gt": 27,
+        "tp": 15,
+        "fp": 56,
+        "ignored": 0,
+        "fn": 12,
+        "recall": {
+          "value": 0.5555555555555556,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 1.75,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "fog_paired": {
+      "ceiling": {
+        "image_count": 16,
+        "eligible_gt": 13,
+        "tp": 12,
+        "fp": 701,
+        "ignored": 0,
+        "fn": 1,
+        "recall": {
+          "value": 0.9230769230769231,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 43.8125,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 16,
+        "eligible_gt": 13,
+        "tp": 6,
+        "fp": 25,
+        "ignored": 0,
+        "fn": 7,
+        "recall": {
+          "value": 0.46153846153846156,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 1.5625,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "fog_normal": {
+      "ceiling": {
+        "image_count": 16,
+        "eligible_gt": 32,
+        "tp": 16,
+        "fp": 625,
+        "ignored": 0,
+        "fn": 16,
+        "recall": {
+          "value": 0.5,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 39.0625,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 16,
+        "eligible_gt": 32,
+        "tp": 11,
+        "fp": 18,
+        "ignored": 0,
+        "fn": 21,
+        "recall": {
+          "value": 0.34375,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 1.125,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "night": {
+      "ceiling": {
+        "image_count": 32,
+        "eligible_gt": 77,
+        "tp": 35,
+        "fp": 1729,
+        "ignored": 1,
+        "fn": 42,
+        "recall": {
+          "value": 0.45454545454545453,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 54.03125,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 32,
+        "eligible_gt": 77,
+        "tp": 27,
+        "fp": 45,
+        "ignored": 1,
+        "fn": 50,
+        "recall": {
+          "value": 0.35064935064935066,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 1.40625,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "night_paired": {
+      "ceiling": {
+        "image_count": 12,
+        "eligible_gt": 25,
+        "tp": 13,
+        "fp": 675,
+        "ignored": 0,
+        "fn": 12,
+        "recall": {
+          "value": 0.52,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 56.25,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 12,
+        "eligible_gt": 25,
+        "tp": 9,
+        "fp": 24,
+        "ignored": 0,
+        "fn": 16,
+        "recall": {
+          "value": 0.36,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 2.0,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "night_normal": {
+      "ceiling": {
+        "image_count": 12,
+        "eligible_gt": 35,
+        "tp": 16,
+        "fp": 863,
+        "ignored": 0,
+        "fn": 19,
+        "recall": {
+          "value": 0.45714285714285713,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 71.91666666666667,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 12,
+        "eligible_gt": 35,
+        "tp": 13,
+        "fp": 70,
+        "ignored": 0,
+        "fn": 22,
+        "recall": {
+          "value": 0.37142857142857144,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 5.833333333333333,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "rain": {
+      "ceiling": {
+        "image_count": 32,
+        "eligible_gt": 40,
+        "tp": 27,
+        "fp": 1966,
+        "ignored": 4,
+        "fn": 13,
+        "recall": {
+          "value": 0.675,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 61.4375,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 32,
+        "eligible_gt": 40,
+        "tp": 21,
+        "fp": 115,
+        "ignored": 3,
+        "fn": 19,
+        "recall": {
+          "value": 0.525,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 3.59375,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "rain_paired": {
+      "ceiling": {
+        "image_count": 15,
+        "eligible_gt": 22,
+        "tp": 17,
+        "fp": 994,
+        "ignored": 4,
+        "fn": 5,
+        "recall": {
+          "value": 0.7727272727272727,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 66.26666666666667,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 15,
+        "eligible_gt": 22,
+        "tp": 14,
+        "fp": 66,
+        "ignored": 3,
+        "fn": 8,
+        "recall": {
+          "value": 0.6363636363636364,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 4.4,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "rain_normal": {
+      "ceiling": {
+        "image_count": 15,
+        "eligible_gt": 27,
+        "tp": 17,
+        "fp": 902,
+        "ignored": 0,
+        "fn": 10,
+        "recall": {
+          "value": 0.6296296296296297,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 60.13333333333333,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 15,
+        "eligible_gt": 27,
+        "tp": 16,
+        "fp": 49,
+        "ignored": 0,
+        "fn": 11,
+        "recall": {
+          "value": 0.5925925925925926,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 3.2666666666666666,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "snow": {
+      "ceiling": {
+        "image_count": 32,
+        "eligible_gt": 72,
+        "tp": 43,
+        "fp": 2216,
+        "ignored": 91,
+        "fn": 29,
+        "recall": {
+          "value": 0.5972222222222222,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 69.25,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 32,
+        "eligible_gt": 72,
+        "tp": 33,
+        "fp": 95,
+        "ignored": 32,
+        "fn": 39,
+        "recall": {
+          "value": 0.4583333333333333,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 2.96875,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "snow_paired": {
+      "ceiling": {
+        "image_count": 17,
+        "eligible_gt": 37,
+        "tp": 20,
+        "fp": 1267,
+        "ignored": 21,
+        "fn": 17,
+        "recall": {
+          "value": 0.5405405405405406,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 74.52941176470588,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 17,
+        "eligible_gt": 37,
+        "tp": 15,
+        "fp": 52,
+        "ignored": 10,
+        "fn": 22,
+        "recall": {
+          "value": 0.40540540540540543,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 3.0588235294117645,
+          "status": "DEFINED"
+        }
+      }
+    },
+    "snow_normal": {
+      "ceiling": {
+        "image_count": 17,
+        "eligible_gt": 60,
+        "tp": 25,
+        "fp": 898,
+        "ignored": 0,
+        "fn": 35,
+        "recall": {
+          "value": 0.4166666666666667,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 52.8235294117647,
+          "status": "DEFINED"
+        }
+      },
+      "operating": {
+        "image_count": 17,
+        "eligible_gt": 60,
+        "tp": 19,
+        "fp": 52,
+        "ignored": 0,
+        "fn": 41,
+        "recall": {
+          "value": 0.31666666666666665,
+          "status": "DEFINED"
+        },
+        "fppi": {
+          "value": 3.0588235294117645,
+          "status": "DEFINED"
+        }
+      }
+    }
+  },
+  "diagnosis": {
+    "source_selection": {
+      "images": 256,
+      "empty_human_images": 116,
+      "crowd_regions": 14,
+      "ignored_regions": 14,
+      "counts": [579, 539, 522, 572, 562, 540, 33, 23, 1, 0.9309153713298791],
+      "by_height": {
+        "<8": [11, 0, 0, 6, 2, 0, 6, 2, 0, 0.0],
+        "8\u201316": [51, 29, 26, 50, 44, 29, 21, 15, 0, 0.5686274509803921],
+        "16\u201332": [83, 77, 67, 82, 82, 78, 5, 5, 1, 0.927710843373494],
+        ">=32": [434, 433, 429, 434, 434, 433, 1, 1, 0, 0.9976958525345622]
+      },
+      "by_native": {
+        "person": [579, 539, 522, 572, 562, 540, 33, 23, 1, 0.9309153713298791],
+        "rider": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+      }
+    },
+    "coco_reference": {
+      "images": 256,
+      "empty_human_images": 120,
+      "crowd_regions": 12,
+      "ignored_regions": 12,
+      "counts": [528, 482, 423, 518, 515, 482, 36, 33, 0, 0.9128787878787878],
+      "by_height": {
+        "<8": [22, 5, 3, 16, 15, 5, 11, 10, 0, 0.22727272727272727],
+        "8\u201316": [40, 21, 17, 39, 37, 21, 18, 16, 0, 0.525],
+        "16\u201332": [74, 66, 49, 73, 73, 66, 7, 7, 0, 0.8918918918918919],
+        ">=32": [392, 390, 354, 390, 390, 390, 0, 0, 0, 0.9948979591836735]
+      },
+      "by_native": {
+        "person": [528, 482, 423, 518, 515, 482, 36, 33, 0, 0.9128787878787878],
+        "rider": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+      },
+      "by_native_height": {
+        "person": {
+          "<8": [22, 5, 3, 16, 15, 5, 11, 10, 0, 0.22727272727272727],
+          "8\u201316": [40, 21, 17, 39, 37, 21, 18, 16, 0, 0.525],
+          "16\u201332": [74, 66, 49, 73, 73, 66, 7, 7, 0, 0.8918918918918919],
+          ">=32": [392, 390, 354, 390, 390, 390, 0, 0, 0, 0.9948979591836735]
+        },
+        "rider": {
+          "<8": [0, 0, 0, 0, 0, 0, 0, 0, 0, null],
+          "8\u201316": [0, 0, 0, 0, 0, 0, 0, 0, 0, null],
+          "16\u201332": [0, 0, 0, 0, 0, 0, 0, 0, 0, null],
+          ">=32": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+        }
+      }
+    },
+    "fog": {
+      "images": 32,
+      "empty_human_images": 16,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [27, 23, 15, 25, 24, 23, 2, 1, 0, 0.8518518518518519],
+      "by_height": {
+        "<8": [2, 0, 0, 0, 0, 0, 0, 0, 0, 0.0],
+        "8\u201316": [9, 8, 4, 9, 8, 8, 1, 0, 0, 0.8888888888888888],
+        "16\u201332": [10, 9, 6, 10, 10, 9, 1, 1, 0, 0.9],
+        ">=32": [6, 6, 5, 6, 6, 6, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [22, 20, 13, 22, 21, 20, 2, 1, 0, 0.9090909090909091],
+        "rider": [5, 3, 2, 3, 3, 3, 0, 0, 0, 0.6]
+      }
+    },
+    "fog_paired": {
+      "images": 16,
+      "empty_human_images": 8,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [13, 12, 6, 13, 13, 12, 1, 1, 0, 0.9230769230769231],
+      "by_height": {
+        "<8": [0, 0, 0, 0, 0, 0, 0, 0, 0, null],
+        "8\u201316": [4, 4, 2, 4, 4, 4, 0, 0, 0, 1.0],
+        "16\u201332": [7, 6, 3, 7, 7, 6, 1, 1, 0, 0.8571428571428571],
+        ">=32": [2, 2, 1, 2, 2, 2, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [12, 11, 5, 12, 12, 11, 1, 1, 0, 0.9166666666666666],
+        "rider": [1, 1, 1, 1, 1, 1, 0, 0, 0, 1.0]
+      }
+    },
+    "fog_normal": {
+      "images": 16,
+      "empty_human_images": 6,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [32, 16, 11, 23, 20, 16, 7, 4, 0, 0.5],
+      "by_height": {
+        "<8": [11, 0, 0, 2, 0, 0, 2, 0, 0, 0.0],
+        "8\u201316": [11, 6, 4, 11, 10, 6, 5, 4, 0, 0.5454545454545454],
+        "16\u201332": [7, 7, 5, 7, 7, 7, 0, 0, 0, 1.0],
+        ">=32": [3, 3, 2, 3, 3, 3, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [30, 16, 11, 22, 20, 16, 6, 4, 0, 0.5333333333333333],
+        "rider": [2, 0, 0, 1, 0, 0, 1, 0, 0, 0.0]
+      }
+    },
+    "night": {
+      "images": 32,
+      "empty_human_images": 13,
+      "crowd_regions": 1,
+      "ignored_regions": 1,
+      "counts": [77, 35, 27, 53, 46, 35, 18, 11, 0, 0.45454545454545453],
+      "by_height": {
+        "<8": [15, 0, 0, 6, 2, 0, 6, 2, 0, 0.0],
+        "8\u201316": [20, 2, 0, 10, 7, 2, 8, 5, 0, 0.1],
+        "16\u201332": [19, 11, 7, 15, 15, 11, 4, 4, 0, 0.5789473684210527],
+        ">=32": [23, 22, 20, 22, 22, 22, 0, 0, 0, 0.9565217391304348]
+      },
+      "by_native": {
+        "person": [68, 32, 25, 47, 43, 32, 15, 11, 0, 0.47058823529411764],
+        "rider": [9, 3, 2, 6, 3, 3, 3, 0, 0, 0.3333333333333333]
+      },
+      "by_native_height": {
+        "person": {
+          "<8": [12, 0, 0, 5, 2, 0, 5, 2, 0, 0.0],
+          "8\u201316": [16, 1, 0, 7, 6, 1, 6, 5, 0, 0.0625],
+          "16\u201332": [19, 11, 7, 15, 15, 11, 4, 4, 0, 0.5789473684210527],
+          ">=32": [21, 20, 18, 20, 20, 20, 0, 0, 0, 0.9523809523809523]
+        },
+        "rider": {
+          "<8": [3, 0, 0, 1, 0, 0, 1, 0, 0, 0.0],
+          "8\u201316": [4, 1, 0, 3, 1, 1, 2, 0, 0, 0.25],
+          "16\u201332": [0, 0, 0, 0, 0, 0, 0, 0, 0, null],
+          ">=32": [2, 2, 2, 2, 2, 2, 0, 0, 0, 1.0]
+        }
+      }
+    },
+    "night_paired": {
+      "images": 12,
+      "empty_human_images": 5,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [25, 13, 9, 19, 16, 13, 6, 3, 0, 0.52],
+      "by_height": {
+        "<8": [3, 0, 0, 1, 1, 0, 1, 1, 0, 0.0],
+        "8\u201316": [9, 2, 0, 5, 2, 2, 3, 0, 0, 0.2222222222222222],
+        "16\u201332": [6, 4, 3, 6, 6, 4, 2, 2, 0, 0.6666666666666666],
+        ">=32": [7, 7, 6, 7, 7, 7, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [20, 11, 8, 15, 14, 11, 4, 3, 0, 0.55],
+        "rider": [5, 2, 1, 4, 2, 2, 2, 0, 0, 0.4]
+      }
+    },
+    "night_normal": {
+      "images": 12,
+      "empty_human_images": 3,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [35, 16, 13, 27, 23, 16, 11, 7, 0, 0.45714285714285713],
+      "by_height": {
+        "<8": [11, 1, 0, 3, 1, 1, 2, 0, 0, 0.09090909090909091],
+        "8\u201316": [9, 1, 1, 9, 7, 1, 8, 6, 0, 0.1111111111111111],
+        "16\u201332": [9, 8, 6, 9, 9, 8, 1, 1, 0, 0.8888888888888888],
+        ">=32": [6, 6, 6, 6, 6, 6, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [30, 15, 13, 26, 22, 15, 11, 7, 0, 0.5],
+        "rider": [5, 1, 0, 1, 1, 1, 0, 0, 0, 0.2]
+      },
+      "by_native_height": {
+        "person": {
+          "<8": [7, 1, 0, 3, 1, 1, 2, 0, 0, 0.14285714285714285],
+          "8\u201316": [9, 1, 1, 9, 7, 1, 8, 6, 0, 0.1111111111111111],
+          "16\u201332": [8, 7, 6, 8, 8, 7, 1, 1, 0, 0.875],
+          ">=32": [6, 6, 6, 6, 6, 6, 0, 0, 0, 1.0]
+        },
+        "rider": {
+          "<8": [4, 0, 0, 0, 0, 0, 0, 0, 0, 0.0],
+          "8\u201316": [0, 0, 0, 0, 0, 0, 0, 0, 0, null],
+          "16\u201332": [1, 1, 0, 1, 1, 1, 0, 0, 0, 1.0],
+          ">=32": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+        }
+      }
+    },
+    "rain": {
+      "images": 32,
+      "empty_human_images": 22,
+      "crowd_regions": 1,
+      "ignored_regions": 1,
+      "counts": [40, 27, 21, 37, 35, 27, 10, 8, 0, 0.675],
+      "by_height": {
+        "<8": [5, 0, 0, 3, 2, 0, 3, 2, 0, 0.0],
+        "8\u201316": [7, 3, 1, 6, 5, 3, 3, 2, 0, 0.42857142857142855],
+        "16\u201332": [15, 11, 9, 15, 15, 11, 4, 4, 0, 0.7333333333333333],
+        ">=32": [13, 13, 11, 13, 13, 13, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [39, 27, 21, 36, 34, 27, 9, 7, 0, 0.6923076923076923],
+        "rider": [1, 0, 0, 1, 1, 0, 1, 1, 0, 0.0]
+      }
+    },
+    "rain_paired": {
+      "images": 15,
+      "empty_human_images": 12,
+      "crowd_regions": 1,
+      "ignored_regions": 1,
+      "counts": [22, 17, 14, 22, 21, 17, 5, 4, 0, 0.7727272727272727],
+      "by_height": {
+        "<8": [3, 0, 0, 3, 2, 0, 3, 2, 0, 0.0],
+        "8\u201316": [1, 0, 0, 1, 1, 0, 1, 1, 0, 0.0],
+        "16\u201332": [7, 6, 5, 7, 7, 6, 1, 1, 0, 0.8571428571428571],
+        ">=32": [11, 11, 9, 11, 11, 11, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [22, 17, 14, 22, 21, 17, 5, 4, 0, 0.7727272727272727],
+        "rider": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+      }
+    },
+    "rain_normal": {
+      "images": 15,
+      "empty_human_images": 5,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [27, 17, 16, 26, 21, 17, 9, 4, 0, 0.6296296296296297],
+      "by_height": {
+        "<8": [5, 0, 0, 4, 1, 0, 4, 1, 0, 0.0],
+        "8\u201316": [6, 2, 2, 6, 4, 2, 4, 2, 0, 0.3333333333333333],
+        "16\u201332": [10, 9, 8, 10, 10, 9, 1, 1, 0, 0.9],
+        ">=32": [6, 6, 6, 6, 6, 6, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [24, 14, 13, 23, 18, 14, 9, 4, 0, 0.5833333333333334],
+        "rider": [3, 3, 3, 3, 3, 3, 0, 0, 0, 1.0]
+      }
+    },
+    "snow": {
+      "images": 32,
+      "empty_human_images": 11,
+      "crowd_regions": 4,
+      "ignored_regions": 4,
+      "counts": [72, 43, 33, 59, 51, 43, 16, 8, 0, 0.5972222222222222],
+      "by_height": {
+        "<8": [6, 0, 0, 2, 0, 0, 2, 0, 0, 0.0],
+        "8\u201316": [25, 7, 3, 18, 12, 7, 11, 5, 0, 0.28],
+        "16\u201332": [17, 12, 9, 15, 15, 12, 3, 3, 0, 0.7058823529411765],
+        ">=32": [24, 24, 21, 24, 24, 24, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [72, 43, 33, 59, 51, 43, 16, 8, 0, 0.5972222222222222],
+        "rider": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+      }
+    },
+    "snow_paired": {
+      "images": 17,
+      "empty_human_images": 6,
+      "crowd_regions": 2,
+      "ignored_regions": 2,
+      "counts": [37, 20, 15, 29, 25, 20, 9, 5, 0, 0.5405405405405406],
+      "by_height": {
+        "<8": [3, 0, 0, 1, 0, 0, 1, 0, 0, 0.0],
+        "8\u201316": [14, 4, 2, 10, 7, 4, 6, 3, 0, 0.2857142857142857],
+        "16\u201332": [11, 7, 6, 9, 9, 7, 2, 2, 0, 0.6363636363636364],
+        ">=32": [9, 9, 7, 9, 9, 9, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [37, 20, 15, 29, 25, 20, 9, 5, 0, 0.5405405405405406],
+        "rider": [0, 0, 0, 0, 0, 0, 0, 0, 0, null]
+      }
+    },
+    "snow_normal": {
+      "images": 17,
+      "empty_human_images": 4,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [60, 25, 19, 41, 33, 25, 16, 8, 0, 0.4166666666666667],
+      "by_height": {
+        "<8": [19, 0, 0, 7, 2, 0, 7, 2, 0, 0.0],
+        "8\u201316": [24, 10, 9, 17, 14, 10, 7, 4, 0, 0.4166666666666667],
+        "16\u201332": [13, 12, 7, 13, 13, 12, 1, 1, 0, 0.9230769230769231],
+        ">=32": [4, 3, 3, 4, 4, 3, 1, 1, 0, 0.75]
+      },
+      "by_native": {
+        "person": [53, 25, 19, 38, 32, 25, 13, 7, 0, 0.4716981132075472],
+        "rider": [7, 0, 0, 3, 1, 0, 3, 1, 0, 0.0]
+      }
+    },
+    "acdc_adverse_all": {
+      "images": 128,
+      "empty_human_images": 62,
+      "crowd_regions": 6,
+      "ignored_regions": 6,
+      "counts": [216, 128, 96, 174, 156, 128, 46, 28, 0, 0.5925925925925926],
+      "by_height": {
+        "<8": [28, 0, 0, 11, 4, 0, 11, 4, 0, 0.0],
+        "8\u201316": [61, 20, 8, 43, 32, 20, 23, 12, 0, 0.32786885245901637],
+        "16\u201332": [61, 43, 31, 55, 55, 43, 12, 12, 0, 0.7049180327868853],
+        ">=32": [66, 65, 57, 65, 65, 65, 0, 0, 0, 0.9848484848484849]
+      },
+      "by_native": {
+        "person": [201, 122, 92, 164, 149, 122, 42, 27, 0, 0.6069651741293532],
+        "rider": [15, 6, 4, 10, 7, 6, 4, 1, 0, 0.4]
+      },
+      "by_native_height": {
+        "person": {
+          "<8": [23, 0, 0, 10, 4, 0, 10, 4, 0, 0.0],
+          "8\u201316": [56, 18, 8, 39, 30, 18, 21, 12, 0, 0.32142857142857145],
+          "16\u201332": [59, 42, 30, 53, 53, 42, 11, 11, 0, 0.711864406779661],
+          ">=32": [63, 62, 54, 62, 62, 62, 0, 0, 0, 0.9841269841269841]
+        },
+        "rider": {
+          "<8": [5, 0, 0, 1, 0, 0, 1, 0, 0, 0.0],
+          "8\u201316": [5, 2, 0, 4, 2, 2, 2, 0, 0, 0.4],
+          "16\u201332": [2, 1, 1, 2, 2, 1, 1, 1, 0, 0.5],
+          ">=32": [3, 3, 3, 3, 3, 3, 0, 0, 0, 1.0]
+        }
+      }
+    },
+    "acdc_normal_all": {
+      "images": 60,
+      "empty_human_images": 18,
+      "crowd_regions": 0,
+      "ignored_regions": 0,
+      "counts": [154, 74, 59, 117, 97, 74, 43, 23, 0, 0.4805194805194805],
+      "by_height": {
+        "<8": [46, 1, 0, 16, 4, 1, 15, 3, 0, 0.021739130434782608],
+        "8\u201316": [50, 19, 16, 43, 35, 19, 24, 16, 0, 0.38],
+        "16\u201332": [39, 36, 26, 39, 39, 36, 3, 3, 0, 0.9230769230769231],
+        ">=32": [19, 18, 17, 19, 19, 18, 1, 1, 0, 0.9473684210526315]
+      },
+      "by_native": {
+        "person": [137, 70, 56, 109, 92, 70, 39, 22, 0, 0.5109489051094891],
+        "rider": [17, 4, 3, 8, 5, 4, 4, 1, 0, 0.23529411764705882]
+      },
+      "by_native_height": {
+        "person": {
+          "<8": [35, 1, 0, 13, 4, 1, 12, 3, 0, 0.02857142857142857],
+          "8\u201316": [48, 19, 16, 42, 34, 19, 23, 15, 0, 0.3958333333333333],
+          "16\u201332": [37, 34, 25, 37, 37, 34, 3, 3, 0, 0.918918918918919],
+          ">=32": [17, 16, 15, 17, 17, 16, 1, 1, 0, 0.9411764705882353]
+        },
+        "rider": {
+          "<8": [11, 0, 0, 3, 0, 0, 3, 0, 0, 0.0],
+          "8\u201316": [2, 0, 0, 1, 1, 0, 1, 1, 0, 0.0],
+          "16\u201332": [2, 2, 1, 2, 2, 2, 0, 0, 0, 1.0],
+          ">=32": [2, 2, 2, 2, 2, 2, 0, 0, 0, 1.0]
+        }
+      }
+    },
+    "acdc_paired_all": {
+      "images": 60,
+      "empty_human_images": 31,
+      "crowd_regions": 3,
+      "ignored_regions": 3,
+      "counts": [97, 62, 44, 83, 75, 62, 21, 13, 0, 0.6391752577319587],
+      "by_height": {
+        "<8": [9, 0, 0, 5, 3, 0, 5, 3, 0, 0.0],
+        "8\u201316": [28, 10, 4, 20, 14, 10, 10, 4, 0, 0.35714285714285715],
+        "16\u201332": [31, 23, 17, 29, 29, 23, 6, 6, 0, 0.7419354838709677],
+        ">=32": [29, 29, 23, 29, 29, 29, 0, 0, 0, 1.0]
+      },
+      "by_native": {
+        "person": [91, 59, 42, 78, 72, 59, 19, 13, 0, 0.6483516483516484],
+        "rider": [6, 3, 2, 5, 3, 3, 2, 0, 0, 0.5]
+      }
+    }
+  },
+  "zero_area": {
+    "count": 118,
+    "max_score": 0.00024431711062788963,
+    "all_coco": true,
+    "at_operating_threshold": 0
+  },
+  "resource_evidence": {
+    "direct_process_returncode": 0,
+    "owned_teardown_verified": true,
+    "elapsed_seconds": 657.0,
+    "first_allocation_requested_utc": "2026-11-10T22:59:26.030051+00:00",
+    "ended_utc": "2026-11-10T23:10:23.036884+00:00",
+    "admission_rate_CU_hr": 1.94
+  },
+  "count_columns": [
+    "eligible_gt",
+    "one_to_one_ceiling_tp",
+    "operating_tp",
+    "oracle_ge_0.1",
+    "oracle_ge_0.25",
+    "oracle_ge_0.5",
+    "unmatched_oracle_ge_0.1",
+    "unmatched_oracle_ge_0.25",
+    "unmatched_oracle_ge_0.5",
+    "ceiling_recall_null_if_empty"
+  ],
+  "completion_provenance": {
+    "reviewer": "GPT Astra",
+    "assignment": "New separately delegated completion of interrupted review; not a second independent empirical replication",
+    "original_uncommitted_worktree": "t3-c41a28e5",
+    "original_review_sha256": "d2370701b8446cde03a2024d87673948f8264c43029957b1bc4ffd0ec613c5b3",
+    "original_aggregate_sha256": "f22058343a407c2844c3eea38d2e1fc6ec24999d725947d5b21b78f43a079135",
+    "retained_verbose_reproduction_sha256": "81647f8670c05c50a8055cfaa43ef8521629d8498123df695942e5d46adadaf4",
+    "new_checks": [
+      "retained analysis/per-GT hashes",
+      "exact compact-versus-verbose reproduction agreement",
+      "selected Sol1280 aggregate arithmetic and 640 baseline consistency",
+      "1280 native status and shared operation fields equal saved JSON records"
+    ],
+    "not_repeated": [
+      "640 raw-batch/evaluator reproduction",
+      "1280 evaluator or raw-batch reproduction",
+      "inference",
+      "regression suite"
+    ],
+    "all_original_640_fields_unchanged": true,
+    "inherited_1280_status_explanation": "prospective_1280_H2_result describes the interrupted 640 analysis cutoff only; the separate resolution1280_addendum records later received results."
+  },
+  "resolution1280_addendum": {
+    "attribution": "GPT Sol; source-aggregate checked by GPT Astra; no independent evaluator/raw-data reproduction or formal implementation review",
+    "source_file": "docs/gpt/2026-11-10_sol_resolution_aggregate.json",
+    "source_worktree": "t3-ed101d97; uncommitted at inspection",
+    "source_snapshot_sha256": "f1aa226afb181fb7d00378f7941ae8bf0b68347e7a7f72c310925daaa81a50e0",
+    "private_snapshot": "outputs/colab/astra_coverage_20261110/completion_sol1280_aggregate_snapshot.json",
+    "H2": {
+      "status": "TESTABLE",
+      "small": {
+        "gt": 89,
+        "tp_before": 20,
+        "tp_after": 54,
+        "gained": 35,
+        "lost": 1,
+        "net_tp": 34,
+        "delta_recall": 0.38202247191011235,
+        "residual_misses1280": 35,
+        "baseline_misses": 69,
+        "net_gain_per_baseline_miss": 0.4927536231884058
+      },
+      "larger": {
+        "gt": 127,
+        "tp_before": 108,
+        "tp_after": 120,
+        "gained": 15,
+        "lost": 3,
+        "net_tp": 12,
+        "delta_recall": 0.09448818897637795,
+        "residual_misses1280": 7,
+        "baseline_misses": 19,
+        "net_gain_per_baseline_miss": 0.631578947368421
+      },
+      "supports": true,
+      "rule": "positive net small-stratum ceiling TP gain/GT, strictly greater than complement"
+    },
+    "selected_panels": {
+      "pooled_adverse": {
+        "images": 128,
+        "gt": 216,
+        "ceiling640": {
+          "threshold": null,
+          "image_count": 128,
+          "eligible_gt": 216,
+          "tp": 128,
+          "fp": 7397,
+          "fn": 88,
+          "ignored": 96,
+          "retained_candidates": 7621,
+          "recall": {
+            "value": 0.5925925925925926,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 57.7890625,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 0
+        },
+        "ceiling1280": {
+          "threshold": null,
+          "image_count": 128,
+          "eligible_gt": 216,
+          "tp": 174,
+          "fp": 18809,
+          "fn": 42,
+          "ignored": 220,
+          "retained_candidates": 19203,
+          "recall": {
+            "value": 0.8055555555555556,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 146.9453125,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 676
+        },
+        "strata": {
+          "small_lt16": {
+            "gt": 89,
+            "tp_before": 20,
+            "tp_after": 54,
+            "gained": 35,
+            "lost": 1,
+            "net_tp": 34,
+            "delta_recall": 0.38202247191011235,
+            "residual_misses1280": 35,
+            "baseline_misses": 69,
+            "net_gain_per_baseline_miss": 0.4927536231884058
+          },
+          "larger_ge16": {
+            "gt": 127,
+            "tp_before": 108,
+            "tp_after": 120,
+            "gained": 15,
+            "lost": 3,
+            "net_tp": 12,
+            "delta_recall": 0.09448818897637795,
+            "residual_misses1280": 7,
+            "baseline_misses": 19,
+            "net_gain_per_baseline_miss": 0.631578947368421
+          }
+        },
+        "operating_0.9": {
+          "baseline640": {
+            "threshold": 0.043987125158309937,
+            "image_count": 128,
+            "eligible_gt": 216,
+            "tp": 96,
+            "fp": 311,
+            "fn": 120,
+            "ignored": 36,
+            "retained_candidates": 443,
+            "recall": {
+              "value": 0.4444444444444444,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.4296875,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_old_boundary": {
+            "threshold": 0.043987125158309937,
+            "image_count": 128,
+            "eligible_gt": 216,
+            "tp": 135,
+            "fp": 346,
+            "fn": 81,
+            "ignored": 51,
+            "retained_candidates": 532,
+            "recall": {
+              "value": 0.625,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.703125,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_new_boundary": {
+            "threshold": 0.08221367746591568,
+            "image_count": 128,
+            "eligible_gt": 216,
+            "tp": 129,
+            "fp": 179,
+            "fn": 87,
+            "ignored": 38,
+            "retained_candidates": 346,
+            "recall": {
+              "value": 0.5972222222222222,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 1.3984375,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          }
+        }
+      },
+      "pooled_normal": {
+        "images": 60,
+        "gt": 154,
+        "ceiling640": {
+          "threshold": null,
+          "image_count": 60,
+          "eligible_gt": 154,
+          "tp": 74,
+          "fp": 3288,
+          "fn": 80,
+          "ignored": 0,
+          "retained_candidates": 3362,
+          "recall": {
+            "value": 0.4805194805194805,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 54.8,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 0
+        },
+        "ceiling1280": {
+          "threshold": null,
+          "image_count": 60,
+          "eligible_gt": 154,
+          "tp": 115,
+          "fp": 8071,
+          "fn": 39,
+          "ignored": 0,
+          "retained_candidates": 8186,
+          "recall": {
+            "value": 0.7467532467532467,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 134.51666666666668,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 312
+        },
+        "strata": {
+          "small_lt16": {
+            "gt": 96,
+            "tp_before": 20,
+            "tp_after": 57,
+            "gained": 38,
+            "lost": 1,
+            "net_tp": 37,
+            "delta_recall": 0.3854166666666667,
+            "residual_misses1280": 39,
+            "baseline_misses": 76,
+            "net_gain_per_baseline_miss": 0.4868421052631579
+          },
+          "larger_ge16": {
+            "gt": 58,
+            "tp_before": 54,
+            "tp_after": 58,
+            "gained": 4,
+            "lost": 0,
+            "net_tp": 4,
+            "delta_recall": 0.06896551724137931,
+            "residual_misses1280": 0,
+            "baseline_misses": 4,
+            "net_gain_per_baseline_miss": 1.0
+          }
+        },
+        "operating_0.9": {
+          "baseline640": {
+            "threshold": 0.043987125158309937,
+            "image_count": 60,
+            "eligible_gt": 154,
+            "tp": 59,
+            "fp": 189,
+            "fn": 95,
+            "ignored": 0,
+            "retained_candidates": 248,
+            "recall": {
+              "value": 0.38311688311688313,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 3.15,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_old_boundary": {
+            "threshold": 0.043987125158309937,
+            "image_count": 60,
+            "eligible_gt": 154,
+            "tp": 97,
+            "fp": 236,
+            "fn": 57,
+            "ignored": 0,
+            "retained_candidates": 333,
+            "recall": {
+              "value": 0.6298701298701299,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 3.933333333333333,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_new_boundary": {
+            "threshold": 0.08221367746591568,
+            "image_count": 60,
+            "eligible_gt": 154,
+            "tp": 87,
+            "fp": 130,
+            "fn": 67,
+            "ignored": 0,
+            "retained_candidates": 217,
+            "recall": {
+              "value": 0.564935064935065,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.1666666666666665,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          }
+        }
+      },
+      "coco_reference": {
+        "images": 256,
+        "gt": 528,
+        "ceiling640": {
+          "threshold": null,
+          "image_count": 256,
+          "eligible_gt": 528,
+          "tp": 482,
+          "fp": 12206,
+          "fn": 46,
+          "ignored": 3692,
+          "retained_candidates": 16380,
+          "recall": {
+            "value": 0.9128787878787878,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 47.6796875,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 74
+        },
+        "ceiling1280": {
+          "threshold": null,
+          "image_count": 256,
+          "eligible_gt": 528,
+          "tp": 506,
+          "fp": 25086,
+          "fn": 22,
+          "ignored": 8913,
+          "retained_candidates": 34505,
+          "recall": {
+            "value": 0.9583333333333334,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 97.9921875,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 150
+        },
+        "strata": {
+          "small_lt16": {
+            "gt": 62,
+            "tp_before": 26,
+            "tp_after": 57,
+            "gained": 31,
+            "lost": 0,
+            "net_tp": 31,
+            "delta_recall": 0.5,
+            "residual_misses1280": 5,
+            "baseline_misses": 36,
+            "net_gain_per_baseline_miss": 0.8611111111111112
+          },
+          "larger_ge16": {
+            "gt": 466,
+            "tp_before": 456,
+            "tp_after": 449,
+            "gained": 5,
+            "lost": 12,
+            "net_tp": -7,
+            "delta_recall": -0.015021459227467811,
+            "residual_misses1280": 17,
+            "baseline_misses": 10,
+            "net_gain_per_baseline_miss": -0.7
+          }
+        },
+        "operating_0.9": {
+          "baseline640": {
+            "threshold": 0.043987125158309937,
+            "image_count": 256,
+            "eligible_gt": 528,
+            "tp": 423,
+            "fp": 539,
+            "fn": 105,
+            "ignored": 197,
+            "retained_candidates": 1159,
+            "recall": {
+              "value": 0.8011363636363636,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.10546875,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_old_boundary": {
+            "threshold": 0.043987125158309937,
+            "image_count": 256,
+            "eligible_gt": 528,
+            "tp": 457,
+            "fp": 807,
+            "fn": 71,
+            "ignored": 421,
+            "retained_candidates": 1685,
+            "recall": {
+              "value": 0.865530303030303,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 3.15234375,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_new_boundary": {
+            "threshold": 0.08221367746591568,
+            "image_count": 256,
+            "eligible_gt": 528,
+            "tp": 438,
+            "fp": 449,
+            "fn": 90,
+            "ignored": 255,
+            "retained_candidates": 1142,
+            "recall": {
+              "value": 0.8295454545454546,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 1.75390625,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          }
+        }
+      },
+      "night": {
+        "images": 32,
+        "gt": 77,
+        "ceiling640": {
+          "threshold": null,
+          "image_count": 32,
+          "eligible_gt": 77,
+          "tp": 35,
+          "fp": 1729,
+          "fn": 42,
+          "ignored": 1,
+          "retained_candidates": 1765,
+          "recall": {
+            "value": 0.45454545454545453,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 54.03125,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 0
+        },
+        "ceiling1280": {
+          "threshold": null,
+          "image_count": 32,
+          "eligible_gt": 77,
+          "tp": 50,
+          "fp": 5083,
+          "fn": 27,
+          "ignored": 19,
+          "retained_candidates": 5152,
+          "recall": {
+            "value": 0.6493506493506493,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 158.84375,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 185
+        },
+        "strata": {
+          "small_lt16": {
+            "gt": 35,
+            "tp_before": 2,
+            "tp_after": 12,
+            "gained": 11,
+            "lost": 1,
+            "net_tp": 10,
+            "delta_recall": 0.2857142857142857,
+            "residual_misses1280": 23,
+            "baseline_misses": 33,
+            "net_gain_per_baseline_miss": 0.30303030303030304
+          },
+          "larger_ge16": {
+            "gt": 42,
+            "tp_before": 33,
+            "tp_after": 38,
+            "gained": 6,
+            "lost": 1,
+            "net_tp": 5,
+            "delta_recall": 0.11904761904761904,
+            "residual_misses1280": 4,
+            "baseline_misses": 9,
+            "net_gain_per_baseline_miss": 0.5555555555555556
+          }
+        },
+        "operating_0.9": {
+          "baseline640": {
+            "threshold": 0.043987125158309937,
+            "image_count": 32,
+            "eligible_gt": 77,
+            "tp": 27,
+            "fp": 45,
+            "fn": 50,
+            "ignored": 1,
+            "retained_candidates": 73,
+            "recall": {
+              "value": 0.35064935064935066,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 1.40625,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_old_boundary": {
+            "threshold": 0.043987125158309937,
+            "image_count": 32,
+            "eligible_gt": 77,
+            "tp": 34,
+            "fp": 65,
+            "fn": 43,
+            "ignored": 7,
+            "retained_candidates": 106,
+            "recall": {
+              "value": 0.44155844155844154,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.03125,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_new_boundary": {
+            "threshold": 0.08221367746591568,
+            "image_count": 32,
+            "eligible_gt": 77,
+            "tp": 32,
+            "fp": 29,
+            "fn": 45,
+            "ignored": 3,
+            "retained_candidates": 64,
+            "recall": {
+              "value": 0.4155844155844156,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 0.90625,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          }
+        }
+      },
+      "night_paired": {
+        "images": 12,
+        "gt": 25,
+        "ceiling640": {
+          "threshold": null,
+          "image_count": 12,
+          "eligible_gt": 25,
+          "tp": 13,
+          "fp": 675,
+          "fn": 12,
+          "ignored": 0,
+          "retained_candidates": 688,
+          "recall": {
+            "value": 0.52,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 56.25,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 0
+        },
+        "ceiling1280": {
+          "threshold": null,
+          "image_count": 12,
+          "eligible_gt": 25,
+          "tp": 17,
+          "fp": 1837,
+          "fn": 8,
+          "ignored": 0,
+          "retained_candidates": 1854,
+          "recall": {
+            "value": 0.68,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 153.08333333333334,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 71
+        },
+        "strata": {
+          "small_lt16": {
+            "gt": 12,
+            "tp_before": 2,
+            "tp_after": 6,
+            "gained": 5,
+            "lost": 1,
+            "net_tp": 4,
+            "delta_recall": 0.3333333333333333,
+            "residual_misses1280": 6,
+            "baseline_misses": 10,
+            "net_gain_per_baseline_miss": 0.4
+          },
+          "larger_ge16": {
+            "gt": 13,
+            "tp_before": 11,
+            "tp_after": 11,
+            "gained": 1,
+            "lost": 1,
+            "net_tp": 0,
+            "delta_recall": 0.0,
+            "residual_misses1280": 2,
+            "baseline_misses": 2,
+            "net_gain_per_baseline_miss": 0.0
+          }
+        },
+        "operating_0.9": {
+          "baseline640": {
+            "threshold": 0.043987125158309937,
+            "image_count": 12,
+            "eligible_gt": 25,
+            "tp": 9,
+            "fp": 24,
+            "fn": 16,
+            "ignored": 0,
+            "retained_candidates": 33,
+            "recall": {
+              "value": 0.36,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.0,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_old_boundary": {
+            "threshold": 0.043987125158309937,
+            "image_count": 12,
+            "eligible_gt": 25,
+            "tp": 10,
+            "fp": 29,
+            "fn": 15,
+            "ignored": 0,
+            "retained_candidates": 39,
+            "recall": {
+              "value": 0.4,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 2.4166666666666665,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_new_boundary": {
+            "threshold": 0.08221367746591568,
+            "image_count": 12,
+            "eligible_gt": 25,
+            "tp": 9,
+            "fp": 15,
+            "fn": 16,
+            "ignored": 0,
+            "retained_candidates": 24,
+            "recall": {
+              "value": 0.36,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 1.25,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          }
+        }
+      },
+      "night_normal": {
+        "images": 12,
+        "gt": 35,
+        "ceiling640": {
+          "threshold": null,
+          "image_count": 12,
+          "eligible_gt": 35,
+          "tp": 16,
+          "fp": 863,
+          "fn": 19,
+          "ignored": 0,
+          "retained_candidates": 879,
+          "recall": {
+            "value": 0.45714285714285713,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 71.91666666666667,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 0
+        },
+        "ceiling1280": {
+          "threshold": null,
+          "image_count": 12,
+          "eligible_gt": 35,
+          "tp": 23,
+          "fp": 2206,
+          "fn": 12,
+          "ignored": 0,
+          "retained_candidates": 2229,
+          "recall": {
+            "value": 0.6571428571428571,
+            "status": "DEFINED"
+          },
+          "fppi": {
+            "value": 183.83333333333334,
+            "status": "DEFINED"
+          },
+          "zero_area_fp": 62
+        },
+        "strata": {
+          "small_lt16": {
+            "gt": 20,
+            "tp_before": 2,
+            "tp_after": 8,
+            "gained": 6,
+            "lost": 0,
+            "net_tp": 6,
+            "delta_recall": 0.3,
+            "residual_misses1280": 12,
+            "baseline_misses": 18,
+            "net_gain_per_baseline_miss": 0.3333333333333333
+          },
+          "larger_ge16": {
+            "gt": 15,
+            "tp_before": 14,
+            "tp_after": 15,
+            "gained": 1,
+            "lost": 0,
+            "net_tp": 1,
+            "delta_recall": 0.06666666666666667,
+            "residual_misses1280": 0,
+            "baseline_misses": 1,
+            "net_gain_per_baseline_miss": 1.0
+          }
+        },
+        "operating_0.9": {
+          "baseline640": {
+            "threshold": 0.043987125158309937,
+            "image_count": 12,
+            "eligible_gt": 35,
+            "tp": 13,
+            "fp": 70,
+            "fn": 22,
+            "ignored": 0,
+            "retained_candidates": 83,
+            "recall": {
+              "value": 0.37142857142857144,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 5.833333333333333,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_old_boundary": {
+            "threshold": 0.043987125158309937,
+            "image_count": 12,
+            "eligible_gt": 35,
+            "tp": 20,
+            "fp": 78,
+            "fn": 15,
+            "ignored": 0,
+            "retained_candidates": 98,
+            "recall": {
+              "value": 0.5714285714285714,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 6.5,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          },
+          "resolution1280_new_boundary": {
+            "threshold": 0.08221367746591568,
+            "image_count": 12,
+            "eligible_gt": 35,
+            "tp": 19,
+            "fp": 47,
+            "fn": 16,
+            "ignored": 0,
+            "retained_candidates": 66,
+            "recall": {
+              "value": 0.5428571428571428,
+              "status": "DEFINED"
+            },
+            "fppi": {
+              "value": 3.9166666666666665,
+              "status": "DEFINED"
+            },
+            "zero_area_fp": 0
+          }
+        }
+      }
+    },
+    "source_boundaries": {
+      "0.8": {
+        "640": {
+          "status": "FEASIBLE",
+          "threshold": 0.24039360880851746
+        },
+        "1280": {
+          "status": "FEASIBLE",
+          "threshold": 0.2718588709831238
+        }
+      },
+      "0.9": {
+        "640": {
+          "status": "FEASIBLE",
+          "threshold": 0.043987125158309937
+        },
+        "1280": {
+          "status": "FEASIBLE",
+          "threshold": 0.08221367746591568
+        }
+      },
+      "0.95": {
+        "640": {
+          "status": "INFEASIBLE",
+          "threshold": null
+        },
+        "1280": {
+          "status": "FEASIBLE",
+          "threshold": 0.01611722819507122
+        }
+      }
+    },
+    "native_coverage": {
+      "maximal": {
+        "complete": 700,
+        "seconds": 40.22515343400005,
+        "peak_allocated_bytes": 1487420928,
+        "peak_reserved_bytes": 2394947584,
+        "candidate_count": 97031,
+        "zero_area_count": 1339,
+        "images_at_cap": 1
+      }
+    },
+    "execution": {
+      "status": "COMPLETE",
+      "elapsed_seconds": 818.2810000000027,
+      "owned_teardown_verified": true,
+      "final_active_assignments": 0.0,
+      "final_usage_rate_CU_hr": 0.0
+    },
+    "checked_operation_fields": [
+      "admission_rate_CU_hr",
+      "direct_process_returncode",
+      "elapsed_seconds",
+      "ended_utc",
+      "estimate",
+      "failures",
+      "first_allocation_requested_utc",
+      "owned_teardown_verified",
+      "session",
+      "status"
+    ],
+    "peer_report_only": [
+      "single cap-saturated image belongs to COCO source selection; none in adverse/reference/normal",
+      "no logged timeout/nonfinite failure"
+    ],
+    "interpretation": "Locked H2 passes; ordinary pipeline scale/coverage response; no preferential net recovery per baseline miss, causal night or novelty claim"
+  }
+}
