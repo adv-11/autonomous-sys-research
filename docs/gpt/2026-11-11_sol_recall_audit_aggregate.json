@@ -1,0 +1,143 @@
+{
+  "researcher": "GPT Sol",
+  "base": "783dc5a254a536f0b064855e5268956f00bac5c4",
+  "g0": "PENDING",
+  "status": "seen development panels; source is a known-null fixture",
+  "threshold": 0.08221367746591568,
+  "alpha": 0.05,
+  "eta": 0.5,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "policies": [
+    "uniform",
+    "count_mixture"
+  ],
+  "tiny_check": {
+    "kind": "synthetic_exact_arithmetic",
+    "first_expectation": "1",
+    "terminal_wealth": [
+      "1/2",
+      "41/2"
+    ],
+    "terminal_expectation": "1",
+    "crossing_probability": "1/40"
+  },
+  "input_sha256": {
+    "manifest": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+    "native1280": "fd71e2fdf3c3a12948a4ae3192bdf1d559b66ef3b5dc46acf22f9bfad702bb68",
+    "pilot_evaluator": "04cd37e75a811b0e43b6d26d40434cf2cd09afd878e83101e7730466bdf8c647",
+    "reference_evaluator": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931"
+  },
+  "panels": {
+    "source_selection": {
+      "images": 256,
+      "eligible_gt": 579,
+      "tp": 522,
+      "fp": 405,
+      "ignored": 229,
+      "emitted_d": 1156,
+      "total_x": 1147,
+      "policies": {
+        "uniform": {
+          "rejections": 0,
+          "non_rejections": 20,
+          "reasons": {
+            "non_rejection": 20
+          },
+          "queries_all_runs": {
+            "min": 256,
+            "median": 256.0,
+            "max": 256
+          },
+          "observed_gt_all_runs": {
+            "min": 579,
+            "median": 579.0,
+            "max": 579
+          }
+        },
+        "count_mixture": {
+          "rejections": 0,
+          "non_rejections": 20,
+          "reasons": {
+            "non_rejection": 20
+          },
+          "queries_all_runs": {
+            "min": 256,
+            "median": 256.0,
+            "max": 256
+          },
+          "observed_gt_all_runs": {
+            "min": 579,
+            "median": 579.0,
+            "max": 579
+          }
+        }
+      }
+    },
+    "pooled_adverse": {
+      "images": 128,
+      "eligible_gt": 216,
+      "tp": 129,
+      "fp": 179,
+      "ignored": 38,
+      "emitted_d": 346,
+      "total_x": 1000,
+      "policies": {
+        "uniform": {
+          "rejections": 20,
+          "non_rejections": 0,
+          "reasons": {
+            "wealth_crossing": 20
+          },
+          "queries_all_runs": {
+            "min": 3,
+            "median": 8.0,
+            "max": 77
+          },
+          "observed_gt_all_runs": {
+            "min": 8,
+            "median": 24.5,
+            "max": 86
+          }
+        },
+        "count_mixture": {
+          "rejections": 20,
+          "non_rejections": 0,
+          "reasons": {
+            "wealth_crossing": 20
+          },
+          "queries_all_runs": {
+            "min": 3,
+            "median": 7.5,
+            "max": 18
+          },
+          "observed_gt_all_runs": {
+            "min": 18,
+            "median": 39.5,
+            "max": 80
+          }
+        }
+      }
+    }
+  }
+}
