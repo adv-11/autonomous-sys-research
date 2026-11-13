@@ -98,6 +98,7 @@ def prepare(root):
 
 
 def infer(root,limit_images=None,correction=False):
+    pilot.require_colab()
     import cv2
     import logging
     import numpy as np

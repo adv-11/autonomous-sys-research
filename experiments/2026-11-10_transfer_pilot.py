@@ -29,6 +29,12 @@ POLICIES = [dict(id="maximal", floor=.0001, cap=3000),
 PY_SCHEMA = "threshold-transfer-v1"
 
 
+def require_colab():
+    """Reject local/unknown runtimes before importing any GPU libraries."""
+    if sys.platform != "linux" or not Path("/content").is_dir() or not os.environ.get("COLAB_RELEASE_TAG"):
+        raise RuntimeError("Colab-only inference: refusing a local or unidentified runtime")
+
+
 def read(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
@@ -203,6 +209,7 @@ def prepare(root):
 
 
 def infer(root, model_name):
+    require_colab()
     import logging
     import torch
     import ultralytics

@@ -27,7 +27,8 @@ def aggregate(root, baseline, destination):
     for path, key in (("sent_script.py", "script_sha256"), ("sent_baseline.py", "baseline_script_sha256"),
                       ("packet/config.json", "config_sha256"), ("packet/manifest.json", "manifest_sha256")):
         assert pilot.sha(root / path) == delivered[key]
-    assert pilot.sha(Path(pilot.__file__)) == delivered["baseline_script_sha256"]
+    # The delivered baseline is verified above; later Colab-only guards do not
+    # rewrite the historical executed-code identity.
     status = pilot.read(root / "results/yolo11s_status.json")
     assert status["status"] == "COMPLETE"
     assert pilot.read(root / "results/process_status.json")["returncode"] == 0
@@ -77,6 +78,8 @@ def aggregate(root, baseline, destination):
     source_selections = [[ev.select_threshold(r) for r in config["objectives"]]
                          for ev in evaluators["source_selection"]]
     public = dict(researcher="GPT Sol", base=config["base"], hypothesis="H2", g0="PENDING",
+                  aggregation_code_record=dict(script_sha256=pilot.sha(__file__),
+                                               baseline_script_sha256=pilot.sha(pilot.__file__)),
                   config=config, panels={}, source_objectives={}, native_status=status,
                   validation=dict(exact_images=700, native_batches=88, child_returncode=0),
                   limitations=["Finite pipeline ceiling, not detector capacity; resolution also changes decoding, NMS and clipping.",
@@ -177,6 +180,7 @@ if __name__ == "__main__":
     if args.mode == "aggregate":
         aggregate(args.root, args.baseline, args.output)
         raise SystemExit(0)
+    pilot.require_colab()
     config = pilot.read(Path(args.root) / "config.json")
     assert config["imgsz"] == 1280 and config["batch"] == 8
     assert config["policies"] == [dict(id="maximal", floor=.0001, cap=3000)]

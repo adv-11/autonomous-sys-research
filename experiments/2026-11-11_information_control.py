@@ -52,6 +52,7 @@ def map_gt(manifest):
 
 
 def infer(root):
+    pilot.require_colab()
     import torch
     import torch.nn.functional as F
     import ultralytics
@@ -196,6 +197,23 @@ def infer(root):
         pilot.write(result/"status.json", status)
 
 
+def public_runtime_status(status):
+    """Keep event totals, never private image identities or raw messages."""
+    result = copy.deepcopy(status)
+    events = result.pop("events", [])
+    result["cap3000_events_by_arm"] = {
+        arm: sum(e.get("kind") == "cap3000" and e.get("arm") == arm for e in events)
+        for arm in ARMS
+    }
+    result["native_time_limit_events"] = sum("message" in e for e in events)
+    effective = result.get("effective_runtime", {})
+    if "args" in effective:
+        allowed = ("conf", "max_det", "imgsz", "rect", "batch", "classes", "iou",
+                   "agnostic_nms", "augment", "device")
+        effective["args"] = {key: effective["args"][key] for key in allowed if key in effective["args"]}
+    return result
+
+
 def aggregate(root, output):
     root = Path(root)
     status = pilot.read(root/"results/status.json")
@@ -206,8 +224,8 @@ def aggregate(root, output):
     for name, key in (("sent_script.py", "script_sha256"), ("sent_baseline.py", "baseline_script_sha256"),
                       ("packet/config.json", "config_sha256"), ("packet/manifest.json", "manifest_sha256")):
         assert pilot.sha(root/name) == code[key]
-    assert pilot.sha(Path(__file__)) == code["script_sha256"]
-    assert pilot.sha(Path(pilot.__file__)) == code["baseline_script_sha256"]
+    # The delivered historical scripts were checked above; aggregation may add
+    # later publication safeguards without pretending those ran on the GPU.
     manifest = map_gt(pilot.read(root/"packet/manifest.json"))
     panels = dict(manifest["panels"])
     for name, members in (("pooled_adverse", ["fog", "night", "rain", "snow"]),
@@ -224,7 +242,10 @@ def aggregate(root, output):
     def matched(p):
         return {r["annotation_id"] for r in p["matches"] if r["outcome"] == "TP"}
     public = dict(researcher="GPT Sol", base=code["base"], g0="PENDING", panels={}, source={},
-                  runtime=status, code_record=code, config=pilot.read(root/"packet/config.json"))
+                  runtime=public_runtime_status(status), code_record=code,
+                  aggregation_code_record=dict(script_sha256=pilot.sha(__file__),
+                                               baseline_script_sha256=pilot.sha(pilot.__file__)),
+                  config_path="configs/research/information_control_20261111.json")
     private = {}
     points = {}
     for arm in ARMS:
@@ -262,6 +283,16 @@ def aggregate(root, output):
     public["execution"] = {k:v for k,v in operation.items() if k not in ("events", "session")}
     public["hashes"] = {p.name:pilot.sha(p) for p in (root/"results").iterdir() if p.is_file()}
     public["hashes"]["evidence_final.tar.gz"] = pilot.sha(root/"evidence_final.tar.gz")
+    public["validation"] = dict(exact_unique_images_per_arm=700, native_batches_per_arm=88,
+        total_new_forward_images=2100, gt_map_example="PASS continuous edge map; retained privately",
+        raw_batches_before_validation=True, zero_area="explicit FP, no repair/crowd absorption",
+        pre_nms_instrumentation=False)
+    public["limitations"] = [
+        "Finite capped post-NMS pipeline, not detector capacity; cap-saturated rows retained.",
+        "COCO source not verified clear/day; pretrained COCO exposure; no population guarantee.",
+        "Provisional human union/crowd policy; dependent ACDC panels; no IID confidence intervals.",
+        "H-U detail degradation at fixed grid; U-L enlargement including interpolation/anchors/NMS; neither isolates stride or causal darkness.",
+        "No novel method, fusion/gating claim or standalone GPU cost comparison."]
     pilot.write(root/"gt_transitions_private.json", private)
     pilot.write(output, public)
     print(pilot.json.dumps(dict(primary=public["primary"], source={a:public["source"][a]["status"] for a in ARMS})))

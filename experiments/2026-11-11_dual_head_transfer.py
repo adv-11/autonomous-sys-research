@@ -117,6 +117,7 @@ def prepare(root):
 
 
 def infer(root):
+    pilot.require_colab()
     # Reuse the pilot body, adding read-only runtime hooks and source capture.
     # No learned branch, geometry or selection implementation is patched.
     body=inspect.getsource(pilot.infer)
