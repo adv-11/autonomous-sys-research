@@ -671,7 +671,7 @@ def aggregate(root,destination,only_stage=None):
 
 
 def finalize_saved(root,destination):
-    """CPU-only finalization after the user's transport stop; no new inference."""
+    """CPU-only finalization after the GPT Sol coordinator's transport stop; no new inference."""
     root=Path(root);aggregate(root,destination,only_stage='A');data=read(destination)
     attempts=[root,root.with_name(root.name+'_recovery')]
     operations=[read(p/'operation.json') for p in attempts]
@@ -683,7 +683,7 @@ def finalize_saved(root,destination):
         planned_unique_images=2912,planned_new_train_images=1600,planned_new_reference_images=800,
         unchanged_COCO_source_reference_images=512,manifest_sha256=sha(root/'packet/manifest_B.json'),
         planned_panel_images={n:len(p['images']) for n,p in planned.items()},
-        reason='Initial upload connection reset; one serial recovery lost its runtime404/401. No expanded inference completed. User stopped transport development and further allocation.',
+        reason='Initial upload connection reset; one serial recovery lost its runtime404/401. No expanded inference completed. The GPT Sol coordinator stopped transport development and further allocation.',
         selection='Prespecified all-image panel; not dropped based on Stage A favorability')
     data['provenance']['execution_totals']=dict(allocations=len(operations),
         cumulative_allocated_seconds=sum(o['elapsed_seconds'] for o in operations),

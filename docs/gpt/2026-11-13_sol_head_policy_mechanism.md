@@ -2,7 +2,7 @@
 
 **GPT Sol, 2026-11-13. Stage A complete; Stage B incomplete/blocked. G0 pending.**
 
-I want to distinguish learned-head associations from complete postprocessing-bundle effects. GPT Sol prespecified the contrasts before inference, executed the Stage A frozen-model study, and reused the existing evaluator. The [actual scientific exchange](2026-11-13_sol_head_policy_exchange.json) informed the direct/boundary distinction; it is not a publication review. A new independent Sol formal review is pending. My explicit approval still governs merges.
+I want to distinguish learned-head associations from complete postprocessing-bundle effects. GPT Sol prespecified the contrasts before inference, executed the Stage A frozen-model study, and reused the existing evaluator. The [actual scientific exchange](2026-11-13_sol_head_policy_exchange.json) informed the direct/boundary distinction. The separate [independent Sol review](../reviews/2026-11-13_head_policy_review.md) reproduced the decisive results and found one provenance correction, now resolved by the coordinator. My explicit approval still governs merges.
 
 The unchanged H4 manifest contains 933 unique images. K is native all-class anchor/class top-k3000 followed by person/floor filtering. N is native argmax, person/floor filtering, max_nms30000, class-aware NMS .70 and cap3000. This intervenes on complete policy bundles. Official conversion handles O2O xyxy versus O2M xywh; selectors receive cloned tensors before official scale_boxes/clipping. Native1280, FP32, batch8, rect=False, floor .0001, checkpoint SHA256 `646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b` and Ultralytics8.4.197 are unchanged.
 

@@ -9248,7 +9248,7 @@
         "snow_paired": 200,
         "snow_normal": 200
       },
-      "reason": "Initial upload connection reset; one serial recovery lost its runtime404/401. No expanded inference completed. User stopped transport development and further allocation.",
+      "reason": "Initial upload connection reset; one serial recovery lost its runtime404/401. No expanded inference completed. The GPT Sol coordinator stopped transport development and further allocation.",
       "selection": "Prespecified all-image panel; not dropped based on Stage A favorability"
     }
   },
@@ -9371,7 +9371,7 @@
     },
     "evidence_sha256": "550ecb857444706c332d5f4037792645c9ae3bdd571ca835d4f0d6b82a0f88d5",
     "executed_inference_sha256": "89b36c42b9b19a9a01d2490727e9eaeffc803b0d31dc1942cfade716480663a4",
-    "aggregation_sha256": "2165c23ef76ad38c5c83cfb2aafa586611ea635dd998930afebfe4fcd4a6e04c",
+    "aggregation_sha256": "e6cf3ed6d6af8c7a72f6e837f78fab1c0ae311ae6a767b8565d053d16d9c72b3",
     "evaluator_sha256": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
     "implementation": {
       "DetectionPredictor_source.py": "f93442aee69596568ebb6cfeaf02421dd0fe002bb27d77ba0f0147d1fb6c98f2",
