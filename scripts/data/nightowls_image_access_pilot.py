@@ -1,7 +1,8 @@
 """Single-use, CPU-only NightOwls access pilot. GPT Sol, 2026-11-13.
 
-No resume, retries, extraction, inference, or archive fallback. Run --selftest,
-then --execute with the existing interpreter. Private paths are canonical.
+Historical stopped attempt; execution is disabled pending reviewed supervision
+and renewed explicit authorization. --selftest makes no network requests.
+No resume, retries, inference, or archive fallback. Private paths are canonical.
 """
 import argparse
 import collections
@@ -29,10 +30,36 @@ SELECTION_HASH = '4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de9
 ANNOTATION_HASH = '584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6'
 TOTAL_CAP = 150_000_000
 INDEX_CAP = 16_000_000
+EXECUTION_AUTHORIZED = False
 
 
 class Stop(Exception):
     pass
+
+
+def require_execution_authorization():
+    if not EXECUTION_AUTHORIZED:
+        raise Stop('stopped_pilot_no_renewed_execution_authorization')
+
+
+def worker_command(script_path=None):
+    """Proposed correction: direct base interpreter, not a venv redirector.
+
+    A parent-PID check runs before the target script. Site-package paths retain
+    the existing Pillow installation without installing or importing GPU code.
+    This builder does not authorize execution of the stopped access pilot.
+    """
+    base = getattr(sys, '_base_executable', None)
+    if not base or not Path(base).is_file():
+        raise Stop('base_interpreter_unavailable')
+    target = str(Path(script_path or __file__).resolve())
+    packages = [path for path in sys.path if Path(path).name == 'site-packages']
+    bootstrap = ('import os,runpy,sys;'
+                 f'assert os.getppid()=={os.getpid()}, "unexpected_worker_parent";'
+                 f'sys.path[:0]={packages!r};'
+                 f'sys.argv=[{target!r}, "--worker"];'
+                 f'runpy.run_path({target!r},run_name="__main__")')
+    return [str(Path(base).resolve()), '-I', '-B', '-c', bootstrap]
 
 
 def utc():
@@ -248,6 +275,7 @@ def read_inputs():
 
 
 def worker():
+    require_execution_authorization()
     # The controller has durably recorded its PID and timeout before launch.
     state = {'status': 'STARTING', 'worker_pid': os.getpid(), 'started_utc': utc(), 'identity': {}, 'completed': 0, 'planned': 64, 'charged_bytes': 0, 'confirmed_bytes': 0, 'index_charged_bytes': 0, 'index_confirmed_bytes': 0, 'requests_reserved': 0, 'requests_completed': 0, 'active_request': None, 'images': []}
     transport = Transport(state)
@@ -329,6 +357,7 @@ def worker():
 
 
 def controller():
+    require_execution_authorization()
     check_time()
     # Refuse even an empty prior destination: no silent resume or overwritten run.
     DEST.mkdir(parents=True, exist_ok=False)
@@ -340,7 +369,7 @@ def controller():
     process = None
     try:
         with (DEST / 'logs/worker_stdout.jsonl').open('x', encoding='utf-8') as stdout, (DEST / 'logs/worker_stderr.txt').open('x', encoding='utf-8') as stderr:
-            process = subprocess.Popen([sys.executable, '-B', str(Path(__file__).resolve()), '--worker'], stdout=stdout, stderr=stderr, stdin=subprocess.DEVNULL)
+            process = subprocess.Popen(worker_command(), stdout=stdout, stderr=stderr, stdin=subprocess.DEVNULL)
             control.update(status='WATCHING', worker_pid=process.pid)
             atomic(control_path, control)
             try:
@@ -365,6 +394,7 @@ def controller():
 
 
 def selftest():
+    from unittest.mock import patch
     class Response:
         status = 206
         headers = {'Content-Range': 'bytes 10-19/100', 'Content-Length': '10', 'ETag': 'fixed'}
@@ -397,8 +427,12 @@ def selftest():
     ):
         before = dict(state)
         try:
-            reserve(state, 1, phase)
-        except Stop:
+            # These are synthetic cap tests, independent of the expired run's
+            # historical wall-clock deadline.
+            with patch.dict(globals(), {'DEADLINE': float('inf')}):
+                reserve(state, 1, phase)
+        except Stop as error:
+            assert str(error) == ('total_byte_cap' if label == 'total_cap' else 'index_byte_cap')
             assert state == before
             passed.append(label)
         else:

@@ -209,3 +209,9 @@ Opus's independent annotation review `ba5f82b` reproduced every published frame/
 ### 2026-11-13 adapter review closed without implementation drift
 
 Opus independently approved Sol's minimal NightOwls adapter: every converted record/group and the saved private files reproduce, with six synthetic tests passing. No framework or matching change was introduced. The small access-plan findings were resolved directly in the config/proposal; no extra review or agent was launched for wording. The next action is a concrete annotation-only-to-images authorization question, capped at64fixedimages/150MB/30min and zero GPU/Colab. No image access is inferred from silence or merge approval. G0 is pending.
+
+### 2026-11-13 access pilot stopped; supervision correction only
+
+The sole Sol operator stopped the authorized attempt during index retrieval:0/64images,3,997,717durably confirmed body bytes and7,432,416conservatively charged. Both responses passed range/identity checks, but the actual Windows Python PID differed from the venv launcher targeted by the watchdog. This is an unverified termination path, not a demonstrated orphan or server failure. The operator forced the actual worker to exit and verified every pilot process stopped. No retry, GPU, Colab or inference occurred.
+
+**Drift/supervision intervention:** transport mocks had passed but the platform-specific worker identity/termination guarantee was not established before endpoint access. The completed task was not restarted. GPT Sol disabled actual access entry points and restricted the correction to a direct-base-interpreter command plus benign, network-free PID/Pillow/timeout checks. No range-reader optimization, replacement images or parser framework followed. Original receipts/source hashes remain preserved. A fresh independent Opus review will inspect this correction; any new HTTP attempt requires a renewed explicit decision under the original cumulative byte caps. G0 is pending.

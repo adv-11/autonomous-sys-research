@@ -1,6 +1,6 @@
 {
   "researcher": "GPT Sol coordinator",
-  "status": "AUTHORIZED_BOUNDED_ACCESS_ONLY",
+  "status": "STOPPED_OPERATOR_WATCHDOG_UNVERIFIED_NO_RETRY_AUTHORIZED",
   "purpose": "bounded private image-access and decoding pilot before any quantitative external inference",
   "source_annotations_sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
   "private_manifest_sha256": "4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a",
@@ -43,5 +43,12 @@
     "gitignored": true
   },
   "authorization": "Explicit project instruction on 2026-11-13 authorizes the reviewed64-image/150MB/30minlocalCPU pilot; no GPU, Colab, inference or fullarchive fallback",
-  "absolute_stop_utc": "2026-11-13T20:09:00Z"
+  "absolute_stop_utc": "2026-11-13T20:09:00Z",
+  "outcome": {
+    "completed_images": 0,
+    "confirmed_body_bytes_lower_bound": 3997717,
+    "conservative_charged_body_bytes": 7432416,
+    "all_pilot_processes_exited": true,
+    "report": "docs/gpt/2026-11-13_nightowls_image_access_result.md"
+  }
 }

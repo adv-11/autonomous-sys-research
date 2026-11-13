@@ -146,3 +146,7 @@ GitHub also confirms PR10 merged at `4f9dda95598d84dd6ffd7ca891a4c8c337313fce`, 
 I explicitly authorized the reviewed64-image/150MB/30minlocalCPU access pilot. This supersedes the earlier annotations-only restriction for that bounded pilot alone; it does not authorize a Colab session, GPU, inference, full-archive fallback or quantitative external study. The selection hash and exclusions remain fixed. The coordinator designates one Sol operator with byte/identity/timeout guards and a local controller that stops independently of model access; the current absolute stop is20:09UTC. No retry or repair loop is authorized after the first transport/identity/CRC/decode failure.
 
 PR11 is confirmed merged at `bbad7baab6012c47db626f196e079d7f1f2fae1b`. This work is isolated on the subsequent `nightowls-image-access-pilot` branch. G0 remains pending.
+
+### Access pilot terminal outcome
+
+The authorized NightOwls image-access pilot stopped conservatively after34.913seconds during index retrieval, withzeroimages andallpilotprocessesexited. Body bytes are reported as a confirmedlowerbound3,997,717andconservativechargedupperbound7,432,416; exact interrupted consumption is unknown. The source accepted valid206ranges, but actual-worker watchdog termination was unverified on the Windows venv launcher. Current execution is disabled. A separate CPU-only launch/timeout probe supports a proposed narrow correction; it is not a successful access result or an authorization to retry. G0 remains pending and no paid compute or inference ran.

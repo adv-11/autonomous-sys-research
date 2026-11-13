@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "exact_proposed_worker_command_tested": true,
+  "base_PID_equals_Popen_PID": true,
+  "parent_identity_check": true,
+  "Pillow_import_passed": true,
+  "subprocess_timeout_path_exercised": true,
+  "actual_worker_killed_and_reaped": true,
+  "remaining_owned_fixture_processes": 0,
+  "network_requests": 0,
+  "GPU_operations": 0,
+  "elapsed_seconds": 0.11000000001513399,
+  "scope": "One benign sleeping CPU worker via the proposed launcher; not an image-access rerun or an arbitrary tree-termination guarantee",
+  "candidate_utility_sha256": "1a3d31181387861f3f6cf5c981508ce9799f94790adee2cc0ed6efe483447798"
+}
