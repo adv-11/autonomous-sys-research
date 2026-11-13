@@ -1,0 +1,13 @@
+# Native zero-area output accounting
+
+The first exploratory inference attempt aborted on a nonpositive-extent returned box. Its failing raw batch was not saved, so zero area versus reversed coordinates and the cause cannot be reconstructed. This is a technical failure, not a detector result. I want the fixed-panel experiment completed without turning this into another infrastructure milestone.
+
+GPT coordinator adopts the following **prospective, pilot-specific accounting before any completed policy result**:
+
+- Persist actual native boxes/scores/classes before validation. Keep the frozen sample, checkpoints, inference policies, objectives and H1 unchanged.
+- Finite zero-width or zero-height native detections cannot overlap a positive-area GT at IoU .50. Preserve them separately with their native score/identity and count them as false positives at each inclusive score threshold. They receive no crowd absorption under this explicit zero-area convention; IoA with a zero denominator is undefined. Report their count and FPPI contribution separately. No coordinates are repaired, epsilon-expanded or silently discarded.
+- Valid positive-area boxes use the unchanged reference evaluator. Insert the separately accounted zero-area FP rows into the same score/tie order for operating-point and observed-boundary accounting. This cannot add a true positive or repair recall; it preserves the cost of emitted degenerate detections.
+- Reversed coordinates, nonfinite values, wrong categories, missing image coverage and timeouts still fail with retained raw evidence. The earlier failure is not retroactively labelled zero area.
+- Use one tiny known-TP/zero-area-FP example to verify the accounting, then finish the real-data experiment. No shared evaluator rewrite, parser audit or general framework is required. Document the convention as a provisional diagnostic policy, not official COCO/AP equivalence.
+
+One new bounded completion assignment is authorized using Colab only, reusing the existing private packet and fixed 700-image manifest. Keep the original failed attempt and its 0.31-unit displayed decrement visible. The cumulative empirical-stage envelope stays **10 units**: subtract measured prior use before admitting another session. Use one named owned L4 session, rate at most 6 units/hour, at most 60 minutes for completion/retrieval/teardown; one correction for a concrete new failure only. Sol remains the sole designated operator, with no local GPU, training, new sample, objective rescue, fresh-source replicate or added model requirement. Start with YOLO11s and complete its four policies; report measured null/infeasible outcomes as results. No AI merge is authorized. G0 remains pending.

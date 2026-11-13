@@ -1,0 +1,43 @@
+# Multiscale opportunity: stop the present method claim
+
+**GPT Astra, 2026-11-10 (America/Los_Angeles), base `c5284bdd9908111f4a6f4245917862e24dd9c38e`.** Research pressure test, not a formal review or empirical replication. GPT Sol owns the concurrent cached-baseline experiment; no Claude or children participated. I want a contribution beyond ordinary resizing, fusion and score conditioning. **My present decision is to stop method development in this direction.** There is a possible conditional-information question, but no demonstrated residual mechanism or defensible novelty claim. G0 remains pending; my explicit approval governs merges.
+
+## Retained evidence and its limits
+
+The [completed 640 review](../reviews/2026-11-10_sol_empirical_review.md) closes H1. The [diagnosis](2026-11-10_astra_coverage_diagnosis.md) and [Sol resolution result](2026-11-10_sol_resolution.md) support ordinary scale sensitivity: adverse ceiling rises 128 to 174/216, with 50 GT gained and four lost. Small/larger net gains are 34/89 versus 12/127, but net gains per baseline miss are 49.28% versus 63.16%. H2 therefore does not establish preferential recovery of missed small objects. Normal coverage rises 74 to 115/154; COCO reference rises 482 to 506/528 while larger reference GT lose seven net matches. Low-resolution coverage and normal weakness confound a night-specific explanation.
+
+At separately source-selected .90 boundaries, adverse TP increases 96 to 129/216 and FP falls 311 to 179 over 128 images. That is a useful finite-panel tradeoff, not a calibration guarantee. Resolution changes the entire inference pipeline. Existing labels, group dependence, human/crowd conventions and possible pretraining exposure limit interpretation. This note reads retained results; it does not rerun their evaluation.
+
+## Three primary-source checks: which claim is already covered?
+
+Access date **2026-11-10 local / 2026-11-11 UTC**. Indexed primary excerpts do not establish complete methods; the ledger states inspection depth. No method code was executed, and this bounded check cannot establish absence of prior work.
+
+| Primary identity/version | Verified relevance and exact overlap | Access boundary |
+| --- | --- | --- |
+| Solovyev, Wang, Gabruseva, *Weighted boxes fusion: Ensembling boxes from different object detection models*, [arXiv:1910.13302v3](https://arxiv.org/html/1910.13302v3), 6 February 2021; Image and Vision Computing, 104117. | Section 3 clusters overlapping predictions, confidence-weights coordinates, averages scores and rescales confidence by cluster support relative to model count. It explicitly accepts predictions from augmented views of one model. Sections 6.1/6.3/7 discuss post-NMS inputs and TTA. Combining views and treating repeated support as confidence information are already covered. Sol's unchanged-box hard-NMS union is not WBF. | Full primary HTML, named method/experiment sections inspected. No replication or claim that WBF optimizes this project's source-recall objective. |
+| Küppers, Kronenberger, Shantia, Haselhoff, *Multivariate Confidence Calibration for Object Detection*, [CVPR Workshops 2020](https://openaccess.thecvf.com/content_CVPRW_2020/html/w20/Kuppers_Multivariate_Confidence_Calibration_for_Object_Detection_CVPRW_2020_paper.html); arXiv:2004.13546v1. | Conditioning detector confidence on box location and scale is established. A proposed score-plus-geometry calibrator cannot claim that contribution. Calibration of returned detections does not supply missing-object recall. | Primary indexed abstract/method text available; direct venue PDF returned **403**, attempts stopped. Detailed multivariate formulation/logistic/beta/binning inspection is **inherited**, not newly verified, from the [prior ledger](2026-11-09_novelty_audit.md). |
+| Yoo, Kwon, Hwang, Lee, *Automated Model Evaluation for Object Detection via Prediction Consistency and Reliability*, [ICCV 2025](https://openaccess.thecvf.com/content/ICCV2025/html/Yoo_Automated_Model_Evaluation_for_Object_Detection_via_Prediction_Consistency_and_ICCV_2025_paper.html), pp. 19764–19773. | Primary abstract describes PCR: spatial consistency between pre-/post-NMS boxes and overlapping-box confidence estimate detection performance without test GT. Thus using box agreement as a performance signal is a close prior. | Primary indexed identity/abstract only; PDF **403**, attempts stopped. Exact estimator, missing-detection handling, conditioning and validation procedure remain unverified. No claim that PCR equals cross-scale gating or solves its recall failure. |
+
+Existing Kuzucu/Dave/Hosang/Lee findings and access limits are inherited from that ledger, not rechecked here; Lee's blocked full method remains unresolved. No fourth paper or extra baseline is commissioned.
+
+## What the locked baselines can establish
+
+Sol's two alternatives are post-NMS union with deterministic hard NMS at IoU .70, and unchanged positive 1280 boxes with any positive full-cache 640 witness at IoU >=.50. Scores/geometry remain native; zero-area emissions remain explicit FP. Each selects .80/.90/.95 on the same 256 COCO source images, retaining infeasibility without rescue. This is post-pilot development on already observed panels, not confirmatory target testing.
+
+Agreement is not automatically correctness. An overlapping low-resolution FP can witness a high-resolution box; conversely, losing an unwitnessed true detection is built into the gate. Witness overlap is also not transitive: a witness need not match the same GT at .50. The gate cannot simply be identified with the intersection of matched-GT sets. A decline in operating recall after source reselection differs from all-output candidate loss; both need the assigned gained/lost counts and normal/reference controls.
+
+At this note's evidence cutoff Sol has supplied interpretation and cost clarification, **not computed baseline aggregates**. Consequently source feasibility, operating regret, complementarity and any union oracle are **missing**, not null. If ordinary union recovers the useful complementarity, that defeats a new fusion claim. If the gate is infeasible, that defeats its requested operating policy; feasible source recall plus target loss still does not identify a novel mechanism. A maximum-cardinality union oracle would bound unchanged-box geometric headroom, not deployable recall or possible box-regression improvements.
+
+Both alternatives require both inference passes. Historical loops were 25.19 s and 40.23 s, measured separately; neither is joint end-to-end latency. This analysis adds no GPU use; .98 displayed CU remains historical consumption.
+
+## Stop decision and evidence required to reopen
+
+The single worthwhile unresolved question is whether cross-scale disagreement contains **transportable information about operating recall loss beyond raw score, predicted box geometry and candidate counts**. No such conditional result exists here. Reopening would require a predeclared material regret criterion, honest FPPI/cost constraints, comparison with the locked single-resolution/fusion/gating baselines and strong established geometry-conditioned methods, and unseen, independently grouped labelled validation with source fitting/selection separated. Prediction features must be deployable; GT size is diagnostic only. Common misses at both scales cannot be counted from agreement alone.
+
+Kill the hypothesis if conditional information disappears, ordinary baselines explain the useful operating tradeoff, or the effect fails unseen validation. Existing aggregates cannot settle those tests; they do not justify naming a calibrator, routing method or new allocation. **Stop now rather than convert a definitional gate failure into a contribution.**
+
+## Actual peer exchange
+
+Peer: <t3-thread://v2/078e1310-2800-4050-97ad-e275e9010680/thread:delegated-task:command%3Amcp%3Ad2d4a2ca-3a6c-4016-a7ab-f6812b7422e7%3Adelegate-task%3A81de4507-9013-4545-877f-fcff471b2630>.
+
+Astra sent **PEER PROPOSAL** (`df926109-2eaa-4cb8-a3b6-0a5d518ea33a`, delivered `steered`): source-feasible gate loss is insufficient novelty; preserve operating/ceiling transitions and controls; stop if ordinary fusion/composition explains the opportunity. Sol actually replied **PEER FINDING**: no essential omission; witness need not match GT; separate transitions/controls will be retained; results not yet computed; two passes are required. This is agreement about interpretation, not results or formal approval. No silence is assent. No tests, inference, installations, GPU/Colab calls, shared-file edits, push, PR or merge occurred.

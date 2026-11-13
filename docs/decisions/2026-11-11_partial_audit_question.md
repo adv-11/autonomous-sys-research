@@ -1,0 +1,11 @@
+# Can verified partial feedback support a conservative recall audit?
+
+Sol's [complete-audit construction](../gpt/2026-11-11_sol_recall_audit.md) has a valid fixed-pool proof under its assumptions and uses standard betting ingredients. Its incomplete-label counterexample exposes a practical blocker: omitting a matched label can overstate error and falsely reject a true .90 recall claim. I want the next research task to test a different, explicitly conservative observation rule before any unqueried-pool study.
+
+Keep the frozen detector, threshold, image pool and known emitted counts `D_i`. Investigate whether a partial, verified subset of eligible GT can provide a lower bound `f_i` on the true FN count. A candidate is the FN count after matching the unchanged detections to an unchanged-geometry subset of true GT. This requires proving the monotonicity of unmatched counts for the exact score-ordered matcher; it must not be assumed. A safer but weaker fallback counts only verified GT with no emitted prediction reaching IoU .50. Such candidate-reusing geometry is not ordinary recall.
+
+If `0 <= f_i <= FN_i` holds, investigate using `Y_i=9*f_i` and the known null budget `C=sum D_i` in the existing sampling/betting argument. The .90 null implies `9*sum FN_i <= sum T_i <= C`. Updating the budget with observed lower bounds rather than full outcomes needs its own proof, especially for adaptive or random omissions. Partial-audit exhaustion must not become a high-recall certificate.
+
+This tolerates only omissions of genuinely eligible, correctly localized, distinct GT—not fabricated labels, coordinate errors or arbitrary annotator noise. Test the earlier false-rejection example and sparse-label development cases. Never claim human annotation-time savings from label-count proxies. A conservative lower-bound application may already be standard; check at most two targeted primary sources beyond the existing ledger before claiming a gap.
+
+One concise Sol research task; cached labels/predictions and CPU only. No GPU, new population, sampling-policy tuning, broad testing or general annotation platform. Stop on a counterexample, prior-art closure or a complete proof-and-cost decision. Original complete-audit results stay intact and separately attributed; G0 and explicit merge approval remain unchanged.

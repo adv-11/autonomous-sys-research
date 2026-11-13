@@ -94,8 +94,33 @@
 - GPT's separate review supported the CPU audit but rejected capture readiness. The coordinator disables unsafe/unverified runtime paths and documents deferred safeguards on the Claude branch; no GPU query or detector run follows. Current work remains CPU-only while my unrelated training uses the GPU. I will coordinate an overnight slot before a research training run.
 - Both formal reviews and their dispositions are retained. These are design, dependency and synthetic implementation findings; **G0 remains pending**, BDD Detection 2020 access remains blocked, and no ACDC/BDD performance or empirical threshold feasibility is claimed. My explicit approval still governs each sequential merge.
 
+## 2026-11-11 — Empirical checkpoint and Sol-only continuation
+
+- The separate [checkpoint](research/2026-11-10_checkpoint.md) now records actual Colab frozen-model inference on the fixed COCO/ACDC diagnostic panel, completed before this entry. This supersedes earlier statements that no ACDC detector had run; it does not retroactively change their dates or claim primary BDD results.
+- H1 is an operating null; H2 meets its fixed screening rule but fits ordinary scale effects. Cached fusion/agreement results do not justify a new method. The two independent GPT Astra reviews support descriptive publication within their stated limits; the final review artifact was recovered after a credit error without repeating it.
+- I requested GPT Sol only for ongoing work. An [information-matched control](decisions/2026-11-11_information_control.md) is authorized as one bounded diagnostic, with no new method or calibration claim. Prior empirical use is.98displayedColabunits and owned sessions were terminated.
+- G0 remains **pending**: dependent ACDC views, unavailable revised BDD labels, provisional task/evaluation policies and missing independent target validation are unresolved. No PR merge, causal-weather conclusion or population guarantee is inferred from completed diagnostics.
+
+## 2026-11-13 — Reviewed factorial and current G0 decision work
+
+PR8 is merged at `a38a202df8224794f41936cd30c1e14dd4d74329`. The coordinator opened the next sequential dependency-audit PR9 after a clean main integration and 181 passing tests. The reviewed Colab checkpoint stays on this topic branch until that preceding contribution is integrated.
+
+GPT Sol's independent review reproduced all 168 factorial cell/panel/mode points. Head-associated night operating differences persist under common selection bundles; native ceiling-count differences shrink under those controls. The report preserves FP costs, the final-five batch correction, unresolved broader historical tensor identity and incomplete expanded replication. The sole P3 provenance correction is resolved. Displayed use was 2.90 CU and all owned sessions stopped; no new allocation is made by this entry.
+
+My current instruction permits Claude Opus to catch up and work alongside GPT Sol, with multiple agents only when necessary and reasonable. The next assignments are a compact scoped-G0/research-direction synthesis and a bounded independent-data access investigation, with direct peer messages. They do not reopen closed calibration/scale/audit detours, the unsupported ACDC bridge or upload-repair loops. G0 remains pending, with scope, independent target evidence and the blocked original BDD study distinguished explicitly. No new experiment or training run starts without a concrete scientific design and resource estimate.
+
 ## 2026-11-13 — PR8 merged; dependency audit queued next
 
 GitHub records PR8 merged at `a38a202df8224794f41936cd30c1e14dd4d74329`. I asked the work to continue and permitted Claude Opus alongside GPT Sol. The coordinator updated this legacy dependency-audit branch against the merged main without content conflicts. Its separate GPT review and resolution remain the publication evidence; the 181-test suite passes on the existing Python 3.12 environment after integration.
 
 This branch publishes historical CPU dependency findings and an explicitly disabled GPU prototype. It does not claim fresh detector inference or restart the unsupported bridge. Later reviewed Colab results remain on the separate `gpt-colab-research` branch for sequential publication. G0 remains pending; my explicit approval is required for the next merge.
+
+### PR9 merged; empirical integration publication next
+
+I merged PR9 at `18a50bf89075644dadc0a3ae64c642011924ec78`. The coordinator updated the Colab research branch against main, preserving both sides of the gate-log append conflict. No experimental code or numerical result changed during that merge. A focused separate Sol publication-integration review covers the current diff and remaining unreviewed archival notes before the next PR opens. Existing independent empirical reviews are reused; no GPU rerun follows. Opus and Sol continue their assigned research/data tasks without a new allocation. G0 remains pending.
+
+### 2026-11-13 publication safeguards and scoped-proposal review resolved
+
+The separate Sol integration review reproduced all700-image H/L/U arms and the closed audit aggregates, with no new scientific blocker. Its two P2 publication safeguards are resolved in current code: fail-closed Colab inference checks precede GPU imports, and information-control regeneration removes identity-bearing runtime events/arguments. Executed historical scripts remain separately hashed. Focused CPU checks and the184-test suite pass; no GPU rerun occurred.
+
+The separate Sol review of Opus's cached diagnosis reproduced its counts/private rows/PNG and found an unsupported density explanation and incomplete external-test contract. The coordinator withdrew that explanation and narrowed the result to descriptive conditional entry/admission patterns, recording unequal original-threshold source recalls. Empty frames, ties, sparse/support outcomes, operational minima rationale and separate pedestrian-versus-human task alignment are explicit in the corrected proposal. These are resolved review findings, not evidence of a new method or a frozen external experiment. NightOwls licence input is pending; no payload, images or compute have been acquired. Original BDD-primary G0 and the scoped proposal both remain pending.

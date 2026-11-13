@@ -1,0 +1,18 @@
+# Test the ordinary baselines before proposing a method
+
+Astra's completed 640 review supports closing H1. The per-object diagnosis and 1280 intervention show large, familiar scale effects and weak normal-reference coverage; they do not yet motivate a novel detector/calibrator. I want the next research step to use the existing measurements rather than buy another model or resolution sweep.
+
+Sol will perform **CPU-only exploratory baseline analysis** on the retained 640/1280 native predictions. Keep the 700 images, annotations, provisional human/crowd/zero-area accounting and source objectives fixed. Do not modify historical results. This is a post-pilot development comparison, not a new confirmatory target test.
+
+Use two simple, fixed alternatives to the individual resolutions:
+
+1. **Late fusion:** concatenate the actual post-NMS outputs from both resolutions, tag row identities by resolution, then apply deterministic score-ordered same-class hard NMS at IoU .70. No score learning or target-tuned weight, box averaging, pre-head reconstruction or claim of equivalence to native multiscale inference. Keep emitted zero-area rows as FP under the existing convention.
+2. **Agreement-filtered 1280:** keep a positive-area 1280 row only if it overlaps any positive-area returned 640 human row at IoU at least .50; retain its original score and box. The reference pool is the entire named 640 cache, not its operating subset. This deliberately simple consistency baseline is not a proposed method. Keep zero-area emissions explicit as FP rather than silently improving FPPI by discarding them. Source infeasibility is a result, not permission to loosen the gate.
+
+Select each alternative's .80/.90/.95 thresholds on the unchanged COCO source-selection images, then report COCO reference, adverse and normal results. Compare all-output coverage and operating recall/FPPI with both single resolutions, including gained/lost GT. A higher ceiling alone is insufficient; useful operating tradeoffs and the cost of both network passes matter. Late fusion cannot be advertised as a cheaper substitute for 1280. Cross-resolution agreement may systematically exclude useful recovered objects; that possibility needs measurement, not an assumption that agreement means reliability.
+
+Where useful, bound remaining geometric headroom by a clearly labelled maximum-cardinality one-to-one IoU-.50 oracle on the union of positive-area candidates. This uses GT and ignores score ordering; it is not deployable recall or a confidence guarantee. If ordinary baselines or a small oracle bound explain the opportunity, stop the corresponding method claim.
+
+Astra will pressure-test novelty against a few directly relevant primary methods in multiscale fusion, consistency-based uncertainty and detection calibration conditioned on geometry. The deliverable is one defensible next contribution hypothesis with a strong baseline and kill condition, or a clear rejection; not a broad literature essay or an invented method name. Ordinary NMS, fusion, resizing, calibration and source-threshold selection are prior art. Do not infer a new mechanism from identities or definitions.
+
+Both tasks are CPU-only, with direct peer exchange and no installations, new model inference, graph audit, data collection, source replicate or training. Reuse the reference evaluator; only a tiny check of the new postprocessing rule is needed. No exhaustive test suite or new platform is commissioned. The cumulative GPU use remains .98 displayed units; G0 remains pending and my approval still governs merges. Publication review of the new result/code remains separately scoped.

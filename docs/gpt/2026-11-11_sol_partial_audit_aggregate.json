@@ -1,0 +1,386 @@
+{
+  "researcher": "GPT Sol",
+  "base": "f825d50f8c9203e4f0944329c5d4df2e332b54f6",
+  "g0": "PENDING",
+  "status": "already-seen development panels; no nominal-error validation",
+  "threshold": 0.08221367746591568,
+  "alpha": 0.05,
+  "eta": 0.5,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "policies": [
+    "uniform",
+    "count_mixture"
+  ],
+  "regimes": [
+    "complete",
+    "hash_half",
+    "omit_one_matched_per_image"
+  ],
+  "hash_seed": "sol-partial-audit-2026-11-11-v1",
+  "checks": {
+    "kind": "synthetic_proof_boundaries",
+    "omitted_tp": {
+      "c": 9,
+      "complete_x": 9,
+      "conservative_y": 9,
+      "invalid_naive_partial_x": 10
+    },
+    "changed_tie_id_fn": [
+      0,
+      1
+    ],
+    "zero_budget_and_exhaustion": "passed"
+  },
+  "input_sha256": {
+    "manifest": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+    "native1280": "fd71e2fdf3c3a12948a4ae3192bdf1d559b66ef3b5dc46acf22f9bfad702bb68",
+    "pilot_evaluator": "04cd37e75a811b0e43b6d26d40434cf2cd09afd878e83101e7730466bdf8c647",
+    "reference_evaluator": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
+    "complete_cache": "880cc343f96615bc12721d091e12020154c6755730e905bb627c171cca808c2a",
+    "complete_reference": "4f3844f363ae279525fe1836c84521ba6ea378e898de069316f0dd1904d7b77d"
+  },
+  "panels": {
+    "source_selection": {
+      "images": 256,
+      "c": 1156,
+      "complete_fn": 57,
+      "complete_x_reference": {
+        "uniform": {
+          "non_rejections": 20,
+          "reasons": {
+            "non_rejection": 20
+          },
+          "queries": {
+            "min": 256,
+            "median": 256.0,
+            "max": 256
+          },
+          "observed_gt": {
+            "min": 579,
+            "median": 579.0,
+            "max": 579
+          }
+        },
+        "count_mixture": {
+          "non_rejections": 20,
+          "reasons": {
+            "non_rejection": 20
+          },
+          "queries": {
+            "min": 256,
+            "median": 256.0,
+            "max": 256
+          },
+          "observed_gt": {
+            "min": 579,
+            "median": 579.0,
+            "max": 579
+          }
+        }
+      },
+      "regimes": {
+        "complete": {
+          "eligible_labels": 579,
+          "total_f": 57,
+          "total_y": 513,
+          "policies": {
+            "uniform": {
+              "non_rejections": 20,
+              "reasons": {
+                "non_rejection": 20
+              },
+              "queries": {
+                "min": 256,
+                "median": 256.0,
+                "max": 256
+              },
+              "observed_gt": {
+                "min": 579,
+                "median": 579.0,
+                "max": 579
+              }
+            },
+            "count_mixture": {
+              "non_rejections": 20,
+              "reasons": {
+                "non_rejection": 20
+              },
+              "queries": {
+                "min": 256,
+                "median": 256.0,
+                "max": 256
+              },
+              "observed_gt": {
+                "min": 579,
+                "median": 579.0,
+                "max": 579
+              }
+            }
+          }
+        },
+        "hash_half": {
+          "eligible_labels": 270,
+          "total_f": 26,
+          "total_y": 234,
+          "policies": {
+            "uniform": {
+              "non_rejections": 20,
+              "reasons": {
+                "non_rejection": 20
+              },
+              "queries": {
+                "min": 256,
+                "median": 256.0,
+                "max": 256
+              },
+              "observed_gt": {
+                "min": 270,
+                "median": 270.0,
+                "max": 270
+              }
+            },
+            "count_mixture": {
+              "non_rejections": 20,
+              "reasons": {
+                "non_rejection": 20
+              },
+              "queries": {
+                "min": 256,
+                "median": 256.0,
+                "max": 256
+              },
+              "observed_gt": {
+                "min": 270,
+                "median": 270.0,
+                "max": 270
+              }
+            }
+          }
+        },
+        "omit_one_matched_per_image": {
+          "eligible_labels": 443,
+          "total_f": 57,
+          "total_y": 513,
+          "policies": {
+            "uniform": {
+              "non_rejections": 20,
+              "reasons": {
+                "non_rejection": 20
+              },
+              "queries": {
+                "min": 256,
+                "median": 256.0,
+                "max": 256
+              },
+              "observed_gt": {
+                "min": 443,
+                "median": 443.0,
+                "max": 443
+              }
+            },
+            "count_mixture": {
+              "non_rejections": 20,
+              "reasons": {
+                "non_rejection": 20
+              },
+              "queries": {
+                "min": 256,
+                "median": 256.0,
+                "max": 256
+              },
+              "observed_gt": {
+                "min": 443,
+                "median": 443.0,
+                "max": 443
+              }
+            }
+          }
+        }
+      }
+    },
+    "pooled_adverse": {
+      "images": 128,
+      "c": 346,
+      "complete_fn": 87,
+      "complete_x_reference": {
+        "uniform": {
+          "non_rejections": 0,
+          "reasons": {
+            "wealth_crossing": 20
+          },
+          "queries": {
+            "min": 3,
+            "median": 8.0,
+            "max": 77
+          },
+          "observed_gt": {
+            "min": 8,
+            "median": 24.5,
+            "max": 86
+          }
+        },
+        "count_mixture": {
+          "non_rejections": 0,
+          "reasons": {
+            "wealth_crossing": 20
+          },
+          "queries": {
+            "min": 3,
+            "median": 7.5,
+            "max": 18
+          },
+          "observed_gt": {
+            "min": 18,
+            "median": 39.5,
+            "max": 80
+          }
+        }
+      },
+      "regimes": {
+        "complete": {
+          "eligible_labels": 216,
+          "total_f": 87,
+          "total_y": 783,
+          "policies": {
+            "uniform": {
+              "non_rejections": 0,
+              "reasons": {
+                "wealth_crossing": 16,
+                "logical_budget_exceeded": 4
+              },
+              "queries": {
+                "min": 3,
+                "median": 21.5,
+                "max": 88
+              },
+              "observed_gt": {
+                "min": 20,
+                "median": 43.5,
+                "max": 113
+              }
+            },
+            "count_mixture": {
+              "non_rejections": 0,
+              "reasons": {
+                "wealth_crossing": 15,
+                "logical_budget_exceeded": 5
+              },
+              "queries": {
+                "min": 4,
+                "median": 21.5,
+                "max": 54
+              },
+              "observed_gt": {
+                "min": 41,
+                "median": 85.0,
+                "max": 134
+              }
+            }
+          }
+        },
+        "hash_half": {
+          "eligible_labels": 108,
+          "total_f": 43,
+          "total_y": 387,
+          "policies": {
+            "uniform": {
+              "non_rejections": 0,
+              "reasons": {
+                "logical_budget_exceeded": 20
+              },
+              "queries": {
+                "min": 88,
+                "median": 114.0,
+                "max": 126
+              },
+              "observed_gt": {
+                "min": 86,
+                "median": 96.0,
+                "max": 106
+              }
+            },
+            "count_mixture": {
+              "non_rejections": 0,
+              "reasons": {
+                "logical_budget_exceeded": 18,
+                "wealth_crossing": 2
+              },
+              "queries": {
+                "min": 8,
+                "median": 87.5,
+                "max": 111
+              },
+              "observed_gt": {
+                "min": 25,
+                "median": 104.0,
+                "max": 105
+              }
+            }
+          }
+        },
+        "omit_one_matched_per_image": {
+          "eligible_labels": 165,
+          "total_f": 87,
+          "total_y": 783,
+          "policies": {
+            "uniform": {
+              "non_rejections": 0,
+              "reasons": {
+                "wealth_crossing": 16,
+                "logical_budget_exceeded": 4
+              },
+              "queries": {
+                "min": 3,
+                "median": 21.5,
+                "max": 88
+              },
+              "observed_gt": {
+                "min": 16,
+                "median": 36.0,
+                "max": 85
+              }
+            },
+            "count_mixture": {
+              "non_rejections": 0,
+              "reasons": {
+                "wealth_crossing": 15,
+                "logical_budget_exceeded": 5
+              },
+              "queries": {
+                "min": 4,
+                "median": 21.5,
+                "max": 54
+              },
+              "observed_gt": {
+                "min": 35,
+                "median": 71.0,
+                "max": 102
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

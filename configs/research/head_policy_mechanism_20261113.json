@@ -1,0 +1,57 @@
+{
+  "researcher": "GPT Sol",
+  "base": "1a8c783",
+  "prespecified_utc": "2026-11-13T08:12:21Z",
+  "manifest_A_sha256": "cd966fb75c2fd5bbbe65e2aa9f10d7071f5af5b481d8f60a9ba8a601711ca5ea",
+  "manifest_B_sha256": "926ce9d5689c73973de6c36bcbb7be7c17fa7e14ac353f1bbb85220a9852fdd1",
+  "implementation": "ultralytics==8.4.197",
+  "weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "imgsz": 1280,
+  "batch": 8,
+  "half": false,
+  "rect": false,
+  "floor": 0.0001,
+  "cap": 3000,
+  "max_nms": 30000,
+  "nms_iou": 0.7,
+  "classes": [
+    0
+  ],
+  "agnostic_nms": false,
+  "objective": 0.9,
+  "threshold_rule": "highest observed source score; inclusive whole ties; infeasible/undefined retained",
+  "original_thresholds": {
+    "o2o": 0.0383278951048851,
+    "o2m": 0.07566013932228088
+  },
+  "cells": [
+    "o2o_K",
+    "o2o_N",
+    "o2m_K",
+    "o2m_N"
+  ],
+  "K": "native all-class anchor topk, all-class flattened topk3000, person/floor filter, no NMS",
+  "N": "native max-class, floor/person filter, max_nms30000, class-aware NMS .70, cap3000",
+  "contrast_orientation": {
+    "head": "o2o minus o2m within each bundle",
+    "policy": "K minus N within each head",
+    "interaction": "(o2o_K-o2m_K)-(o2o_N-o2m_N)",
+    "condition": "night contrast minus COCO-reference contrast"
+  },
+  "direct_and_boundary": "D=K(t_h)-N(t_h); B=cell(t_cell*)-cell(t_h); retain exact TP/FP additive identity",
+  "reporting": "all conditions, recall/FPPI, direct original head thresholds and per-cell .90 reselection, ceiling and operating shared/unique GT",
+  "native_tolerance": {
+    "counts_classes": "exact",
+    "box_atol_pixels": 0.002,
+    "score_atol": 1e-06,
+    "metric_counts": "exact",
+    "original_H4_metric_counts": "exact"
+  },
+  "budget": {
+    "max_CU": 20,
+    "max_allocated_hours": 6,
+    "max_admission_CU_hr": 6,
+    "prior_batch_allocated_seconds": 0
+  },
+  "interpretation": "policy-bundle intervention, no causal darkness/NMS-only/novelty; train/val recordings overlap; G0 pending"
+}

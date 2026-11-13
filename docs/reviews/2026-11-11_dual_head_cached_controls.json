@@ -1,0 +1,351 @@
+{
+  "reviewer": "GPT Sol",
+  "base": "6e3722999ad4dae6dd6128b6e0d3cbb5a3d9d2df",
+  "contribution": "6f1956d050158ab271e34d30064dfa255668f426",
+  "integrated": "22f77f9c0fd05a02c6cc2a54497a5d444279d95f",
+  "primary_H4": "SUPPORT, unchanged",
+  "diagnostic_status": "POST_HOC; oracle NONDEPLOYABLE; deletion deterministic sensitivity",
+  "provenance": {
+    "manifest_sha256": "cd966fb75c2fd5bbbe65e2aa9f10d7071f5af5b481d8f60a9ba8a601711ca5ea",
+    "original_manifest_sha256": "21c5a2c738a22c5e6e6bff535c1122a8fdc3cbac69216ce9e9ba07c3e3b1156a",
+    "config_sha256": "047261b97be99cd3570cc8ffda06e9fd1d88cf92f9016f7b95fec1efc790e07c",
+    "script_sha256": "80aed1b7402bbd2ee5c20122006617cd545e166a8af2933f805586771da084a2",
+    "reference_metrics_sha256": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
+    "inputs": {
+      "yolo26s_o2o": {
+        "predictions_sha256": "b585cb943e4d62828a1e2784162c97008d05537b5d2cd9c88867f97f540a6cbd",
+        "status_sha256": "1637b7838d645f4a4b5d9ba056ba9a874090b5516e046876a4d7947e889af9bd"
+      },
+      "yolo26s_o2m": {
+        "predictions_sha256": "be74344696efb55bab0453693c11e8dbb9e8c9a121fc449ca49288c972392d01",
+        "status_sha256": "64f331fa3dfc848a4a668076727b5384b58bb798ab0b4866283a08dca50c7ee3"
+      }
+    },
+    "python": "3.12.14",
+    "matching_passes": 6,
+    "inference_calls": 0
+  },
+  "checks": {
+    "new_target_paths": 278,
+    "previous_excluded": 128,
+    "exact_images_per_head": 933,
+    "night_ceiling_shared": 71,
+    "night_ceiling_unique": [
+      10,
+      3
+    ]
+  },
+  "reproduced": {
+    "yolo26s_o2o": {
+      "source_selection": {
+        "gt": 579,
+        "operating": {
+          "threshold": 0.0383278951048851,
+          "tp": 522,
+          "fp": 496,
+          "ignored": 315
+        },
+        "ceiling": {
+          "threshold": null,
+          "tp": 577,
+          "fp": 24924,
+          "ignored": 9176
+        }
+      },
+      "coco_reference": {
+        "gt": 528,
+        "operating": {
+          "threshold": 0.0383278951048851,
+          "tp": 448,
+          "fp": 563,
+          "ignored": 351
+        },
+        "ceiling": {
+          "threshold": null,
+          "tp": 508,
+          "fp": 24541,
+          "ignored": 8108
+        }
+      },
+      "night": {
+        "gt": 105,
+        "operating": {
+          "threshold": 0.0383278951048851,
+          "tp": 48,
+          "fp": 58,
+          "ignored": 0
+        },
+        "ceiling": {
+          "threshold": null,
+          "tp": 81,
+          "fp": 7794,
+          "ignored": 27
+        }
+      },
+      "night_oracles": [
+        {
+          "budget": 37,
+          "threshold": 0.061810001730918884,
+          "tp": 42,
+          "fp": 32,
+          "ignored": 0
+        },
+        {
+          "budget": 58,
+          "threshold": 0.04165162518620491,
+          "tp": 48,
+          "fp": 55,
+          "ignored": 0
+        }
+      ]
+    },
+    "yolo26s_o2m": {
+      "source_selection": {
+        "gt": 579,
+        "operating": {
+          "threshold": 0.07566013932228088,
+          "tp": 522,
+          "fp": 345,
+          "ignored": 200
+        },
+        "ceiling": {
+          "threshold": null,
+          "tp": 569,
+          "fp": 17538,
+          "ignored": 7715
+        }
+      },
+      "coco_reference": {
+        "gt": 528,
+        "operating": {
+          "threshold": 0.07566013932228088,
+          "tp": 440,
+          "fp": 400,
+          "ignored": 225
+        },
+        "ceiling": {
+          "threshold": null,
+          "tp": 505,
+          "fp": 17423,
+          "ignored": 6968
+        }
+      },
+      "night": {
+        "gt": 105,
+        "operating": {
+          "threshold": 0.07566013932228088,
+          "tp": 37,
+          "fp": 37,
+          "ignored": 0
+        },
+        "ceiling": {
+          "threshold": null,
+          "tp": 74,
+          "fp": 5150,
+          "ignored": 17
+        }
+      },
+      "night_oracles": [
+        {
+          "budget": 37,
+          "threshold": 0.10479424148797989,
+          "tp": 37,
+          "fp": 28,
+          "ignored": 0
+        },
+        {
+          "budget": 58,
+          "threshold": 0.058131467550992966,
+          "tp": 44,
+          "fp": 54,
+          "ignored": 0
+        }
+      ]
+    }
+  },
+  "paired_source_leave_one_out": {
+    "deletions": 256,
+    "clause_counts": {
+      "both_source_feasible": 256,
+      "reference_clause": 256,
+      "night_clause": 256,
+      "H4_screen": 256
+    },
+    "heads": {
+      "yolo26s_o2o": {
+        "feasible": 256,
+        "threshold": {
+          "min": 0.03636501729488373,
+          "median": 0.0383278951048851,
+          "max": 0.056385111063718796
+        },
+        "threshold_changed": 37,
+        "threshold_frequencies": [
+          {
+            "threshold": 0.056385111063718796,
+            "deletions": 1
+          },
+          {
+            "threshold": 0.05357001721858978,
+            "deletions": 1
+          },
+          {
+            "threshold": 0.04718346893787384,
+            "deletions": 2
+          },
+          {
+            "threshold": 0.04128669202327728,
+            "deletions": 5
+          },
+          {
+            "threshold": 0.04049614071846008,
+            "deletions": 18
+          },
+          {
+            "threshold": 0.0383278951048851,
+            "deletions": 219
+          },
+          {
+            "threshold": 0.03636501729488373,
+            "deletions": 10
+          }
+        ],
+        "source_tp": {
+          "min": 510,
+          "median": 521.0,
+          "max": 522
+        },
+        "target_counts": {
+          "coco_reference": {
+            "tp": {
+              "min": 440,
+              "median": 448.0,
+              "max": 448
+            },
+            "fp": {
+              "min": 424,
+              "median": 563.0,
+              "max": 592
+            }
+          },
+          "night": {
+            "tp": {
+              "min": 44,
+              "median": 48.0,
+              "max": 48
+            },
+            "fp": {
+              "min": 38,
+              "median": 58.0,
+              "max": 62
+            }
+          }
+        }
+      },
+      "yolo26s_o2m": {
+        "feasible": 256,
+        "threshold": {
+          "min": 0.07226432114839554,
+          "median": 0.07566013932228088,
+          "max": 0.08684264868497849
+        },
+        "threshold_changed": 36,
+        "threshold_frequencies": [
+          {
+            "threshold": 0.08684264868497849,
+            "deletions": 1
+          },
+          {
+            "threshold": 0.0827254131436348,
+            "deletions": 1
+          },
+          {
+            "threshold": 0.08247432857751846,
+            "deletions": 2
+          },
+          {
+            "threshold": 0.08125338703393936,
+            "deletions": 6
+          },
+          {
+            "threshold": 0.0798615887761116,
+            "deletions": 16
+          },
+          {
+            "threshold": 0.07566013932228088,
+            "deletions": 220
+          },
+          {
+            "threshold": 0.07226432114839554,
+            "deletions": 10
+          }
+        ],
+        "source_tp": {
+          "min": 510,
+          "median": 521.0,
+          "max": 522
+        },
+        "target_counts": {
+          "coco_reference": {
+            "tp": {
+              "min": 437,
+              "median": 440.0,
+              "max": 440
+            },
+            "fp": {
+              "min": 365,
+              "median": 400.0,
+              "max": 408
+            }
+          },
+          "night": {
+            "tp": {
+              "min": 37,
+              "median": 37.0,
+              "max": 39
+            },
+            "fp": {
+              "min": 35,
+              "median": 37.0,
+              "max": 39
+            }
+          }
+        }
+      }
+    },
+    "signed_gap_pp": {
+      "coco_reference": {
+        "min": 0.5681818181818182,
+        "median": 1.5151515151515151,
+        "max": 1.893939393939394
+      },
+      "night": {
+        "min": 6.666666666666667,
+        "median": 10.476190476190476,
+        "max": 10.476190476190476
+      }
+    },
+    "source_influence": {
+      "either_threshold_changed": 39,
+      "gap_changed": {
+        "coco_reference": 26,
+        "night": 14
+      },
+      "removed_gt": {
+        "min": 0,
+        "median": 1.0,
+        "max": 13
+      },
+      "minimum_night_gap_removed_gt": [
+        8,
+        13
+      ]
+    }
+  },
+  "recorded_resources": {
+    "elapsed_seconds": 1335.7819999999992,
+    "displayed_delta_CU": 0.69,
+    "admission_rate_CU_hr": 1.94,
+    "owned_teardown_verified": true
+  }
+}

@@ -79,3 +79,123 @@ The coordinator integrated the same patch and checked the matrix and local links
 **Assessment:** concrete overclaims and readiness defects were caught before publication/use; there is no evidence of invented detector results. Earlier corrective prompts achieved bounded completion. Because the tasks are finished, the coordinator made small corrections and enforced holds directly rather than manufacturing another peer exchange or review loop.
 
 **Next milestone:** sequential publication and my review, then a scientifically feasible source-data/experiment decision. The four-condition bridge and GPU pilot remain on hold. Runtime repair is a future scoped task; training needs prior overnight coordination. No further parser, source-access, allocation or performance loop is commissioned.
+
+## 2026-11-10 — Colab resource steering and coordinator qualification stop
+
+I authorized all GPU work on my connected Colab account and scale guided by research value and available compute. GPT verified 300 displayed units, then two short L4 allocations at 1.94 units/hour. Neither used the local GPU or a real dataset. The first synthetic detector loss failed on dictionary configuration; one corrective retry failed on missing autograd. Both completed zero updates, and both sessions were terminated. No third retry or performance-tuning loop follows.
+
+**Coordinator drift/error assessment:** writing a direct training harness before checking the loss/configuration and gradient contracts introduced avoidable setup failures. A zero `colab exec` exit status also failed to reflect a remote exception; the retrieved artifact prevents a false success claim. The corrective action is a bounded CPU repair with artifact-based status validation, not larger hardware or repeated allocations. An unchanged displayed balance is retained with billing-lag uncertainty. Exact failure evidence remains in ignored outputs; the public decision record contains aggregate facts only.
+
+**Next milestone:** a reviewed, small Colab development experiment tied to a falsifiable mechanism, with a unit-budget estimate and native replay evidence. GPT implementation and Claude research-priority assignments must exchange contracts directly, remain CPU-only themselves, and stop at their artifacts. This new instruction moves the execution venue; it does not fix grouping or BDD access, reopen allocation searches, pass G0 or approve a merge.
+
+### Research-first steering: Astra completion
+
+I redirected the work to Sol/Astra and actual Colab inference. The coordinator cancelled the broad CPU contract-repair task and designated Sol as the sole bounded Colab operator. Claude remains unused while unavailable. The [research-first decision](../decisions/2026-11-10_research_first.md) supersedes the earlier agent execution restriction.
+
+**Scope check: on course.** Astra committed only the [prospective hypothesis note](../gpt/2026-11-10_astra_research.md), with no regression suite, new framework, GPU use or invented aggregates. Actual peer messages record Sol accepting H1 before inference: source-induced threshold movement has a larger night-recall consequence than the direct candidate effect and its COCO-reference consequence, at the fixed .90 objective. Infeasibility remains untestable, and an operating null can kill the direction. Person-first filtering makes this a within-human pipeline contrast, not an all-class competition audit.
+
+The coordinator integrated the note and reminded active Sol to finish the real-data result and teardown within the existing 10-unit/90-minute budget. Astra's optional fresh-source repeat is a future conditional recommendation, not another authorized run. No new review, test task or allocation was created at this checkpoint; measured outcomes remain pending.
+
+### First completed empirical result: kill H1, follow coverage
+
+Sol completed all four native policies on700/700images each. All three .90 H1 contrasts have B=D=0 and the same source threshold; the proposed fresh-source repeat is not triggered. The .95 objective is infeasible. This is a real operating null with complete evidence, not a failed run renamed as a null. Total displayed empirical use is .55 units, including the earlier failed .31-unit attempt; both assignments verified teardown.
+
+**Scope check: productive, with a changed research premise.** Native inference itself took79.5seconds; most wall time was transfer/setup/retrieval. The useful result is that the large COCO-to-night recall difference is mainly a finite-pipeline coverage difference, while the small matched normal panel is also weak. No causal night explanation or novelty follows. The coordinator stops the cap/floor direction, avoids repeating qualification or broad tests, and authorizes one fixed-panel resolution intervention plus Astra's focused result interpretation/per-object diagnosis. These actions follow new evidence rather than optimizing a failed hypothesis into success. No model zoo, fresh source block, target-driven cutoff rescue or training is commissioned.
+
+### Resolution result survives the credit interruption
+
+Both GPT assignments were interrupted by workspace credits, after the 1280 inference and owned Colab teardown had already completed. On my instruction to retry, the coordinator checked saved status before relaunching work. Sol resumed CPU aggregation only; no repeated GPU run or Claude substitution occurred. Astra's interrupted review/diagnosis artifacts were retained for a separately delegated GPT completion.
+
+**Observed result:** all700images completed at1280. H2's fixed net-gain/GT criterion passes:34/89small versus12/127larger. The extra headroom diagnostic is essential: net recovery per baseline miss is49.28%small versus63.16%larger, so this does not establish preferential recovery of already-missed small objects. Normal references improve too. Pooled adverse .90 source-reselected recall rises44.44%to59.72%, with FPPI falling2.43to1.40, while some large-object matches are lost. These are finite-panel native-pipeline results, not novelty, physical-scale isolation or causal-night evidence.
+
+**Scope check: on course, with an explicit stop.** Sol reused the packet/evaluator and ran one resolution policy, no new model or testing programme. Cumulative displayed empirical use is.98CU, verified owned teardown and zero active assignments. The coordinator integrated the result and commissions no further allocation from H2 alone. Astra's scientific diagnosis/review will determine whether residual failures justify a contribution hypothesis beyond ordinary scale/task/scene effects. PR#8 remains open; no research merge or G0 passage is inferred.
+
+### Prior-art pressure test rejects the present method claim
+
+Astra completed exactly three targeted primary-source checks and recorded access limits: weighted boxes fusion covers augmented-view fusion/support-based confidence; geometry-conditioned detector calibration is established; prediction-consistency/reliability evaluation is a close prior inspected only at abstract level. The completed note does not claim absence of prior work, complete access to all methods or measured cached-baseline outcomes that had not arrived.
+
+**Scope check: on course; method development stopped.** No test programme, inference or extra allocation accompanied the assessment. The coordinator integrated it and steered active Sol to finish only the two already assigned cached baselines. No learned calibrator, extra baseline or GPU run is commissioned. Any later contribution hypothesis must demonstrate useful information beyond score/geometry/counts and survive unseen validation; a definitional agreement-gate failure or ordinary fusion gain will not be promoted as novelty. The recorded Sol exchange agrees on interpretation, not missing empirical outcomes. The next checkpoint is the actual cached-baseline result and a compact research synthesis.
+
+### Cached baselines complete; close the method branch
+
+Sol completed both fixed CPU baselines, with one small postprocessing/matching check and no new inference. At .90, adverse TP/FP are1280:129/179,fusion:122/143,gate:116/203. Fusion is a tradeoff, not dominated; the gate is worse on both pooled measures. The union oracle provides only four extra adverse GT, already attained by fusion's all-output ceiling. These are actual cached measurements, distinct from Astra's earlier prospective assessment; its final numerical message to the finished Astra task was not delivered and is not treated as peer agreement.
+
+**Scope check: on course and stopped.** No fourth baseline, new calibrator or allocation was added. The coordinator integrates the result into a [compact checkpoint](../research/2026-11-10_checkpoint.md) and commissions one bounded publication review of the newer1280/cached-baseline implementation and claims. The completed640review is reused; no full regression, repeat GPU run or broad new research task is requested. Cumulative displayed empirical GPU use remains.98units. Research merges remain subject to my explicit approval, with PR#8stillopen at the latest check.
+
+## 2026-11-11 — Sol-only continuation and saved review recovery
+
+I requested Sol only to reduce token use. The coordinator records that preference in AGENTS.md; no new Astra or Claude task is launched. Historical research/reviews keep their original attribution.
+
+The latest Astra publication task reported a credit failure, but its isolated checkout contains committed review artifact `7ca2cd0`. The coordinator recovered it rather than commission a duplicate Sol review. It reports no material blocker and records bounded independent execution of the decisive 1280/cached-baseline calculations. The failed task status is preserved; the review's content and verification limits remain attributed to Astra. The checkpoint now links that review.
+
+**Efficiency decision:** reuse completed evidence, keep future briefs concise and commission one Sol task at a time when practical. Current fusion/gating method development stays closed. A new research question must distinguish image information from model-grid effects with clear controls and closest-prior limits before earning another allocation; no repeat sweep or new method name follows from the previous gain.
+
+### Information control complete: stop scale diagnostics
+
+Sol completed one three-arm experiment, with all700images freshly inferred per arm and no corrective rerun. H/L/U adverse ceiling counts are172/127/160of216. The fixed criterion passes because33/45netgain exceeds onehalf. The coordinator preserves the distinction between a ratio of net changes and identities of recovered objects; signed gained/lost counts remain in the report. No generic enlargement novelty or isolated architecture/darkness cause follows. Displayed empirical use is now1.28units, and the owned session was released.
+
+**Scope check: on course and finished.** Pre-NMS instrumentation was omitted as directed; the small GT-map/input-shape checks protected the scientific control without adding a framework. No additional resolution/fusion sweep is commissioned. Future work should address a different unresolved question, such as how to audit a transferred recall claim with a small annotation budget despite common misses and dependent scenes; it must be checked against established statistical/audit methods before any novelty claim. The next step can use cached data and mathematics with no GPU allocation.
+
+### Complete-audit proof survives; incomplete feedback is a material blocker
+
+Sol proved the fixed-pool reduction and conditional expectation under exact complete audits, and identified standard ALPHA/active-testing/recall-estimation overlap without inventing novelty. Its locked development demo rejects the low-recall adverse pool, with no simulated rejection on the known-null source fixture; the twenty seeds do not establish error control. The proof, not Monte Carlo, supplies the stated conditional validity.
+
+**Scope check: productive research, no performance loop.** The material counterexample is omission of a matched GT label: true `(G,T,D)=(10,9,9)` can appear as `(9,8,9)` and cause a false logical rejection. The coordinator integrates the result and commissions one narrow conservative-partial-feedback question, preserving the old complete-audit assumptions. A pointwise lower-bound observation may avoid that error, but its matching lemma, power and prior overlap remain open. No unqueried-pool/GPU study, policy search or annotation platform is launched.
+
+### Conservative variant valid, but no useful cost advantage
+
+Sol proved the matcher lemma and conditional lower-bound betting validity and completed only the locked cached demo. Conservative partial observations cost more queries and observed labels than the original complete-audit reference. The coordinator closes this variant without changing eta, omission rates, seeds or sampling policies to seek a win.
+
+**Bigger-picture correction:** further kernel variations would be incremental drift. The next Sol task is problem selection: whether unknown object-count annotation cost leaves an actual gap beyond existing cost-aware evaluation. It must examine the closest prior, return a pursue/reject decision and a feasible unseen study, without implementing another sampler or buying compute. The [audit checkpoint](../research/2026-11-11_audit_checkpoint.md) preserves the negative decision and review limits; no new statistical or method novelty is inferred from validity alone.
+
+### Cost-method claim rejected; return to original detector transfer
+
+Sol's targeted assessment finds cost-sensitive evaluation and conditional cost modelling already supply the main proposed ingredients. Hidden missed-object search effort remains unmeasured; label-count medians cannot establish human-time savings. No sampler, test or compute was added during the assessment.
+
+**Diminishing-return correction:** the audit follow-ups stayed honest and bounded, but increasingly addressed standard ingredients instead of the original detector-transfer question. The coordinator closes that detour and returns to the already proposed same-checkpoint YOLO26 head comparison, with an explicit source/night transfer screen and previously unqueried ACDC val image paths. Input resolution and ordinary candidate policies are fixed; no further scale/fusion or audit-kernel variant is commissioned. One bounded real-data comparison, rather than another micro-optimization, is the next milestone. No head gap or novelty is assumed before inference.
+
+### Original head comparison yields a supported screen
+
+Sol completed both933-image passes with verified native branches and no reported failure. H4 passes: source .90feasible, reference gap1.52pp, new-night gap10.48pp. O2O's extra11night TP cost21extra FP. Its finite ceiling also differs, so the source-matched operating gap is neither an isolated score-calibration effect nor causal NMS evidence.
+
+**Scope check: productive, returned to the research question.** One two-head comparison replaced more standard audit variants. Total displayed empirical use is1.97CU; owned release was verified. The coordinator integrates the result and requests one independent Sol review plus two cached interpretation checks (matched-target-FP frontier and paired source deletion), with no new inference or validation framework. Primary H4 is fixed; secondary diagnostics cannot select new margins, source subsets or deployment thresholds. No new method or novelty is claimed.
+
+### 2026-11-13 cached mechanism milestone
+
+GPT Sol's collaborator completed the assigned bounded diagnosis in commit `fed107a` (integrated as `9e50f10`). All 40 native operating/ceiling points reproduce saved counts. The eleven extra night operating matches survive the fixed cached NMS check; ten already have O2M ceiling matches below its source threshold. The note preserves posthoc status and distinguishes post-clipping NMS from the live native-bundle intervention. Six actual peer messages record the operator's acceptance of the contrasts and availability crosswalk.
+
+**Scope check: on course, no observed unsupported claim or incremental testing loop.** The collaborator stopped after its one diagnostic, with no GPU use. The coordinator sent the active operator a focused interpretation guard: do not turn the approximation into a native NMS or calibration-remedy claim; interpret direct policy effects before boundary movement. Continue the already assigned factorial and unconditional expanded native replication, with no new sweep. No response to this coordinator message is assumed. Publication review remains a separate task after empirical results; G0 is pending.
+
+### 2026-11-13 terminal-limit recovery and transport-loop correction
+
+The operator's original task ended with a workspace-credit failure. Saved artifacts show completed Stage A inference/aggregation, but two Stage B upload failures, including the allowed initial transport correction, prevented expanded-panel inference. The saved cumulative ledger is 5,659.954 allocated seconds and approximately 3.0501 CU; the current account balance is 294.94 CU with no active assignments or sessions. Owned teardown is recorded as verified. These are retained execution failures, not negative detector results.
+
+**Observed drift risk:** continued partial-TAR/streaming transport development after repeated connection failures was displacing interpretation of completed research. The coordinator sent one Sol-only recovery prompt narrowing work to CPU finalization of saved Stage A evidence, figures, the native-control correction and explicit Stage B incompletion. No further upload, allocation, training, transport framework or repeated inference is authorized by that recovery. Dispatch was accepted as starting; completion or assent is not yet assumed. The canonical ignored state records its returned task/run IDs. A fresh independent Sol review follows the completed research commit. The 30-minute retry remains conditional on terminal limit failure, not active-task polling.
+
+### 2026-11-13 recovery completed; native factorial ready for review
+
+GPT Sol accepted the coordinator's narrowing and finalized saved Stage A evidence as `db709e6`, integrated as `276cdc8`. Unexecuted streaming code was removed from the public implementation and preserved privately; CPU finalization made no allocation, upload or inference. The coordinator corrected a report sentence that attributed the transport stop to me: the stop was a GPT Sol coordinator intervention following repeated failures.
+
+The result preserves night head differences under shared K/N bundles, sharply reduces the native ceiling-count difference under common bundles, reports the substantial O2M/K false-positive cost and keeps all conditions. The original five-image batch correction, first-pass discrepancy and unresolved broader historical tensor identity are explicit. Stage B is incomplete with no expanded results. Two owned sessions are stopped; 2.90 displayed CU and 5,659.954 allocated seconds are recorded separately from the 3.0501 CU time-rate estimate.
+
+**Intervention outcome: resolved.** Transport development stopped and empirical evidence was delivered. No new method, causal darkness or gate passage is claimed. A new independent Sol review is the next milestone; no duplicate research or compute is launched.
+
+### 2026-11-13 independent review closed
+
+Independent GPT Sol review `339fcb0` reproduced all 168 cell/panel/mode points from raw evidence, inspected selectors and the original batch correction, and found no scientific blocker. Its single P3 request concerned the JSON/generator's false attribution of the transport stop to me. The coordinator corrected both generator strings, regenerated the aggregate, and verified that only attribution and the aggregation-script hash changed. Scientific values are unchanged. The original reviewer verdict and the coordinator's resolution remain distinct in the review note.
+
+**Final scope check:** Stage A and its cached diagnosis are complete and independently reviewed; Stage B remains blocked with zero expanded inference. No unsupported novelty, matched-FPPI, full tensor-identity or independent-scene claim is introduced. The batch's recovery schedule is disabled with no next run. A new review or transport loop would add no necessary evidence. The reviewed checkpoint is published to the research branch; PR8 remains open and the next PR stays queued for sequential integration. G0 and my explicit merge approval remain pending.
+
+### 2026-11-13 independent-data route completed
+
+GPT Sol completed the bounded two-route investigation as `9fad9b8`. Official NightOwls links respond publicly, but actual annotation schema, eligible counts, grouping and selective cloud retrieval remain unverified. No payload or GPU work occurred; no materially new official BDD route was established. The coordinator independently read the publisher's download-page conditions and requested my agreement plus authorization for only the approximately 10.7 MB validation JSON. Images and GPU acquisition are outside that question. The Opus task was informed of the conditional route and pending input without restarting the completed Sol researcher.
+
+**Scope check: on course.** The researcher stopped after an actionable route and concrete access decision; no mirror hunt, parser framework or upload-repair loop followed. Cache-based mechanism work and publication integration review continue independently. G0 remains pending, and no peer message is treated as license acceptance or evidence of data readiness.
+
+### 2026-11-13 scientific overclaim corrected before publication
+
+Opus completed one bounded cached analysis (`664e2cc`), with no GPU or new inference. Its source-normalized conditional ranking pattern and exact admission/availability counts reproduced in a fresh Sol review (`188e7ed`), including twelve threshold-prefix rematches. The reviewer found two P1 issues: unsupported boundary-density explanation and an external proposal excluding empty frames with incomplete sparse/tie rules; two P2 findings concerned fixed/source-reselected policies and class-task alignment.
+
+Because the Opus assignment was finished, the coordinator did not restart it through a peer message. The coordinator withdrew the density/domain-general explanation, corrected source-coordinate direction and unequal source recalls, narrowed ranking dominance to night, and specified empty-frame, tie, support, stopping and ontology-alignment rules. These are proposal corrections, not new empirical findings or a passed G0. The measured analysis remains unchanged and its conditioning/dependence limits are retained. The independent review and coordinator disposition remain distinct.
+
+The separate integration review (`bcca6bc`) found two publication safeguards. Current inference entries now refuse local/unidentified runtimes before GPU imports, and information-control aggregation strips private event IDs/messages and nonessential runtime args. Focused CPU tests cover all five inference entry paths and the sanitizer; real saved-output regeneration matches scientific/source fields and safe runtime metadata with no restricted identity keys. Original executed-source hashes and the committed historical receipt/hash inventory are preserved separately from current aggregation code. No GPU rerun or third allocation followed.

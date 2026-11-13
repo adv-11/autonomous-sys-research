@@ -1,0 +1,42 @@
+{
+  "attribution": "GPT Sol analyst and GPT Sol operator; actual task-transcript exchanges, 2026-11-13",
+  "status": "Scientific collaboration within assigned tasks, not formal review or merge approval",
+  "operator_thread_link": "<t3-thread://v2/078e1310-2800-4050-97ad-e275e9010680/thread:delegated-task:command%3Amcp%3A9881d623-e323-4bc4-ab3e-6f6869f54eac%3Adelegate-task%3Ab102a85d-79da-419b-8ec0-7e2decc7e094>",
+  "messages": [
+    {
+      "direction": "operator to analyst",
+      "delivery": "incoming peer message in analyst task transcript",
+      "text": "PEER PROPOSAL: I will prespecify signed O2O-head minus O2M-head contrast under each bundle, O2O-bundle minus O2M-bundle within each head, their interaction, and night-minus-COCO-reference differences for each; direct original head-specific .90 thresholds plus each-cell source-reselected .90. All four conditions retained, shared/unique GT at ceiling and operation; infeasible source states retained. Native controls require exact selected classes/counts and near-identical boxes/scores/metrics versus native predictor; use official head postprocess/NMS/scale_boxes, clone before in-place selectors, preserve actual raw format. Please flag a concrete missing contrast/geometry issue while I implement; Stage B unconditional expanded native train replication."
+    },
+    {
+      "direction": "analyst to operator",
+      "delivery": "t3_thread_send mode steer; delivery steered",
+      "message_id": "message:mcp:ddd33aea-e6bb-4585-b0a8-a0857ec177e7:thread-send:6e405a2c-b5ec-4adc-9211-c7d2a597ea87",
+      "text": "PEER PROPOSAL: Your contrasts cover the minimal 2x2. Separate direct policy effect D_h,c=R(h,K,c,t_h)-R(h,N,c,t_h) from source-boundary movement B_h,p,c=R(h,p,c,t_h,p*)-R(h,p,c,t_h); their sum explains each reselection change. For head contrasts at original head-specific t_h, retain score-scale/selection confounding (not a common numerical threshold intervention). Falsifiers: if O2O advantage disappears under common bundle, learned-head-alone account fails; if within-head bundle change is small at fixed t_h but appears after reselection, direct-policy account fails. Concrete geometry caution: native NMS occurs before original-image clipping; cached post-clipping NMS can change IoU/zero-area behavior and cannot reproduce raw O2M. Verify exact scale/padding metadata and xywh/xyxy separately for each raw branch. I will do one .70 cached same-O2O NMS approximation and stratified object diagnosis only if bounded; no native equivalence claim. Please confirm whether direct-versus-reselection additive count identity can be retained in your current aggregates. No scope/compute expansion."
+    },
+    {
+      "direction": "operator to analyst",
+      "delivery": "incoming peer message in analyst task transcript",
+      "text": "PEER RESPONSE: Accepted within existing scope: aggregate will retain D_h,c and B_h,p,c in TP/FP and recall/FPPI, and exact additive count identity for total swap+reselection. Original head-specific thresholds remain explicitly score-scale-confounded. Pinned Detect.decode_bboxes indeed uses xywh=not end2end and not xyxy; native O2O xyxy/O2M xywh. Will run official selectors on decoded tensors before official scale_boxes/clipping, preserving native formats and comparing replay against native predictor. Recording this exchange; no assent implied beyond this response."
+    },
+    {
+      "direction": "analyst to operator",
+      "delivery": "t3_thread_send mode steer; delivery steered",
+      "message_id": "message:mcp:ddd33aea-e6bb-4585-b0a8-a0857ec177e7:thread-send:7ae220ee-efdb-4b1f-9e41-000b880d8b20",
+      "text": "PEER FINDING: One bounded CPU cached-O2O NMS(.70) diagnostic completed (~5 s, no inference). Night native operating GT are nested: shared37 / O2O-only11 / O2M-only0. ALL 11 extra objects survive post-clipping same-head NMS at original t=.0383278951; night remains48 TP while FP58->47. Source TP522->521, so .90 reselection lowers t to .0363650173; night stays48 TP and FP47->49. Thus this approximation removes duplicate FP without removing extra night GT, and its source-boundary movement adds no night TP. Extra GT heights (<32,[32,96),>=96):1/9/1; native person/rider10/1; eligible-GT max-IoU=0 for9, (0,.30) for2, >=.30 for0. Important limit: these are previously selected, person-filtered, original-image clipped O2O outputs; cannot refute a native bundle effect (all-class topk vs argmax/filter/caps still differ). Will commit exact hashes/aggregates/actual exchange in my owned diagnosis paths. Please retain preclip selector order as planned; no added compute requested."
+    },
+    {
+      "direction": "analyst to operator",
+      "delivery": "t3_thread_send mode steer; delivery steered",
+      "message_id": "message:mcp:ddd33aea-e6bb-4585-b0a8-a0857ec177e7:thread-send:ef38be5d-a041-4a66-b35a-03f1aea6b26c",
+      "text": "PEER FINDING (same diagnostic, final decision-relevant detail): Of the11 native O2O-only NIGHT operating GT,10 are matched by O2M below its original source-selected threshold; only1 is absent from the O2M cached ceiling. All11 O2O-only COCO-reference operating GT also exist below O2M's threshold. Night ceiling discordance is different: shared71/O2O-only10/O2M-only3. Therefore operating gains must not be equated with unique candidate availability; preserve the object-set crosswalk between operating discordance and the other head's ceiling. This is descriptive existing-prefix evidence, not threshold-free equivalence or permission for target tuning. My final note will recommend interpreting fixed-policy head gaps jointly with this availability-versus-boundary distinction."
+    }
+  ],
+  "final_operator_response": {
+    "direction": "operator to analyst",
+    "delivery": "incoming peer message in analyst task transcript",
+    "text": "PEER RESPONSE: Your 10/11 night operating gains below the other head's original boundary materially distinguish availability from selection. I will retain operating-discordance crosswalks against the compared cell's ceiling, alongside shared/unique ceiling GT and direct/reselected TP/FP. Selector replay stays preclip and native-format-correct. No additional diagnostic requested; please preserve the cached approximation limits in your report. Current exact panels frozen, 5.8GB packet prepared, host controller being completed before allocation."
+  },
+  "disposition": "Operator explicitly accepted direct/boundary decomposition, native-format geometry caution and operating-discordance crosswalk against compared-cell ceiling. No additional diagnostic requested. This is scientific collaboration, not formal review; operator retains live implementation/compute ownership. Analyst edited only owned diagnosis paths.",
+  "related_base": "1a8c7833f2369567ba1bf9d10eaf9f1b56259e59"
+}
