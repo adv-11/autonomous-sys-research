@@ -1,0 +1,216 @@
+{
+  "author": "GPT Sol",
+  "access_date": "2026-11-13",
+  "base_commit": "0cca68edf82878db014f4c8dcc4ed3cbf93cd751",
+  "status": "conditional_nightowls_route_owner_license_acceptance_required",
+  "g0": "pending",
+  "scope": {
+    "routes": [
+      "official NightOwls",
+      "official BDD100K revised labels: documentation identity only"
+    ],
+    "children": 0,
+    "gpu_operations": 0,
+    "colab_operations": 0,
+    "dataset_payload_bytes": 0,
+    "dataset_payload_limit_bytes": 50000000,
+    "terms_accepted": false,
+    "account_actions": 0,
+    "installations": 0,
+    "push_pr_merge": false
+  },
+  "sources": [
+    {
+      "url": "https://www.nightowls-dataset.org/download/",
+      "kind": "official publisher download and license documentation",
+      "status": 200,
+      "body_bytes": 25797,
+      "sha256": "1fa8b858668ec05b067450b50ac41018ef55db5b537c4443990070eff806031a",
+      "version": "unversioned live page",
+      "observed": "Exact train/val image and annotation links; test image IDs only; no login/click-through form on inspected page; noncommercial agreement and no redistribution",
+      "limits": "No license acceptance or dataset GET"
+    },
+    {
+      "url": "https://www.nightowls-dataset.org/",
+      "kind": "official homepage",
+      "observed": "Generic page; superseded access uncertainty after official /download/ page was found"
+    },
+    {
+      "url": "https://www.robots.ox.ac.uk/~vedaldi/assets/pubs/neumann18nightowls.pdf",
+      "kind": "author manuscript",
+      "version": "ACCV 2018; 15-page Oxford PDF",
+      "observed": "Read sections 3 and 4, especially pages 5-9",
+      "limits": "Paper statistics differ internally (279k prose versus 281k table); no exact contemporary eligible count, actual label schema, amodal/visible extent definition or current server usability established"
+    },
+    {
+      "url": "https://api.github.com/repos/ox-vgg/nightowlsapi/commits/master",
+      "status": 200,
+      "body_bytes": 2837,
+      "sha": "ad0f18fc95e093e86036f055ab210a3de46021b7",
+      "commit_date": "2019-06-05T12:59:29Z",
+      "kind": "Oxford organization SDK mirror identity"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ox-vgg/nightowlsapi/ad0f18fc95e093e86036f055ab210a3de46021b7/LICENSE",
+      "body_bytes": 1210,
+      "sha256": "6259f8a462c6c0546e5530fa47b1efc5ddade1c912bbc2433452a7b1892405cc",
+      "kind": "SDK license text; corroborates publisher download page"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ox-vgg/nightowlsapi/master/python/load_training_data_demo.py",
+      "kind": "SDK loader",
+      "observed": "file_name and bbox=[x,y,w,h] access in code",
+      "limits": "Unpinned web read; subsequent master identity pinned via GitHub API; actual labels not inspected"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ox-vgg/nightowlsapi/ad0f18fc95e093e86036f055ab210a3de46021b7/python/eval_MR_multisetup.py",
+      "body_bytes": 20296,
+      "sha256": "8a7b8411615f7eeb17ce97e3541b82d21b74248d2a3aeb7d4eecbafe98697beb",
+      "kind": "SDK evaluator",
+      "observed": "Lines 97-105: ignore/height and occluded->vis_ratio fallback. Lines 185-215: ignore used for crowd-style intersection/prediction-area denominator. Lines 479-481: Reasonable height >=50, visibility >=0.65; All height >=20. Not a project policy adoption."
+    },
+    {
+      "url": "https://api.github.com/repos/bdd100k/bdd100k/commits/master",
+      "status": 200,
+      "body_bytes": 13361,
+      "sha": "9ac17c6c7c51d2fc83065fccd707cd5b1882a293",
+      "commit_date": "2024-03-09T10:30:01Z",
+      "kind": "current official toolkit identity",
+      "limits": "Same as saved acquisition work; dead hosts and mismatched archives were not retried"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bdd100k/bdd100k/master/doc/source/download.rst",
+      "kind": "official BDD documentation",
+      "observed": "Same ETH route and Detection 2020 label size/checksum/tree; downloads imply agreement",
+      "limits": "Documentation only, no revised-label payload retrieved; registration/current data-host reachability not rechecked"
+    }
+  ],
+  "header_observations": [
+    {
+      "requested_url": "http://thor.robots.ox.ac.uk/~vgg/data/nightowls/python/nightowls_validation.json",
+      "method": "HEAD",
+      "final_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.json",
+      "status": 200,
+      "content_type": "application/json",
+      "content_length_bytes": 10696948,
+      "last_modified": "Mon, 27 May 2019 09:14:48 GMT",
+      "etag": "\"5cebaa88-a338f4\"",
+      "accept_ranges": "bytes",
+      "body_bytes": 0
+    },
+    {
+      "requested_url": "http://thor.robots.ox.ac.uk/~vgg/data/nightowls/python/nightowls_validation.zip",
+      "method": "HEAD",
+      "final_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.zip",
+      "status": 200,
+      "content_type": "application/zip",
+      "content_length_bytes": 57481286834,
+      "last_modified": "Fri, 24 May 2019 15:54:32 GMT",
+      "etag": "\"5ce813b8-d6226d4b2\"",
+      "accept_ranges": "bytes",
+      "body_bytes": 0
+    },
+    {
+      "requested_url": "https://thor.robots.ox.ac.uk/~vgg/data/nightowls/python/nightowls_validation.json",
+      "method": "HEAD",
+      "final_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.json",
+      "status": 200,
+      "content_length_bytes": 10696948,
+      "body_bytes": 0
+    },
+    {
+      "requested_url": "https://thor.robots.ox.ac.uk/~vgg/data/nightowls/python/nightowls_validation.zip",
+      "method": "HEAD",
+      "final_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.zip",
+      "status": 200,
+      "content_length_bytes": 57481286834,
+      "body_bytes": 0
+    }
+  ],
+  "failed_or_uninformative_documentation_checks": [
+    {
+      "url": "https://www.robots.ox.ac.uk/~vgg/data/nightowls/",
+      "result": "web tool inaccessible; not evidence exact publisher thor file links are dead"
+    },
+    {
+      "url": "https://www.robots.ox.ac.uk/~vgg/data/nightowls/index.html",
+      "result": "web tool inaccessible"
+    },
+    {
+      "url": "https://www.robots.ox.ac.uk/~vgg/data/nightowls/download.html",
+      "result": "web tool inaccessible; official live download page later found"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ox-vgg/nightowlsapi/master/python/cocoeval.py",
+      "result": "404; eval.py names eval_MR_multisetup.py, which was inspected instead"
+    },
+    {
+      "url": "https://www.bdd100k.com/",
+      "result": "web tool inaccessible; no new route established"
+    }
+  ],
+  "schema_status": {
+    "dataset_annotations": "not retrieved or inspected",
+    "sdk": "inspected",
+    "native_category_ids": null,
+    "person_rider_extent_alignment": null,
+    "amodal_vs_visible": null,
+    "sequence_key_encoding": null,
+    "night_only_eligible_positive_image_count": null,
+    "cross_dataset_or_training_overlap": "not excluded by dataset names or group IDs",
+    "public_train_val_labels": "documented by download page; only validation HEAD checked",
+    "test_labels": "withheld per paper; page publishes image IDs only"
+  },
+  "required_owner_input": "I have read and accept the NightOwls download-page conditions and authorize private retrieval of its validation annotation JSON for this research.",
+  "bounded_next_action": {
+    "after": "specific owner license acceptance and acquisition authorization",
+    "url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.json",
+    "max_payload_bytes": 11000000,
+    "actions": [
+      "Private retrieval, byte count and SHA-256",
+      "Inspect actual categories/box and ignore fields/recording keys; obtain extent documentation if undefined",
+      "Report eligibility counts and lawful grouped acquisition feasibility before any image transfer"
+    ],
+    "no_gpu": true,
+    "no_images": true
+  },
+  "cloud_plan": {
+    "verified": "Public HTTPS HEAD with advertised ranges from this workstation",
+    "unverified": [
+      "GET and payload integrity",
+      "Google Colab egress to Oxford",
+      "actual ZIP range support and member-level retrieval",
+      "expanded ZIP storage size",
+      "sequence/group metadata and sampling feasibility"
+    ],
+    "full_validation_compressed_bytes": 57481286834,
+    "preferred": "metadata only first; later source-to-Colab selective retrieval if actually supported, coordinator-owned transfer/storage budget; no local multi-GB re-upload"
+  },
+  "peer_exchange": [
+    {
+      "direction": "received",
+      "author": "Claude Opus 5.5",
+      "transport": "peer prompt delivered as user message",
+      "text": "PEER QUESTION (Claude Opus 5.5, current direction task, base 0cca68e). I'm running a CPU-only cached analysis on the H4/head-policy outputs: for night GT covered by BOTH heads' ceilings, I compare source-normalised score ranks (each head's score mapped to its COCO-source score quantile, i.e. a frozen monotone map without reselection) under common N. Conditional paired diagnostics like this are subject to localization/selection conditioning. They can't establish causal night, generalization or a new calibration method. My proposed next decisive experiment is a prespecified rerun of the same frozen comparison on an independent night panel. That only matters if a usable panel exists. Concrete data-contract question: for whichever route(s) you verify, please give (1) primary-source access/licence status (download possible now without my owner's new account/terms acceptance: yes/no), (2) whether a person/pedestrian box schema exists that can be mapped to the current eligibility rules (person+rider merged, ignore/crowd regions, height floor), (3) whether scene/recording IDs are available to exclude ACDC/BDD/COCO overlap, and (4) the night image count with ≥1 eligible person. A plain \"no usable route\" also answers the question. I won't depend on any route you haven't verified. No compute or scope change is requested.",
+      "disposition": "Answered within existing access investigation; no compute or protocol expansion"
+    },
+    {
+      "direction": "sent",
+      "author": "GPT Sol",
+      "mode": "steer",
+      "message_id": "message:mcp:30bc78b2-03f4-4315-9956-80f108052677:thread-send:e0e951cd-b578-40bf-b74f-c15c9b1224c8",
+      "text": "PEER FINDING (GPT Sol, independent-data task, base 0cca68e). Early evidence: Oxford's primary SDK https://github.com/ox-vgg/nightowlsapi documents COCO-compatible boxes and a noncommercial license requiring agreement, citation and no dataset/modified-data redistribution. I have NOT downloaded restricted labels or accepted terms. https://www.nightowls-dataset.org/ currently yields a generic WordPress landing page, not an authenticated working route. Oxford paper documents 40 sequences, pedestrians/cyclists/motorcyclists >50px, ignored posters/sculptures/inseparable groups; actual current JSON and eligible-positive-image counts remain uninspected. Thus answer to 'possible now without owner acceptance?' is NO under our current authorization, irrespective of public HTTP access. I'm checking publisher-hosted exact links/metadata and will send one bounded disposition; please keep the independent-night rerun conditional, not an available panel. Group IDs cannot alone prove nonoverlap with COCO/BDD/ACDC or independent trips.",
+      "disposition": "Early provisional access finding; corrected by second finding after official download page inspected"
+    },
+    {
+      "direction": "sent",
+      "author": "GPT Sol",
+      "mode": "steer",
+      "message_id": "message:mcp:30bc78b2-03f4-4315-9956-80f108052677:thread-send:61de5f51-f5cc-4fb9-89b1-fda4465c5040",
+      "text": "PEER FINDING update (GPT Sol). The official /download/ page IS intact (homepage alone was insufficient): https://www.nightowls-dataset.org/download/ links exact Oxford files. HEAD only, no dataset payload: http://thor.robots.ox.ac.uk/~vgg/data/nightowls/python/nightowls_validation.json redirects HTTPS to https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.json, HTTP 200, 10,696,948 bytes; image ZIP analog HTTP200, 57,481,286,834 bytes. Both advertise byte ranges; no login challenge. I STOP at the concrete required owner action: personally accept this page's noncommercial/citation/no-redistribution conditions and authorize private direct-to-Colab acquisition. No new account/click-through form was observed; no terms accepted. Actual JSON schema/group IDs/eligible-positive image count UNINSPECTED. Pinned SDK ad0f18fc95e093e86036f055ab210a3de46021b7 demonstrates xywh bbox, ignore, height, occluded/vis_ratio and ignore-area matching, but does not establish JSON class IDs, rider box extents or recording keys. Paper says dawn+night, 40 recordings, >50px annotated humans, ~32k positive frames total (not eligibility-derived/night-only), public train/val annotations and withheld test labels. Use validation as untouched external panel only after native sequence IDs and extent mapping are checked; within-sequence frames never independent. Direct cloud download removes local 5GB re-upload; full val is ~57.5GB compressed, selective ZIP ranges are merely a future option, not verified. BDD current official master remains 9ac17c6, same known ETH route/checksum; no materially new route established and no dead hosts retried.",
+      "disposition": "Delivered to running task; no response/assent inferred at record creation"
+    }
+  ],
+  "peer_thread_link": "<t3-thread://v2/078e1310-2800-4050-97ad-e275e9010680/thread:delegated-task:command%3Amcp%3A83a4cdaa-5b93-42e6-af10-604b3ee25f17%3Adelegate-task%3Ae08f9c04-0c53-418a-a7c9-92f2088718bf>",
+  "source_limits": "Primary pages and SDK establish a candidate route and policy assertions. Search summaries were not treated as verified metadata. No restricted labels, image IDs or raw boxes are committed. Technical checks do not accept license terms."
+}
