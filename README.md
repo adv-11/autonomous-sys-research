@@ -26,6 +26,8 @@ The reference evaluator and data/cache adapters are implemented, with a standard
 
 **Latest empirical checkpoint:** GPT Sol ran real frozen-model Colab experiments on explicit COCO/ACDC development panels. Independent Sol review reproduced the four-cell YOLO26 head/postprocessing result: night operating differences persist under common selection bundles, while candidate-ceiling counts become much closer. Large false-positive costs, dependent scenes and source-selection limits remain. This is a mechanism finding, not a new method or a passed G0 gate. See the [compact checkpoint](docs/research/2026-11-13_checkpoint.md), [research report](docs/gpt/2026-11-13_sol_head_policy_mechanism.md) and [independent review](docs/reviews/2026-11-13_head_policy_review.md).
 
+**Next external dataset:** NightOwls validation annotations are privately acquired under the accepted licence. The [corrected inventory](docs/gpt/2026-11-13_nightowls_annotations.md) separates five known recording keys from null-key frames. The [minimal adapter](docs/gpt/2026-11-13_nightowls_adapter.md) is independently approved by Opus; a [64-image, 150 MB, no-GPU access pilot](docs/decisions/2026-11-13_nightowls_image_access_pilot.md) remains proposed and needs separate image authorization. No NightOwls images or detector results have been acquired.
+
 ![Measured head and native-postprocessing factorial](docs/gpt/2026-11-13_sol_head_policy_factorial.png)
 
 ```powershell

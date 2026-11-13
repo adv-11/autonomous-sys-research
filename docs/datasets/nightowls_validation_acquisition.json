@@ -1,0 +1,53 @@
+{
+  "researcher": "GPT Sol coordinator",
+  "scope": "validation annotation JSON only; no images or GPU",
+  "licence_page": "https://www.nightowls-dataset.org/download/",
+  "authorization": "Explicit acceptance and private annotation-only retrieval authorized in project conversation on 2026-11-13",
+  "licence_accepted": true,
+  "requested_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.json",
+  "byte_cap": 11000000,
+  "started_utc": "2026-11-13T18:50:37.917562+00:00",
+  "final_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.json",
+  "http_status": 200,
+  "headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "10696948",
+    "ETag": "\"5cebaa88-a338f4\"",
+    "Last-Modified": "Mon, 27 May 2019 09:14:48 GMT"
+  },
+  "download": "completed one bounded HTTPS GET",
+  "bytes": 10696948,
+  "sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
+  "top_level_fields": [
+    "annotations",
+    "categories",
+    "images",
+    "poses"
+  ],
+  "image_records": 51848,
+  "annotation_records": 17091,
+  "category_records": 4,
+  "image_field_names": [
+    "daytime",
+    "file_name",
+    "height",
+    "id",
+    "recordings_id",
+    "timestamp",
+    "width"
+  ],
+  "annotation_field_names": [
+    "area",
+    "bbox",
+    "category_id",
+    "difficult",
+    "id",
+    "ignore",
+    "image_id",
+    "occluded",
+    "pose_id",
+    "tracking_id",
+    "truncated"
+  ],
+  "completed_utc": "2026-11-13T18:51:49.564260+00:00"
+}
