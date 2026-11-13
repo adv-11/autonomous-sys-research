@@ -1,0 +1,110 @@
+{
+  "attribution": "GPT Sol coordinator; actual annotation-only inventory, no images or inference",
+  "source_sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
+  "bytes": 10696948,
+  "images": 51848,
+  "annotations": 17091,
+  "native_categories": {
+    "1": "pedestrian",
+    "2": "bicycledriver",
+    "3": "motorbikedriver",
+    "4": "ignore"
+  },
+  "daytime_counts": {
+    "night": 51846,
+    "dusk": 2
+  },
+  "recording_field": "recordings_id",
+  "recording_count": 6,
+  "timestamp_types": {
+    "int": 51848
+  },
+  "image_dimensions": {
+    "1024x640": 51848
+  },
+  "frames_without_any_annotation": 42359,
+  "night_frames": 51846,
+  "night_annotations": 17085,
+  "night_annotation_counts_by_category": {
+    "pedestrian": 10178,
+    "ignore": 6320,
+    "bicycledriver": 326,
+    "motorbikedriver": 261
+  },
+  "flag_domains": {
+    "ignore": {
+      "0": 10766,
+      "1": 6325
+    },
+    "difficult": {
+      "false": 11629,
+      "null": 5238,
+      "true": 224
+    },
+    "occluded": {
+      "false": 10033,
+      "true": 1688,
+      "null": 5370
+    },
+    "truncated": {
+      "false": 16004,
+      "true": 1087
+    }
+  },
+  "geometry": {
+    "nonfinite_or_nonpositive_boxes": 0,
+    "boxes_outside_image": 2231,
+    "recorded_area_not_equal_bbox_area": 0,
+    "repaired_boxes": 0
+  },
+  "recording_counts": [
+    {
+      "anonymous_recording_slot": 1,
+      "all_frames": 7361,
+      "night_frames": 7361,
+      "native_nonignored_pedestrian_annotations": 1577,
+      "night_frames_without_native_nonignored_pedestrians": 6360
+    },
+    {
+      "anonymous_recording_slot": 2,
+      "all_frames": 6788,
+      "night_frames": 6788,
+      "native_nonignored_pedestrian_annotations": 348,
+      "night_frames_without_native_nonignored_pedestrians": 6576
+    },
+    {
+      "anonymous_recording_slot": 3,
+      "all_frames": 15189,
+      "night_frames": 15188,
+      "native_nonignored_pedestrian_annotations": 6072,
+      "night_frames_without_native_nonignored_pedestrians": 11664
+    },
+    {
+      "anonymous_recording_slot": 4,
+      "all_frames": 16587,
+      "night_frames": 16586,
+      "native_nonignored_pedestrian_annotations": 560,
+      "night_frames_without_native_nonignored_pedestrians": 16126
+    },
+    {
+      "anonymous_recording_slot": 5,
+      "all_frames": 4605,
+      "night_frames": 4605,
+      "native_nonignored_pedestrian_annotations": 280,
+      "night_frames_without_native_nonignored_pedestrians": 4401
+    },
+    {
+      "anonymous_recording_slot": 6,
+      "all_frames": 1318,
+      "night_frames": 1318,
+      "native_nonignored_pedestrian_annotations": 1341,
+      "night_frames_without_native_nonignored_pedestrians": 484
+    }
+  ],
+  "limits": [
+    "Recording keys are observed units, not independently verified trips/scenes.",
+    "Native nonignored pedestrian counts are not a frozen evaluation eligibility policy.",
+    "Box extent/visibility/ignore semantics require publisher evidence; coordinates alone do not establish them.",
+    "No RGB, image archive/index, detector output, converter or external protocol was acquired or executed."
+  ]
+}
