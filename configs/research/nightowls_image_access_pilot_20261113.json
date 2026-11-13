@@ -1,6 +1,6 @@
 {
   "researcher": "GPT Sol coordinator",
-  "status": "PROPOSED_NOT_AUTHORIZED",
+  "status": "AUTHORIZED_BOUNDED_ACCESS_ONLY",
   "purpose": "bounded private image-access and decoding pilot before any quantitative external inference",
   "source_annotations_sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
   "private_manifest_sha256": "4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a",
@@ -32,7 +32,7 @@
   ],
   "exclusions": "All 64 planned pilot image paths excluded from later quantitative image pool regardless of retrieval success; no head outputs or target tuning",
   "stop": "Stop at completion, first transport/identity/CRC/decode failure, or cap; preserve partial evidence without an upload/repair loop",
-  "licence": "Accepted for research, citation required, no redistribution; images need separate explicit authorization",
+  "licence": "Accepted research licence; citation and no redistribution apply. Only the listed private image-access pilot is now authorized.",
   "G0": "PENDING",
   "selection_uses_GT_annotations_or_predictions": false,
   "private_storage": {
@@ -41,5 +41,7 @@
     "logs": "logs/",
     "archive_index": "archive_index/",
     "gitignored": true
-  }
+  },
+  "authorization": "Explicit project instruction on 2026-11-13 authorizes the reviewed64-image/150MB/30minlocalCPU pilot; no GPU, Colab, inference or fullarchive fallback",
+  "absolute_stop_utc": "2026-11-13T20:09:00Z"
 }
