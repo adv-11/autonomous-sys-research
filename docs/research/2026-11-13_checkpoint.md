@@ -12,4 +12,4 @@ The [research report](../gpt/2026-11-13_sol_head_policy_mechanism.md), [aggregat
 
 The remaining scientific question is whether an identified head-specific ranking signal can improve transferred recall at a comparable false-positive cost on additional data. A global monotone calibrator with source reselection cannot supply that improvement. These observations establish neither a novel method nor causal darkness, independent-scene generalization or driving safety. Another upload-repair loop or a posthoc threshold sweep would not answer that question.
 
-Publication stays on the research branch while PR8 awaits approval, preserving sequential integration. No new PR or merge bypasses that queue.
+At the original checkpoint, publication stayed on the research branch while PR8 awaited approval. **Publication update, 2026-11-13:** PR8 is now merged; the queued dependency-audit contribution is PR9. The Colab checkpoint follows that contribution in the sequential integration queue. No merge bypasses my approval.
