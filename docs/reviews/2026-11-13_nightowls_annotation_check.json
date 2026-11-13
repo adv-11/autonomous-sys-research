@@ -1,0 +1,183 @@
+{
+ "sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
+ "bytes": 10696948,
+ "top_level": [
+  "annotations",
+  "categories",
+  "images",
+  "poses"
+ ],
+ "images": 51848,
+ "annotations": 17091,
+ "categories": {
+  "1": "pedestrian",
+  "2": "bicycledriver",
+  "3": "motorbikedriver",
+  "4": "ignore"
+ },
+ "pose_vocabulary": {
+  "0": "front",
+  "1": "left",
+  "2": "back",
+  "3": "right",
+  "4": "nan"
+ },
+ "integrity": {
+  "image_ids_unique": true,
+  "annotation_ids_unique": true,
+  "image_refs_resolve": true,
+  "category_refs_resolve": true,
+  "pose_refs_unresolved": 5356,
+  "pose_refs_unresolved_by_category": {
+   "ignore": 5237,
+   "pedestrian": 117,
+   "bicycledriver": 2
+  }
+ },
+ "daytime": {
+  "night": 51846,
+  "dusk": 2
+ },
+ "dimensions": {
+  "1024x640": 51848
+ },
+ "recordings": {
+  "value_types": {
+   "NoneType": 1318,
+   "float": 50530
+  },
+  "distinct_values_including_null": 6,
+  "distinct_nonnull_keys": 5,
+  "frames_with_null_key": 1318
+ },
+ "category_x_ignore": {
+  "pedestrian|ignore=0": 10179,
+  "ignore|ignore=1": 6325,
+  "bicycledriver|ignore=0": 326,
+  "motorbikedriver|ignore=0": 261
+ },
+ "ignore_flag_equals_category_ignore": true,
+ "flags_by_category": {
+  "difficult": {
+   "pedestrian|false": 9965,
+   "pedestrian|true": 214,
+   "bicycledriver|false": 326,
+   "motorbikedriver|false": 261,
+   "ignore|false": 1077,
+   "ignore|null": 5238,
+   "ignore|true": 10
+  },
+  "occluded": {
+   "pedestrian|false": 8537,
+   "pedestrian|null": 114,
+   "pedestrian|true": 1528,
+   "bicycledriver|false": 287,
+   "bicycledriver|null": 7,
+   "bicycledriver|true": 32,
+   "motorbikedriver|false": 261,
+   "ignore|false": 948,
+   "ignore|null": 5249,
+   "ignore|true": 128
+  },
+  "truncated": {
+   "pedestrian|false": 10179,
+   "bicycledriver|false": 326,
+   "motorbikedriver|false": 261,
+   "ignore|false": 5238,
+   "ignore|true": 1087
+  }
+ },
+ "geometry": {
+  "nonfinite_or_nonpositive": 0,
+  "outside_image": 2231,
+  "outside_by_category": {
+   "pedestrian": 158,
+   "ignore": 2058,
+   "bicycledriver": 11,
+   "motorbikedriver": 4
+  },
+  "area_ne_w_times_h": 0
+ },
+ "night_pedestrian_nonignored": {
+  "annotations": 10178,
+  "frames_with_one": 6235,
+  "night_frames_without_one": 45611,
+  "height_lt_50": 1358,
+  "min_height": 15,
+  "occluded_null": 114,
+  "outside_image": 158,
+  "truncated_true": 0,
+  "sdk_Reasonable_eligible": 7649,
+  "sdk_All_eligible": 10169
+ },
+ "frames_without_any_annotation": 42359,
+ "recording_slots": [
+  {
+   "slot": 1,
+   "native_key_is_null": false,
+   "all_frames": 7361,
+   "night_frames": 7361,
+   "nonignored_pedestrians": 1577,
+   "night_frames_without": 6360,
+   "distinct_tracks": 134,
+   "sdk_Reasonable_eligible": 1006,
+   "sdk_All_eligible": 1576
+  },
+  {
+   "slot": 2,
+   "native_key_is_null": false,
+   "all_frames": 6788,
+   "night_frames": 6788,
+   "nonignored_pedestrians": 348,
+   "night_frames_without": 6576,
+   "distinct_tracks": 49,
+   "sdk_Reasonable_eligible": 291,
+   "sdk_All_eligible": 348
+  },
+  {
+   "slot": 3,
+   "native_key_is_null": false,
+   "all_frames": 15189,
+   "night_frames": 15188,
+   "nonignored_pedestrians": 6072,
+   "night_frames_without": 11664,
+   "distinct_tracks": 172,
+   "sdk_Reasonable_eligible": 4999,
+   "sdk_All_eligible": 6064
+  },
+  {
+   "slot": 4,
+   "native_key_is_null": false,
+   "all_frames": 16587,
+   "night_frames": 16586,
+   "nonignored_pedestrians": 560,
+   "night_frames_without": 16126,
+   "distinct_tracks": 16,
+   "sdk_Reasonable_eligible": 332,
+   "sdk_All_eligible": 560
+  },
+  {
+   "slot": 5,
+   "native_key_is_null": false,
+   "all_frames": 4605,
+   "night_frames": 4605,
+   "nonignored_pedestrians": 280,
+   "night_frames_without": 4401,
+   "distinct_tracks": 15,
+   "sdk_Reasonable_eligible": 149,
+   "sdk_All_eligible": 280
+  },
+  {
+   "slot": 6,
+   "native_key_is_null": true,
+   "all_frames": 1318,
+   "night_frames": 1318,
+   "nonignored_pedestrians": 1341,
+   "night_frames_without": 484,
+   "distinct_tracks": 46,
+   "sdk_Reasonable_eligible": 872,
+   "sdk_All_eligible": 1341
+  }
+ ],
+ "inventory_mismatches": []
+}
