@@ -30,6 +30,9 @@ SELECTION_HASH = '4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de9
 ANNOTATION_HASH = '584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6'
 TOTAL_CAP = 150_000_000
 INDEX_CAP = 16_000_000
+PRIOR_CHARGED = 7_432_416
+PRIOR_ARCHIVE_IDENTITY = {'total': 57_481_286_834, 'ETag': '"5ce813b8-d6226d4b2"',
+                          'Last-Modified': 'Fri, 24 May 2019 15:54:32 GMT'}
 EXECUTION_AUTHORIZED = False
 
 
@@ -274,10 +277,20 @@ def read_inputs():
     return records
 
 
+def initial_worker_state():
+    """Cumulative charged budgets; confirmed counters cover the new attempt."""
+    return {'status': 'STARTING', 'worker_pid': os.getpid(), 'started_utc': utc(),
+            'identity': dict(PRIOR_ARCHIVE_IDENTITY), 'completed': 0, 'planned': 64,
+            'prior_charged_bytes': PRIOR_CHARGED, 'charged_bytes': PRIOR_CHARGED,
+            'confirmed_bytes': 0, 'index_charged_bytes': PRIOR_CHARGED,
+            'index_confirmed_bytes': 0, 'requests_reserved': 0,
+            'requests_completed': 0, 'active_request': None, 'images': []}
+
+
 def worker():
     require_execution_authorization()
     # The controller has durably recorded its PID and timeout before launch.
-    state = {'status': 'STARTING', 'worker_pid': os.getpid(), 'started_utc': utc(), 'identity': {}, 'completed': 0, 'planned': 64, 'charged_bytes': 0, 'confirmed_bytes': 0, 'index_charged_bytes': 0, 'index_confirmed_bytes': 0, 'requests_reserved': 0, 'requests_completed': 0, 'active_request': None, 'images': []}
+    state = initial_worker_state()
     transport = Transport(state)
     started = time.monotonic()
     try:
@@ -363,7 +376,9 @@ def controller():
     DEST.mkdir(parents=True, exist_ok=False)
     for folder in ('images', 'logs', 'archive_index'):
         (DEST / folder).mkdir()
-    control = {'status': 'STARTING', 'control_pid': os.getpid(), 'started_utc': utc(), 'absolute_stop_utc': '2026-11-13T20:09:00Z', 'timeout_seconds': min(1800, DEADLINE - time.time()), 'worker_exit_verified': False}
+    control = {'status': 'STARTING', 'control_pid': os.getpid(), 'started_utc': utc(),
+               'absolute_stop_utc': dt.datetime.fromtimestamp(DEADLINE, tz=dt.timezone.utc).isoformat().replace('+00:00', 'Z'),
+               'timeout_seconds': min(1800, DEADLINE - time.time()), 'worker_exit_verified': False}
     control_path = DEST / 'logs/control.json'
     atomic(control_path, control)
     process = None
@@ -421,16 +436,17 @@ def selftest():
             passed.append(label)
         else:
             raise AssertionError(label)
-    for label, state, phase in (
-        ('total_cap', {'charged_bytes': TOTAL_CAP, 'index_charged_bytes': 0}, 'image'),
-        ('index_cap', {'charged_bytes': INDEX_CAP, 'index_charged_bytes': INDEX_CAP}, 'index'),
+    for label, state, phase, amount in (
+        ('total_cap', {'charged_bytes': TOTAL_CAP, 'index_charged_bytes': 0}, 'image', 1),
+        ('index_cap', {'charged_bytes': INDEX_CAP, 'index_charged_bytes': INDEX_CAP}, 'index', 1),
+        ('prior_index_cap', initial_worker_state(), 'index', 8_567_585),
     ):
         before = dict(state)
         try:
             # These are synthetic cap tests, independent of the expired run's
             # historical wall-clock deadline.
             with patch.dict(globals(), {'DEADLINE': float('inf')}):
-                reserve(state, 1, phase)
+                reserve(state, amount, phase)
         except Stop as error:
             assert str(error) == ('total_byte_cap' if label == 'total_cap' else 'index_byte_cap')
             assert state == before

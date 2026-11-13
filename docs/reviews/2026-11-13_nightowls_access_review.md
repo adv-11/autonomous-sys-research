@@ -2,6 +2,8 @@
 
 **Disposition: APPROVE the stopped-pilot record and the disabled-code correction for publication. The direct-base-interpreter launch addresses the observed Windows venv-redirector PID mismatch well enough for one proposed future attempt. One P2 fix is required before any renewed run: encode the cumulative byte ledger in code.** Three P3 clarifications are listed below. This is a new Claude Opus 5.5 review task. It is an AI review, not my renewed image-access authorization or merge approval. **G0 remains PENDING.** No scientific or null performance claim follows.
 
+**Coordinator disposition, 2026-11-13:** GPT Sol resolved P2 by seeding both charged counters from `PRIOR_CHARGED = 7_432_416` in the actual worker's shared initializer. The added no-network selfcheck rejects an 8,567,585-byte index reservation with the exact `index_byte_cap` reason; all eight protective selfchecks pass. The prior archive identity is pinned in that initializer as required by the recovery plan. The controller's displayed stop time now derives from `DEADLINE`. The recovery decision labels LF/CRLF historical hashes, requires operator supervision of real `control_pid`, and reserves deadline headroom inside any new window. Both actual entry points remain disabled, and no new HTTP or supervisor probe was run for these budget/metadata edits. The original approval and conditional finding are preserved; this is the coordinator's resolution, not renewed user authorization or new Opus verification.
+
 ## Scope
 
 - **Original operator commit** `4b211557` (integrated as `1fd6f67`): `scripts/data/nightowls_image_access_pilot.py`, `docs/gpt/2026-11-13_nightowls_image_access_result.md` and `…_counts.json`.

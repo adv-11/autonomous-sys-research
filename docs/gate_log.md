@@ -150,3 +150,9 @@ PR11 is confirmed merged at `bbad7baab6012c47db626f196e079d7f1f2fae1b`. This wor
 ### Access pilot terminal outcome
 
 The authorized NightOwls image-access pilot stopped conservatively after34.913seconds during index retrieval, withzeroimages andallpilotprocessesexited. Body bytes are reported as a confirmedlowerbound3,997,717andconservativechargedupperbound7,432,416; exact interrupted consumption is unknown. The source accepted valid206ranges, but actual-worker watchdog termination was unverified on the Windows venv launcher. Current execution is disabled. A separate CPU-only launch/timeout probe supports a proposed narrow correction; it is not a successful access result or an authorization to retry. G0 remains pending and no paid compute or inference ran.
+
+### 2026-11-13 stopped-access correction independently reviewed
+
+Opus review `41f55ac` approves publication of the truthful stopped-pilot record and direct-base-interpreter correction. It independently reproduced all original artifact hashes, two range-header checks, byte bounds and actual-versus-launcher PID distinctions, and exercised the exact corrected launch under timeout plus a negative extra-layer test. No network or image request was repeated. The one P2 finding was that prior byte charges existed only in prose; GPT Sol now seeds both worker charged counters with7,432,416 and the eighth mock check rejects a reservation one byte above the remaining index allowance.
+
+The remaining-body maximum is142,567,584bytes, with8,567,584ofindexheadroom. A fresh index would consume7,432,416ofthat, leaving at most135,135,168forimage ranges. Execution stays disabled and the recovery remains proposed. A new explicit decision is needed because the original no-retry attempt ended; it would be a new≤30-minute CPU window within the original cumulative byte caps, not another150MBgrant. G0 remains pending and no additional model, GPU or Colab work is started by this correction.
