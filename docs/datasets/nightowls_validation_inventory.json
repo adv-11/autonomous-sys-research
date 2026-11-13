@@ -15,7 +15,9 @@
     "dusk": 2
   },
   "recording_field": "recordings_id",
-  "recording_count": 6,
+  "recording_count": 5,
+  "distinct_recording_values_including_null": 6,
+  "null_key_frames": 1318,
   "timestamp_types": {
     "int": 51848
   },
@@ -31,6 +33,8 @@
     "bicycledriver": 326,
     "motorbikedriver": 261
   },
+  "unresolved_pose_references": 5356,
+  "night_nonignored_pedestrians_below_height50": 1358,
   "flag_domains": {
     "ignore": {
       "0": 10766,
@@ -60,49 +64,75 @@
   "recording_counts": [
     {
       "anonymous_recording_slot": 1,
+      "native_key_is_null": false,
       "all_frames": 7361,
       "night_frames": 7361,
       "native_nonignored_pedestrian_annotations": 1577,
+      "distinct_native_tracking_values": 134,
+      "height50_not_occluded_annotations": 1006,
+      "height50_not_occluded_tracking_values": 53,
       "night_frames_without_native_nonignored_pedestrians": 6360
     },
     {
       "anonymous_recording_slot": 2,
+      "native_key_is_null": false,
       "all_frames": 6788,
       "night_frames": 6788,
       "native_nonignored_pedestrian_annotations": 348,
+      "distinct_native_tracking_values": 49,
+      "height50_not_occluded_annotations": 291,
+      "height50_not_occluded_tracking_values": 39,
       "night_frames_without_native_nonignored_pedestrians": 6576
     },
     {
       "anonymous_recording_slot": 3,
+      "native_key_is_null": false,
       "all_frames": 15189,
       "night_frames": 15188,
       "native_nonignored_pedestrian_annotations": 6072,
+      "distinct_native_tracking_values": 172,
+      "height50_not_occluded_annotations": 4999,
+      "height50_not_occluded_tracking_values": 143,
       "night_frames_without_native_nonignored_pedestrians": 11664
     },
     {
       "anonymous_recording_slot": 4,
+      "native_key_is_null": false,
       "all_frames": 16587,
       "night_frames": 16586,
       "native_nonignored_pedestrian_annotations": 560,
+      "distinct_native_tracking_values": 16,
+      "height50_not_occluded_annotations": 332,
+      "height50_not_occluded_tracking_values": 13,
       "night_frames_without_native_nonignored_pedestrians": 16126
     },
     {
       "anonymous_recording_slot": 5,
+      "native_key_is_null": false,
       "all_frames": 4605,
       "night_frames": 4605,
       "native_nonignored_pedestrian_annotations": 280,
+      "distinct_native_tracking_values": 15,
+      "height50_not_occluded_annotations": 149,
+      "height50_not_occluded_tracking_values": 11,
       "night_frames_without_native_nonignored_pedestrians": 4401
     },
     {
       "anonymous_recording_slot": 6,
+      "native_key_is_null": true,
       "all_frames": 1318,
       "night_frames": 1318,
       "native_nonignored_pedestrian_annotations": 1341,
+      "distinct_native_tracking_values": 46,
+      "height50_not_occluded_annotations": 872,
+      "height50_not_occluded_tracking_values": 36,
       "night_frames_without_native_nonignored_pedestrians": 484
     }
   ],
   "limits": [
+    "Null recording keys are an unkeyed bucket, never a sixth recording or a sequence vote.",
     "Recording keys are observed units, not independently verified trips/scenes.",
+    "Distinct native tracking values are not verified unique people; null-key values may span multiple unidentified sequences.",
     "Native nonignored pedestrian counts are not a frozen evaluation eligibility policy.",
     "Box extent/visibility/ignore semantics require publisher evidence; coordinates alone do not establish them.",
     "No RGB, image archive/index, detector output, converter or external protocol was acquired or executed."
