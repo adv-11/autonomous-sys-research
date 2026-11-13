@@ -134,3 +134,9 @@ No images, image-archive/index, GPU work or detector inference occurred. A separ
 ### Annotation review correction
 
 The earlier six-value inventory included a null recording key. Independent Opus review caught this; the corrected inventory reports five known recording keys plus1,318null-key frames, with unchanged frame/box totals. The corrected policy decision keeps unkeyed frames pooled but excludes them from sequence voting; it excludes dusk, preserves the five-key floor, fixes GT and ignore/rider policies, and reports tracking-value support. No image or GPU authorization follows. See `docs/decisions/2026-11-13_nightowls_external_policy.md` and the annotation review's coordinator disposition.
+
+### 2026-11-13 adapter independently approved; image access remains proposed
+
+Opus review `7b4e915` approves the minimal adapter with no code changes. Its independent full-file restatement matches every record and group mapping, both private output hashes and all six meaningful synthetic tests. The proposed image-access pilot has no blocker; the coordinator added its exact selection formula/tie-break, defined stable partial-response identity, named the private destination and corrected spacing. The64-image selection and hash are unchanged.
+
+GitHub also confirms PR10 merged at `4f9dda95598d84dd6ffd7ca891a4c8c337313fce`, with both CI jobs successful. This branch is updated against that merge; documented merge conflicts preserve the later null-key correction, licence update and appended history without changing experimental results. G0 remains pending. My existing authorization still covers annotations only; no image endpoint, image archive/index, GPU or Colab operation follows from AI review or PR integration. A separate explicit decision is required for the bounded image-access pilot.

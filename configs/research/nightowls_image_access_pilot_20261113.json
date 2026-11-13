@@ -5,7 +5,7 @@
   "source_annotations_sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
   "private_manifest_sha256": "4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a",
   "selection_seed": "nightowls-image-access-pilot-2026-11-13-v1",
-  "selection_rule": "10 lowest image-ID SHA256 ranks per known recording key plus14 for null bucket; night only; no GT/model use",
+  "selection_rule": "Within each native recording bucket, sort ascending by (SHA256(UTF-8(selection_seed + \":\" + str(native_integer_image_id))).hexdigest(), native_integer_image_id); take 10 from each non-null key and 14 from the null bucket; night only; no GT/model use",
   "selected_images": 64,
   "known_recording_keys": 5,
   "images_per_known_key": 10,
@@ -20,18 +20,26 @@
     "max_transient_retry_attempts": 0
   },
   "transport": {
-    "required": "HTTPS, verified partial-range206/Content-Range and stable server identity",
+    "required": "For each archive GET, require status206 and Content-Range matching the requested bytes and a fixed total size; otherwise stop before reading its body. Every body byte read, including failures, counts toward the cap.",
     "full_archive_fallback": false,
-    "new_packages_or_framework": false
+    "new_packages_or_framework": false,
+    "stable_identity": "Pin the numeric total size from the first206; every partial response must report that total. Pin ETag/Last-Modified when supplied; a changed value stops the run before reading its body."
   },
   "checks": [
     "Exact selected member mapping or stop; no substituted frames",
     "Native PNG decode and annotation dimensions",
     "Byte/time cap includes failed response bodies; private files only"
   ],
-  "exclusions": "All64 planned pilot image paths excluded from later quantitative image pool regardless of retrieval success; no head outputs or target tuning",
+  "exclusions": "All 64 planned pilot image paths excluded from later quantitative image pool regardless of retrieval success; no head outputs or target tuning",
   "stop": "Stop at completion, first transport/identity/CRC/decode failure, or cap; preserve partial evidence without an upload/repair loop",
   "licence": "Accepted for research, citation required, no redistribution; images need separate explicit authorization",
   "G0": "PENDING",
-  "selection_uses_GT_annotations_or_predictions": false
+  "selection_uses_GT_annotations_or_predictions": false,
+  "private_storage": {
+    "root": "data/nightowls/image_access_pilot/2026-11-13",
+    "images": "images/",
+    "logs": "logs/",
+    "archive_index": "archive_index/",
+    "gitignored": true
+  }
 }

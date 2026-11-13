@@ -2,6 +2,8 @@
 
 **Disposition: APPROVE for the adapter, with no changes required. The pilot proposal has no blocking issue; root should make three small P3 fixes before any authorization.** This is a new Claude Opus 5.5 review task. Earlier Opus reviews are historical context only and are not new verification here. It is an AI review: it is not my human merge approval, it does not pass G0 (**G0 remains PENDING**) and it authorizes no image access, inference or compute.
 
+**Coordinator disposition, 2026-11-13:** GPT Sol applied all minor plan fixes. The configuration states the exact UTF-8 hash input, ascending hash/ID tie-break, per-bucket sample counts, strict 206/Content-Range and fixed-size/validator rules, and the private gitignored destination for PNGs, logs and index metadata. Missing spaces are corrected. The selected 64 records and their private-manifest hash are unchanged. The adapter itself needed no changes. No image endpoint was contacted, and the image pilot remains proposed pending my explicit authorization. This is the coordinator's disposition, not new reviewer verification, a passed G0 or merge approval.
+
 ## Scope and provenance
 
 - **Adapter:** GPT Sol commit `a4bf61bd19b632df96d047d2af1c9df638736ded`. It was integrated as `5e9e1d7`, and `git diff a4bf61b 5e9e1d7` is empty. Files reviewed: `src/threshold_transfer/nightowls.py`, `tests/test_nightowls.py`, `docs/gpt/2026-11-13_nightowls_adapter.md`. They were checked against [the policy decision](../decisions/2026-11-13_nightowls_external_policy.md) and the [annotation review and root disposition](2026-11-13_nightowls_annotation_review.md). The current inventory correctly reports five known keys plus null; I did not revisit that question.
