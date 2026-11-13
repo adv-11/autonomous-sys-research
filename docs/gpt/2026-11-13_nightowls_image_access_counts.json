@@ -1,0 +1,70 @@
+{
+  "researcher": "GPT Sol sole operator",
+  "status": "STOPPED_OPERATOR_WATCHDOG_UNVERIFIED",
+  "G0": "PENDING",
+  "planned_permanent_exclusions": 64,
+  "completed_images": 0,
+  "requests_reserved": 2,
+  "requests_completed": 1,
+  "requests_interrupted": 1,
+  "accepted_range_identity_responses": 2,
+  "http_body_bytes": {
+    "durably_confirmed_lower_bound": 3997717,
+    "conservative_charged_upper_bound": 7432416,
+    "cap": 150000000,
+    "exact_consumption_known": false
+  },
+  "index_body_bytes": {
+    "durably_confirmed_lower_bound": 3997717,
+    "conservative_charged_upper_bound": 7432416,
+    "cap": 16000000
+  },
+  "complete_index_ranges": 1,
+  "complete_index_bytes": 65557,
+  "mapping_validated_images": 0,
+  "zip_crc_passed_images": 0,
+  "pillow_verify_passed_images": 0,
+  "pillow_load_passed_images": 0,
+  "archive_identity": {
+    "total": 57481286834,
+    "ETag": "\"5ce813b8-d6226d4b2\"",
+    "Last-Modified": "Fri, 24 May 2019 15:54:32 GMT"
+  },
+  "started_utc": "2026-11-13T19:43:31.373845+00:00",
+  "ended_utc": "2026-11-13T19:44:06.286987+00:00",
+  "controller_wall_seconds": 34.913142,
+  "worker_cpu_seconds": null,
+  "absolute_stop_utc": "2026-11-13T20:09:00Z",
+  "actual_http_worker_exit_verified": true,
+  "live_pilot_processes_after_stop": 0,
+  "stop_reason": "Operator stopped actual HTTP worker after observing a separate Windows venv-launcher PID; watchdog termination of the process tree was unverified. No proven launcher-termination failure or transport failure. No restart.",
+  "synthetic_checks": {
+    "network_requests": 0,
+    "passed": [
+      "non206",
+      "mismatched_range",
+      "missing_range",
+      "identity_change",
+      "total_change",
+      "total_cap",
+      "index_cap"
+    ]
+  },
+  "gpu_operations": 0,
+  "colab_sessions": 0,
+  "inference_calls": 0,
+  "package_installs": 0,
+  "retry_attempts": 0,
+  "paid_compute": false,
+  "full_archive_fallback": false,
+  "source_selection_sha256": "4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a",
+  "source_annotations_sha256": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
+  "artifact_sha256": {
+    "executed_utility": "22e30ab6d4cc890e02e8243e4adbb74f414743352d3cbc1047c35dd67554cae2",
+    "private_request_log": "e9e544c48a5791f7340de089cb37e840a57e9f0de84c5d120d70dfbf1c0db20c",
+    "private_worker_checkpoint_at_stop": "d05a77ae3ae22190a70e296b8442d7ab2fd130513e49464e3484e8d40afbe0dd",
+    "private_original_controller": "9e5311f8fcb56d053bf758a8ceeacb8539070def2cb7935fecd31cd4f0acb540",
+    "private_operator_stop": "8289970788e5963e5727e1a9fd43a7c6de4d519d34bd9f95149e3e3e73be82ef",
+    "private_complete_index_tail": "f3fa91cfd392ccdd3e2f2dc625392d5a514a4e1cd37f759e637026f927eb1277"
+  }
+}
