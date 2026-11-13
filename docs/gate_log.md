@@ -80,3 +80,16 @@
 
 - GPT (`gpt-6.1-sol`) reviewed both contributions after Codex usage returned: accept with fixes, with 0 P1, 1 P2 and 2 P3 findings. It independently recomputed every grouping count and hash from the full image tree, and checked the smoke values against retained logs and pinned source code. The coordinator fixed all three findings; see the [resolution](reviews/2026-11-08_grouping_smoke_resolution.md).
 - The ACDC verdict is now *insufficient support for confirmatory ~5 pp precision*, a conservative design decision rather than a proved impossibility. My decision on the source-only descriptive panel and the exploratory cross-fitting alternative is still required. G0 remains pending.
+
+## 2026-11-09 — PR #7 merged; research decisions delegated
+
+- GitHub records PR #7 merged at `026c57c041ce843c70cd6436c4230e7a1ace0608`. I authorized the coordinator to make its open research decisions and continue with GPT/Claude tasks, emphasizing deep reasoning, ablations and a novel direction.
+- The [decision record](decisions/2026-11-09_research_direction.md) adopts descriptive ACDC, exploratory adaptation only, known dependency links, native geometry plus a clipping sensitivity, and successful-update budgets. It prespecifies candidate-policy factors and separates a possible normal-reference bridge from the blocked BDD primary study.
+- The next tasks must produce a falsifiable, source-audited research program and a bounded development pilot, not another infrastructure milestone. Novelty and selection-completeness certificates remain hypotheses to audit. G0 remains pending; ACDC/BDD detector evaluation and full training are not started by these tasks.
+
+### Cross-reviewed design and dependency findings
+
+- GPT narrowed the contribution to a falsifiable mechanism audit; a cap effect or elementary certificate alone is not novel. Claude's formal review and the coordinator resolution predeclare the algebraic null, separate source threshold movement from direct target candidate changes, and correct validation/support counts. Twelve staged ablation axes are proposals, not an authorized Cartesian sweep.
+- Claude's reference audit found ten visually judged same/near-capture links crossing old roles. The proposed closure excludes 794 labelled adverse images and leaves 12 eligible labelled closures; the declared complete four-condition calibrated bridge is unsupported. One fog outer cell has no human GT, and night lacks separate inner groups. The remaining 31 flags and grouping interpretation are unresolved. No alternate allocation was searched to rescue the result.
+- GPT's separate review supported the CPU audit but rejected capture readiness. The coordinator disables unsafe/unverified runtime paths and documents deferred safeguards on the Claude branch; no GPU query or detector run follows. Current work remains CPU-only while my unrelated training uses the GPU. I will coordinate an overnight slot before a research training run.
+- Both formal reviews and their dispositions are retained. These are design, dependency and synthetic implementation findings; **G0 remains pending**, BDD Detection 2020 access remains blocked, and no ACDC/BDD performance or empirical threshold feasibility is claimed. My explicit approval still governs each sequential merge.

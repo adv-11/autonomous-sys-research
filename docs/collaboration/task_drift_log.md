@@ -40,3 +40,42 @@ I want periodic checks for drift, unsupported claims, excessive scope and stalle
 ### After GPT cross-review (2026-11-08)
 
 **Scope check: on course.** One formal GPT review, run once Codex usage returned; no re-review loop. The review found an overstated statistical claim (F1) and two documentation errors, not fabricated results. The coordinator fixed them directly and regenerated the grouping summary once, because its verdict logic changed; all other counts reproduced. No detector, GPU or new acquisition work was added.
+
+## 2026-11-09 — Novelty milestone intervention
+
+**Finding: productive narrowing, with an access-loop risk.** The active GPT research task found close prior coverage of threshold-aware calibration, cross-class ranking/candidate limits and clean-threshold transfer. A prefix certificate or a cap effect alone is not a defensible novelty claim. Its newly identified tracking-calibration prior has verified identity but incomplete method access; the agent explicitly retained that limit.
+
+**Prompt sent:** the coordinator directed GPT to make the falsifiable mechanism audit the contribution hypothesis, keep the certificate as a supporting control, stop repeated blocked-publisher retries, and finish the exact fold design, prioritized ablation configuration and counterexamples. The original BDD question and unseen ACDC/BDD detector outcomes remain protected. No new scope, GPU run or review task was added.
+
+**Response/outcome:** the corrective prompt was delivered to the active task. Final artifacts and the agent's disposition are pending; no completed redirection or novelty is inferred from delivery alone. The coordinator verified the two older papers' identities and abstract-level findings, rather than claiming an independent full-method audit. Next checkpoint: the committed design and the pilot's concrete metadata must agree on native selection semantics.
+
+### Dependency premise invalidated; GPU work blocked
+
+**Evidence received:** GPT relayed Claude's actual finding of ten visually judged reference pairs crossing v1 roles, with a 24-to-15 component sensitivity and 31 unreviewed component pairs. The agent revised its design premise rather than executing a knowingly incomplete exclusion rule. The separate GPU pilot is blocked by unrelated user training; this is a resource constraint, not evidence of an agent performance loop.
+
+**Corrective prompts delivered to both active tasks:** hold bridge execution; preserve v1; let Claude produce one confirmed-reference closure and GPT regenerate conditional fold support. Exclude whole closures touching original descriptive-only components, retain the 449-image exclusion, label earlier fold counts as upper estimates and stop seed/role rescue. A bounded all-flagged-edge sensitivity may expose uncertainty, without pretending the flags are confirmed. Do not expand the visual audit or run ACDC/BDD detectors.
+
+**Resource intervention:** Claude was instructed to leave the user's training untouched, stop GPU waiting/retries and finish only CPU artifacts, tests and a clearly blocked pilot record. No new delegate was created. Both prompts were delivered; final artifacts and demonstrated outcomes remain pending. Next checkpoint is whether closures leave a scientifically useful bridge at all, not whether more infrastructure can be added.
+
+### One regeneration reaches the design's stop condition
+
+**Outcome reported by GPT:** its single CPU feasibility regeneration took 0.59 seconds and exactly matched Claude's closure/ledger mapping and hashes, with v1 unchanged. The proposed confirmed-link closure fails to support the complete four-condition calibrated bridge under the declared inner-group rule; the all-flagged sensitivity supports no fold. Raw-arm structural support and empirical threshold feasibility are separate, and must not be conflated with calibration-arm failure.
+
+**Prompt delivered:** the coordinator stopped further graph/allocation regeneration, visual expansion and seed rescue, and requested a committed negative feasibility result with arm-specific statuses and supporting provenance. This is a disconfirmed design premise, not an instruction to optimize until something works. The full four-condition bridge stays on hold, GPU work stays blocked, and no training is ready to queue. Final artifacts and formal review remain outstanding; the coordinator has not independently re-audited the visual judgments or regenerated the graph again.
+
+### GPT design completed
+
+GPT committed three assigned files in `14eacfa`: the research program, source/novelty audit and 12-axis ablation matrix. The final text adopts the corrective prompts: no standalone cap/certificate novelty, no further blocked-publisher retries, one closure regeneration only, explicit night/fog arm failures and no bridge execution or GPU job. It preserves incomplete source access and records actual peer exchanges. This demonstrates the intended narrowing and stop behavior rather than mere prompt delivery.
+
+The coordinator integrated the same patch and checked the matrix and local links. The claimed synthetic case counts and source interpretations still need the separate Claude formal review; they are not accepted solely because the agent reported them. No additional design variant or implementation task is commissioned.
+
+### Final cross-reviews and publication boundary
+
+**Overall: amber, corrected or held.** Both independent tasks and both separate formal reviews are complete. Actual peer exchanges are preserved. No active task is stalled; no replacement or incremental optimization task is needed.
+
+- **GPT scientific claims:** Claude found an algebraic null that made part of the proposed policy effect self-confirming, a zero-GT fog cell, overstated synthetic validation and an unreliable prior identity. The coordinator [resolved these directly](../reviews/2026-11-09_gpt_research_program_resolution.md): separate source reselection from direct target effects, predeclare null/stop rules, correct support and assertion counts, and lower the uncertain source's evidential weight. A bounded counterexample prevents overextending the null to target-only certification. No new graph, seed search or detector experiment followed.
+- **Claude runtime readiness:** GPT reproduced the CPU audit counts but found undeclared dependencies, unrelated workload details, fail-open GPU parsing and unverified capture/identity/evidence safeguards. The [resolution on the Claude branch](https://github.com/adv-11/autonomous-sys-research/blob/claude-research/docs/reviews/2026-11-09_claude_dependency_pilot_resolution.md) declares CI dependencies, removes unrelated workload details, tests conservative parsing and disables capture, grid approval and audit reprocessing before resource access. Remaining runtime defects are deferred behind those holds, not reported as repaired. The combined revised branch passes 181 CPU tests in the existing Python 3.12 environment; clean CI remains to be observed.
+
+**Assessment:** concrete overclaims and readiness defects were caught before publication/use; there is no evidence of invented detector results. Earlier corrective prompts achieved bounded completion. Because the tasks are finished, the coordinator made small corrections and enforced holds directly rather than manufacturing another peer exchange or review loop.
+
+**Next milestone:** sequential publication and my review, then a scientifically feasible source-data/experiment decision. The four-condition bridge and GPU pilot remain on hold. Runtime repair is a future scoped task; training needs prior overnight coordination. No further parser, source-access, allocation or performance loop is commissioned.
