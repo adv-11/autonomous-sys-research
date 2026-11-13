@@ -114,3 +114,7 @@ My current instruction permits Claude Opus to catch up and work alongside GPT So
 GitHub records PR8 merged at `a38a202df8224794f41936cd30c1e14dd4d74329`. I asked the work to continue and permitted Claude Opus alongside GPT Sol. The coordinator updated this legacy dependency-audit branch against the merged main without content conflicts. Its separate GPT review and resolution remain the publication evidence; the 181-test suite passes on the existing Python 3.12 environment after integration.
 
 This branch publishes historical CPU dependency findings and an explicitly disabled GPU prototype. It does not claim fresh detector inference or restart the unsupported bridge. Later reviewed Colab results remain on the separate `gpt-colab-research` branch for sequential publication. G0 remains pending; my explicit approval is required for the next merge.
+
+### PR9 merged; empirical integration publication next
+
+I merged PR9 at `18a50bf89075644dadc0a3ae64c642011924ec78`. The coordinator updated the Colab research branch against main, preserving both sides of the gate-log append conflict. No experimental code or numerical result changed during that merge. A focused separate Sol publication-integration review covers the current diff and remaining unreviewed archival notes before the next PR opens. Existing independent empirical reviews are reused; no GPU rerun follows. Opus and Sol continue their assigned research/data tasks without a new allocation. G0 remains pending.

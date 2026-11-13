@@ -22,7 +22,11 @@ I'm using two research subagents, GPT and Claude, to investigate independently a
 
 ## Status
 
-The reference evaluator is implemented with a standard-library core, strict input/provenance checks and synthetic regression tests. Start with [the usage guide](docs/evaluator_usage.md), [the implementation and direct peer exchange](docs/gpt/tooling_implementation.md), and [the existing local-asset inventory](docs/local_assets.md). Data/cache adapters are developed on the separate Claude research branch.
+The reference evaluator and data/cache adapters are implemented, with a standard-library core, strict input/provenance checks and synthetic regression tests. Start with [the usage guide](docs/evaluator_usage.md), [the implementation and direct peer exchange](docs/gpt/tooling_implementation.md), and [the existing local-asset inventory](docs/local_assets.md).
+
+**Latest empirical checkpoint:** GPT Sol ran real frozen-model Colab experiments on explicit COCO/ACDC development panels. Independent Sol review reproduced the four-cell YOLO26 head/postprocessing result: night operating differences persist under common selection bundles, while candidate-ceiling counts become much closer. Large false-positive costs, dependent scenes and source-selection limits remain. This is a mechanism finding, not a new method or a passed G0 gate. See the [compact checkpoint](docs/research/2026-11-13_checkpoint.md), [research report](docs/gpt/2026-11-13_sol_head_policy_mechanism.md) and [independent review](docs/reviews/2026-11-13_head_policy_review.md).
+
+![Measured head and native-postprocessing factorial](docs/gpt/2026-11-13_sol_head_policy_factorial.png)
 
 ```powershell
 $env:PYTHONPATH = 'src'
@@ -34,12 +38,12 @@ uv run --no-project --python 3.11 python -m threshold_transfer.evaluate --help
 
 Phase 0 source audits and the GPT–Claude discussion are complete. My review starts with the [GPT research summary](docs/gpt/research_summary.md), its [protocol](docs/gpt/protocol.md) and [review resolution](docs/gpt/review_resolution.md). Claude's independently prepared audit, reply and cross-review are available on the [separate Claude research branch](https://github.com/adv-11/autonomous-sys-research/tree/claude-research/docs/claude).
 
-The proposed design separates calibration fitting, threshold selection and held-out testing; distinguishes candidate-ceiling failures from threshold-related misses; and treats architecture comparisons as comparisons of complete pipelines. The diagrams explain proposed choices, not measured results.
+The proposed design separates calibration fitting, threshold selection and held-out testing; distinguishes candidate-ceiling failures from threshold-related misses; and treats architecture comparisons as comparisons of complete pipelines. Conceptual diagrams explain proposed choices; measured figures are labelled separately.
 
 ![Conceptual detector architectures and score-selection pathways](docs/gpt/figures/model_score_paths.svg)
 
 ACDC's seven official archives are downloaded, verified and extracted. BDD image, legacy-label and Info candidates are downloaded, with release/checksum discrepancies; revised Detection 2020 JSON remains unacquired through the checked routes. See [the acquisition record](docs/data_acquisition.md) and [review resolution](docs/reviews/2026-11-06_bdd_acquisition_resolution.md).
 
-Mechanical GPU smoke tests on COCO are recorded in the reviewed feasibility note; no ACDC/BDD detector performance has been measured. The new KITTI capture prototype is disabled pending review fixes and a coordinated GPU window. G0 remains pending: verified BDD releases, annotation/group policy and driving-model feasibility. See [the gate log](docs/gate_log.md), [workflow](CONTRIBUTING.md) and [task-drift reports](docs/collaboration/task_drift_log.md).
+Mechanical GPU smoke tests on COCO are recorded in the reviewed feasibility note. Later Colab experiments measured ACDC performance on development panels; the original BDD primary study remains blocked. Expanded ACDC train inference was not completed after repeated transfer failures, and the KITTI capture prototype remains disabled. G0 is pending: the primary scope, trustworthy BDD labels or an explicitly revised study, annotation/group policies and suitable independent target evidence remain unresolved. See [the gate log](docs/gate_log.md), [workflow](CONTRIBUTING.md) and [task-drift reports](docs/collaboration/task_drift_log.md).
 
 For the complete CPU regression suite, install the declared audit extra in an isolated test environment (`python -m pip install ".[audit]"`), set `PYTHONPATH=src`, then run `python -m unittest discover -s tests`. CI does this on Python 3.11/3.12. Existing research environments remain unchanged.
