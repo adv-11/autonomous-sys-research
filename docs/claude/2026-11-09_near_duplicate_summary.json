@@ -1,0 +1,1214 @@
+{
+ "author": "Claude (Opus 5.5), 2026-11-09, base 9794d81; not GPT-reviewed",
+ "component_sensitivities": {
+  "mechanical_all_cross_component_flags_le_0": {
+   "components": 20,
+   "components_by_condition": {
+    "fog": 6,
+    "night": 6,
+    "rain": 5,
+    "snow": 8
+   },
+   "components_spanning_conditions": 4,
+   "labelled_adverse_components_by_condition": {
+    "fog": 6,
+    "night": 3,
+    "rain": 4,
+    "snow": 6
+   },
+   "merges_applied": 4
+  },
+  "mechanical_all_cross_component_flags_le_2": {
+   "components": 17,
+   "components_by_condition": {
+    "fog": 4,
+    "night": 5,
+    "rain": 5,
+    "snow": 6
+   },
+   "components_spanning_conditions": 2,
+   "labelled_adverse_components_by_condition": {
+    "fog": 4,
+    "night": 3,
+    "rain": 4,
+    "snow": 5
+   },
+   "merges_applied": 7
+  },
+  "mechanical_all_cross_component_flags_le_4": {
+   "components": 15,
+   "components_by_condition": {
+    "fog": 4,
+    "night": 4,
+    "rain": 5,
+    "snow": 6
+   },
+   "components_spanning_conditions": 2,
+   "labelled_adverse_components_by_condition": {
+    "fog": 4,
+    "night": 3,
+    "rain": 4,
+    "snow": 5
+   },
+   "merges_applied": 9
+  },
+  "mechanical_all_cross_component_flags_le_8": {
+   "components": 3,
+   "components_by_condition": {
+    "fog": 2,
+    "night": 1,
+    "rain": 1,
+    "snow": 2
+   },
+   "components_spanning_conditions": 1,
+   "labelled_adverse_components_by_condition": {
+    "fog": 2,
+    "night": 1,
+    "rain": 1,
+    "snow": 2
+   },
+   "merges_applied": 21
+  },
+  "plus_confirmed": {
+   "components": 13,
+   "components_by_condition": {
+    "fog": 5,
+    "night": 3,
+    "rain": 4,
+    "snow": 5
+   },
+   "components_spanning_conditions": 2,
+   "labelled_adverse_components_by_condition": {
+    "fog": 5,
+    "night": 3,
+    "rain": 3,
+    "snow": 5
+   },
+   "merges_applied": 11
+  },
+  "plus_confirmed_and_uncertain": {
+   "components": 11,
+   "components_by_condition": {
+    "fog": 5,
+    "night": 2,
+    "rain": 3,
+    "snow": 4
+   },
+   "components_spanning_conditions": 1,
+   "labelled_adverse_components_by_condition": {
+    "fog": 5,
+    "night": 2,
+    "rain": 3,
+    "snow": 4
+   },
+   "merges_applied": 13
+  },
+  "plus_confirmed_same_capture": {
+   "components": 15,
+   "components_by_condition": {
+    "fog": 5,
+    "night": 4,
+    "rain": 5,
+    "snow": 6
+   },
+   "components_spanning_conditions": 3,
+   "labelled_adverse_components_by_condition": {
+    "fog": 5,
+    "night": 3,
+    "rain": 4,
+    "snow": 5
+   },
+   "merges_applied": 9
+  },
+  "primary_acdc_recording_v1": {
+   "components": 24,
+   "components_by_condition": {
+    "fog": 6,
+    "night": 7,
+    "rain": 5,
+    "snow": 8
+   },
+   "components_spanning_conditions": 2,
+   "labelled_adverse_components_by_condition": {
+    "fog": 6,
+    "night": 4,
+    "rain": 4,
+    "snow": 6
+   },
+   "merges_applied": 0
+  }
+ },
+ "flags_by_threshold": {
+  "0": {
+   "component_pairs": {
+    "cross_condition": 4
+   },
+   "distinct_cross_component_pairs": 4,
+   "image_pairs": {
+    "cross_condition": 5,
+    "within_component": 55
+   }
+  },
+  "2": {
+   "component_pairs": {
+    "cross_component_same_condition": 1,
+    "cross_condition": 6
+   },
+   "distinct_cross_component_pairs": 7,
+   "image_pairs": {
+    "cross_component_same_condition": 1,
+    "cross_condition": 11,
+    "within_component": 61
+   }
+  },
+  "4": {
+   "component_pairs": {
+    "cross_component_same_condition": 1,
+    "cross_condition": 8
+   },
+   "distinct_cross_component_pairs": 9,
+   "image_pairs": {
+    "cross_component_same_condition": 5,
+    "cross_condition": 21,
+    "within_component": 71
+   }
+  },
+  "8": {
+   "component_pairs": {
+    "cross_component_same_condition": 20,
+    "cross_condition": 46
+   },
+   "distinct_cross_component_pairs": 61,
+   "image_pairs": {
+    "cross_component_same_condition": 63,
+    "cross_condition": 153,
+    "within_component": 136
+   }
+  }
+ },
+ "group_manifest_sha256_verified": "04c6a0ad1a805d666a09f5a24d4634b1ba248858749ccaa3e60f4249e794fcf3",
+ "inputs_checked": {
+  "byte_mismatches": 0,
+  "references": 4006
+ },
+ "interpretation_limits": [
+  "Perceptual similarity is a screening flag; visual agreement shows a similar place, not the same recording, day or trip.",
+  "pHash on 32x32 grayscale misses same-drive frames whose viewpoint changed; absence of a flag does not show independence.",
+  "Mechanical flag sensitivities merge every flagged component pair, including unreviewed and rejected ones; they are upper-bound stress tests, not policies."
+ ],
+ "phash_distance_histograms_all_pairs": {
+  "cross_component_same_condition": [
+   0,
+   0,
+   1,
+   0,
+   4,
+   0,
+   8,
+   0,
+   50,
+   0,
+   246,
+   0,
+   1032,
+   0,
+   3614,
+   0,
+   10767,
+   0,
+   26009,
+   0,
+   54061,
+   0,
+   97305,
+   0,
+   153614,
+   0,
+   210807,
+   0,
+   249525,
+   0,
+   251575,
+   0,
+   212993,
+   0,
+   149967,
+   0,
+   86119,
+   0,
+   40818,
+   0,
+   15363,
+   0,
+   4580,
+   0,
+   1168,
+   0,
+   229,
+   0,
+   53,
+   0,
+   8,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "cross_condition": [
+   5,
+   0,
+   6,
+   0,
+   10,
+   0,
+   27,
+   0,
+   105,
+   0,
+   448,
+   0,
+   2069,
+   0,
+   7523,
+   0,
+   24123,
+   0,
+   64152,
+   0,
+   148215,
+   0,
+   293501,
+   0,
+   506328,
+   0,
+   751499,
+   0,
+   950113,
+   0,
+   1010221,
+   0,
+   890896,
+   0,
+   641756,
+   0,
+   373604,
+   0,
+   174039,
+   0,
+   64711,
+   0,
+   19291,
+   0,
+   4675,
+   0,
+   840,
+   0,
+   138,
+   0,
+   21,
+   0,
+   2,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "within_component": [
+   55,
+   0,
+   6,
+   0,
+   10,
+   0,
+   13,
+   0,
+   52,
+   0,
+   228,
+   0,
+   747,
+   0,
+   2343,
+   0,
+   5760,
+   0,
+   12798,
+   0,
+   24606,
+   0,
+   40999,
+   0,
+   60149,
+   0,
+   76040,
+   0,
+   83139,
+   0,
+   77658,
+   0,
+   61387,
+   0,
+   40009,
+   0,
+   22247,
+   0,
+   10093,
+   0,
+   3804,
+   0,
+   1245,
+   0,
+   297,
+   0,
+   83,
+   0,
+   12,
+   0,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ "population": "all 4,006 normal-condition reference images (paths containing a *_ref split)",
+ "positive_controls": {
+  "adjacent_same_chapter_distinct_bytes_phash_distance_histogram": {
+   "0": 32,
+   "10": 44,
+   "12": 56,
+   "14": 137,
+   "16": 218,
+   "18": 306,
+   "2": 3,
+   "20": 409,
+   "22": 478,
+   "24": 495,
+   "26": 477,
+   "28": 416,
+   "30": 344,
+   "32": 236,
+   "34": 140,
+   "36": 71,
+   "38": 31,
+   "4": 6,
+   "40": 10,
+   "42": 2,
+   "44": 1,
+   "6": 7,
+   "8": 16
+  },
+  "adjacent_same_chapter_pairs": 3935,
+  "byte_identical_reference_star_comparisons_phash_distance": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ "reference_closure_v2": {
+  "definition": "acdc-recording-v1 components plus the visually confirmed same-capture links (transient objects coincide); content-addressed closure IDs (prefix + SHA-256 of sorted member paths); every closure touching an originally descriptive_only v1 component is excluded whole. Proposed sensitivity only: no roles, seeds or folds.",
+  "ledger_status_counts": {
+   "confirmed_same_capture": 10,
+   "confirmed_same_place_other_pass": 2,
+   "rejected_different_place": 15,
+   "uncertain": 3,
+   "unreviewed": 31
+  },
+  "pessimistic_note": "Treats every uncertain, same-place-other-pass and unreviewed flagged component pair as a link; a support limit, not a confirmed merge.",
+  "private_edge_ledger_sha256": "17b5e7e603934551bd1949f1212de700e9da57049b1bcf8b95c51f4b78224184",
+  "private_manifest_sha256": "36e11e40c80093e11c3f0f24755a154ecb07ff598a8871b3e913fab24d126da1",
+  "support": {
+   "v1_primary_same_exclusion": {
+    "by_condition": {
+     "fog": {
+      "closure_sizes_desc": [
+       164,
+       142,
+       91,
+       29,
+       7
+      ],
+      "eligible_closures_with_labelled_adverse": 5,
+      "eligible_labelled_adverse_images": 433,
+      "largest_closure_share": 0.3788
+     },
+     "night": {
+      "closure_sizes_desc": [
+       203,
+       104,
+       50
+      ],
+      "eligible_closures_with_labelled_adverse": 3,
+      "eligible_labelled_adverse_images": 357,
+      "largest_closure_share": 0.5686
+     },
+     "rain": {
+      "closure_sizes_desc": [
+       258,
+       221,
+       13,
+       8
+      ],
+      "eligible_closures_with_labelled_adverse": 4,
+      "eligible_labelled_adverse_images": 500,
+      "largest_closure_share": 0.516
+     },
+     "snow": {
+      "closure_sizes_desc": [
+       140,
+       70,
+       54,
+       3
+      ],
+      "eligible_closures_with_labelled_adverse": 4,
+      "eligible_labelled_adverse_images": 267,
+      "largest_closure_share": 0.5243
+     }
+    },
+    "closures": 24,
+    "excluded_closures": 2,
+    "labelled_adverse_images_excluded": 449,
+    "links": 0
+   },
+   "v2_confirmed_same_capture": {
+    "by_condition": {
+     "fog": {
+      "closure_sizes_desc": [
+       164,
+       91,
+       29,
+       7
+      ],
+      "eligible_closures_with_labelled_adverse": 4,
+      "eligible_labelled_adverse_images": 291,
+      "largest_closure_share": 0.5636
+     },
+     "night": {
+      "closure_sizes_desc": [
+       104,
+       50
+      ],
+      "eligible_closures_with_labelled_adverse": 2,
+      "eligible_labelled_adverse_images": 154,
+      "largest_closure_share": 0.6753
+     },
+     "rain": {
+      "closure_sizes_desc": [
+       258,
+       221,
+       13,
+       8
+      ],
+      "eligible_closures_with_labelled_adverse": 4,
+      "eligible_labelled_adverse_images": 500,
+      "largest_closure_share": 0.516
+     },
+     "snow": {
+      "closure_sizes_desc": [
+       140,
+       70,
+       54,
+       3
+      ],
+      "eligible_closures_with_labelled_adverse": 4,
+      "eligible_labelled_adverse_images": 267,
+      "largest_closure_share": 0.5243
+     }
+    },
+    "closures": 15,
+    "excluded_closures": 1,
+    "labelled_adverse_images_excluded": 794,
+    "links": 10
+   },
+   "v2_pessimistic_all_nonrejected_flags": {
+    "by_condition": {
+     "fog": {
+      "closure_sizes_desc": [
+       7
+      ],
+      "eligible_closures_with_labelled_adverse": 1,
+      "eligible_labelled_adverse_images": 7,
+      "largest_closure_share": 1.0
+     },
+     "night": {
+      "closure_sizes_desc": [],
+      "eligible_closures_with_labelled_adverse": 0,
+      "eligible_labelled_adverse_images": 0,
+      "largest_closure_share": null
+     },
+     "rain": {
+      "closure_sizes_desc": [
+       258
+      ],
+      "eligible_closures_with_labelled_adverse": 1,
+      "eligible_labelled_adverse_images": 258,
+      "largest_closure_share": 1.0
+     },
+     "snow": {
+      "closure_sizes_desc": [
+       3
+      ],
+      "eligible_closures_with_labelled_adverse": 1,
+      "eligible_labelled_adverse_images": 3,
+      "largest_closure_share": 1.0
+     }
+    },
+    "closures": 4,
+    "excluded_closures": 1,
+    "labelled_adverse_images_excluded": 1738,
+    "links": 46
+   }
+  }
+ },
+ "representation": {
+  "input_check": "raw-byte SHA-256 and size of each decoded reference compared against the manifest (the bytes are read once for decoding; no separate 8,012-file hash pass)",
+  "primary": "64-bit pHash: PIL grayscale (L), LANCZOS resize to 32x32, orthonormal 2-D DCT-II, top-left 8x8 block, bit = coefficient > median of those 64 coefficients (DC included)",
+  "secondary": "64-bit dHash: PIL grayscale, LANCZOS resize to 9 wide x 8 high, bit = right pixel > left pixel; recorded for every flagged pair, never used to add flags"
+ },
+ "status": "dependency audit proposal; no primary component merged; G0 pending",
+ "thresholds": [
+  0,
+  2,
+  4,
+  8
+ ],
+ "unreviewed_component_pairs": {
+  "by_category": {
+   "cross_component_same_condition": 16,
+   "cross_condition": 15,
+   "within_component": 0
+  },
+  "closest": [
+   {
+    "category": "cross_component_same_condition",
+    "dhash_distance": 7,
+    "image_pairs_in_component_pair": 25,
+    "phash_distance": 2,
+    "rank": 46
+   },
+   {
+    "category": "cross_component_same_condition",
+    "dhash_distance": 14,
+    "image_pairs_in_component_pair": 1,
+    "phash_distance": 6,
+    "rank": 47
+   },
+   {
+    "category": "cross_component_same_condition",
+    "dhash_distance": 19,
+    "image_pairs_in_component_pair": 2,
+    "phash_distance": 6,
+    "rank": 48
+   },
+   {
+    "category": "cross_component_same_condition",
+    "dhash_distance": 22,
+    "image_pairs_in_component_pair": 1,
+    "phash_distance": 6,
+    "rank": 49
+   },
+   {
+    "category": "cross_component_same_condition",
+    "dhash_distance": 23,
+    "image_pairs_in_component_pair": 4,
+    "phash_distance": 6,
+    "rank": 50
+   }
+  ],
+  "count": 31,
+  "phash_distance_range": [
+   2,
+   8
+  ]
+ },
+ "visual_review": {
+  "label_counts": {
+   "confirmed_same_place": 12,
+   "rejected_different_place": 15,
+   "uncertain": 3
+  },
+  "method": "Claude visual review, 2026-11-09, of private side-by-side contact sheets (each image resized to 800x450). confirmed_same_place requires the same distinctive static layout from a near-identical viewpoint; transient_match records whether moving or parked transient objects (vehicles, pedestrians, trams, signal states) coincide, which indicates the same capture moment. uncertain: plausible same place but not verifiable at this resolution. rejected: different place.",
+  "pairs": [
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 0,
+    "image_pairs_in_component_pair": 25,
+    "label": "confirmed_same_place",
+    "phash_distance": 0,
+    "rank": 1,
+    "reason": "identical moving car, delivery car and signals; same instant",
+    "roles": [
+     "threshold_selection",
+     "threshold_selection"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 0,
+    "image_pairs_in_component_pair": 7,
+    "label": "confirmed_same_place",
+    "phash_distance": 0,
+    "rank": 2,
+    "reason": "identical motorcycle, cars and amber signals",
+    "roles": [
+     "descriptive_only",
+     "held_out"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 3,
+    "image_pairs_in_component_pair": 16,
+    "label": "confirmed_same_place",
+    "phash_distance": 0,
+    "rank": 3,
+    "reason": "identical van, car and pedestrian positions",
+    "roles": [
+     "unlabelled_only",
+     "unlabelled_only"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "snow"
+    ],
+    "dhash_distance": 8,
+    "image_pairs_in_component_pair": 7,
+    "label": "confirmed_same_place",
+    "phash_distance": 0,
+    "rank": 4,
+    "reason": "same tram at stop and vehicles; small viewpoint offset (seconds apart)",
+    "roles": [
+     "calibrator_fit",
+     "descriptive_only"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 6,
+    "image_pairs_in_component_pair": 10,
+    "label": "confirmed_same_place",
+    "phash_distance": 2,
+    "rank": 5,
+    "reason": "same pedestrians at matching positions",
+    "roles": [
+     "descriptive_only",
+     "descriptive_only"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 10,
+    "image_pairs_in_component_pair": 8,
+    "label": "uncertain",
+    "phash_distance": 2,
+    "rank": 6,
+    "reason": "same intersection and parked motorcycle; moving car displaced and signal state differs",
+    "roles": [
+     "descriptive_only",
+     "unlabelled_only"
+    ],
+    "transient_match": null
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 2,
+    "image_pairs_in_component_pair": 1,
+    "label": "confirmed_same_place",
+    "phash_distance": 4,
+    "rank": 7,
+    "reason": "identical cyclists, taxi and red hood",
+    "roles": [
+     "calibrator_fit",
+     "unlabelled_only"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 4,
+    "image_pairs_in_component_pair": 5,
+    "label": "confirmed_same_place",
+    "phash_distance": 4,
+    "rank": 8,
+    "reason": "same car and pedestrian with stroller, moments apart",
+    "roles": [
+     "calibrator_fit",
+     "unlabelled_only"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 2,
+    "image_pairs_in_component_pair": 5,
+    "label": "confirmed_same_place",
+    "phash_distance": 6,
+    "rank": 9,
+    "reason": "same pedestrians and oncoming car",
+    "roles": [
+     "descriptive_only",
+     "held_out"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "rain",
+     "snow"
+    ],
+    "dhash_distance": 2,
+    "image_pairs_in_component_pair": 1,
+    "label": "confirmed_same_place",
+    "phash_distance": 6,
+    "rank": 10,
+    "reason": "same pedestrian, tram and poster",
+    "roles": [
+     "calibrator_fit",
+     "threshold_selection"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 7,
+    "image_pairs_in_component_pair": 3,
+    "label": "confirmed_same_place",
+    "phash_distance": 6,
+    "rank": 11,
+    "reason": "same motorcycle and cars",
+    "roles": [
+     "threshold_selection",
+     "unlabelled_only"
+    ],
+    "transient_match": true
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "rain",
+     "snow"
+    ],
+    "dhash_distance": 11,
+    "image_pairs_in_component_pair": 2,
+    "label": "uncertain",
+    "phash_distance": 6,
+    "rank": 12,
+    "reason": "same place and matching sun flare; transient objects too small to verify",
+    "roles": [
+     "calibrator_fit",
+     "descriptive_only"
+    ],
+    "transient_match": null
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 15,
+    "image_pairs_in_component_pair": 6,
+    "label": "confirmed_same_place",
+    "phash_distance": 6,
+    "rank": 13,
+    "reason": "same wall and street; different lighting and vehicles (different pass)",
+    "roles": [
+     "threshold_selection",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 18,
+    "image_pairs_in_component_pair": 2,
+    "label": "confirmed_same_place",
+    "phash_distance": 6,
+    "rank": 14,
+    "reason": "same balustrade and parking; different cars and lighting (different pass)",
+    "roles": [
+     "threshold_selection",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "rain"
+    ],
+    "dhash_distance": 21,
+    "image_pairs_in_component_pair": 2,
+    "label": "rejected_different_place",
+    "phash_distance": 6,
+    "rank": 15,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "held_out"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 21,
+    "image_pairs_in_component_pair": 1,
+    "label": "uncertain",
+    "phash_distance": 6,
+    "rank": 16,
+    "reason": "possibly the same station street from a different position; not verifiable",
+    "roles": [
+     "unlabelled_only",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "snow"
+    ],
+    "dhash_distance": 23,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 6,
+    "rank": 17,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "threshold_selection"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "rain",
+     "snow"
+    ],
+    "dhash_distance": 31,
+    "image_pairs_in_component_pair": 5,
+    "label": "rejected_different_place",
+    "phash_distance": 6,
+    "rank": 18,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 11,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 19,
+    "reason": "different streets",
+    "roles": [
+     "threshold_selection",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "rain"
+    ],
+    "dhash_distance": 12,
+    "image_pairs_in_component_pair": 2,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 20,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 12,
+    "image_pairs_in_component_pair": 4,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 21,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "snow"
+    ],
+    "dhash_distance": 14,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 22,
+    "reason": "different streets",
+    "roles": [
+     "calibrator_fit",
+     "descriptive_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 14,
+    "image_pairs_in_component_pair": 2,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 23,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "threshold_selection"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "rain",
+     "snow"
+    ],
+    "dhash_distance": 14,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 24,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "threshold_selection"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 15,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 25,
+    "reason": "different streets",
+    "roles": [
+     "held_out",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "rain",
+     "snow"
+    ],
+    "dhash_distance": 15,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 26,
+    "reason": "different streets",
+    "roles": [
+     "unlabelled_only",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "rain"
+    ],
+    "dhash_distance": 16,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 27,
+    "reason": "different streets",
+    "roles": [
+     "calibrator_fit",
+     "threshold_selection"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "rain"
+    ],
+    "dhash_distance": 17,
+    "image_pairs_in_component_pair": 1,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 28,
+    "reason": "different streets",
+    "roles": [
+     "calibrator_fit",
+     "unlabelled_only"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "fog",
+     "night"
+    ],
+    "dhash_distance": 17,
+    "image_pairs_in_component_pair": 2,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 29,
+    "reason": "different streets",
+    "roles": [
+     "calibrator_fit",
+     "calibrator_fit"
+    ],
+    "transient_match": false
+   },
+   {
+    "category": "cross_condition",
+    "conditions": [
+     "night",
+     "snow"
+    ],
+    "dhash_distance": 17,
+    "image_pairs_in_component_pair": 10,
+    "label": "rejected_different_place",
+    "phash_distance": 8,
+    "rank": 30,
+    "reason": "different streets",
+    "roles": [
+     "descriptive_only",
+     "threshold_selection"
+    ],
+    "transient_match": false
+   }
+  ],
+  "reviewed_component_pairs": 30
+ },
+ "coordinator_review_note": "Audited historical snapshot; counts unchanged. Same-capture labels are attributed same/near-capture visual inferences, not publisher IDs. Thirteen byte-identity controls are tested star comparisons, not all fourteen unordered pairs. CLI reuse is disabled pending provenance/output fixes."
+}

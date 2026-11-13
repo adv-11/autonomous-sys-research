@@ -9,5 +9,12 @@ description = "Reference tooling for detection operating-point transfer under sh
 requires-python = ">=3.11"
 dependencies = []
 
+[project.optional-dependencies]
+audit = [
+    "numpy==2.4.6; python_version < '3.12'",
+    "numpy==2.5.4; python_version >= '3.12'",
+    "Pillow==13.0.0",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]

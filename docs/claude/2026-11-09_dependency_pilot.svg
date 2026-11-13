@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>ACDC reference-closure sensitivity and unrun KITTI prototype hold</title>
+  <style>
+    .box { fill: #f5f7fa; stroke: #4a5568; stroke-width: 1.2; }
+    .hot { fill: #fff4e5; stroke: #c05621; stroke-width: 1.4; }
+    .blk { fill: #fdecec; stroke: #c53030; stroke-width: 1.4; }
+    .ok  { fill: #ebf8f0; stroke: #2f855a; stroke-width: 1.2; }
+    .h { font-weight: bold; font-size: 15px; }
+    .s { font-size: 11.5px; fill: #2d3748; }
+    .arrow { stroke: #4a5568; stroke-width: 1.4; fill: none; marker-end: url(#a); }
+  </style>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4a5568"/></marker></defs>
+
+  <text x="20" y="28" class="h">1. Reference near-duplicate audit (measured, CPU)</text>
+  <rect x="20" y="42" width="190" height="96" class="box"/>
+  <text x="30" y="62">4,006 normal references</text>
+  <text x="30" y="80" class="s">bytes = v1 manifest (0 mismatches)</text>
+  <text x="30" y="96" class="s">64-bit pHash, dHash recorded</text>
+  <text x="30" y="112" class="s">thresholds 0 / 2 / 4 / 8 fixed first</text>
+  <text x="30" y="128" class="s">61 cross-component pairs at &#8804;8</text>
+  <path d="M210,90 L245,90" class="arrow"/>
+  <rect x="248" y="42" width="210" height="96" class="box"/>
+  <text x="258" y="62">Visual review, cap 30</text>
+  <text x="258" y="80" class="s">cross-condition pairs first</text>
+  <text x="258" y="96" class="s">10 same/near capture, 2 same place</text>
+  <text x="258" y="112" class="s">3 uncertain, 15 rejected</text>
+  <text x="258" y="128" class="s">31 component pairs unreviewed</text>
+  <path d="M458,90 L493,90" class="arrow"/>
+  <rect x="496" y="42" width="214" height="96" class="hot"/>
+  <text x="506" y="62">Same-capture links cross v1 roles</text>
+  <text x="506" y="80" class="s">calibrator_fit &#8596; threshold_selection</text>
+  <text x="506" y="96" class="s">descriptive_only &#8596; held_out (2)</text>
+  <text x="506" y="112" class="s">calibrator_fit &#8596; unlabelled test (2)</text>
+  <text x="506" y="128" class="s">v1 alone does not block them</text>
+  <path d="M710,90 L745,90" class="arrow"/>
+  <rect x="748" y="42" width="192" height="96" class="box"/>
+  <text x="758" y="62">Proposed closure-v2</text>
+  <text x="758" y="80" class="s">v1 + 10 same-capture links</text>
+  <text x="758" y="96" class="s">24 &#8594; 15 closures</text>
+  <text x="758" y="112" class="s">exclude closures touching</text>
+  <text x="758" y="128" class="s">v1 descriptive_only (whole)</text>
+
+  <text x="20" y="170" class="s" font-weight="bold">Eligible labelled adverse images / closures (same exclusion rule; sensitivity, not adopted)</text>
+  <g class="s">
+    <text x="20" y="192">policy</text><text x="230" y="192">fog</text><text x="330" y="192">night</text><text x="430" y="192">rain</text><text x="530" y="192">snow</text><text x="630" y="192">excluded</text>
+    <text x="20" y="212">v1 (historical primary)</text><text x="230" y="212">433 / 5</text><text x="330" y="212">357 / 3</text><text x="430" y="212">500 / 4</text><text x="530" y="212">267 / 4</text><text x="630" y="212">449</text>
+    <text x="20" y="232">v2 same-capture</text><text x="230" y="232">291 / 4</text><text x="330" y="232">154 / 2</text><text x="430" y="232">500 / 4</text><text x="530" y="232">267 / 4</text><text x="630" y="232">794</text>
+    <text x="20" y="252">all non-rejected flags (bound)</text><text x="230" y="252">7 / 1</text><text x="330" y="252">0 / 0</text><text x="430" y="252">258 / 1</text><text x="530" y="252">3 / 1</text><text x="630" y="252">1,738</text>
+  </g>
+
+  <text x="20" y="298" class="h">2. KITTI candidate-policy pilot (prepared; GPU run BLOCKED)</text>
+  <rect x="20" y="312" width="180" height="100" class="ok"/>
+  <text x="30" y="332">32 KITTI images</text>
+  <text x="30" y="350" class="s">SHA256(seed:name) order</text>
+  <text x="30" y="366" class="s">29 at 1242x375, 2 at 1224x370,</text>
+  <text x="30" y="382" class="s">1 at 1238x374 (population 7,481)</text>
+  <text x="30" y="398" class="s">no labels, no detector output</text>
+  <path d="M200,362 L235,362" class="arrow"/>
+  <rect x="238" y="312" width="250" height="100" class="blk"/>
+  <text x="248" y="332">One native capture per pipeline</text>
+  <text x="248" y="350" class="s">YOLO11s; YOLO26s O2O and O2M (fresh loads);</text>
+  <text x="248" y="366" class="s">RT-DETRv2-S; floor 1e-4, cap 3000</text>
+  <text x="248" y="382" class="s">+ native checks (1e-3, 300), (1e-2, 100)</text>
+  <text x="248" y="398" class="s" fill="#c53030">DISABLED: review and resource hold</text>
+  <path d="M488,362 L523,362" class="arrow"/>
+  <rect x="526" y="312" width="200" height="100" class="box"/>
+  <text x="536" y="332">Derived 3 floors x 4 caps</text>
+  <text x="536" y="350" class="s">DISABLED pending native checks</text>
+  <text x="536" y="366" class="s">identity / binding / guard fixes</text>
+  <text x="536" y="382" class="s">ties at cut reported</text>
+  <text x="536" y="398" class="s">class-first = other pipeline</text>
+  <path d="M726,362 L761,362" class="arrow"/>
+  <rect x="764" y="312" width="176" height="100" class="box"/>
+  <text x="774" y="332">Stage bounds</text>
+  <text x="774" y="350" class="s">head top-k / pre-NMS /</text>
+  <text x="774" y="366" class="s">post-NMS cap / floor</text>
+  <text x="774" y="382" class="s">NOT IMPLEMENTED: conditional</text>
+  <text x="774" y="398" class="s">pool certificate remains a plan</text>
+
+  <text x="20" y="446" class="s" font-weight="bold">Selector nesting assumed by derivation (from pinned source; synthetic tests; not runtime-verified)</text>
+  <text x="20" y="466" class="s">YOLO26 O2O: hidden k = max(cap, 300) &#8804; anchors; two-stage top-k = global anchor x class top-k (no ties); then conf &gt; floor, [:cap].</text>
+  <text x="20" y="484" class="s">YOLO11 / YOLO26 O2M: conf &gt; floor before class-aware greedy NMS (IoU 0.7), then [:cap]; floor rise deletes only; NMS IoU change is a new pipeline.</text>
+  <text x="20" y="502" class="s">RT-DETRv2: top-k over 300 queries x 80 classes; no native floor; export floor score &#8805; floor applied afterwards.</text>
+  <text x="20" y="530" class="s" fill="#4a5568">Panel 1 counts are measured; panel 2 boxes are a conceptual run plan. No ACDC/BDD detector output. G0 pending. Claude, 2026-11-09.</text>
+</svg>
