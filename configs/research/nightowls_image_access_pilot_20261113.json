@@ -6,7 +6,6 @@
   "private_manifest_sha256": "4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a",
   "selection_seed": "nightowls-image-access-pilot-2026-11-13-v1",
   "selection_rule": "10 lowest image-ID SHA256 ranks per known recording key plus14 for null bucket; night only; no GT/model use",
-  "selection_uses_annotations_or_predictions": false,
   "selected_images": 64,
   "known_recording_keys": 5,
   "images_per_known_key": 10,
@@ -14,7 +13,7 @@
   "source_archive_url": "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.zip",
   "limits": {
     "max_response_body_bytes": 150000000,
-    "max_archive_index_bytes": 4000000,
+    "max_archive_index_bytes": 16000000,
     "max_wall_minutes": 30,
     "max_GPU_operations": 0,
     "max_Colab_sessions": 0,
@@ -30,8 +29,9 @@
     "Native PNG decode and annotation dimensions",
     "Byte/time cap includes failed response bodies; private files only"
   ],
-  "exclusions": "Decoded/viewed pilot image paths excluded from later quantitative image pool; no head outputs or target tuning",
+  "exclusions": "All64 planned pilot image paths excluded from later quantitative image pool regardless of retrieval success; no head outputs or target tuning",
   "stop": "Stop at completion, first transport/identity/CRC/decode failure, or cap; preserve partial evidence without an upload/repair loop",
   "licence": "Accepted for research, citation required, no redistribution; images need separate explicit authorization",
-  "G0": "PENDING"
+  "G0": "PENDING",
+  "selection_uses_GT_annotations_or_predictions": false
 }
