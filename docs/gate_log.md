@@ -140,3 +140,25 @@ The earlier six-value inventory included a null recording key. Independent Opus 
 Opus review `7b4e915` approves the minimal adapter with no code changes. Its independent full-file restatement matches every record and group mapping, both private output hashes and all six meaningful synthetic tests. The proposed image-access pilot has no blocker; the coordinator added its exact selection formula/tie-break, defined stable partial-response identity, named the private destination and corrected spacing. The64-image selection and hash are unchanged.
 
 GitHub also confirms PR10 merged at `4f9dda95598d84dd6ffd7ca891a4c8c337313fce`, with both CI jobs successful. This branch is updated against that merge; documented merge conflicts preserve the later null-key correction, licence update and appended history without changing experimental results. G0 remains pending. My existing authorization still covers annotations only; no image endpoint, image archive/index, GPU or Colab operation follows from AI review or PR integration. A separate explicit decision is required for the bounded image-access pilot.
+
+### 2026-11-13 image-access pilot explicitly authorized
+
+I explicitly authorized the reviewed64-image/150MB/30minlocalCPU access pilot. This supersedes the earlier annotations-only restriction for that bounded pilot alone; it does not authorize a Colab session, GPU, inference, full-archive fallback or quantitative external study. The selection hash and exclusions remain fixed. The coordinator designates one Sol operator with byte/identity/timeout guards and a local controller that stops independently of model access; the current absolute stop is20:09UTC. No retry or repair loop is authorized after the first transport/identity/CRC/decode failure.
+
+PR11 is confirmed merged at `bbad7baab6012c47db626f196e079d7f1f2fae1b`. This work is isolated on the subsequent `nightowls-image-access-pilot` branch. G0 remains pending.
+
+### Access pilot terminal outcome
+
+The authorized NightOwls image-access pilot stopped conservatively after34.913seconds during index retrieval, withzeroimages andallpilotprocessesexited. Body bytes are reported as a confirmedlowerbound3,997,717andconservativechargedupperbound7,432,416; exact interrupted consumption is unknown. The source accepted valid206ranges, but actual-worker watchdog termination was unverified on the Windows venv launcher. Current execution is disabled. A separate CPU-only launch/timeout probe supports a proposed narrow correction; it is not a successful access result or an authorization to retry. G0 remains pending and no paid compute or inference ran.
+
+### 2026-11-13 stopped-access correction independently reviewed
+
+Opus review `41f55ac` approves publication of the truthful stopped-pilot record and direct-base-interpreter correction. It independently reproduced all original artifact hashes, two range-header checks, byte bounds and actual-versus-launcher PID distinctions, and exercised the exact corrected launch under timeout plus a negative extra-layer test. No network or image request was repeated. The one P2 finding was that prior byte charges existed only in prose; GPT Sol now seeds both worker charged counters with7,432,416 and the eighth mock check rejects a reservation one byte above the remaining index allowance.
+
+The remaining-body maximum is142,567,584bytes, with8,567,584ofindexheadroom. A fresh index would consume7,432,416ofthat, leaving at most135,135,168forimage ranges. Execution stays disabled and the recovery remains proposed. A new explicit decision is needed because the original no-retry attempt ended; it would be a new≤30-minute CPU window within the original cumulative byte caps, not another150MBgrant. G0 remains pending and no additional model, GPU or Colab work is started by this correction.
+
+### 2026-11-14 renewed access closed after independent review
+
+The explicitly authorized renewed CPU attempt yielded0/64verifiedimages. Cumulative total/index reservations are14,864,832bytes; attempt-confirmed bytes are a4,259,861lowerbound. Operator-reported interruption, missing exit codes and unverified deadline compliance remain explicit. Later PID absence does not establish timely teardown. There was no new GPU, Colab or inference.
+
+Opus review `4fa7de8` confirms the saved evidence and permits publication after M1. GPT Sol updated the disabled current script to charge both completed attempts, corrected historical-budget and source-identity wording, and passed the eight no-network guards including one byte above the remaining index cap. No new access or review loop follows. External images remain unavailable, no new research result is claimed, and **G0 remains pending**. My explicit approval still governs the PR merge.

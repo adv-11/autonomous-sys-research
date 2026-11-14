@@ -209,3 +209,23 @@ Opus's independent annotation review `ba5f82b` reproduced every published frame/
 ### 2026-11-13 adapter review closed without implementation drift
 
 Opus independently approved Sol's minimal NightOwls adapter: every converted record/group and the saved private files reproduce, with six synthetic tests passing. No framework or matching change was introduced. The small access-plan findings were resolved directly in the config/proposal; no extra review or agent was launched for wording. The next action is a concrete annotation-only-to-images authorization question, capped at64fixedimages/150MB/30min and zero GPU/Colab. No image access is inferred from silence or merge approval. G0 is pending.
+
+### 2026-11-13 access pilot stopped; supervision correction only
+
+The sole Sol operator stopped the authorized attempt during index retrieval:0/64images,3,997,717durably confirmed body bytes and7,432,416conservatively charged. Both responses passed range/identity checks, but the actual Windows Python PID differed from the venv launcher targeted by the watchdog. This is an unverified termination path, not a demonstrated orphan or server failure. The operator forced the actual worker to exit and verified every pilot process stopped. No retry, GPU, Colab or inference occurred.
+
+**Drift/supervision intervention:** transport mocks had passed but the platform-specific worker identity/termination guarantee was not established before endpoint access. The completed task was not restarted. GPT Sol disabled actual access entry points and restricted the correction to a direct-base-interpreter command plus benign, network-free PID/Pillow/timeout checks. No range-reader optimization, replacement images or parser framework followed. Original receipts/source hashes remain preserved. A fresh independent Opus review will inspect this correction; any new HTTP attempt requires a renewed explicit decision under the original cumulative byte caps. G0 is pending.
+
+### 2026-11-13 bounded review fixes closed; no transport loop
+
+The stopped-pilot/supervision review approved the record and one direct-launch correction, with a P2 cumulative-accounting fix and three metadata/supervision clarifications. The coordinator applied those directly, confirmed eight exact-reason mock guards and both disabled-entry refusals, and did not commission another review or retry HTTP. The exact launcher/timeout behavior was independently checked by Opus on its own benign child; that is separate from the zero-image real outcome. No wrapper framework, range-reader optimization or new cohort followed. The next decision is a single renewed-authorization question under the original cumulative caps, rather than silent repeated attempts.
+
+### 2026-11-14 renewed access ended without research data
+
+**Finding:** the sole authorized renewed Sol attempt returned zero images; its session was interrupted during the second index response. Preserved checkpoints support 14,864,832 cumulative charged bytes and a 4,259,861-byte confirmed lower bound for this attempt, but not terminal exit codes, exact duration or deadline compliance. The later absence of recorded PIDs does not prove timely teardown. The cause remains unverified; no hallucination or server failure is inferred.
+
+**Corrective action:** the coordinator integrated the truthful failed result, disabled root execution through that commit, preserved the original cohort and byte charges, and stopped this access direction without another transport change or retry. A single separate offline review checks evidence and publication wording; no supervision framework, broad tests, image access or compute follows. This milestone has not moved the detector research forward, so another infrastructure cycle is deferred. Next milestone: close the failed access record after independent review, then state the external-image blocker clearly. G0 remains pending.
+
+### 2026-11-14 failed-access review closed
+
+Claude Opus independently reproduced seven private hashes, the zero-image result and cumulative reservations (`4fa7de8`). It caught a latent stale-budget constant in the disabled utility, not a defect in the executed result. GPT Sol updated the current constant to14,864,832, clarified consumed authorization and historical config budgets, and checked the exact remaining-index boundary offline. Operator-reported interruption stays distinct from saved receipts. No new access or extra review/probe loop followed. The record is ready for a compact failure/preflight PR; it establishes neither external-data readiness nor G0 passage.
