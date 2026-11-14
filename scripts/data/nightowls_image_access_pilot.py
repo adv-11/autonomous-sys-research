@@ -33,7 +33,7 @@ INDEX_CAP = 16_000_000
 PRIOR_CHARGED = 7_432_416
 PRIOR_ARCHIVE_IDENTITY = {'total': 57_481_286_834, 'ETag': '"5ce813b8-d6226d4b2"',
                           'Last-Modified': 'Fri, 24 May 2019 15:54:32 GMT'}
-EXECUTION_AUTHORIZED = True
+EXECUTION_AUTHORIZED = False
 
 
 class Stop(Exception):
