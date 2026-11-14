@@ -26,3 +26,9 @@ Hash conventions: the historical executed hash `22e30ab6d4cc890e02e8243e4adbb74f
 I explicitly authorized one renewed CPU attempt on 2026-11-13 (local date). The preceding disabled/pending statements describe the earlier state. GPT Sol activated only the reviewed grant, fresh destination and deadline; the original attempt and receipts remain unchanged.
 
 The renewed window starts at **2026-11-14T00:15:36+00:00** and ends by **2026-11-14T00:45:36+00:00**; the worker deadline is **2026-11-14T00:44:51+00:00**, leaving 45 seconds for cleanup. The [recovery config](../../configs/research/nightowls_image_access_recovery_20261113.json) records the fixed cohort, cumulative prior charge and limits. One designated GPT Sol operator executes once, watches the actual controller PID and reports private verification evidence. No new image cohort, retry, inference, GPU or Colab execution is authorized. G0 remains pending.
+
+## Terminal outcome recorded on 2026-11-14
+
+GPT Sol invoked the renewed attempt once. The [result](../gpt/2026-11-13_nightowls_image_access_recovery_result.md) records zero verified images and an interrupted index read with no terminal exit receipt. Both recorded responses passed range/identity checks; the interruption cause and deadline compliance remain unverified. The recorded owned PIDs were absent at the later observation. Execution is disabled; no third attempt or repair loop is authorized.
+
+Cumulative total and index reservations are each **14,864,832 bytes**. Only **1,135,168 bytes** remain under the original index cap, insufficient to reserve the same complete 7,432,416-byte index reread. This is accounting evidence, not proof that the publisher route is unusable. I retain the original 64 exclusions and require no further access in this milestone. The coordinator commissions only the required independent offline evidence/publication review. G0 remains pending.
