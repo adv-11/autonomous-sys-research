@@ -1,7 +1,7 @@
 {
   "researcher": "GPT Sol sole implementation operator",
   "status": "INTERRUPTED_NO_TERMINAL_RECEIPT",
-  "interpretation": "Actual access feasibility attempt; no model results. Cause of interruption unverified.",
+  "interpretation": "Actual access feasibility attempt; no model results. Session interruption is operator-reported; cause and terminal timing unverified.",
   "G0": "PENDING",
   "activation_commit": "4df615fe442f363f5504c8c10b688d78916548b4",
   "authorized_at_utc": "2026-11-14T00:15:36+00:00",
@@ -86,5 +86,7 @@
     "supervision_launch_receipt": "cc1fa26b25de7d8fce5295a4e3a403720bcdc13b51179deac4bc42d5f65da48a",
     "post_interruption_observation": "64731e5e9f3f79672fdbf684d6e8cc9a1eb67628c01197b61f28c8bae2e18079",
     "complete_index_tail": "f3fa91cfd392ccdd3e2f2dc625392d5a514a4e1cd37f759e637026f927eb1277"
-  }
+  },
+  "executed_source_normalized_lf_sha256": "750cd43cb6788b7948b3fe24e2c152aebd56f4cf1bf985e327a393c128cfdba4",
+  "executed_source_activation_git_blob": "31ad29486f6dc2de7a2d4438baf8fdafc6bcaa09"
 }

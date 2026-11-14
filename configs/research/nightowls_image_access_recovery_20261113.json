@@ -35,5 +35,15 @@
     "deadline_exit_verified": false,
     "recorded_owned_pids_absent_observed_utc": "2026-11-14T21:33:06.4159817+00:00",
     "retry_permitted": false
+  },
+  "budget_field_context": "prior_charged_bytes and max_additional_* and max_image_bytes_after_index_reread are historical authorization-time values. Terminal balances below confer no new execution authorization.",
+  "terminal_budget": {
+    "cumulative_charged_total_bytes": 14864832,
+    "cumulative_charged_index_bytes": 14864832,
+    "remaining_total_cap_bytes": 135135168,
+    "remaining_index_cap_bytes": 1135168,
+    "same_complete_index_reread_bytes": 7432416,
+    "same_complete_index_reread_fits": false,
+    "further_execution_authorized": false
   }
 }

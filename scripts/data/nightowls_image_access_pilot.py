@@ -1,7 +1,7 @@
 """Single-use, CPU-only NightOwls access pilot. GPT Sol, 2026-11-13.
 
-Renewed single attempt explicitly authorized on 2026-11-13 (local date).
-Prior charges remain cumulative. --selftest makes no network requests.
+Consumed renewed attempt; execution disabled; no retry authorized.
+Both attempts remain charged. --selftest makes no network requests.
 No resume, retries, inference, or archive fallback. Private paths are canonical.
 """
 import argparse
@@ -30,7 +30,7 @@ SELECTION_HASH = '4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de9
 ANNOTATION_HASH = '584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6'
 TOTAL_CAP = 150_000_000
 INDEX_CAP = 16_000_000
-PRIOR_CHARGED = 7_432_416
+PRIOR_CHARGED = 14_864_832
 PRIOR_ARCHIVE_IDENTITY = {'total': 57_481_286_834, 'ETag': '"5ce813b8-d6226d4b2"',
                           'Last-Modified': 'Fri, 24 May 2019 15:54:32 GMT'}
 EXECUTION_AUTHORIZED = False
@@ -439,7 +439,7 @@ def selftest():
     for label, state, phase, amount in (
         ('total_cap', {'charged_bytes': TOTAL_CAP, 'index_charged_bytes': 0}, 'image', 1),
         ('index_cap', {'charged_bytes': INDEX_CAP, 'index_charged_bytes': INDEX_CAP}, 'index', 1),
-        ('prior_index_cap', initial_worker_state(), 'index', 8_567_585),
+        ('prior_index_cap', initial_worker_state(), 'index', 1_135_169),
     ):
         before = dict(state)
         try:
