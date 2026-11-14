@@ -20,3 +20,9 @@ The disabled candidate now initializes both charged counters at `PRIOR_CHARGED =
 A renewed operator must supervise the real `control_pid` in `control.json`, never the venv launcher PID. Set the working deadline 45 seconds before the new 30-minute outer window ends, preserving cleanup/read-timeout headroom; the controller derives its recorded stop time from the same `DEADLINE`. The worker has per-read deadline checks and a socket timeout of at most 30 seconds. The original receipts retain their original deadline.
 
 Hash conventions: the historical executed hash `22e30ab6d4cc890e02e8243e4adbb74f414743352d3cbc1047c35dd67554cae2` identifies the LF Git blob at `4b211557`. The as-probed working snapshot `1a3d31181387861f3f6cf5c981508ce9799f94790adee2cc0ed6efe483447798` is CRLF; the corresponding LF blob at `f2ab537` is `728a1809769eeae65a7b0d806ec9bcf9f0800bc422cad5b3b395b3c2bf695cc5`. Subsequent counter/deadline-recording edits do not rewrite either historical identity or claim a new supervision probe.
+
+## Renewed authorization received
+
+I explicitly authorized one renewed CPU attempt on 2026-11-13 (local date). The preceding disabled/pending statements describe the earlier state. GPT Sol activated only the reviewed grant, fresh destination and deadline; the original attempt and receipts remain unchanged.
+
+The renewed window starts at **2026-11-14T00:15:36+00:00** and ends by **2026-11-14T00:45:36+00:00**; the worker deadline is **2026-11-14T00:44:51+00:00**, leaving 45 seconds for cleanup. The [recovery config](../../configs/research/nightowls_image_access_recovery_20261113.json) records the fixed cohort, cumulative prior charge and limits. One designated GPT Sol operator executes once, watches the actual controller PID and reports private verification evidence. No new image cohort, retry, inference, GPU or Colab execution is authorized. G0 remains pending.

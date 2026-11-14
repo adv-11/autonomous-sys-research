@@ -1,7 +1,7 @@
 """Single-use, CPU-only NightOwls access pilot. GPT Sol, 2026-11-13.
 
-Historical stopped attempt; execution is disabled pending reviewed supervision
-and renewed explicit authorization. --selftest makes no network requests.
+Renewed single attempt explicitly authorized on 2026-11-13 (local date).
+Prior charges remain cumulative. --selftest makes no network requests.
 No resume, retries, inference, or archive fallback. Private paths are canonical.
 """
 import argparse
@@ -23,9 +23,9 @@ import urllib.request
 import zipfile
 
 ROOT = Path('C:/Users/Advait/autonomous-sys-research')
-DEST = ROOT / 'data/nightowls/image_access_pilot/2026-11-13'
+DEST = ROOT / 'data/nightowls/image_access_pilot/2026-11-13_attempt2'
 URL = 'https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.zip'
-DEADLINE = dt.datetime(2026, 11, 13, 20, 9, tzinfo=dt.timezone.utc).timestamp()
+DEADLINE = dt.datetime(2026, 11, 14, 0, 44, 51, tzinfo=dt.timezone.utc).timestamp()
 SELECTION_HASH = '4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a'
 ANNOTATION_HASH = '584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6'
 TOTAL_CAP = 150_000_000
@@ -33,7 +33,7 @@ INDEX_CAP = 16_000_000
 PRIOR_CHARGED = 7_432_416
 PRIOR_ARCHIVE_IDENTITY = {'total': 57_481_286_834, 'ETag': '"5ce813b8-d6226d4b2"',
                           'Last-Modified': 'Fri, 24 May 2019 15:54:32 GMT'}
-EXECUTION_AUTHORIZED = False
+EXECUTION_AUTHORIZED = True
 
 
 class Stop(Exception):
