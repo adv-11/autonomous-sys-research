@@ -1,0 +1,191 @@
+{
+ "note": "Aggregate counts only; BDD100K legacy 2018 labels.",
+ "counts": {
+  "selection": {
+   "images": 1842,
+   "pedestrians": 2376,
+   "riders": 187,
+   "boxes_10class": 35618,
+   "zero_pedestrian_images": 1192,
+   "ped_h:32-64": 950,
+   "ped_h:64-128": 641,
+   "ped_h:>=128": 194,
+   "ped_h:16-32": 513,
+   "ped_h:0-16": 78
+  },
+  "source_train": {
+   "images": 10635,
+   "pedestrians": 14405,
+   "riders": 1026,
+   "boxes_10class": 204523,
+   "zero_pedestrian_images": 6858,
+   "ped_h:64-128": 3790,
+   "ped_h:16-32": 3238,
+   "ped_h:32-64": 5702,
+   "ped_h:>=128": 1141,
+   "ped_h:0-16": 534
+  },
+  "val2:night_clear": {
+   "images": 3274,
+   "pedestrians": 2230,
+   "riders": 98,
+   "boxes_10class": 54246,
+   "zero_pedestrian_images": 2615,
+   "ped_h:16-32": 339,
+   "ped_h:32-64": 896,
+   "ped_h:64-128": 706,
+   "ped_h:0-16": 65,
+   "ped_h:>=128": 224
+  },
+  "val2:night_rain_snow": {
+   "images": 559,
+   "pedestrians": 499,
+   "riders": 24,
+   "boxes_10class": 9272,
+   "zero_pedestrian_images": 407,
+   "ped_h:32-64": 185,
+   "ped_h:64-128": 159,
+   "ped_h:>=128": 64,
+   "ped_h:16-32": 78,
+   "ped_h:0-16": 13
+  },
+  "val2:rainy_all": {
+   "images": 738,
+   "pedestrians": 822,
+   "riders": 44,
+   "boxes_10class": 13194,
+   "zero_pedestrian_images": 512,
+   "ped_h:32-64": 303,
+   "ped_h:64-128": 267,
+   "ped_h:16-32": 125,
+   "ped_h:>=128": 97,
+   "ped_h:0-16": 30
+  },
+  "val2:snowy_all": {
+   "images": 769,
+   "pedestrians": 1137,
+   "riders": 38,
+   "boxes_10class": 14269,
+   "zero_pedestrian_images": 471,
+   "ped_h:32-64": 463,
+   "ped_h:64-128": 333,
+   "ped_h:16-32": 191,
+   "ped_h:>=128": 128,
+   "ped_h:0-16": 22
+  },
+  "val:all": {
+   "images": 10000,
+   "pedestrians": 13262,
+   "riders": 649,
+   "boxes_10class": 185526,
+   "zero_pedestrian_images": 6780,
+   "ped_h:16-32": 2601,
+   "ped_h:32-64": 5254,
+   "ped_h:64-128": 3783,
+   "ped_h:0-16": 445,
+   "ped_h:>=128": 1179
+  },
+  "val:clear_day": {
+   "images": 1764,
+   "pedestrians": 2450,
+   "riders": 174,
+   "boxes_10class": 34105,
+   "zero_pedestrian_images": 1136,
+   "ped_h:>=128": 190,
+   "ped_h:32-64": 999,
+   "ped_h:16-32": 483,
+   "ped_h:64-128": 701,
+   "ped_h:0-16": 77
+  },
+  "val:cloudy_day": {
+   "images": 1677,
+   "pedestrians": 2561,
+   "riders": 133,
+   "boxes_10class": 34692,
+   "zero_pedestrian_images": 1056,
+   "ped_h:16-32": 587,
+   "ped_h:32-64": 1052,
+   "ped_h:64-128": 658,
+   "ped_h:0-16": 105,
+   "ped_h:>=128": 159
+  },
+  "val:dawn_dusk": {
+   "images": 778,
+   "pedestrians": 1046,
+   "riders": 46,
+   "boxes_10class": 14966,
+   "zero_pedestrian_images": 531,
+   "ped_h:>=128": 89,
+   "ped_h:16-32": 211,
+   "ped_h:32-64": 428,
+   "ped_h:64-128": 291,
+   "ped_h:0-16": 27
+  },
+  "val:foggy": {
+   "images": 5,
+   "pedestrians": 2,
+   "riders": 0,
+   "boxes_10class": 84,
+   "zero_pedestrian_images": 4,
+   "ped_h:32-64": 2
+  },
+  "val:night": {
+   "images": 3929,
+   "pedestrians": 2843,
+   "riders": 125,
+   "boxes_10class": 64951,
+   "zero_pedestrian_images": 3092,
+   "ped_h:16-32": 439,
+   "ped_h:32-64": 1121,
+   "ped_h:64-128": 905,
+   "ped_h:0-16": 78,
+   "ped_h:>=128": 300
+  },
+  "val:rainy_day": {
+   "images": 396,
+   "pedestrians": 544,
+   "riders": 21,
+   "boxes_10class": 7424,
+   "zero_pedestrian_images": 252,
+   "ped_h:32-64": 222,
+   "ped_h:64-128": 166,
+   "ped_h:16-32": 76,
+   "ped_h:>=128": 57,
+   "ped_h:0-16": 23
+  },
+  "val:snowy_day": {
+   "images": 422,
+   "pedestrians": 678,
+   "riders": 30,
+   "boxes_10class": 8111,
+   "zero_pedestrian_images": 236,
+   "ped_h:32-64": 266,
+   "ped_h:64-128": 195,
+   "ped_h:16-32": 126,
+   "ped_h:>=128": 76,
+   "ped_h:0-16": 15
+  },
+  "val:undefined": {
+   "images": 1029,
+   "pedestrians": 3138,
+   "riders": 120,
+   "boxes_10class": 21193,
+   "zero_pedestrian_images": 473,
+   "ped_h:64-128": 867,
+   "ped_h:32-64": 1164,
+   "ped_h:16-32": 679,
+   "ped_h:0-16": 120,
+   "ped_h:>=128": 308
+  }
+ },
+ "label_drops": {
+  "train:no_box2d": 0,
+  "train:nonpositive": 395,
+  "train:out_of_bounds": 0,
+  "train:dropped_category": 654799,
+  "val:no_box2d": 0,
+  "val:nonpositive": 52,
+  "val:out_of_bounds": 0,
+  "val:dropped_category": 93711
+ }
+}
