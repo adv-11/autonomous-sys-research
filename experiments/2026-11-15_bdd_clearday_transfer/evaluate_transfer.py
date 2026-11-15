@@ -26,20 +26,24 @@ from threshold_transfer.metrics import (ReferenceEvaluator, held_out_loss_decomp
                                         target_gap_decomposition)
 
 CONFIG = json.loads((HERE / "config.json").read_text(encoding="utf-8"))
-TARGETS = CONFIG["evaluation"]["recall_targets"]
+TARGETS = CONFIG["evaluation"]["recall_targets"]  # overridable by --targets (amendment_2)
 STRATA = ["selection"] + [f"val:{s}" for s in CONFIG["primary_strata"]] + \
          [f"val2:{s}" for s in CONFIG["secondary_strata"]] + ["val:all"]
 BINS = [C.height_bin(lo) for lo, _ in C.HEIGHT_BINS]
 
 
-def match_chunk(names, gt, preds):
-    """Run the reference evaluator on a chunk; return per-image matched-GT scores and FP scores."""
+def match_chunk(names, gt, preds, min_h=0.0):
+    """Run the reference evaluator on a chunk; return per-image matched-GT scores and FP scores.
+
+    min_h>0 (amendment_2 h32 population): pedestrian GT shorter than min_h become ignore
+    regions (same_category_ioa); candidates absorbed by them are neither TP nor FP.
+    """
     images = [{"image_id": n, "width": C.WIDTH, "height": C.HEIGHT} for n in names]
     anns, cands, zero = [], [], {}
     for n in names:
         for k, (x1, y1, x2, y2) in enumerate(gt[n]["peds"]):
             anns.append({"annotation_id": f"{n}#g{k}", "image_id": n, "category": "pedestrian",
-                         "bbox": [x1, y1, x2 - x1, y2 - y1], "ignore": False, "iscrowd": False})
+                         "bbox": [x1, y1, x2 - x1, y2 - y1], "ignore": (y2 - y1) < min_h, "iscrowd": False})
         boxes, scores = preds[n]
         for k in range(len(scores)):
             x1, y1, x2, y2 = (float(v) for v in boxes[k])
@@ -54,15 +58,20 @@ def match_chunk(names, gt, preds):
                              "annotations": anns, "provenance": {}},
                             {"schema_version": "threshold-transfer-v1", "predictions": cands,
                              "provenance": {"evaluated_image_ids": names}},
-                            categories=["pedestrian"])
-    out = {n: {"tp": [], "fp": list(zero.get(n, [])), "zero": len(zero.get(n, [])),
-               "gt_h": [y2 - y1 for _, y1, _, y2 in gt[n]["peds"]],
-               "gt_match": [None] * len(gt[n]["peds"])} for n in names}
+                            categories=["pedestrian"],
+                            ignore_policy="same_category_ioa" if min_h > 0 else "reject")
+    elig = {n: [k for k, p in enumerate(gt[n]["peds"]) if p[3] - p[1] >= min_h] for n in names}
+    out = {n: {"tp": [], "fp": list(zero.get(n, [])), "zero": len(zero.get(n, [])), "ignored": 0,
+               "gt_h": [gt[n]["peds"][k][3] - gt[n]["peds"][k][1] for k in elig[n]],
+               "gt_match": [None] * len(elig[n])} for n in names}
+    pos = {n: {k: i for i, k in enumerate(elig[n])} for n in names}
     for r in ev.rows:
         o = out[r["image_id"]]
         if r["outcome"] == "TP":
             o["tp"].append(r["score"])
-            o["gt_match"][int(r["annotation_id"].split("#g")[1])] = r["score"]
+            o["gt_match"][pos[r["image_id"]][int(r["annotation_id"].split("#g")[1])]] = r["score"]
+        elif r["outcome"] == "IGNORED":
+            o["ignored"] += 1
         else:
             o["fp"].append(r["score"])
     return out, ev
@@ -130,7 +139,12 @@ def main(argv=None):
     ap.add_argument("--out-json", type=Path, required=True)
     ap.add_argument("--replicates", type=int, default=CONFIG["evaluation"]["bootstrap"]["replicates"])
     ap.add_argument("--skip-full-check", action="store_true")
+    ap.add_argument("--targets", type=float, nargs="+", default=None)
+    ap.add_argument("--min-height", type=float, default=0.0)
     args = ap.parse_args(argv)
+    global TARGETS
+    if args.targets:
+        TARGETS = args.targets
     gt = json.loads(args.gt.read_text())
     z = np.load(args.preds)
     names, offs = [str(n) for n in z["names"]], z["offsets"]
@@ -142,7 +156,7 @@ def main(argv=None):
     recs = {}
     for start in range(0, len(names), 400):
         chunk = names[start:start + 400]
-        out, _ = match_chunk(chunk, gt, preds)
+        out, _ = match_chunk(chunk, gt, preds, args.min_height)
         recs.update(out)
     members = {s: [] for s in STRATA}
     for n in names:
@@ -156,20 +170,22 @@ def main(argv=None):
                 members["val2:" + s].append(n)
     pops = {s: Population([recs[n] for n in m]) for s, m in members.items() if m}
 
-    result = {"label": args.label, "labels_note": "BDD100K legacy 2018 labels; HF mirror images (unverified publisher)",
+    result = {"label": args.label, "population": "all pedestrians" if not args.min_height else
+              f"pedestrian GT height >= {args.min_height:g} px; shorter GT ignore regions", "targets": TARGETS, "labels_note": "BDD100K legacy 2018 labels; HF mirror images (unverified publisher)",
               "preds_sha256": None, "strata": {}, "selection": {}, "transfer": {}, "checks": {}}
     sel = pops["selection"]
     for s, p in pops.items():
         result["strata"][s] = {"images": p.n, "pedestrians": int(p.G.sum()),
                                "ceiling": p.point(None), "ceiling_by_height": p.by_height(None),
                                "zero_area_candidates": int(p.zero.sum()),
+                               "ignored_candidates": int(sum(recs[n]["ignored"] for n in members[s])),
                                "cap_hits": int(sum(totals[n] >= CONFIG["inference"]["max_det_cap"] for n in members[s])),
                                "mean_ped_candidates_per_image": (len(p.tp_all) + len(p.fp_all)) / p.n}
 
     # Whole-population reference check (exact equality with fast path)
     if not args.skip_full_check:
         for s in ("selection", "val:clear_day"):
-            _, ev = match_chunk(members[s], gt, preds)
+            _, ev = match_chunk(members[s], gt, preds, args.min_height)
             for target in TARGETS:
                 ref = ev.select_threshold(target)
                 fast_t = pops[s].select(target)

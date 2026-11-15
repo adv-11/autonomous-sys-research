@@ -172,7 +172,9 @@ def train(name, epochs, resume=False, fraction=1.0, imgsz=None, batch=None, seed
     log(stage="train_done", **{k: v for k, v in stats.items() if k != "t_start"})
 
 
-def infer(weights_path, out, imgsz=None):
+def infer(weights_path, out, imgsz=None, batch=16):
+    # Ultralytics treats a list source as ONE batch (its batch= is ignored for lists), so the chunk
+    # length is the effective prediction batch. All images are 1280x720: letterbox shapes are identical.
     import numpy as np
     import ultralytics
     from ultralytics import YOLO
@@ -186,12 +188,12 @@ def infer(weights_path, out, imgsz=None):
     names, roles, offsets, totals = [], [], [0], []
     boxes, scores = [], []
     t0 = time.time()
-    chunk = 256
+    chunk = batch
     for start in range(0, len(items), chunk):
         part = items[start:start + chunk]
         results = model.predict([str(p) for _, _, p in part], imgsz=imgsz or I["imgsz"], conf=I["conf_floor"],
                                 iou=I["nms_iou"], max_det=I["max_det_cap"], half=I["half"],
-                                agnostic_nms=I["agnostic_nms"], batch=16, verbose=False)
+                                agnostic_nms=I["agnostic_nms"], batch=batch, verbose=False)
         for (role, n, _), r in zip(part, results):
             b = r.boxes
             cls = b.cls.cpu().numpy().astype(int)
@@ -206,7 +208,7 @@ def infer(weights_path, out, imgsz=None):
     np.savez_compressed(out, names=np.array(names), roles=np.array(roles), offsets=np.array(offsets),
                         all_class_candidates=np.array(totals), boxes=np.concatenate(boxes),
                         scores=np.concatenate(scores))
-    summary = {"images": len(names), "imgsz": imgsz or I["imgsz"], "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
+    summary = {"images": len(names), "imgsz": imgsz or I["imgsz"], "predict_batch": batch, "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
                "cap_hits": int(sum(t >= I["max_det_cap"] for t in totals)),
                "weights_sha256": sha_file(weights_path), "ultralytics": ultralytics.__version__,
                "out_sha256": sha_file(out)}
@@ -233,4 +235,4 @@ if __name__ == "__main__":
     elif a.stage == "train":
         train(a.name, a.epochs, a.resume, a.fraction, a.imgsz, a.batch, a.seed)
     else:
-        infer(Path(a.weights), Path(a.out), a.imgsz)
+        infer(Path(a.weights), Path(a.out), a.imgsz, a.batch or (4 if (a.imgsz or 640) > 640 else 16))
