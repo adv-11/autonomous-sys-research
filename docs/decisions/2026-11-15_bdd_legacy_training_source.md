@@ -20,3 +20,7 @@ The project question needs clear-day training and threshold selection, then nigh
 4. Expansion to YOLO26s, RT-DETRv2 and more seeds follows only after the first result shows a contrast worth explaining.
 
 All GPU work runs on my Colab account, with one designated executor, a staged compute budget and verified teardown. My explicit approval still governs merges. G0 remains pending.
+
+## Dataset scope frozen (2026-11-15)
+
+I froze the dataset scope at five: BDD100K (legacy labels), ACDC, NightOwls, COCO and KITTI. No further dataset searches or acquisitions. Once the NightOwls download finishes and is verified, effort goes to model training and experiments. I also lifted the 20 CU compute envelope: runs are sized by scientific value, staged, with a coordinator check-in before cumulative spending passes 100 CU.
