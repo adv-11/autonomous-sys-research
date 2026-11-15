@@ -142,7 +142,7 @@ def train(name, epochs, resume=False, fraction=1.0, imgsz=None, batch=None, seed
             batch=trainer.batch_size, accumulate=trainer.accumulate, images=len(trainer.train_loader.dataset))
 
     def on_epoch_end(trainer):
-        rec = {"epoch": trainer.epoch,  # 8.4.197 advances it before on_fit_epoch_end "wall_s": round(time.time() - stats["t_start"], 1),
+        rec = {"epoch": trainer.epoch, "wall_s": round(time.time() - stats["t_start"], 1),
                "epoch_time_s": round(getattr(trainer, "epoch_time", 0) or 0, 1),
                "images_presented": len(trainer.train_loader.dataset),
                "accumulate": trainer.accumulate, "batch": trainer.batch_size,
