@@ -134,7 +134,8 @@ def main(argv=None):
     gt = json.loads(args.gt.read_text())
     z = np.load(args.preds)
     names, offs = [str(n) for n in z["names"]], z["offsets"]
-    preds = {n: (z["boxes"][offs[i]:offs[i + 1]], z["scores"][offs[i]:offs[i + 1]]) for i, n in enumerate(names)}
+    all_boxes, all_scores = z["boxes"], z["scores"]  # decode once; npz members are lazy
+    preds = {n: (all_boxes[offs[i]:offs[i + 1]], all_scores[offs[i]:offs[i + 1]]) for i, n in enumerate(names)}
     assert set(names) == set(gt), "prediction coverage must equal the frozen selection+val population"
     totals = dict(zip(names, z["all_class_candidates"].tolist()))
 
@@ -173,6 +174,9 @@ def main(argv=None):
                 ref = ev.select_threshold(target)
                 fast_t = pops[s].select(target)
                 ref_t = ref["threshold"]
+                if ref["status"] == "INFEASIBLE":
+                    assert fast_t is None, (s, target, fast_t)
+                    continue
                 fast_p = pops[s].point(ref_t)
                 # zero-area FPs are outside ev; compare TP and positive-area FP only
                 zfp = sum(1 for n in members[s] for v in recs[n]["fp"][:recs[n]["zero"]] if v >= ref_t)
@@ -190,8 +194,13 @@ def main(argv=None):
         t = sel.select(target)
         sel_point = sel.point(t)
         tb = [sel.select(target, w) for w in boot_w["selection"]]
-        result["selection"][str(target)] = {"threshold": t, "point": sel_point,
-                                            "threshold_ci": ci(tb), "status": "FEASIBLE" if t is not None else "INFEASIBLE"}
+        result["selection"][str(target)] = {"threshold": t, "point": sel_point if t is not None else None,
+                                            "selection_ceiling": sel.point(None),
+                                            "threshold_ci": ci(tb), "status": "FEASIBLE" if t is not None else "INFEASIBLE",
+                                            "bootstrap_infeasible_replicates": sum(x is None for x in tb)}
+        if t is None:  # no source operating point: transfer undefined, never the ceiling
+            result["transfer"][str(target)] = {"status": "INFEASIBLE_SOURCE_TARGET"}
+            continue
         tr = {}
         clear_op, clear_ceil = clear.point(t), clear.point(None)
         for s, p in pops.items():
@@ -226,12 +235,13 @@ def main(argv=None):
             tr[s] = entry
         result["transfer"][str(target)] = tr
     args.out_json.write_text(json.dumps(result, indent=1, default=float))
-    t9 = result["transfer"]["0.9"]
-    for s in STRATA:
-        if s in t9:
-            e = t9[s]
-            print(f"{s:22s} n={pops[s].n:5d} G={int(pops[s].G.sum()):5d} R@t*={e['operating']['recall']} "
-                  f"FPPI={e['operating']['fppi']:.3f} ceil={e['ceiling_recall']}")
+    for target, tr in result["transfer"].items():
+        print("target", target, tr.get("status", "FEASIBLE"))
+        for s in STRATA:
+            if s in tr:
+                e = tr[s]
+                print(f"  {s:22s} n={pops[s].n:5d} G={int(pops[s].G.sum()):5d} R@t*={e['operating']['recall']:.3f} "
+                      f"FPPI={e['operating']['fppi']:.3f} ceil={e['ceiling_recall']:.3f}")
 
 
 if __name__ == "__main__":
