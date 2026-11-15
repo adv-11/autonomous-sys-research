@@ -110,7 +110,7 @@ def weights():
     return w
 
 
-def train(name, epochs, resume=False, fraction=1.0):
+def train(name, epochs, resume=False, fraction=1.0, imgsz=None, batch=None, seed=None):
     import torch
     import ultralytics
     from ultralytics import YOLO
@@ -142,7 +142,7 @@ def train(name, epochs, resume=False, fraction=1.0):
             batch=trainer.batch_size, accumulate=trainer.accumulate, images=len(trainer.train_loader.dataset))
 
     def on_epoch_end(trainer):
-        rec = {"epoch": trainer.epoch + 1, "wall_s": round(time.time() - stats["t_start"], 1),
+        rec = {"epoch": trainer.epoch,  # 8.4.197 advances it before on_fit_epoch_end "wall_s": round(time.time() - stats["t_start"], 1),
                "epoch_time_s": round(getattr(trainer, "epoch_time", 0) or 0, 1),
                "images_presented": len(trainer.train_loader.dataset),
                "accumulate": trainer.accumulate, "batch": trainer.batch_size,
@@ -164,15 +164,15 @@ def train(name, epochs, resume=False, fraction=1.0):
     if resume:
         model.train(resume=True)
     else:
-        model.train(data=str(DATA / "data.yaml"), epochs=epochs, imgsz=T["imgsz"], batch=T["batch"],
-                    nbs=T["nbs"], optimizer=T["optimizer"], lr0=T["lr0"], seed=T["seed"],
+        model.train(data=str(DATA / "data.yaml"), epochs=epochs, imgsz=imgsz or T["imgsz"], batch=batch or T["batch"],
+                    nbs=T["nbs"], optimizer=T["optimizer"], lr0=T["lr0"], seed=T["seed"] if seed is None else seed,
                     deterministic=T["deterministic"], cache=T["cache"], workers=T["workers"],
                     patience=T["patience"], amp=T["amp"], project=str(RUNS), name=name, exist_ok=True,
                     fraction=fraction, plots=False, val=True, save_period=-1)
     log(stage="train_done", **{k: v for k, v in stats.items() if k != "t_start"})
 
 
-def infer(weights_path, out):
+def infer(weights_path, out, imgsz=None):
     import numpy as np
     import ultralytics
     from ultralytics import YOLO
@@ -189,7 +189,7 @@ def infer(weights_path, out):
     chunk = 256
     for start in range(0, len(items), chunk):
         part = items[start:start + chunk]
-        results = model.predict([str(p) for _, _, p in part], imgsz=I["imgsz"], conf=I["conf_floor"],
+        results = model.predict([str(p) for _, _, p in part], imgsz=imgsz or I["imgsz"], conf=I["conf_floor"],
                                 iou=I["nms_iou"], max_det=I["max_det_cap"], half=I["half"],
                                 agnostic_nms=I["agnostic_nms"], batch=16, verbose=False)
         for (role, n, _), r in zip(part, results):
@@ -206,7 +206,7 @@ def infer(weights_path, out):
     np.savez_compressed(out, names=np.array(names), roles=np.array(roles), offsets=np.array(offsets),
                         all_class_candidates=np.array(totals), boxes=np.concatenate(boxes),
                         scores=np.concatenate(scores))
-    summary = {"images": len(names), "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
+    summary = {"images": len(names), "imgsz": imgsz or I["imgsz"], "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
                "cap_hits": int(sum(t >= I["max_det_cap"] for t in totals)),
                "weights_sha256": sha_file(weights_path), "ultralytics": ultralytics.__version__,
                "out_sha256": sha_file(out)}
@@ -223,11 +223,14 @@ if __name__ == "__main__":
     ap.add_argument("--resume", action="store_true")
     ap.add_argument("--weights")
     ap.add_argument("--out")
+    ap.add_argument("--imgsz", type=int)
+    ap.add_argument("--batch", type=int)
+    ap.add_argument("--seed", type=int)
     a = ap.parse_args()
     os.chdir(ROOT)
     if a.stage == "setup":
         setup()
     elif a.stage == "train":
-        train(a.name, a.epochs, a.resume, a.fraction)
+        train(a.name, a.epochs, a.resume, a.fraction, a.imgsz, a.batch, a.seed)
     else:
-        infer(Path(a.weights), Path(a.out))
+        infer(Path(a.weights), Path(a.out), a.imgsz)
