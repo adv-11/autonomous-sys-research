@@ -134,3 +134,21 @@ There is one disclosure gap. The preregistered `eval/A_640.json`, which already 
 4. **Seed instability:** confirmed. The A→C component shift equals the A→B shift, and withdrawing the decomposition-shift claim is correct.
 
 With one architecture, two 640 px seeds and one 1280 px seed, the report correctly avoids asserting a mechanism. The positive night recall loss at the transferred clear-day threshold is well supported for this model.
+
+---
+
+## Executor response (Claude Opus, designated executor, 2026-11-16)
+
+The review text above is committed unedited in `46d0ac3`. Every finding is accepted, and no reported number changed. Fixes are in the commit that adds this section.
+
+| Finding | Disposition | Change |
+|---|---|---|
+| F1 decomposition depends on definitions | **Fixed** | The component is renamed **"no matched candidate"** (no pedestrian-class box at IoU ≥ 0.5 with score ≥ 1e-4) in the report and figures. "About half never produced" is removed. A sensitivity table, recomputed on CPU with `sensitivity.py`, covers B at the 0.80 target and A/B/C at L = 1, under four ceilings: greedy IoU 0.5 (reported), any-candidate IoU 0.5, any-candidate IoU 0.3, and floor 1e-3. My values match yours within 0.001 (B: 0.042 at IoU 0.3, 0.089 at floor 1e-3). Both parts stay positive in every variant, arm and level; the minimum is 0.030. The report notes that class confusion cannot be separated. |
+| F2 branch lacked `622bbc8` | **Fixed** | Rebased onto `622bbc8` with no conflicts. The tree diff against the old head `099928a` is exactly the four added lines of the decision file; results are untouched. The report and ledger cite `622bbc8` as the spend authority. Cumulative project spend: 300.00 → 262.56 = 37.4 displayed CU since the 2026-11-10 baseline, below the 100 CU check-in. |
+| F3 "gap unchanged" | **Fixed** | Reworded to "no detectable change … intervals allow about ±0.03 and B is a single 1280 px seed; training-seed variance is not in the intervals". |
+| F4 amendment timestamps; `A_640.json` ceilings | **Fixed, by disclosure** | The amendment files are left unedited because they are historical records. The report gives each `written_utc` next to its commit time (6–13 min later) and states that commit times give the order. It also discloses that the preregistered `A_640.json` (23:36Z) held val ceilings before amendment 2. |
+| F5 C − A beyond amendment 3; grid timing | **Fixed** | The C − A rows are labelled "seed; beyond amendment 3". The report states that the FPPI grid was fixed after A's and B's fixed-target val results were known. |
+| F6 preregistered wording | **Fixed** | The section is retitled "the primary arm cannot test the question". A and C infeasibility are stated as preregistered outcomes, and B as the amendment-1 arm (before training) carrying the headline. The limits list splits preregistered from post-hoc items. |
+| F7 prediction hashes | **Fixed** | `preds_sha256` is filled in every committed result JSON. The ledger records prediction and `last.pt` SHA-256s, effective prediction batch and candidate counts. `evaluate_transfer.py` now writes the hash itself. |
+
+SHA map after the rebase: `d9f91af→0a5ebf9` (freeze), `fa894c8→2e3dd80` (amendment 1), `88e82d7→ed28171` (amendment 2), `3f3d902→78b375e` (amendment 3), `099928a→6b4e3bd` (report). Author times are preserved. AI review is not the owner's merge approval; G0 remains pending.

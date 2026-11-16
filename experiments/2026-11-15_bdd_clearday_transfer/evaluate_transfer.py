@@ -12,6 +12,7 @@ explicit FP rows, counted separately, never repaired.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -172,7 +173,7 @@ def main(argv=None):
 
     result = {"label": args.label, "population": "all pedestrians" if not args.min_height else
               f"pedestrian GT height >= {args.min_height:g} px; shorter GT ignore regions", "targets": TARGETS, "labels_note": "BDD100K legacy 2018 labels; HF mirror images (unverified publisher)",
-              "preds_sha256": None, "strata": {}, "selection": {}, "transfer": {}, "checks": {}}
+              "preds_sha256": hashlib.sha256(args.preds.read_bytes()).hexdigest(), "strata": {}, "selection": {}, "transfer": {}, "checks": {}}
     sel = pops["selection"]
     for s, p in pops.items():
         result["strata"][s] = {"images": p.n, "pedestrians": int(p.G.sum()),

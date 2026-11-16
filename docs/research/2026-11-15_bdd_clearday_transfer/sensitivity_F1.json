@@ -1,0 +1,375 @@
+{
+ "note": "Claude Opus: review finding F1 \u2014 how the ceiling/threshold split depends on the ceiling definition.",
+ "arms": {
+  "A": {
+   "ceilings": {
+    "val:clear_day": {
+     "base": 0.7946938775510204,
+     "floor1e-3": 0.7848979591836734,
+     "any_iou50": 0.796734693877551,
+     "any_iou30": 0.9012244897959184
+    },
+    "val:night": {
+     "base": 0.7069996482588815,
+     "floor1e-3": 0.681674287724235,
+     "any_iou50": 0.7087583538515653,
+     "any_iou30": 0.8505100246218783
+    }
+   },
+   "operating_points": {
+    "L0.5": {
+     "threshold": 0.22017145156860352,
+     "clear_recall": 0.5657142857142857,
+     "night_recall": 0.40239183960604996,
+     "loss": 0.16332244610823576,
+     "split": {
+      "base": {
+       "ceiling_part": 0.08769422929213888,
+       "threshold_part": 0.07562821681609688
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.10322367145943845,
+       "threshold_part": 0.060098774648797315
+      },
+      "any_iou50": {
+       "ceiling_part": 0.08797634002598576,
+       "threshold_part": 0.07534610608225001
+      },
+      "any_iou30": {
+       "ceiling_part": 0.0507144651740401,
+       "threshold_part": 0.11260798093419566
+      }
+     }
+    },
+    "L1.0": {
+     "threshold": 0.13099311292171478,
+     "clear_recall": 0.6281632653061224,
+     "night_recall": 0.4593739008090046,
+     "loss": 0.16878936449711784,
+     "split": {
+      "base": {
+       "ceiling_part": 0.08769422929213888,
+       "threshold_part": 0.08109513520497896
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.10322367145943845,
+       "threshold_part": 0.0655656930376794
+      },
+      "any_iou50": {
+       "ceiling_part": 0.08797634002598576,
+       "threshold_part": 0.08081302447113209
+      },
+      "any_iou30": {
+       "ceiling_part": 0.0507144651740401,
+       "threshold_part": 0.11807489932307774
+      }
+     }
+    },
+    "L2.0": {
+     "threshold": 0.06324367970228195,
+     "clear_recall": 0.6820408163265306,
+     "night_recall": 0.518114667604643,
+     "loss": 0.1639261487218876,
+     "split": {
+      "base": {
+       "ceiling_part": 0.08769422929213888,
+       "threshold_part": 0.07623191942974872
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.10322367145943845,
+       "threshold_part": 0.06070247726244915
+      },
+      "any_iou50": {
+       "ceiling_part": 0.08797634002598576,
+       "threshold_part": 0.07594980869590184
+      },
+      "any_iou30": {
+       "ceiling_part": 0.0507144651740401,
+       "threshold_part": 0.1132116835478475
+      }
+     }
+    },
+    "L4.5": {
+     "threshold": 0.01873653009533882,
+     "clear_recall": 0.7334693877551021,
+     "night_recall": 0.6004220893422441,
+     "loss": 0.133047298412858,
+     "split": {
+      "base": {
+       "ceiling_part": 0.08769422929213888,
+       "threshold_part": 0.045353069120719125
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.10322367145943845,
+       "threshold_part": 0.029823626953419557
+      },
+      "any_iou50": {
+       "ceiling_part": 0.08797634002598576,
+       "threshold_part": 0.04507095838687225
+      },
+      "any_iou30": {
+       "ceiling_part": 0.0507144651740401,
+       "threshold_part": 0.0823328332388179
+      }
+     }
+    }
+   },
+   "preds_sha256": "6f9f4b0aae68d3f40bf341375168998cf64b29aab8be62b04dc23f15cfb32f57"
+  },
+  "B": {
+   "ceilings": {
+    "val:clear_day": {
+     "base": 0.896734693877551,
+     "floor1e-3": 0.8685714285714285,
+     "any_iou50": 0.8975510204081633,
+     "any_iou30": 0.9485714285714286
+    },
+    "val:night": {
+     "base": 0.8301090397467464,
+     "floor1e-3": 0.7794583186774534,
+     "any_iou50": 0.8304607808652832,
+     "any_iou30": 0.9060851213506859
+    }
+   },
+   "operating_points": {
+    "L0.5": {
+     "threshold": 0.2014438807964325,
+     "clear_recall": 0.6722448979591836,
+     "night_recall": 0.49489975378121703,
+     "loss": 0.1773451441779666,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06662565413080457,
+       "threshold_part": 0.11071949004716203
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08911310989397514,
+       "threshold_part": 0.08823203428399146
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06709023954288007,
+       "threshold_part": 0.11025490463508653
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04248630722074276,
+       "threshold_part": 0.13485883695722384
+      }
+     }
+    },
+    "L1.0": {
+     "threshold": 0.10467208921909332,
+     "clear_recall": 0.730204081632653,
+     "night_recall": 0.5532887794583187,
+     "loss": 0.17691530217433438,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06662565413080457,
+       "threshold_part": 0.11028964804352981
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08911310989397514,
+       "threshold_part": 0.08780219228035924
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06709023954288007,
+       "threshold_part": 0.1098250626314543
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04248630722074276,
+       "threshold_part": 0.13442899495359162
+      }
+     }
+    },
+    "L2.0": {
+     "threshold": 0.04592994228005409,
+     "clear_recall": 0.7742857142857142,
+     "night_recall": 0.6162504396763981,
+     "loss": 0.1580352746093161,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06662565413080457,
+       "threshold_part": 0.09140962047851153
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08911310989397514,
+       "threshold_part": 0.06892216471534096
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06709023954288007,
+       "threshold_part": 0.09094503506643603
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04248630722074276,
+       "threshold_part": 0.11554896738857334
+      }
+     }
+    },
+    "L4.5": {
+     "threshold": 0.013896138407289982,
+     "clear_recall": 0.8146938775510204,
+     "night_recall": 0.6820260288427717,
+     "loss": 0.13266784870824866,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06662565413080457,
+       "threshold_part": 0.06604219457744409
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08911310989397514,
+       "threshold_part": 0.04355473881427352
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06709023954288007,
+       "threshold_part": 0.06557760916536859
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04248630722074276,
+       "threshold_part": 0.0901815414875059
+      }
+     }
+    },
+    "target0.8": {
+     "threshold": 0.014860522001981735,
+     "clear_recall": 0.8114285714285714,
+     "night_recall": 0.6792120998944776,
+     "loss": 0.13221647153409377,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06662565413080457,
+       "threshold_part": 0.0655908174032892
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08911310989397514,
+       "threshold_part": 0.04310336164011863
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06709023954288007,
+       "threshold_part": 0.0651262319912137
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04248630722074276,
+       "threshold_part": 0.08973016431335101
+      }
+     }
+    }
+   },
+   "preds_sha256": "143534c8db25de5b8387666a2a99c8cda171a96150ce3ff651061a42a72d1d55"
+  },
+  "C": {
+   "ceilings": {
+    "val:clear_day": {
+     "base": 0.7869387755102041,
+     "floor1e-3": 0.7804081632653062,
+     "any_iou50": 0.789795918367347,
+     "any_iou30": 0.9073469387755102
+    },
+    "val:night": {
+     "base": 0.7249384453042561,
+     "floor1e-3": 0.6971508969398522,
+     "any_iou50": 0.7259936686598664,
+     "any_iou30": 0.8642279282448119
+    }
+   },
+   "operating_points": {
+    "L0.5": {
+     "threshold": 0.2164899706840515,
+     "clear_recall": 0.5779591836734694,
+     "night_recall": 0.40239183960604996,
+     "loss": 0.17556734406741947,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06200033020594797,
+       "threshold_part": 0.1135670138614715
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08325726632545394,
+       "threshold_part": 0.09231007774196553
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06380224970748061,
+       "threshold_part": 0.11176509435993887
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04311901053069833,
+       "threshold_part": 0.13244833353672114
+      }
+     }
+    },
+    "L1.0": {
+     "threshold": 0.12809297442436218,
+     "clear_recall": 0.6314285714285715,
+     "night_recall": 0.4600773830460781,
+     "loss": 0.17135118838249336,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06200033020594797,
+       "threshold_part": 0.10935085817654538
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08325726632545394,
+       "threshold_part": 0.08809392205703942
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06380224970748061,
+       "threshold_part": 0.10754893867501275
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04311901053069833,
+       "threshold_part": 0.12823217785179503
+      }
+     }
+    },
+    "L2.0": {
+     "threshold": 0.06170492619276047,
+     "clear_recall": 0.6783673469387755,
+     "night_recall": 0.5269081955680619,
+     "loss": 0.15145915137071364,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06200033020594797,
+       "threshold_part": 0.08945882116476567
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08325726632545394,
+       "threshold_part": 0.0682018850452597
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06380224970748061,
+       "threshold_part": 0.08765690166323303
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04311901053069833,
+       "threshold_part": 0.10834014084001531
+      }
+     }
+    },
+    "L4.5": {
+     "threshold": 0.017719252035021782,
+     "clear_recall": 0.7289795918367347,
+     "night_recall": 0.6056982061202955,
+     "loss": 0.1232813857164392,
+     "split": {
+      "base": {
+       "ceiling_part": 0.06200033020594797,
+       "threshold_part": 0.061281055510491234
+      },
+      "floor1e-3": {
+       "ceiling_part": 0.08325726632545394,
+       "threshold_part": 0.04002411939098527
+      },
+      "any_iou50": {
+       "ceiling_part": 0.06380224970748061,
+       "threshold_part": 0.0594791360089586
+      },
+      "any_iou30": {
+       "ceiling_part": 0.04311901053069833,
+       "threshold_part": 0.08016237518574088
+      }
+     }
+    }
+   },
+   "preds_sha256": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a"
+  }
+ },
+ "labels_note": "BDD100K legacy 2018 labels; HF-mirror images (publisher unverified)"
+}

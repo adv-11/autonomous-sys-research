@@ -100,7 +100,7 @@ def decomposition(label, ev, target, out):
         e = tr[key]
         r, c = e["operating"]["recall"], e["ceiling_recall"]
         segs = [(r, SERIES[0], "detected at t*"), (c - r, SERIES[1], "removed by threshold"),
-                (1 - c, NEVER, "never a candidate")]
+                (1 - c, NEVER, "no matched candidate")]
         left = 0
         for w, col, name in segs:
             ax.barh(k, w, left=left, color=col, height=0.62, edgecolor=SURF, linewidth=2,
@@ -147,7 +147,7 @@ def matched(m_all, m_h32, out):
         for j, arm in enumerate(m["arms"]):
             off = (j - 1) * 0.12
             for k, (metric, title) in enumerate((("recall", "night recall at t*(L)  (dashed: clear day)"),
-                                                 ("ceiling_part", "night loss: never a candidate"),
+                                                 ("ceiling_part", "night loss: no matched candidate (IoU 0.5, score 1e-4)"),
                                                  ("threshold_part", "night loss: removed by threshold"))):
                 ax = axes[row][k]
                 c = [m["arms"][arm][L]["conditions"]["val:night"] for L in levels]

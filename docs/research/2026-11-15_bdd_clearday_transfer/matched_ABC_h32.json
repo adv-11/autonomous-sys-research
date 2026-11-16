@@ -6393,5 +6393,10 @@
    "images": 3274,
    "pedestrians": 1826
   }
+ },
+ "preds_sha256": {
+  "A": "6f9f4b0aae68d3f40bf341375168998cf64b29aab8be62b04dc23f15cfb32f57",
+  "B": "143534c8db25de5b8387666a2a99c8cda171a96150ce3ff651061a42a72d1d55",
+  "C": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a"
  }
 }

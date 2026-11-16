@@ -6,7 +6,7 @@
   0.7
  ],
  "labels_note": "BDD100K legacy 2018 labels; HF mirror images (unverified publisher)",
- "preds_sha256": null,
+ "preds_sha256": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a",
  "strata": {
   "selection": {
    "images": 1842,
