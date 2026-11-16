@@ -9,7 +9,7 @@ import sys
 
 ROWS = [("val:clear_day", "clear day"), ("val:cloudy_day", "cloudy day"), ("val:rainy_day", "rain (day)"),
         ("val:snowy_day", "snow (day)"), ("val:dawn_dusk", "dawn/dusk"), ("val:night", "night"),
-        ("val2:night_clear", "night, clear weather"), ("val:foggy", "fog (n=5, descriptive)")]
+        ("val2:night_clear", "night, clear weather")]  # fog (5 images, 2 pedestrians) is reported in text only
 
 
 def f(x, d=3):
@@ -44,7 +44,7 @@ def table(label, ev, target):
     return "\n".join(out)
 
 
-if __name__ == "__main__":
+def _main():  # noqa: D103
     for arg in sys.argv[1:]:
         label, rest = arg.split("=", 1)
         path, target = rest.rsplit(":", 1)
@@ -54,3 +54,32 @@ if __name__ == "__main__":
                   f"(selection ceiling {f(ev['selection'][target]['selection_ceiling']['recall'])})\n")
             continue
         print(table(label, ev, target) + "\n")
+
+
+def matched_table(path):
+    """Amendment 3 matched-FPPI table: night vs clear day per arm and level, plus paired differences."""
+    m = json.load(open(path))
+    out = [f"Population: {m['population']}.", "",
+           "| arm | clear-day FPPI level | t* | clear-day recall | night recall | night FPPI | night loss | never a candidate | removed by threshold | night oracle recall at same FPPI |",
+           "|---|---:|---:|---:|---|---:|---:|---|---|---:|"]
+    for arm, levels in m["arms"].items():
+        for L, r in levels.items():
+            n, c = r["conditions"]["val:night"], r["conditions"]["val:clear_day"]
+            out.append(f"| {arm} | {L} | {f(r['threshold'], 4)} | {f(c['recall'])} | {f(n['recall'])}{rng(n['recall_ci'])} | "
+                       f"{f(n['fppi'], 2)} | {f(n['loss'])} | {f(n['ceiling_part'])}{rng(n['ceiling_part_ci'])} | "
+                       f"{f(n['threshold_part'])}{rng(n['threshold_part_ci'])} | {f(n['oracle_same_fppi']['recall'])} |")
+    out += ["", "| paired difference (night) | level | recall | loss | never a candidate | removed by threshold |",
+            "|---|---:|---|---|---|---|"]
+    for pair, levels in m["paired_differences"].items():
+        for L, d in levels.items():
+            e = d["val:night"]
+            out.append(f"| {pair} | {L} | " + " | ".join(f"{e[k]['value']:+.3f}{rng(e[k]['ci'])}"
+                       for k in ("recall", "loss", "ceiling_part", "threshold_part")) + " |")
+    return "\n".join(out)
+
+
+if __name__ == "__main__":
+    if sys.argv[1] == "--matched":
+        print(matched_table(sys.argv[2]))
+    else:
+        _main()

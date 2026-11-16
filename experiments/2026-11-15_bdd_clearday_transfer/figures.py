@@ -138,6 +138,44 @@ def decomposition(label, ev, target, out):
     plt.close(fig)
 
 
+def matched(m_all, m_h32, out):
+    """Amendment 3: night recall and loss parts at matched clear-day FPPI, per arm."""
+    fig, axes = plt.subplots(2, 3, figsize=(12, 6.2), facecolor=SURF, sharex=True)
+    for row, (m, pop) in enumerate(((m_all, "all pedestrians"), (m_h32, "pedestrians >= 32 px"))):
+        levels = [str(float(x)) for x in m["fppi_levels"]]
+        xs = range(len(levels))
+        for j, arm in enumerate(m["arms"]):
+            off = (j - 1) * 0.12
+            for k, (metric, title) in enumerate((("recall", "night recall at t*(L)  (dashed: clear day)"),
+                                                 ("ceiling_part", "night loss: never a candidate"),
+                                                 ("threshold_part", "night loss: removed by threshold"))):
+                ax = axes[row][k]
+                c = [m["arms"][arm][L]["conditions"]["val:night"] for L in levels]
+                y = [e[metric] for e in c]
+                lo = [e[metric] - e[metric + "_ci"][0] for e in c]
+                hi = [e[metric + "_ci"][1] - e[metric] for e in c]
+                ax.errorbar([x + off for x in xs], y, yerr=[lo, hi], color=SERIES[j], marker=MARKERS[j], ms=5,
+                            lw=1.5, elinewidth=1.2, label=arm if (row, k) == (0, 0) else None)
+                if metric == "recall":
+                    ax.plot(xs, [m["arms"][arm][L]["conditions"]["val:clear_day"]["recall"] for L in levels],
+                            color=SERIES[j], lw=1.2, ls="--")
+                if row == 0:
+                    ax.set_title(title, fontsize=9, color=INK, loc="left")
+        for ax in axes[row]:
+            style(ax)
+            ax.grid(axis="y", color=GRID, lw=0.8)
+        axes[row][0].set_ylabel(pop, fontsize=8, color=INK2)
+    for ax in axes[1]:
+        ax.set_xticks(range(len(levels)), levels)
+        ax.set_xlabel("clear-day selection FPPI level L", fontsize=8, color=INK2)
+    axes[0][0].legend(frameon=False, fontsize=8)
+    fig.text(0.01, 0.01, CAPTION + " Exploratory (amendment 3). 95% image-bootstrap CI; training-seed variation not included.",
+             fontsize=7, color=INK2)
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fig.savefig(out, dpi=150)
+    plt.close(fig)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--eval", nargs="+", default=[])
@@ -145,14 +183,19 @@ def main():
     ap.add_argument("--primary", default=None)
     ap.add_argument("--target", default="0.9")
     ap.add_argument("--outdir", type=Path, required=True)
+    ap.add_argument("--matched", nargs=2, default=None, help="matched_all.json matched_h32.json")
+    ap.add_argument("--decomp-only", action="store_true")
     a = ap.parse_args()
     a.outdir.mkdir(parents=True, exist_ok=True)
     evals = [(s.split("=", 1)[0], json.loads(Path(s.split("=", 1)[1]).read_text())) for s in a.eval]
     runs = [tuple(s.split("=", 1)) for s in a.runs]
     if runs:
         curves(runs, a.outdir / "bdd_transfer_training_curves.png")
+    if a.matched:
+        matched(*(json.loads(Path(x).read_text()) for x in a.matched), a.outdir / "bdd_transfer_matched_fppi.png")
     if evals:
-        transfer(evals, a.target, a.outdir / "bdd_transfer_recall_fppi.png")
+        if not a.decomp_only:
+            transfer(evals, a.target, a.outdir / "bdd_transfer_recall_fppi.png")
         label, ev = next(((l, e) for l, e in evals if l == a.primary), evals[0])
         decomposition(label, ev, a.target, a.outdir / "bdd_transfer_decomposition.png")
 
