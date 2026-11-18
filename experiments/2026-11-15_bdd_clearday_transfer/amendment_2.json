@@ -1,0 +1,19 @@
+{
+ "amends": "config.json evaluation targets (post hoc, exploratory)",
+ "author": "Claude Opus 5.5 (designated executor)",
+ "written_utc": "2026-11-15T23:45Z",
+ "trigger": "Arm A (640 px) selection-split pedestrian candidate ceiling is 0.770 (1829/2376) under the frozen native max-class policy, floor 1e-4, cap 3000 (no cap hits). All preregistered targets 0.80/0.90/0.95 are INFEASIBLE at the source, so transfer at those targets is undefined and is reported as such.",
+ "information_used": "Selection-split ceiling and its GT-height breakdown only. No val (test) transfer number had been viewed when this was written.",
+ "additions": [
+  {"id": "low_targets", "population": "all pedestrians (unchanged)", "recall_targets": [0.6, 0.7],
+   "status": "exploratory, post hoc", "rationale": "highest round targets below the observed source ceiling"},
+  {"id": "h32", "population": "pedestrian GT with box height >= 32 px eligible; shorter pedestrian GT become ignore regions (ReferenceEvaluator same_category_ioa, IoA>=0.5); predictions unchanged",
+   "recall_targets": [0.8, 0.9, 0.95], "status": "exploratory secondary population, post hoc",
+   "rationale": "isolates transfer for pedestrians the 640 px model can produce; analogous to height-restricted pedestrian protocols"}
+ ],
+ "applies_to": "all arms (A, B, C) identically; preregistered results are always reported first",
+ "other_events": {
+  "A_1280_inference_sensitivity": "failed twice (CUDA OOM). Cause diagnosed after the second failure: Ultralytics predict treats a list source as one batch and ignores batch=, so each 256-image chunk was one batch. Per the stop rule this stage is not retried in this task. remote.py now sends chunks equal to the prediction batch (16 at 640, 4 at 1280) for the remaining stages.",
+  "A_640_inference": "therefore ran with an effective prediction batch of 256 images (identical letterbox shapes; outputs not expected to depend on batch)."
+ }
+}

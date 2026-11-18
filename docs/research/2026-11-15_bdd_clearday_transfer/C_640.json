@@ -1,0 +1,697 @@
+{
+ "label": "C 640 s1",
+ "population": "all pedestrians",
+ "targets": [
+  0.8,
+  0.9,
+  0.95
+ ],
+ "labels_note": "BDD100K legacy 2018 labels; HF mirror images (unverified publisher)",
+ "preds_sha256": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a",
+ "strata": {
+  "selection": {
+   "images": 1842,
+   "pedestrians": 2376,
+   "ceiling": {
+    "tp": 1811.0,
+    "fp": 57260.0,
+    "gt": 2376.0,
+    "images": 1842.0,
+    "recall": 0.7622053872053872,
+    "fppi": 31.085776330076005,
+    "precision": 0.030658021702696756
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 78,
+     "ceiling_recall": 0.1282051282051282,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 513,
+     "ceiling_recall": 0.49317738791423,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 950,
+     "ceiling_recall": 0.8042105263157895,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 641,
+     "ceiling_recall": 0.9329173166926678,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 194,
+     "ceiling_recall": 0.9587628865979382,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 1,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 32.06894679695983
+  },
+  "val:clear_day": {
+   "images": 1764,
+   "pedestrians": 2450,
+   "ceiling": {
+    "tp": 1928.0,
+    "fp": 58434.0,
+    "gt": 2450.0,
+    "images": 1764.0,
+    "recall": 0.7869387755102041,
+    "fppi": 33.125850340136054,
+    "precision": 0.031940624896458034
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 77,
+     "ceiling_recall": 0.16883116883116883,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 483,
+     "ceiling_recall": 0.5072463768115942,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 999,
+     "ceiling_recall": 0.8088088088088088,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 701,
+     "ceiling_recall": 0.9614835948644793,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 190,
+     "ceiling_recall": 0.9894736842105263,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 34.218820861678005
+  },
+  "val:cloudy_day": {
+   "images": 1677,
+   "pedestrians": 2561,
+   "ceiling": {
+    "tp": 1975.0,
+    "fp": 51887.0,
+    "gt": 2561.0,
+    "images": 1677.0,
+    "recall": 0.7711831315892229,
+    "fppi": 30.94036970781157,
+    "precision": 0.03666778062455906
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 105,
+     "ceiling_recall": 0.1523809523809524,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 587,
+     "ceiling_recall": 0.5178875638841567,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 1052,
+     "ceiling_recall": 0.8317490494296578,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 658,
+     "ceiling_recall": 0.952887537993921,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 159,
+     "ceiling_recall": 0.9622641509433962,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 32.1180679785331
+  },
+  "val:rainy_day": {
+   "images": 396,
+   "pedestrians": 544,
+   "ceiling": {
+    "tp": 422.0,
+    "fp": 15623.0,
+    "gt": 544.0,
+    "images": 396.0,
+    "recall": 0.7757352941176471,
+    "fppi": 39.4520202020202,
+    "precision": 0.026301028357743846
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 23,
+     "ceiling_recall": 0.30434782608695654,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 76,
+     "ceiling_recall": 0.4605263157894737,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 222,
+     "ceiling_recall": 0.7747747747747747,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 166,
+     "ceiling_recall": 0.9337349397590361,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 57,
+     "ceiling_recall": 0.9298245614035088,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 0,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 40.51767676767677
+  },
+  "val:snowy_day": {
+   "images": 422,
+   "pedestrians": 678,
+   "ceiling": {
+    "tp": 532.0,
+    "fp": 15427.0,
+    "gt": 678.0,
+    "images": 422.0,
+    "recall": 0.7846607669616519,
+    "fppi": 36.556872037914694,
+    "precision": 0.03333542201892349
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 15,
+     "ceiling_recall": 0.26666666666666666,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 126,
+     "ceiling_recall": 0.4444444444444444,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 266,
+     "ceiling_recall": 0.8082706766917294,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 195,
+     "ceiling_recall": 0.9282051282051282,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 76,
+     "ceiling_recall": 1.0,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 37.817535545023695
+  },
+  "val:foggy": {
+   "images": 5,
+   "pedestrians": 2,
+   "ceiling": {
+    "tp": 1.0,
+    "fp": 54.0,
+    "gt": 2.0,
+    "images": 5.0,
+    "recall": 0.5,
+    "fppi": 10.8,
+    "precision": 0.01818181818181818
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 0,
+     "ceiling_recall": null,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 0,
+     "ceiling_recall": null,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 2,
+     "ceiling_recall": 0.5,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 0,
+     "ceiling_recall": null,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 0,
+     "ceiling_recall": null,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 0,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 11.0
+  },
+  "val:night": {
+   "images": 3929,
+   "pedestrians": 2843,
+   "ceiling": {
+    "tp": 2061.0,
+    "fp": 113289.0,
+    "gt": 2843.0,
+    "images": 3929.0,
+    "recall": 0.7249384453042561,
+    "fppi": 28.834054466785442,
+    "precision": 0.01786736020806242
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 78,
+     "ceiling_recall": 0.0641025641025641,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 439,
+     "ceiling_recall": 0.37585421412300685,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 1121,
+     "ceiling_recall": 0.7377341659232828,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 905,
+     "ceiling_recall": 0.8828729281767956,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 300,
+     "ceiling_recall": 0.8833333333333333,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 29.35861542377195
+  },
+  "val:dawn_dusk": {
+   "images": 778,
+   "pedestrians": 1046,
+   "ceiling": {
+    "tp": 803.0,
+    "fp": 26084.0,
+    "gt": 1046.0,
+    "images": 778.0,
+    "recall": 0.7676864244741873,
+    "fppi": 33.526992287917736,
+    "precision": 0.02986573436976978
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 27,
+     "ceiling_recall": 0.14814814814814814,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 211,
+     "ceiling_recall": 0.47393364928909953,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 428,
+     "ceiling_recall": 0.8130841121495327,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 291,
+     "ceiling_recall": 0.9347079037800687,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 89,
+     "ceiling_recall": 0.8876404494382022,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 34.559125964010285
+  },
+  "val:undefined": {
+   "images": 1029,
+   "pedestrians": 3138,
+   "ceiling": {
+    "tp": 2490.0,
+    "fp": 55714.0,
+    "gt": 3138.0,
+    "images": 1029.0,
+    "recall": 0.7934990439770554,
+    "fppi": 54.14382896015549,
+    "precision": 0.042780564909628206
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 120,
+     "ceiling_recall": 0.225,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 679,
+     "ceiling_recall": 0.5478645066273933,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 1164,
+     "ceiling_recall": 0.8333333333333334,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 867,
+     "ceiling_recall": 0.9400230680507498,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 308,
+     "ceiling_recall": 0.9935064935064936,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 15,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 56.563654033041786
+  },
+  "val2:night_clear": {
+   "images": 3274,
+   "pedestrians": 2230,
+   "ceiling": {
+    "tp": 1605.0,
+    "fp": 89541.0,
+    "gt": 2230.0,
+    "images": 3274.0,
+    "recall": 0.7197309417040358,
+    "fppi": 27.349114233353696,
+    "precision": 0.017609110657626225
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 65,
+     "ceiling_recall": 0.06153846153846154,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 339,
+     "ceiling_recall": 0.35693215339233036,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 896,
+     "ceiling_recall": 0.734375,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 706,
+     "ceiling_recall": 0.876770538243626,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 224,
+     "ceiling_recall": 0.90625,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 27.839340256566892
+  },
+  "val2:night_rain_snow": {
+   "images": 559,
+   "pedestrians": 499,
+   "ceiling": {
+    "tp": 372.0,
+    "fp": 20257.0,
+    "gt": 499.0,
+    "images": 559.0,
+    "recall": 0.7454909819639278,
+    "fppi": 36.23792486583184,
+    "precision": 0.01803286635319211
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 13,
+     "ceiling_recall": 0.07692307692307693,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 78,
+     "ceiling_recall": 0.4230769230769231,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 185,
+     "ceiling_recall": 0.772972972972973,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 159,
+     "ceiling_recall": 0.8930817610062893,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 64,
+     "ceiling_recall": 0.828125,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 0,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 36.90339892665474
+  },
+  "val2:rainy_all": {
+   "images": 738,
+   "pedestrians": 822,
+   "ceiling": {
+    "tp": 616.0,
+    "fp": 27395.0,
+    "gt": 822.0,
+    "images": 738.0,
+    "recall": 0.7493917274939172,
+    "fppi": 37.12059620596206,
+    "precision": 0.02199136053693192
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 30,
+     "ceiling_recall": 0.26666666666666666,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 125,
+     "ceiling_recall": 0.416,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 303,
+     "ceiling_recall": 0.7524752475247525,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 267,
+     "ceiling_recall": 0.9063670411985019,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 97,
+     "ceiling_recall": 0.8865979381443299,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 0,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 37.95528455284553
+  },
+  "val2:snowy_all": {
+   "images": 769,
+   "pedestrians": 1137,
+   "ceiling": {
+    "tp": 913.0,
+    "fp": 29665.0,
+    "gt": 1137.0,
+    "images": 769.0,
+    "recall": 0.802990325417766,
+    "fppi": 38.57607282184655,
+    "precision": 0.029858067891948458
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 22,
+     "ceiling_recall": 0.18181818181818182,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 191,
+     "ceiling_recall": 0.47643979057591623,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 463,
+     "ceiling_recall": 0.8228941684665226,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 333,
+     "ceiling_recall": 0.93993993993994,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 128,
+     "ceiling_recall": 0.96875,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 2,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 39.76332899869961
+  },
+  "val:all": {
+   "images": 10000,
+   "pedestrians": 13262,
+   "ceiling": {
+    "tp": 10212.0,
+    "fp": 336512.0,
+    "gt": 13262.0,
+    "images": 10000.0,
+    "recall": 0.7700196048861409,
+    "fppi": 33.6512,
+    "precision": 0.02945282126417554
+   },
+   "ceiling_by_height": {
+    "0-16": {
+     "gt": 445,
+     "ceiling_recall": 0.1707865168539326,
+     "recall_at_t": null
+    },
+    "16-32": {
+     "gt": 2601,
+     "ceiling_recall": 0.49096501345636295,
+     "recall_at_t": null
+    },
+    "32-64": {
+     "gt": 5254,
+     "ceiling_recall": 0.8024362390559574,
+     "recall_at_t": null
+    },
+    "64-128": {
+     "gt": 3783,
+     "ceiling_recall": 0.9312714776632303,
+     "recall_at_t": null
+    },
+    ">=128": {
+     "gt": 1179,
+     "ceiling_recall": 0.9499575911789653,
+     "recall_at_t": null
+    }
+   },
+   "zero_area_candidates": 25,
+   "ignored_candidates": 0,
+   "cap_hits": 0,
+   "mean_ped_candidates_per_image": 34.6724
+  }
+ },
+ "selection": {
+  "0.8": {
+   "threshold": null,
+   "point": null,
+   "selection_ceiling": {
+    "tp": 1811.0,
+    "fp": 57260.0,
+    "gt": 2376.0,
+    "images": 1842.0,
+    "recall": 0.7622053872053872,
+    "fppi": 31.085776330076005,
+    "precision": 0.030658021702696756
+   },
+   "threshold_ci": [
+    0.00036139567964710295,
+    0.00036139567964710295
+   ],
+   "status": "INFEASIBLE",
+   "bootstrap_infeasible_replicates": 999
+  },
+  "0.9": {
+   "threshold": null,
+   "point": null,
+   "selection_ceiling": {
+    "tp": 1811.0,
+    "fp": 57260.0,
+    "gt": 2376.0,
+    "images": 1842.0,
+    "recall": 0.7622053872053872,
+    "fppi": 31.085776330076005,
+    "precision": 0.030658021702696756
+   },
+   "threshold_ci": null,
+   "status": "INFEASIBLE",
+   "bootstrap_infeasible_replicates": 1000
+  },
+  "0.95": {
+   "threshold": null,
+   "point": null,
+   "selection_ceiling": {
+    "tp": 1811.0,
+    "fp": 57260.0,
+    "gt": 2376.0,
+    "images": 1842.0,
+    "recall": 0.7622053872053872,
+    "fppi": 31.085776330076005,
+    "precision": 0.030658021702696756
+   },
+   "threshold_ci": null,
+   "status": "INFEASIBLE",
+   "bootstrap_infeasible_replicates": 1000
+  }
+ },
+ "transfer": {
+  "0.8": {
+   "status": "INFEASIBLE_SOURCE_TARGET"
+  },
+  "0.9": {
+   "status": "INFEASIBLE_SOURCE_TARGET"
+  },
+  "0.95": {
+   "status": "INFEASIBLE_SOURCE_TARGET"
+  }
+ },
+ "checks": {
+  "selection": "ReferenceEvaluator whole-population select_threshold/operating_point == fast path",
+  "val:clear_day": "ReferenceEvaluator whole-population select_threshold/operating_point == fast path"
+ }
+}

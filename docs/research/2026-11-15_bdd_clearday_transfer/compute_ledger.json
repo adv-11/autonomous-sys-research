@@ -1,0 +1,136 @@
+{
+ "executor": "Claude Opus 5.5 (designated; one Colab session, Claude-owned)",
+ "session": {
+  "name": "bddxfer",
+  "accelerator": "L4",
+  "rate_CU_per_h": 1.94,
+  "allocated_utc": "2026-11-15T20:30:21Z",
+  "stopped_utc": "2026-11-16T13:13:39Z",
+  "allocated_hours": 16.72,
+  "teardown_verified": "colab usage: 0 active assignments, 0.00/h; colab sessions: none on server"
+ },
+ "displayed_balance_CU": {
+  "before": 294.94,
+  "after": 262.56,
+  "spent": 32.38,
+  "note": "Displayed balance may lag billing; stage split below is allocated time x 1.94 CU/h, an estimate."
+ },
+ "stages_utc": [
+  {
+   "stage": "setup (mirror download + SHA-256 verify, extraction) and throughput pilots",
+   "from": "20:30:21",
+   "to": "20:44:44",
+   "CU_est": 0.47
+  },
+  {
+   "stage": "train A (640, seed 0, 100 epochs)",
+   "from": "20:44:44",
+   "to": "23:21:22",
+   "CU_est": 5.06
+  },
+  {
+   "stage": "A inference 640; A@1280 inference sensitivity failed twice (OOM); idle until relaunch",
+   "from": "23:21:22",
+   "to": "23:37:43",
+   "CU_est": 0.53
+  },
+  {
+   "stage": "train B (1280, seed 0, 100 epochs)",
+   "from": "23:37:43",
+   "to": "10:14:15",
+   "CU_est": 20.58
+  },
+  {
+   "stage": "B inference 1280",
+   "from": "10:14:15",
+   "to": "10:17:46",
+   "CU_est": 0.11
+  },
+  {
+   "stage": "train C (640, seed 1, 100 epochs)",
+   "from": "10:17:46",
+   "to": "12:54:24",
+   "CU_est": 5.06
+  },
+  {
+   "stage": "C inference 640",
+   "from": "12:54:24",
+   "to": "12:56:31",
+   "CU_est": 0.07
+  },
+  {
+   "stage": "idle until poller retrieval, hash checks and stop",
+   "from": "12:56:31",
+   "to": "13:13:39",
+   "CU_est": 0.55
+  }
+ ],
+ "optimizer_updates": {
+  "A": {
+   "attempted": 16900,
+   "successful": 16888,
+   "amp_skipped": 12,
+   "effective_batch": 64,
+   "images_presented_per_epoch": 10635,
+   "peak_mem_gib": 7.75,
+   "train_seconds": 9353
+  },
+  "B": {
+   "attempted": 17096,
+   "successful": 17086,
+   "amp_skipped": 10,
+   "effective_batch": 64,
+   "images_presented_per_epoch": 10635,
+   "peak_mem_gib": 16.19,
+   "train_seconds": 38147
+  },
+  "C": {
+   "attempted": 16900,
+   "successful": 16889,
+   "amp_skipped": 11,
+   "effective_batch": 64,
+   "images_presented_per_epoch": 10635,
+   "peak_mem_gib": 7.76,
+   "train_seconds": 9352
+  },
+  "note": "Ultralytics ramps gradient accumulation during warmup, so attempted counts differ from epochs x batches / accumulate. Native scheduler is epoch-based and EMA updates on every attempted step (decision 7's update-based scheduler/EMA rule is not implemented; native training was mandated)."
+ },
+ "failures": [
+  {
+   "stage": "A@1280 inference-only sensitivity",
+   "attempts": 2,
+   "error": "CUDA OOM (7.19 GiB allocation)",
+   "cause": "Ultralytics predict treats a list source as one batch and ignores batch=; each 256-image chunk was one batch. Diagnosed after the second failure; stage stopped per the two-failure rule and not retried. Later stages used chunk = prediction batch (4 at 1280, 16 at 640)."
+  }
+ ],
+ "predictions_and_weights": {
+  "A_640": {
+   "preds_npz_sha256": "6f9f4b0aae68d3f40bf341375168998cf64b29aab8be62b04dc23f15cfb32f57",
+   "last_pt_sha256": "281e87917f017901d9f32b1222c29e7fc571fcc67021264d7c7d6bdf640529ed",
+   "imgsz": 640,
+   "ped_candidates": 399557,
+   "cap_hits": 0,
+   "predict_seconds": 133,
+   "effective_predict_batch": 256
+  },
+  "B_1280": {
+   "preds_npz_sha256": "143534c8db25de5b8387666a2a99c8cda171a96150ce3ff651061a42a72d1d55",
+   "last_pt_sha256": "b955e5d9650f612489e6ab87506e09280ec4912c9b11a67526a02d6e6ad6ea4a",
+   "imgsz": 1280,
+   "ped_candidates": 515668,
+   "cap_hits": 0,
+   "predict_seconds": 208,
+   "effective_predict_batch": 4
+  },
+  "C_640": {
+   "preds_npz_sha256": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a",
+   "last_pt_sha256": "38ab49762a469a41df531ce275ff8c65a113f5ef7bef95ba3c8133585ad43ced",
+   "imgsz": 640,
+   "ped_candidates": 405795,
+   "cap_hits": 0,
+   "predict_seconds": 125,
+   "effective_predict_batch": 16
+  }
+ },
+ "spend_authority": "Commit 622bbc8 (2026-11-15) lifted the 20 CU envelope; coordinator check-in required before cumulative spend passes 100 CU."
+}

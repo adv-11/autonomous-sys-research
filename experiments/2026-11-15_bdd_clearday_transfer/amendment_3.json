@@ -1,0 +1,15 @@
+{
+ "amends": "evaluation (post hoc, exploratory); requested by the coordinator after arm B results",
+ "author": "Claude Opus 5.5 (designated executor)",
+ "written_utc": "2026-11-16T10:45Z",
+ "status": "exploratory, post hoc. Written and committed before any matched-FPPI number (selection or val) was computed.",
+ "motivation": "At a fixed source recall target, arms A (640) and B (1280) sit at different source FPPI and ceiling headroom, so their ceiling/threshold decompositions are not matched. Matching source FPPI compares resolution at equal clear-day false-positive cost.",
+ "selection_rule": "For each arm and each FPPI level L, t*(L) = the lowest observed selection-split pedestrian candidate score s such that FP(score >= s)/images <= L on the selection split (whole tie groups inclusive; zero-area candidates count as FP). Undefined if even the top tie group exceeds L.",
+ "fppi_levels": [0.5, 1.0, 2.0, 4.5],
+ "fppi_levels_rationale": "A's lowest selection ceiling FPPI is 31.6 and B's operating points so far span 0.3-9 FPPI, so all four levels are reachable by every arm; 4.5 is near A's recall-0.70 operating point. Grid fixed without val data.",
+ "populations": ["all pedestrians", "pedestrian GT >= 32 px (shorter GT ignore regions, as amendment_2)"],
+ "arms": ["A (640, seed 0)", "B (1280, seed 0)", "C (640, seed 1) when available"],
+ "reported_per_condition": "recall and FPPI at t*(L), candidate ceiling, loss vs val clear day split into ceiling and threshold parts (held_out_loss_decomposition), plus a per-condition oracle: the condition's own threshold at the same FPPI level and its recall. 95% image bootstrap, 1000 replicates, selection and test resampled independently (same seed and procedure as the frozen config).",
+ "comparison": "B minus A at each L for night recall and both loss parts; bootstrap intervals for those differences use paired resampling of the same images for both arms (same predictions population, same image draws).",
+ "unchanged": "matching, splits, candidates, preregistered and amendment_2 results"
+}

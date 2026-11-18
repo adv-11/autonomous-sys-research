@@ -1,0 +1,163 @@
+{
+ "experiment": "bdd_clearday_transfer_20261115",
+ "researcher": "Claude Opus 5.5 (designated executor)",
+ "frozen_utc": "2026-11-15T20:29:17Z",
+ "labels": {
+  "name": "BDD100K legacy 2018 labels (Berkeley candidate archive; not Detection 2020)",
+  "archive_sha256": "7f1f9043c70a6ff0788a323cfb914aeced109a37b7150740d670a347c881394a"
+ },
+ "images": {
+  "name": "BDD100K 100k images, Hugging Face mirror (publisher identity unverified)",
+  "url": "https://huggingface.co/datasets/Xing1210/bdd100k/resolve/c45de4b70434647956b4fea75fbbbadc18218f08/bdd100k_images_100k.zip",
+  "archive_sha256": "afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784"
+ },
+ "classes": [
+  "pedestrian",
+  "rider",
+  "car",
+  "truck",
+  "bus",
+  "train",
+  "motorcycle",
+  "bicycle",
+  "traffic light",
+  "traffic sign"
+ ],
+ "legacy_to_class": {
+  "person": "pedestrian",
+  "rider": "rider",
+  "car": "car",
+  "truck": "truck",
+  "bus": "bus",
+  "train": "train",
+  "motor": "motorcycle",
+  "bike": "bicycle",
+  "traffic light": "traffic light",
+  "traffic sign": "traffic sign"
+ },
+ "dropped_legacy_prefixes": [
+  "lane/",
+  "area/"
+ ],
+ "label_drops": {
+  "train:no_box2d": 0,
+  "train:nonpositive": 395,
+  "train:out_of_bounds": 0,
+  "train:dropped_category": 654799,
+  "val:no_box2d": 0,
+  "val:nonpositive": 52,
+  "val:out_of_bounds": 0,
+  "val:dropped_category": 93711
+ },
+ "source": "train split, weather=clear and timeofday=daytime",
+ "selection_split": {
+  "rule": "sha256(salt+image_stem)[:8] as int mod 10000 < 1500",
+  "salt": "bdd-clearday-selection-v1:",
+  "never_trained_on": true,
+  "ultralytics_val_set": true
+ },
+ "test": "all BDD legacy val images; primary strata mutually exclusive",
+ "primary_strata": [
+  "clear_day",
+  "cloudy_day",
+  "rainy_day",
+  "snowy_day",
+  "foggy",
+  "night",
+  "dawn_dusk",
+  "undefined"
+ ],
+ "secondary_strata": [
+  "night_clear",
+  "night_rain_snow",
+  "rainy_all",
+  "snowy_all"
+ ],
+ "stratum_rules": "night/dawn_dusk pool all weather; foggy pools all times (descriptive only, n<20); cloudy_day = overcast|partly cloudy at daytime; undefined = any undefined attribute otherwise",
+ "manifest_sha256": {
+  "manifest_source_train.json": "ddd6f7f9e4104e61c5be22398d7f2489b37d9d45f311d46d1dc46d9d65d444ec",
+  "manifest_selection.json": "a3714ba25749e427b46e91218d566ac12f5a3f0101a9c24e9f6e1998b42e307d",
+  "manifest_val.json": "2c401e660bf6694557d1019efa0c2cf439e777f9ff514912c1183f31c73edbe3",
+  "gt_pedestrian.json": "37929323cb4943766a163a8ea8bf1e02ba1e244c5ae29fe6cebe02ce5a257bbf",
+  "yolo_labels_source.json": "88bdcb547dd88fa99e825455a11c79470c75a4c5cf153f928e1c44946dcdd4e1"
+ },
+ "training": {
+  "framework": "ultralytics==8.4.197",
+  "init": "yolo11s.pt (COCO)",
+  "init_sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+  "imgsz": 640,
+  "batch": 32,
+  "nbs": 64,
+  "optimizer": "SGD",
+  "lr0": 0.01,
+  "seed": 0,
+  "deterministic": true,
+  "cache": "ram",
+  "workers": 8,
+  "patience": 0,
+  "amp": true,
+  "other_hyperparameters": "Ultralytics defaults (mosaic, close_mosaic=10, lrf=0.01, warmup 3 epochs)",
+  "epochs": "chosen after the throughput pilot from measured throughput only; recorded in an amendment",
+  "evaluated_checkpoint": "last.pt (final epoch, EMA); best.pt retained but not used",
+  "update_counting": "wrap trainer.optimizer_step; success = GradScaler scale not decreased"
+ },
+ "inference": {
+  "mode": "native Ultralytics predict",
+  "imgsz": 640,
+  "half": false,
+  "conf_floor": 0.0001,
+  "max_det_cap": 3000,
+  "nms_iou": 0.7,
+  "agnostic_nms": false,
+  "class_filter": "all classes through NMS and cap, then pedestrian class kept",
+  "checkpoint": "last.pt"
+ },
+ "evaluation": {
+  "evaluator": "threshold_transfer.metrics.ReferenceEvaluator (IoU>=0.5, greedy score order)",
+  "category": "pedestrian",
+  "ignore_policy": "reject (legacy labels have no ignore/crowd)",
+  "gt_bounds": "original legacy pixel boxes; zero out-of-bounds observed",
+  "recall_targets": [
+   0.8,
+   0.9,
+   0.95
+  ],
+  "threshold_rule": "highest observed selection-split score with recall>=target (whole ties)",
+  "reference_for_loss": "val clear_day",
+  "height_bins_px": [
+   [
+    0,
+    16
+   ],
+   [
+    16,
+    32
+   ],
+   [
+    32,
+    64
+   ],
+   [
+    64,
+    128
+   ],
+   [
+    128,
+    null
+   ]
+  ],
+  "bootstrap": {
+   "unit": "image",
+   "replicates": 1000,
+   "seed": 20261115,
+   "assumption": "BDD100K images are keyframes from distinct videos; treated as independent",
+   "selection_and_test_resampled_independently": true
+  }
+ },
+ "budget": {
+  "envelope_CU": 20,
+  "stop_if_L4_rate_CU_per_h_exceeds": 3,
+  "max_failures_per_stage": 2,
+  "sessions": "one at a time, Claude-owned, verified teardown"
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "amends": "config.json (frozen in d9f91af)",
+ "author": "Claude Opus 5.5 (designated executor)",
+ "written_utc": "2026-11-15T20:50Z",
+ "basis": "Throughput pilot only (no selection or val metric used) plus the coordinator's 2026-11-15 budget update lifting the 20 CU envelope (report before 100 CU cumulative; 3 CU/h cap; one session).",
+ "pilot_measurements_L4": {
+  "rate_CU_per_h": 1.94,
+  "imgsz640_batch32": {"epoch_s_incl_selection_val": 100, "train_img_per_s": 130, "peak_mem_gib": 7.4, "attempted_updates": 166, "successful_updates": 159, "amp_skipped": 7},
+  "imgsz1280_batch16_fraction0.3": {"projected_full_epoch_s": 390, "train_img_per_s": 29, "peak_mem_gib": 15.1, "attempted_updates": 50, "successful_updates": 42, "amp_skipped": 8},
+  "pilot_val_on_selection_note": "Ultralytics printed selection-split val after the 1-epoch pilots; not used for any decision here."
+ },
+ "arms": [
+  {"id": "A", "imgsz": 640, "batch": 32, "seed": 0, "epochs": 100, "role": "primary (frozen config resolution)"},
+  {"id": "B", "imgsz": 1280, "batch": 16, "seed": 0, "epochs": 100, "role": "resolution arm (native BDD width); same effective batch 64 via nbs=64"},
+  {"id": "C", "imgsz": 640, "batch": 32, "seed": 1, "epochs": 100, "role": "second training seed of the primary arm"}
+ ],
+ "inference": "Each arm is evaluated at its training imgsz. Sensitivity: arm A checkpoint also inferred at imgsz 1280 (test-time resolution only).",
+ "epochs_rationale": "100 epochs = ~16.6k successful updates at effective batch 64 over 10,635 images; convergence is judged afterwards from training curves and reported, not tuned.",
+ "projected_cost_CU": {"A": 5.5, "B": 21.5, "C": 5.5, "inference_and_overhead": 3, "total": 35.5},
+ "unchanged": "splits, manifests, threshold rule, recall targets, candidate floor/cap, evaluated checkpoint (last.pt), bootstrap.",
+ "logging_fix": "updates.jsonl epoch field now records Ultralytics trainer.epoch at on_fit_epoch_end (8.4.197 has already advanced it, so it equals completed epochs); pilot logs carry the old +1 value."
+}
