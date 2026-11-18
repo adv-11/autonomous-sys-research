@@ -24,7 +24,8 @@ def main():
     ap.add_argument("--archive", type=Path, required=True, help="index read only; CRC verified separately")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--setup", choices=SETUPS, default="reasonable")
-    ap.add_argument("--profile", choices=PROFILES, default=PROFILES[0])
+    ap.add_argument("--profile", choices=PROFILES, required=True,
+                    help="contract v2: unused_nonpedestrian is primary; person_compatible_ignore is sensitivity")
     args = ap.parse_args()
     destination = args.out.resolve()
     repo = Path(__file__).resolve().parents[2]

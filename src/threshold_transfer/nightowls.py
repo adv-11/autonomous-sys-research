@@ -15,9 +15,15 @@ from .data import PreflightError, _check_box_xywh, _json_value, _native_document
 from .schema import SCHEMA_VERSION, validate_documents
 
 EXPECTED_CATEGORIES = {1: "pedestrian", 2: "bicycledriver", 3: "motorbikedriver", 4: "ignore"}
+# PRIMARY_/SECONDARY_PROFILE keep their v1 (2026-11-13) names for the preserved
+# adapter check. Under contract v2 (2026-11-18) the roles are reversed: the primary
+# BDD-comparison profile is "unused_nonpedestrian"; "person_compatible_ignore" is a
+# sensitivity. Scoring code must use the V2_* names.
 PRIMARY_PROFILE = "person_compatible_ignore"
 SECONDARY_PROFILE = "unused_nonpedestrian"
 PROFILES = (PRIMARY_PROFILE, SECONDARY_PROFILE)
+V2_PRIMARY_PROFILE = SECONDARY_PROFILE
+V2_SENSITIVITY_PROFILE = PRIMARY_PROFILE
 MATCHING_CATEGORY = "human"
 # Exact GT ranges in pinned NightOwls Python SDK (upper bounds inclusive).
 SETUPS = {"reasonable": (50, 1e10, 0.65, 1e10),

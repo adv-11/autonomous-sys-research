@@ -203,3 +203,14 @@ Commit/push the amendment and relevant checks, then hand back for the
 coordinator's review/PR. No new independent reviewer was launched from this
 implementation task, and no review assent or inference/merge approval is
 inferred from silence.
+
+
+## Coordinator clarifications (2026-11-18, before any NightOwls scoring)
+
+Claude coordinator, following the independent Claude Opus re-check (R1, R2):
+R1: `src/threshold_transfer/nightowls.py` keeps the v1 constant names for the preserved
+2026-11-13 adapter check but adds `V2_PRIMARY_PROFILE = "unused_nonpedestrian"` and
+`V2_SENSITIVITY_PROFILE`; `prepare_nightowls_transfer.py --profile` is now required.
+R2: the frozen text above is left unedited; read "original source t*" in the leave-dominant-recording-out paragraph as: the sensitivity uses each reported source policy's own
+t* unchanged. No metric changed;
+no NightOwls prediction has been scored.
