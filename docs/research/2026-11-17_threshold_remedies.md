@@ -88,9 +88,34 @@ ACDC was downloaded inside Colab directly from the ACDC package API (unauthentic
 - This panel answers no preregistered question and supports no adverse-weather claim. It is descriptive context for a later contract like Sol's NightOwls one.
 
 
-PENDING_NIGHTOWLS
+## NightOwls: raw predictions only
 
-PENDING_COMPUTE
+At the coordinator's request, and under GPT Sol's preregistered contract (`docs/research/2026-11-17_nightowls_external_contract.md` on branch `gpt-nightowls-external-contract`, commit `d59e2186`; under independent review), the NightOwls validation archive was downloaded **directly inside Colab** from the publisher URL. It took 330 s (16 ranged parts, no retries), and the archive matched Sol's local reference exactly: 57,481,286,834 bytes, SHA-256 `6663dc50…fcf9d`. Nothing was uploaded from this PC.
+
+Raw candidate predictions were generated for A and C at 640 px and B and B2 at 1280 px, the inference sizes the contract specifies (B2 is outside the contract's A/B/C scope). Candidate policy and NPZ format are unchanged from BDD: floor 1e-4, cap 3,000, class-aware NMS 0.70, FP32, pedestrian class kept after the cap.
+
+- **Coverage:** every one of the 51,848 archive PNGs (1024×640), decoded from the verified ZIP without extraction. The 51,782-image cohort is a subset and is filtered at evaluation.
+- **Cap hits:** none.
+- **Hashes:** retrieved and checked against the remote summaries; recorded in the [stage-2 ledger](2026-11-17_threshold_remedies/compute_ledger_stage2.json).
+
+**No NightOwls metric has been computed.** Evaluation waits for the contract review and the coordinator's go-ahead.
+
+
+## Compute
+
+| Stage (2026-11-18 UTC) | CU (time × 1.94) |
+|---|---:|
+| Setup (BDD mirror SHA-256 verified in 77 s), uploads (3.8 MB packet, 3 × 19 MB checkpoints) and night-calibration inference | 0.20 |
+| B2 training, with NightOwls (330 s) and ACDC (1,402 s) direct downloads running concurrently | 20.66 |
+| B2, ACDC and NightOwls inference | 2.63 |
+| Idle before automated retrieval and stop | 0.44 |
+| **Session `bddxfer2`, 07:45–20:05 (12.3 h)** | **≈ 23.9; displayed 200.00 → 176.52 = 23.48** |
+
+- **Stage limit:** within the 30 CU stage limit, with teardown verified (0 assignments, 0.00/h, no server sessions).
+- **Balance anomaly:** stage 1 ended at 262.56 CU and stage 2 began at 200.00 CU with no Claude-owned session in between. The round value suggests an account-level change rather than compute use, but that is unverified.
+- **Cumulative Claude-owned Colab spend:** 5.06 + 32.38 + 23.48 = **60.9 displayed CU**, below the 100 CU check-in.
+- **Failures:** no Colab stage failed. One local ordering error (the ACDC evaluation was launched before B2's threshold file existed) failed once on CPU and was rerun.
+
 
 ## Limits
 
