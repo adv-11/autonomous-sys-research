@@ -1,5 +1,10 @@
 # NightOwls external threshold-transfer preregistration
 
+**Version history:** the dated [version 2 amendment](2026-11-18_nightowls_contract_v2.md)
+supersedes conflicting population, primary ignore, scale, support and Colab
+handling rules below. The remaining text preserves version 1's historical
+pre-prediction contract; v2 was fixed during prediction generation, before scoring.
+
 I want an external night-pedestrian test of the frozen BDD clear-day-trained
 YOLO11s runs A/B/C. GPT Sol prepared this contract on 2026-11-17 Pacific
 (2026-11-18 UTC), from `origin/main` `6d1813631519c9e9cfee2fd45b39dc0d4eecc7ca`.
