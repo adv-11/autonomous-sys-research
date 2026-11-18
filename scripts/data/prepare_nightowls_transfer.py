@@ -26,7 +26,11 @@ def main():
     ap.add_argument("--setup", choices=SETUPS, default="reasonable")
     ap.add_argument("--profile", choices=PROFILES, default=PROFILES[0])
     args = ap.parse_args()
-    if not {"data", "outputs"}.intersection(args.out.resolve().parts):
+    destination = args.out.resolve()
+    repo = Path(__file__).resolve().parents[2]
+    if (not {"data", "outputs"}.intersection(destination.parts)
+            or (destination.is_relative_to(repo) and not any(
+                destination.is_relative_to(repo / private) for private in ("data", "outputs")))):
         raise ValueError("restricted output must be under data/ or outputs/")
     raw, pilot_raw = args.annotations.read_bytes(), args.pilot_manifest.read_bytes()
     if hashlib.sha256(raw).hexdigest() != ANNOTATION_SHA:

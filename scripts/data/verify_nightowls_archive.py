@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import time
 import zipfile
+import zlib
 
 
 def verify(archive: Path, output: Path, expected_bytes: int, expected_sha256=None):
@@ -58,7 +59,7 @@ def verify(archive: Path, output: Path, expected_bytes: int, expected_sha256=Non
                     for block in iter(lambda: member.read(1024 * 1024), b""):
                         uncompressed += len(block)
                 checked += 1
-            except (zipfile.BadZipFile, RuntimeError, NotImplementedError, EOFError, OSError):
+            except (zipfile.BadZipFile, zlib.error, RuntimeError, NotImplementedError, EOFError, OSError):
                 failed += 1
             if (checked + failed) % 2000 == 0:
                 report.update(crc_members_checked=checked, crc_failed_members=failed)

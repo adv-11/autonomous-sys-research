@@ -38,15 +38,16 @@ def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
                      exclude_image_ids: Iterable[int] = ()) -> dict:
     """Return a canonical-v1 dict without mutating or aliasing the native document.
 
-    Retain every exact ``daytime == 'night'`` frame, including empty/unkeyed ones.
+    Retain exact ``daytime == 'night'`` frames except explicit pilot exclusions,
+    including empty/unkeyed ones.
     Default GT are category 1, ignore 0, native height >=50, occluded not True.
     Other named setups change GT eligibility only, never the candidate pipeline.
     BDD-trained pedestrian outputs use matching_category='pedestrian'. Explicit
     native exclusion IDs support the pre-existing access-pilot exclusion policy.
     Null occlusion follows the SDK convention, not a claim of actual visibility.
     All other pedestrian boxes are ignored; the explicit profile decides whether
-    categories 2/3/4 are also ignored or omitted. All retained boxes match ``human``;
-    that token does not make riders eligible. No detection filter is applied.
+    categories 2/3/4 are also ignored or omitted. All retained boxes use the
+    selected matching token; riders remain ineligible. No detection filter is applied.
 
     IDs, image/category references and positive finite geometry are checked even
     for omitted records. Pose/tracking metadata are opaque, not grouping evidence.

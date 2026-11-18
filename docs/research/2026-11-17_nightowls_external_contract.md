@@ -192,7 +192,7 @@ A Windows `curl.exe --head --range 0-0 --max-time 45` check on
 This verifies endpoint metadata/access from this PC, not sustained Colab
 throughput. If direct download inside Colab fails or requires unavailable
 credentials, stop and report that limitation; there is no PC-upload fallback.
-Verify free disk against archive plus 57.47 GB uncompressed images and outputs;
+Verify free disk against archive plus 57.60 GB uncompressed images and outputs;
 avoid retaining duplicate extracted datasets. Local archive remains unextracted.
 
 Inference covers **51,782 images per run, 155,346 total**. Prior L4 BDD timings
