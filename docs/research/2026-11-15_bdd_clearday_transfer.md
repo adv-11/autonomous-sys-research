@@ -109,3 +109,11 @@ One L4 session, `bddxfer`, ran from 2026-11-15 20:30 to 2026-11-16 13:13 UTC (16
 - Natural next steps, not started: a second 1280 px seed; ACDC as a descriptive external panel; NightOwls once verified. Expanding to YOLO26s and RT-DETRv2 was gated on this YOLO11s result and is the coordinator's decision after review.
 
 Code: [experiment folder](../../experiments/2026-11-15_bdd_clearday_transfer/). Aggregate results: [JSON files](2026-11-15_bdd_clearday_transfer/), with no image identifiers or boxes. Private manifests, predictions and weights are under `outputs/bdd_transfer_20261115/` (not in Git).
+
+## Erratum (2026-11-18)
+
+*Added on branch `bdd-threshold-remedies` after GPT Sol's [review](../reviews/2026-11-18_sol_review_threshold_remedies.md) (finding 1). The text above is left as merged; no number changes.*
+
+In this report, the "No matched candidate" columns and phrases (including "no matched candidate 0.06–0.09") denote the **ceiling difference** M_clear − M_night: the excess share of night pedestrians without a matched candidate relative to clear day, which is one component of the night loss. They are **not** the absolute share of night pedestrians with no matched candidate. That absolute share is 1 − the night ceiling: **0.293 (A), 0.170 (B), 0.275 (C)** on BDD val night (0.177 for B2, [follow-up report](2026-11-17_threshold_remedies.md)).
+
+Likewise, "Removed by threshold" is the signed difference T = (M_night − R_night) − (M_clear − R_clear), not all night threshold-removable misses. Statements about how the night loss splits between the two parts refer to these difference components.

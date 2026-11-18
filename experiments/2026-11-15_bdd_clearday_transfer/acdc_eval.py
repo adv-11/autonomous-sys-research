@@ -5,8 +5,8 @@ provisional policy); native 'person' is the pedestrian class (riders stay separa
 BDD). Predictions: raw candidates from remote.py (--set acdc). Thresholds: the BDD
 source-selection thresholds, unchanged (B: preregistered t*(0.80); A/C: exploratory).
 Matching: unchanged ReferenceEvaluator (via the evaluate_transfer match rules) with
-same-category IoA>=0.5 absorption by crowd regions. Bootstrap clusters = GoPro recording
-(sequence fallback); still anti-conservative for shared routes. Descriptive only.
+same-category IoA>=0.5 absorption by crowd regions. Point estimates only: with 4-6 GoPro
+recording clusters per condition no resampling interval has validated coverage. Descriptive only.
 
     PYTHONPATH=src;<pylib> python acdc_eval.py --acdc-root R --arm B=acdc_B.npz=bdd_eval.json [...] --out-json OUT
 """
@@ -107,7 +107,7 @@ def main():
         p = parse_file_name(n)
         strata[f"{p['condition']}_{'reference' if p['reference'] else 'adverse'}"].append(n)
     result = {"note": "Descriptive external panel (amendment 4); ACDC provisional iscrowd-ignore policy; "
-                      "BDD source thresholds unchanged; cluster bootstrap by GoPro recording.",
+                      "BDD source thresholds unchanged; no intervals published (4-6 recording clusters per condition).",
               "strata": {s: {"images": len(v), "pedestrians": sum(not x["ignore"] for n in v for x in anns[n])}
                          for s, v in strata.items()}, "arms": {}}
     for spec in a.arm:
@@ -128,14 +128,12 @@ def main():
         rng = np.random.default_rng(20261115)
         for s, ns in sorted(strata.items()):
             pop = ET.Population([recs[n] for n in ns])
-            W, nclu = cluster_weights(ns, rng, a.replicates)
-            entry = {"clusters": nclu, "ceiling": pop.point(None)["recall"],
-                     "ceiling_ci": ET.ci([pop.point(None, w)["recall"] for w in W]), "at": {}}
+            _, nclu = cluster_weights(ns, rng, 1)
+            # Review F5: no intervals; 4-6 recording clusters per condition give no validated coverage.
+            entry = {"clusters": nclu, "ceiling": pop.point(None)["recall"], "at": {}}
             for name, t in thresholds.items():
                 pt = pop.point(t)
-                entry["at"][name] = {"recall": pt["recall"], "fppi": pt["fppi"], "precision": pt["precision"],
-                                     "recall_ci": ET.ci([pop.point(t, w)["recall"] for w in W]),
-                                     "fppi_ci": ET.ci([pop.point(t, w)["fppi"] for w in W])}
+                entry["at"][name] = {"recall": pt["recall"], "fppi": pt["fppi"], "precision": pt["precision"]}
             arm["strata"][s] = entry
         result["arms"][label] = arm
         for s, e in arm["strata"].items():

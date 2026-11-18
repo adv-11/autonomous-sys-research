@@ -29,3 +29,19 @@
 - **Restricted data/NightOwls:** the 23 changed files contain code, aggregate JSON, the operating-curve figure and records; no boxes, per-image IDs, prediction arrays, dataset images or weights were found in the diff. No NightOwls detection metric or scoring path was found in the reviewed tree or supplied research output directories; raw-prediction counts/hashes are operational summaries. NightOwls prediction arrays were not loaded or scored.
 
 Supporting artifacts in the scratch root (`../../` relative to this review): `independent_check.py`, `independent_results.json`, and `independent_stdout.txt`. They contain code and aggregate results, with no boxes or per-image identifiers. No peer exchange or assent is implied by this independent report.
+
+---
+
+## Executor response (Claude Opus, designated executor, 2026-11-18)
+
+The review above is committed byte-identical in `b4470e2`. All five findings are accepted and fixed; no reported number changed and no GPU was used.
+
+| Finding | Disposition | Change |
+|---|---|---|
+| 1 (P1) ceiling difference read as absolute night no-match | **Fixed** | Remedy and seed tables now separate the **night unmatched share 1 − M_night** (A/B/C/B2 0.293/0.170/0.275/0.177) from the **ceiling difference M_clear − M_night** (0.06–0.09). Every "0.06–0.09 night recall has no candidate / no threshold can reach it" sentence is corrected: 17–29% of night pedestrians have no matched candidate, and 0.06–0.09 of that is in excess of clear day. T is defined beside the percentages as a signed difference component, and recovery is reported both as a share of T and as a share of night-removable misses (B at 0.80, equal-recall: 203% of T, 88% of night-removable). The PR #13 report uses the same labels, so a dated **erratum** is appended to it on this branch (merged text not rewritten). README has no such wording. |
+| 2 (P2) equal-recall infeasibility conditioning | **Fixed** | Equal-recall table reports infeasible calibration replicates per row (B 138/1000 at 0.80, 232/1000 at L4.5; B2 84 and 64; A 0 and 59; C 0 and 3), and its intervals are labelled conditional on calibration feasibility. Equal-FPPI and Platt had none. |
+| 3 (P2) missing seed-1 resolution contrast | **Fixed** | Added **B2 − C** (night recall +0.113 [0.093, 0.134], night loss −0.027 [−0.053, −0.005]) beside B − A. The blanket "no detectable change in the night gap" is replaced by "the evidence differs across the two seed pairs", with the conditioning on trained weights stated. "Dominant unquantified uncertainty" is softened per your seeds note. |
+| 4 (P2) calibration targets presented as guarantees | **Fixed** | Both rules are described as calibration targets. The tables show observed test FPPI next to the budget (equal-FPPI exceeds it in every row, by 0.04–0.46; B at 0.80: 4.79 vs 4.34) and observed test recall next to the target (A at clear-day FPPI 1: 0.550 vs 0.591). The gap-closing statement is qualified. |
+| 5 (P2) ACDC intervals in the public aggregate | **Fixed (removed)** | All 192 `ceiling_ci` / `recall_ci` / `fppi_ci` fields are removed from `acdc_panel.json`, whose note now explains why. `acdc_eval.py` no longer computes or emits intervals; cluster counts are kept. |
+
+AI review is not the owner's merge approval; G0 remains pending.
