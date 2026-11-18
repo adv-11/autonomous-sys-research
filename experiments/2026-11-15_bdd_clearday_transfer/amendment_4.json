@@ -1,0 +1,34 @@
+{
+ "amends": "evaluation and a second Colab stage (exploratory, post hoc); requested by the coordinator after PR #13",
+ "author": "Claude Opus 5.5 (designated executor)",
+ "status": "Exploratory. Committed before any remedy number, night-calibration manifest use or Colab allocation of this stage; commit time is authoritative (no written_utc stamp, see review F4).",
+ "question": "How much of the night threshold-removed loss can a threshold remedy recover, and at what FPPI cost? The no-matched-candidate part (IoU 0.5, score 1e-4) is unrecoverable by any threshold.",
+ "remedies": {
+  "a_condition_aware_threshold": {
+   "calibration_data": {
+    "final": "BDD legacy TRAIN images with timeofday=night (any weather; matches the val night stratum), never used in training (training was clear-day only). The first 2000 by sha256('bdd-night-calibration-v1:'+image_stem); frozen manifest hash recorded before Colab inference.",
+    "cpu_proxy": "Split-half of BDD val night by sha256('bdd-valnight-half-v1:'+image_stem) parity: calibrate on one half, test on the other, both directions reported separately. Labelled as a proxy: same domain and split as the test half, so it is optimistic relative to the final train-night calibration."
+   },
+   "rules": {
+    "equal_recall": "night threshold = highest calibration score with night calibration recall >= the source recall target (B: 0.80; matched-FPPI arms: the clear-day selection recall at t*(L)). Undefined if infeasible.",
+    "equal_fppi": "night threshold = lowest calibration score with night calibration FPPI <= the clear-day budget (B: clear-day selection FPPI at t*(0.80); matched arms: L)."
+   }
+  },
+  "b_score_calibration": {
+   "model": "Platt scaling p = sigmoid(a * logit(s) + b), maximum likelihood on candidates labelled TP=1/FP=0 (ignored excluded) at score >= 1e-4. Temperature scaling is the b=0 special case.",
+   "global": "fitted on the clear-day selection split only. With a > 0 it is strictly monotone, so threshold reselection on the selection split selects identical detections: recovery is exactly zero by construction (reported as a check, not a result).",
+   "per_condition": "night map fitted on the night calibration data; night threshold = raw score s_n with p_night(s_n) = p_clear(t*) (equal calibrated confidence at the operating boundary), where p_clear is fitted on the selection split.",
+   "fixed_probability_consumer": "also reported: thresholding the global map at p_clear(t*) at night, which equals the transferred raw threshold (no recovery)."
+  }
+ },
+ "operating_points": ["B at the preregistered 0.80 target", "A, B, C (and B2 when available) at matched clear-day FPPI L in {0.5, 1, 2, 4.5}"],
+ "metrics_per_remedy": "night test recall and FPPI; delta vs the transferred threshold; recovered fraction = delta recall / threshold part (held_out_loss_decomposition vs val clear day) and / night removable misses (night ceiling - transferred night recall); the no-matched-candidate part is reported alongside as the unrecoverable remainder. 95% image bootstrap, 1000 replicates: selection, calibration and test images resampled independently, with thresholds and Platt maps refitted in every replicate.",
+ "colab_stage_2": {
+  "budget_CU": 30,
+  "session": "one L4 session, Claude-owned, verified teardown; datasets reach Colab only by direct download with SHA-256 checks (no dataset upload from this PC); model weights and the scripts/manifests packet are uploaded",
+  "B2": "1280 px, seed 1, otherwise identical to B (amendment 1), 100 epochs, last.pt evaluated with B's preregistered protocol (selection t* at 0.80, val strata)",
+  "night_calibration_inference": "A/C at 640, B/B2 at 1280 on the 2000-image BDD train-night manifest; same candidate policy (floor 1e-4, cap 3000, class-aware NMS 0.7)",
+  "acdc": "if budget allows: direct download from the ACDC package API (unauthenticated token endpoint; SHA-256 per docs/datasets/acdc_archive_manifest.json), inference for A/B/C/B2 on the labelled adverse images (train 1600 + val 406) and annotated references (800 + 203); descriptive external panel only, BDD source thresholds unchanged, ACDC 'person' = pedestrian, iscrowd as ignore regions",
+  "not_in_scope": "NightOwls (owned by GPT Sol, CPU only)"
+ }
+}
