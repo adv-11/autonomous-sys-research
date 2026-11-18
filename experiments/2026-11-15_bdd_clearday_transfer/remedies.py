@@ -128,6 +128,9 @@ def run_direction(pops, cal_key, test_key, specs, B, rng):
         ot = test.select(src["recall"])
         point["oracle_equal_recall_on_test"] = None if ot is None else {
             "recall": test.point(ot)["recall"], "fppi": test.point(ot)["fppi"]}
+        grid = np.unique(np.quantile(np.concatenate([test.tp_all, test.fp_all]), np.linspace(0, 1, 160)))
+        point["night_test_curve"] = [[test.point(float(t))["fppi"], test.point(float(t))["recall"]] for t in grid]
+        point["clear_curve"] = [[clear.point(float(t))["fppi"], clear.point(float(t))["recall"]] for t in grid]
         point.update({"source": src, "platt_clear_ab": ab_c, "platt_night_ab": ab_n,
                       "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0"})
         reps = {m: {"delta_recall": [], "delta_fppi": []} for m in th}
