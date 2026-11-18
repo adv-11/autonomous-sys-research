@@ -165,6 +165,76 @@ def acdc_setup():
     log(stage="acdc_setup_done", **summary)
 
 
+NO_URL = "https://thor.robots.ox.ac.uk/nightowls/python/nightowls_validation.zip"
+NO_BYTES = 57481286834
+NO_SHA256 = "6663dc5099714ffb8c18bb37942ce523de9dfdda44327284bdab12354e8fcf9d"  # Sol, docs/datasets/2026-11-17_nightowls_archive_verification.md
+NO_ZIP = ROOT / "nightowls" / "nightowls_validation.zip"
+NO_LIMIT_S = 45 * 60
+
+
+def nightowls_fetch(parts=16):
+    """Direct ranged download inside Colab; abort if projected >45 min; exact size + SHA-256."""
+    import threading
+    import urllib.request
+    NO_ZIP.parent.mkdir(parents=True, exist_ok=True)
+    if NO_ZIP.exists() and NO_ZIP.stat().st_size == NO_BYTES and sha_file(NO_ZIP) == NO_SHA256:
+        log(stage="nightowls_verified", cached=True)
+        return
+    with open(NO_ZIP, "wb") as f:
+        f.truncate(NO_BYTES)
+    step = -(-NO_BYTES // parts)
+    done = [0] * parts
+    errors = []
+    stop = threading.Event()
+
+    def worker(i):
+        lo, hi = i * step, min(NO_BYTES, (i + 1) * step) - 1
+        pos = lo
+        for attempt in range(5):
+            try:
+                req = urllib.request.Request(NO_URL, headers={"Range": f"bytes={pos}-{hi}"})
+                with urllib.request.urlopen(req, timeout=120) as r, open(NO_ZIP, "r+b") as f:
+                    if r.status != 206:
+                        raise RuntimeError(f"expected 206, got {r.status}")
+                    f.seek(pos)
+                    while pos <= hi and not stop.is_set():
+                        chunk = r.read(8 << 20)
+                        if not chunk:
+                            break
+                        f.write(chunk)
+                        pos += len(chunk)
+                        done[i] = pos - lo
+                if pos > hi or stop.is_set():
+                    return
+            except Exception as e:  # retry from current position
+                errors.append(f"part {i} attempt {attempt}: {e}")
+                time.sleep(5)
+        errors.append(f"part {i} incomplete")
+
+    t0 = time.time()
+    threads = [threading.Thread(target=worker, args=(i,), daemon=True) for i in range(parts)]
+    for t in threads:
+        t.start()
+    while any(t.is_alive() for t in threads):
+        time.sleep(30)
+        el, got = time.time() - t0, sum(done)
+        projected = el / max(got, 1) * NO_BYTES
+        log(stage="nightowls_download", gib=round(got / 2**30, 1), s=round(el), projected_total_s=round(projected))
+        if (el > 180 and projected > NO_LIMIT_S) or el > NO_LIMIT_S:
+            stop.set()
+            raise SystemExit(f"NightOwls download too slow: projected {projected:.0f}s > {NO_LIMIT_S}s; stopped")
+    if sum(done) != NO_BYTES or errors and any("incomplete" in e for e in errors):
+        raise SystemExit(f"NightOwls download incomplete: {sum(done)} bytes; {errors[-3:]}")
+    t_dl = time.time() - t0
+    size, digest = NO_ZIP.stat().st_size, sha_file(NO_ZIP)
+    if size != NO_BYTES or digest != NO_SHA256:
+        raise SystemExit(f"NightOwls size/SHA-256 mismatch: {size} {digest}")
+    summary = {"status": "PASS", "bytes": size, "sha256": digest, "download_s": round(t_dl),
+               "total_s": round(time.time() - t0), "parts": parts, "retries": len(errors)}
+    (ROOT / "nightowls_fetch_summary.json").write_text(json.dumps(summary))
+    log(stage="nightowls_verified", **summary)
+
+
 def weights():
     w = ROOT / "yolo11s.pt"
     if not w.exists():
@@ -254,16 +324,39 @@ def infer(weights_path, out, imgsz=None, batch=16, image_set="bdd"):
     elif image_set == "nightcal":
         items = [("nightcal", n, DATA / "images/nightcal" / f"{n}.jpg")
                  for n in json.loads((PACKET / "manifest_nightcal.json").read_text())]
-    else:  # acdc
+    elif image_set == "acdc":
         items = [(i["role"], i["name"], ACDC / "images" / i["name"]) for i in json.loads((ACDC / "list.json").read_text())]
+    else:  # nightowls: every PNG member, decoded from the verified ZIP (no extraction); cohort filter at evaluation
+        assert NO_ZIP.stat().st_size == NO_BYTES and (ROOT / "nightowls_fetch_summary.json").exists()
+        with zipfile.ZipFile(NO_ZIP) as z:
+            members = sorted(m for m in z.namelist() if m.lower().endswith(".png"))
+        items = [("nightowls", Path(m).name, m) for m in members]
+        assert len({n for _, n, _ in items}) == len(items), "duplicate NightOwls basenames"
     model = YOLO(str(weights_path))
     names, roles, offsets, totals = [], [], [0], []
+    shapes = set()
     boxes, scores = [], []
     t0 = time.time()
     chunk = batch
+    if image_set == "nightowls":
+        import cv2
+        import threading
+        from concurrent.futures import ThreadPoolExecutor
+        local = threading.local()
+
+        def decode(member):
+            if not hasattr(local, "z"):
+                local.z = zipfile.ZipFile(NO_ZIP)
+            im = cv2.imdecode(np.frombuffer(local.z.read(member), np.uint8), cv2.IMREAD_COLOR)  # = cv2.imread
+            assert im is not None, member
+            return im
+        pool = ThreadPoolExecutor(8)
+        source = lambda part: list(pool.map(decode, [p for _, _, p in part]))  # noqa: E731
+    else:
+        source = lambda part: [str(p) for _, _, p in part]  # noqa: E731
     for start in range(0, len(items), chunk):
         part = items[start:start + chunk]
-        results = model.predict([str(p) for _, _, p in part], imgsz=imgsz or I["imgsz"], conf=I["conf_floor"],
+        results = model.predict(source(part), imgsz=imgsz or I["imgsz"], conf=I["conf_floor"],
                                 iou=I["nms_iou"], max_det=I["max_det_cap"], half=I["half"],
                                 agnostic_nms=I["agnostic_nms"], batch=batch, verbose=False)
         for (role, n, _), r in zip(part, results):
@@ -274,13 +367,14 @@ def infer(weights_path, out, imgsz=None, batch=16, image_set="bdd"):
             scores.append(b.conf.cpu().numpy()[keep].astype(np.float32))
             names.append(n)
             roles.append(role)
+            shapes.add(tuple(int(x) for x in r.orig_shape))
             totals.append(len(cls))
             offsets.append(offsets[-1] + int(keep.sum()))
         log(stage="infer", done=start + len(part), of=len(items), s=round(time.time() - t0))
     np.savez_compressed(out, names=np.array(names), roles=np.array(roles), offsets=np.array(offsets),
                         all_class_candidates=np.array(totals), boxes=np.concatenate(boxes),
                         scores=np.concatenate(scores))
-    summary = {"images": len(names), "image_set": image_set, "imgsz": imgsz or I["imgsz"], "predict_batch": batch, "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
+    summary = {"images": len(names), "image_set": image_set, "imgsz": imgsz or I["imgsz"], "predict_batch": batch, "orig_shapes_hw": sorted(shapes), "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
                "cap_hits": int(sum(t >= I["max_det_cap"] for t in totals)),
                "weights_sha256": sha_file(weights_path), "ultralytics": ultralytics.__version__,
                "out_sha256": sha_file(out)}
@@ -290,8 +384,8 @@ def infer(weights_path, out, imgsz=None, batch=16, image_set="bdd"):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["setup", "acdc_setup", "train", "infer"])
-    ap.add_argument("--set", default="bdd", choices=["bdd", "nightcal", "acdc"])
+    ap.add_argument("stage", choices=["setup", "acdc_setup", "nightowls_fetch", "train", "infer"])
+    ap.add_argument("--set", default="bdd", choices=["bdd", "nightcal", "acdc", "nightowls"])
     ap.add_argument("--name")
     ap.add_argument("--epochs", type=int)
     ap.add_argument("--fraction", type=float, default=1.0)
@@ -307,6 +401,8 @@ if __name__ == "__main__":
         setup()
     elif a.stage == "acdc_setup":
         acdc_setup()
+    elif a.stage == "nightowls_fetch":
+        nightowls_fetch()
     elif a.stage == "train":
         train(a.name, a.epochs, a.resume, a.fraction, a.imgsz, a.batch, a.seed)
     else:
