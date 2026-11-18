@@ -69,6 +69,11 @@ def setup():
     log(stage="archive_verified", sha256=CFG["images"]["archive_sha256"], seconds=round(t_dl))
     want = {f"100k/train/{n}.jpg": "train" for n in train + sel}
     want.update({f"100k/val/{n}.jpg": "val" for n in val})
+    nightcal_path = PACKET / "manifest_nightcal.json"  # amendment 4: BDD train-night calibration set
+    if nightcal_path.exists():
+        rec = json.loads((PACKET / "nightcal_manifest_record.json").read_text())
+        assert sha_file(nightcal_path) == rec["manifest_sha256"], "nightcal manifest hash mismatch"
+        want.update({f"100k/train/{n}.jpg": "nightcal" for n in json.loads(nightcal_path.read_text())})
     from PIL import Image
     dims_bad = 0
     with zipfile.ZipFile(archive) as z:
@@ -97,6 +102,67 @@ def setup():
                "all_1280x720": True}
     (ROOT / "setup_summary.json").write_text(json.dumps(summary))
     log(stage="setup_done", **summary)
+
+
+ACDC_API = "https://acdc.vision.ee.ethz.ch/api"
+ACDC = ROOT / "acdc"
+ACDC_GT = {"gt_detection_trainval.zip": ("instancesonly_train_gt_detection.json", "instancesonly_val_gt_detection.json"),
+           "gt_detection_trainval_ref.zip": ("instancesonly_train_gt_ref_detection.json",
+                                             "instancesonly_val_gt_ref_detection.json")}
+
+
+def acdc_fetch(entry):
+    """Direct download from the ACDC package API (unauthenticated token), SHA-256 checked."""
+    import urllib.request
+    dest = ACDC / entry["file_name"]
+    if dest.exists() and sha_file(dest) == entry["sha256"]:
+        return dest
+    with urllib.request.urlopen(f"{ACDC_API}/getPackageUri/{entry['package_id']}", timeout=60) as r:
+        token = json.loads(r.read())["token"]
+    h, n, t0 = hashlib.sha256(), 0, time.time()
+    tmp = dest.with_suffix(".part")
+    with urllib.request.urlopen(f"{ACDC_API}/downloadPackage/{token}/{entry['file_name']}", timeout=300) as r, \
+            open(tmp, "wb") as f:
+        while chunk := r.read(16 << 20):
+            f.write(chunk)
+            h.update(chunk)
+            n += len(chunk)
+            if n % (1 << 30) < (16 << 20):
+                log(stage="acdc_download", file=entry["file_name"], gib=round(n / 2**30, 2), s=round(time.time() - t0))
+    if h.hexdigest() != entry["sha256"] or n != entry["bytes"]:
+        raise SystemExit(f"ACDC {entry['file_name']} SHA-256/size mismatch: {h.hexdigest()} {n}")
+    tmp.rename(dest)
+    log(stage="acdc_verified", file=entry["file_name"], bytes=n, seconds=round(time.time() - t0))
+    return dest
+
+
+def acdc_setup():
+    t0 = time.time()
+    ACDC.mkdir(parents=True, exist_ok=True)
+    man = {a["file_name"]: a for a in json.loads((PACKET / "acdc_archive_manifest.json").read_text())["archives"]}
+    items = []
+    for zname, jsons in ACDC_GT.items():
+        with zipfile.ZipFile(acdc_fetch(man[zname])) as z:
+            members = {Path(m).name: m for m in z.namelist()}
+            for j in jsons:
+                doc = json.loads(z.read(members[j]))
+                role = ("ref_" if "_ref_" in j else "adverse_") + ("train" if "_train_" in j else "val")
+                items += [{"role": role, "name": im["file_name"]} for im in doc["images"]]
+    rgb = acdc_fetch(man["rgb_anon_trainvaltest.zip"])
+    with zipfile.ZipFile(rgb) as z:
+        members = {m.split("rgb_anon/", 1)[-1]: m for m in z.namelist() if not m.endswith("/")}
+        missing = [i["name"] for i in items if i["name"] not in members]
+        assert not missing, f"{len(missing)} labelled ACDC images missing from archive"
+        for i in items:
+            dest = ACDC / "images" / i["name"]
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            if not dest.exists():
+                dest.write_bytes(z.read(members[i["name"]]))
+    (ACDC / "list.json").write_text(json.dumps(items))
+    summary = {"status": "PASS", "images": len(items), "seconds": round(time.time() - t0),
+               "roles": {r: sum(i["role"] == r for i in items) for r in sorted({i["role"] for i in items})}}
+    (ROOT / "acdc_setup_summary.json").write_text(json.dumps(summary))
+    log(stage="acdc_setup_done", **summary)
 
 
 def weights():
@@ -172,7 +238,7 @@ def train(name, epochs, resume=False, fraction=1.0, imgsz=None, batch=None, seed
     log(stage="train_done", **{k: v for k, v in stats.items() if k != "t_start"})
 
 
-def infer(weights_path, out, imgsz=None, batch=16):
+def infer(weights_path, out, imgsz=None, batch=16, image_set="bdd"):
     # Ultralytics treats a list source as ONE batch (its batch= is ignored for lists), so the chunk
     # length is the effective prediction batch. All images are 1280x720: letterbox shapes are identical.
     import numpy as np
@@ -180,10 +246,16 @@ def infer(weights_path, out, imgsz=None, batch=16):
     from ultralytics import YOLO
     assert ultralytics.__version__ == CFG["training"]["framework"].split("==")[1]
     I = CFG["inference"]
-    sel = json.loads((PACKET / "manifest_selection.json").read_text())
-    val = json.loads((PACKET / "manifest_val.json").read_text())
-    items = [("selection", n, DATA / "images/train" / f"{n}.jpg") for n in sel]
-    items += [("val", n, DATA / "images/val" / f"{n}.jpg") for n in sorted(val)]
+    if image_set == "bdd":
+        sel = json.loads((PACKET / "manifest_selection.json").read_text())
+        val = json.loads((PACKET / "manifest_val.json").read_text())
+        items = [("selection", n, DATA / "images/train" / f"{n}.jpg") for n in sel]
+        items += [("val", n, DATA / "images/val" / f"{n}.jpg") for n in sorted(val)]
+    elif image_set == "nightcal":
+        items = [("nightcal", n, DATA / "images/nightcal" / f"{n}.jpg")
+                 for n in json.loads((PACKET / "manifest_nightcal.json").read_text())]
+    else:  # acdc
+        items = [(i["role"], i["name"], ACDC / "images" / i["name"]) for i in json.loads((ACDC / "list.json").read_text())]
     model = YOLO(str(weights_path))
     names, roles, offsets, totals = [], [], [0], []
     boxes, scores = [], []
@@ -208,7 +280,7 @@ def infer(weights_path, out, imgsz=None, batch=16):
     np.savez_compressed(out, names=np.array(names), roles=np.array(roles), offsets=np.array(offsets),
                         all_class_candidates=np.array(totals), boxes=np.concatenate(boxes),
                         scores=np.concatenate(scores))
-    summary = {"images": len(names), "imgsz": imgsz or I["imgsz"], "predict_batch": batch, "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
+    summary = {"images": len(names), "image_set": image_set, "imgsz": imgsz or I["imgsz"], "predict_batch": batch, "ped_candidates": offsets[-1], "seconds": round(time.time() - t0),
                "cap_hits": int(sum(t >= I["max_det_cap"] for t in totals)),
                "weights_sha256": sha_file(weights_path), "ultralytics": ultralytics.__version__,
                "out_sha256": sha_file(out)}
@@ -218,7 +290,8 @@ def infer(weights_path, out, imgsz=None, batch=16):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["setup", "train", "infer"])
+    ap.add_argument("stage", choices=["setup", "acdc_setup", "train", "infer"])
+    ap.add_argument("--set", default="bdd", choices=["bdd", "nightcal", "acdc"])
     ap.add_argument("--name")
     ap.add_argument("--epochs", type=int)
     ap.add_argument("--fraction", type=float, default=1.0)
@@ -232,7 +305,9 @@ if __name__ == "__main__":
     os.chdir(ROOT)
     if a.stage == "setup":
         setup()
+    elif a.stage == "acdc_setup":
+        acdc_setup()
     elif a.stage == "train":
         train(a.name, a.epochs, a.resume, a.fraction, a.imgsz, a.batch, a.seed)
     else:
-        infer(Path(a.weights), Path(a.out), a.imgsz, a.batch or (4 if (a.imgsz or 640) > 640 else 16))
+        infer(Path(a.weights), Path(a.out), a.imgsz, a.batch or (4 if (a.imgsz or 640) > 640 else 16), a.set)

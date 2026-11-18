@@ -1,0 +1,19 @@
+{
+ "rule": "first 2000 train timeofday=night images by sha256('bdd-night-calibration-v1:'+stem)",
+ "train_night_pool": 28028,
+ "images": 2000,
+ "pedestrians": 1226,
+ "weather": {
+  "clear": 1645,
+  "foggy": 6,
+  "overcast": 6,
+  "partly cloudy": 5,
+  "rainy": 155,
+  "snowy": 153,
+  "undefined": 30
+ },
+ "overlap_with_training_or_selection": 0,
+ "manifest_sha256": "4c30b228bc29fb5d9f8382e3cd51f9852a39231ceec8b7b888f058ac55483234",
+ "gt_sha256": "4b2c23dd41bc09a8bb51404ee73dc86cc9f179702f15fb7ea5c181e1eba1cec9",
+ "labels": "BDD100K legacy 2018 labels"
+}
