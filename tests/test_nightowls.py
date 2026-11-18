@@ -38,6 +38,40 @@ def evaluator(converted, predictions=None):
 
 
 class NightOwlsTests(unittest.TestCase):
+    def test_bdd_category_and_pilot_exclusions_preserve_empty_frames(self):
+        converted = convert_nightowls(
+            native([image(1), image(2), image(3), image(4, daytime="dusk")],
+                   [ann(1), ann(2, iid=2)]), profile=PRIMARY_PROFILE,
+            matching_category="pedestrian", exclude_image_ids=[2])
+        self.assertEqual(len(converted["images"]), 2)
+        self.assertEqual(len(converted["annotations"]), 1)
+        self.assertEqual(converted["annotations"][0]["category"], "pedestrian")
+        self.assertEqual(converted["provenance"]["summary"]["empty_image_count"], 1)
+        self.assertEqual(converted["provenance"]["summary"]["excluded_pilot_image_count"], 1)
+        self.assertEqual(converted["provenance"]["summary"]["excluded_non_night_image_count"], 1)
+        for excluded in ([1, 1], [9], [4], [True]):
+            with self.subTest(excluded=excluded), self.assertRaises(PreflightError):
+                convert_nightowls(native([image(1), image(4, daytime="dusk")]),
+                                  profile=PRIMARY_PROFILE, exclude_image_ids=excluded)
+
+    def test_sdk_setup_boundaries_and_occlusion_ignore(self):
+        doc = native(annotations=[ann(1, box=[0, 0, 20, 19]),
+                                  ann(2, box=[0, 0, 20, 20]),
+                                  ann(3, box=[0, 0, 20, 49]), ann(4),
+                                  ann(5, box=[0, 0, 20, 75]),
+                                  ann(6, box=[0, 0, 20, 76]),
+                                  ann(7, occluded=True), ann(8, occluded=None),
+                                  ann(9, ignore=1), ann(10, category=2)])
+        expected = {"reasonable": [4, 5, 6, 8], "reasonable_small": [4, 5, 8],
+                    "reasonable_heavy": [7], "all": [2, 3, 4, 5, 6, 7, 8]}
+        for setup, ids in expected.items():
+            with self.subTest(setup=setup):
+                converted = convert_nightowls(doc, profile=PRIMARY_PROFILE, setup=setup)
+                self.assertEqual([a["attributes"]["native"]["id"] for a in
+                                  converted["annotations"] if not a["ignore"]], ids)
+                self.assertEqual(len(converted["annotations"]), 10)
+                self.assertEqual(evaluator(converted).gt_count, len(ids))
+
     def test_keep_empty_night_exclude_dusk_without_gt_selection(self):
         doc = native([image(1), image(2), image(3, daytime="dusk")],
                      [ann(1), ann(2, iid=3)])
