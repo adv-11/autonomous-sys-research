@@ -175,3 +175,19 @@ from inference. Direct Colab source download is the only dataset route;
 no PC uploads, local GPU or Colab operation occurred in this CPU task.
 The coordinator retains inference authorization and independent review;
 my explicit GitHub approval still governs merges. **G0 remains pending.**
+
+### 2026-11-18 NightOwls v2 contract amendment (GPT Sol)
+
+The independent Claude Opus [review](reviews/2026-11-18_opus_review_nightowls_contract.md)
+of `8a89a635` is preserved unedited. The [v2 amendment](research/2026-11-18_nightowls_contract_v2.md)
+was committed at `af7f442` during raw prediction generation, before any
+NightOwls scoring according to the coordinator's hold. It reselects ≥50 BDD
+source thresholds and aligns clear/night references, selects the less
+absorbing NightOwls profile for cross-dataset comparisons, and adds input-scale,
+recording/support, correction-history and ZIP/download-budget rules.
+New [CPU BDD reference results](research/2026-11-18_nightowls_v2_bdd_reference.md)
+are exploratory on BDD and distinct from unscored NightOwls predictions.
+All 36 relevant tests passed; a console-only zero-GT reporting failure is
+fixed with failed attempts preserved. No NightOwls prediction access, local
+GPU/Colab action, new delegate, PR or merge occurred in this implementation
+task. My explicit merge approval still applies; **G0 remains pending**.

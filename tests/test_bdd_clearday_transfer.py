@@ -2,8 +2,13 @@
 
 Synthetic legacy-style objects only; these guard logic that could invalidate the
 result (class mapping, YOLO geometry, selection holdout, stratum assignment).
+GPT Sol added the h50 zero-GT reporting regression for NightOwls v2, 2026-11-18.
 """
 import importlib.util
+import contextlib
+import io
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -12,6 +17,42 @@ spec = importlib.util.spec_from_file_location(
     "bdd_common", ROOT / "experiments/2026-11-15_bdd_clearday_transfer/common.py")
 C = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(C)
+
+
+class HeightRestrictedEvaluationTests(unittest.TestCase):
+    def test_h50_empty_slice_stays_undefined_and_cli_report_completes(self):
+        try:
+            import numpy as np
+        except ImportError:
+            self.skipTest("existing BDD evaluator requires numpy")
+        spec = importlib.util.spec_from_file_location(
+            "bdd_h50_evaluate", ROOT / "experiments/2026-11-15_bdd_clearday_transfer/evaluate_transfer.py")
+        et = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(et)
+        gt = {
+            "synthetic-source": {"role": "selection", "peds": [[0, 0, 20, 50]]},
+            "synthetic-clear": {"role": "val", "stratum": "clear_day", "secondary": [],
+                                "peds": [[0, 0, 20, 50]]},
+            "synthetic-fog": {"role": "val", "stratum": "foggy", "secondary": [],
+                              "peds": [[0, 0, 20, 49]]},
+        }
+        with tempfile.TemporaryDirectory() as d:
+            folder = Path(d)
+            (folder / "gt.json").write_text(json.dumps(gt))
+            np.savez(folder / "preds.npz", names=list(gt), offsets=[0, 1, 2, 3],
+                     boxes=[[0, 0, 20, 50], [0, 0, 20, 50], [0, 0, 20, 49]],
+                     scores=[.9, .9, .9], all_class_candidates=[1, 1, 1])
+            capture = io.StringIO()
+            with contextlib.redirect_stdout(capture):
+                et.main(["--preds", str(folder / "preds.npz"), "--gt", str(folder / "gt.json"),
+                         "--label", "synthetic h50", "--min-height", "50", "--replicates", "2",
+                         "--out-json", str(folder / "result.json")])
+            result = json.loads((folder / "result.json").read_text())
+            self.assertIsNone(result["strata"]["val:foggy"]["ceiling"]["recall"])
+            self.assertEqual(result["strata"]["selection"]["pedestrians"], 1)
+            self.assertEqual(result["strata"]["val:foggy"]["pedestrians"], 0)
+            self.assertIn("R@t*=UNDEFINED", capture.getvalue())
+            self.assertIn("ceil=UNDEFINED", capture.getvalue())
 
 
 def obj(cat, x1=10, y1=20, x2=50, y2=120):
