@@ -9,16 +9,27 @@ from __future__ import annotations
 
 import copy
 from collections import Counter
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 from .data import PreflightError, _check_box_xywh, _json_value, _native_document
 from .schema import SCHEMA_VERSION, validate_documents
 
 EXPECTED_CATEGORIES = {1: "pedestrian", 2: "bicycledriver", 3: "motorbikedriver", 4: "ignore"}
+# PRIMARY_/SECONDARY_PROFILE keep their v1 (2026-11-13) names for the preserved
+# adapter check. Under contract v2 (2026-11-18) the roles are reversed: the primary
+# BDD-comparison profile is "unused_nonpedestrian"; "person_compatible_ignore" is a
+# sensitivity. Scoring code must use the V2_* names.
 PRIMARY_PROFILE = "person_compatible_ignore"
 SECONDARY_PROFILE = "unused_nonpedestrian"
 PROFILES = (PRIMARY_PROFILE, SECONDARY_PROFILE)
+V2_PRIMARY_PROFILE = SECONDARY_PROFILE
+V2_SENSITIVITY_PROFILE = PRIMARY_PROFILE
 MATCHING_CATEGORY = "human"
+# Exact GT ranges in pinned NightOwls Python SDK (upper bounds inclusive).
+SETUPS = {"reasonable": (50, 1e10, 0.65, 1e10),
+          "reasonable_small": (50, 75, 0.65, 1e10),
+          "reasonable_heavy": (50, 1e10, 0.2, 0.65),
+          "all": (20, 1e10, 0.2, 1e10)}
 
 
 def _integer(value: Any, name: str) -> int:
@@ -28,15 +39,21 @@ def _integer(value: Any, name: str) -> int:
 
 
 def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
-                     source: Mapping[str, Any] | None = None) -> dict:
+                     source: Mapping[str, Any] | None = None,
+                     setup: str = "reasonable", matching_category: str = MATCHING_CATEGORY,
+                     exclude_image_ids: Iterable[int] = ()) -> dict:
     """Return a canonical-v1 dict without mutating or aliasing the native document.
 
-    Retain every exact ``daytime == 'night'`` frame, including empty/unkeyed ones.
-    Eligible GT are category 1, ignore 0, native height >=50, occluded not True.
+    Retain exact ``daytime == 'night'`` frames except explicit pilot exclusions,
+    including empty/unkeyed ones.
+    Default GT are category 1, ignore 0, native height >=50, occluded not True.
+    Other named setups change GT eligibility only, never the candidate pipeline.
+    BDD-trained pedestrian outputs use matching_category='pedestrian'. Explicit
+    native exclusion IDs support the pre-existing access-pilot exclusion policy.
     Null occlusion follows the SDK convention, not a claim of actual visibility.
     All other pedestrian boxes are ignored; the explicit profile decides whether
-    categories 2/3/4 are also ignored or omitted. All retained boxes match ``human``;
-    that token does not make riders eligible. No detection filter is applied.
+    categories 2/3/4 are also ignored or omitted. All retained boxes use the
+    selected matching token; riders remain ineligible. No detection filter is applied.
 
     IDs, image/category references and positive finite geometry are checked even
     for omitted records. Pose/tracking metadata are opaque, not grouping evidence.
@@ -44,6 +61,16 @@ def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
     """
     if profile not in PROFILES:
         raise PreflightError(f"profile must be explicitly one of {PROFILES}")
+    if setup not in SETUPS:
+        raise PreflightError(f"setup must be one of {tuple(SETUPS)}")
+    if matching_category not in ("human", "pedestrian"):
+        raise PreflightError("matching_category must be human or pedestrian")
+    excluded_list = list(exclude_image_ids)
+    for iid in excluded_list:
+        _integer(iid, "excluded image id")
+    excluded = set(excluded_list)
+    if len(excluded) != len(excluded_list):
+        raise PreflightError("duplicate excluded image id")
     _native_document(doc, "nightowls", "validation", source)
     _json_value(doc)
     categories = {}
@@ -80,8 +107,13 @@ def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
                            "native": copy.deepcopy(record)},
         }
         by_native[iid] = (record, image)
-        if record["daytime"] == "night":
+        if record["daytime"] == "night" and iid not in excluded:
             images.append(image)
+
+    if not excluded <= set(by_native):
+        raise PreflightError("excluded image id not in native document")
+    if any(by_native[iid][0]["daytime"] != "night" for iid in excluded):
+        raise PreflightError("exclusions must identify night images")
 
     annotations, seen = [], set()
     native_night_counts = Counter()
@@ -103,16 +135,19 @@ def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
                                           and type(record["occluded"]) is not bool):
             raise PreflightError("native occluded must be boolean or null")
         native_image, image = by_native[iid]
-        if native_image["daytime"] != "night":
+        if native_image["daytime"] != "night" or iid in excluded:
             continue
         native_night_counts[image["image_id"]] += 1
         if profile == SECONDARY_PROFILE and cid != 1:
             continue
-        eligible = (cid == 1 and record["ignore"] == 0 and record["bbox"][3] >= 50
-                    and record["occluded"] is not True)
+        min_h, max_h, min_vis, max_vis = SETUPS[setup]
+        visibility = 0.5 if record["occluded"] else 1.0
+        eligible = (cid == 1 and record["ignore"] == 0
+                    and min_h <= record["bbox"][3] <= max_h
+                    and min_vis <= visibility <= max_vis)
         annotations.append({
             "annotation_id": f"nightowls:validation:a{aid}", "image_id": image["image_id"],
-            "category": MATCHING_CATEGORY, "bbox": list(record["bbox"]),
+            "category": matching_category, "bbox": list(record["bbox"]),
             "ignore": not eligible, "iscrowd": False,
             "attributes": {"native": copy.deepcopy({k: v for k, v in record.items()
                                                      if k != "bbox"})},
@@ -126,16 +161,18 @@ def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
             "role": "validation", "source_files": [copy.deepcopy(dict(source))] if source else [],
             "profile": profile, "policy_status": "provisional",
             "policy_decision": "docs/decisions/2026-11-13_nightowls_external_policy.md",
-            "official_evaluator_equivalent": False, "categories": [MATCHING_CATEGORY],
+            "official_evaluator_equivalent": False, "categories": [matching_category],
+            "setup": setup, "gt_height_range_inclusive": list(SETUPS[setup][:2]),
+            "gt_visibility_range_inclusive": list(SETUPS[setup][2:]),
             "native_category_ids": {name: cid for cid, name in EXPECTED_CATEGORIES.items()},
             "target_task": "pedestrian_only; distinct from COCO person and ACDC merged human",
-            "matching_category_status": "human is a matching token; riders are never eligible GT",
-            "population_policy": "all native daytime==night images; no subsampling or GT deletion",
-            "eligibility_policy": "category_id==1, ignore==0, unclipped bbox[3]>=50, occluded is not True",
+            "matching_category_status": "explicit matching token; riders are never eligible GT",
+            "population_policy": "native daytime==night images minus explicit predeclared exclusions",
+            "eligibility_policy": "category_id==1, ignore==0; native bbox[3] and SDK visibility in named setup ranges",
             "occlusion_policy": "null treated visible by SDK convention; actual visibility unknown",
             "unused_eligibility_flags": ["difficult", "truncated"],
             "ignore_policy": profile,
-            "evaluator_policy": {"categories": [MATCHING_CATEGORY],
+            "evaluator_policy": {"categories": [matching_category],
                                  "ignore_policy": "same_category_ioa", "bounds_policy": "allow_outside"},
             "bounds_policy": "allow_outside", "box_policy": "native xywh; no clipping or repair",
             "matching_policy": "existing eligible-first IoU>=0.50 then reusable ignore IoA>=0.50",
@@ -153,7 +190,8 @@ def convert_nightowls(doc: Mapping[str, Any], *, profile: str,
                 "images_with_unknown_group": sum(i["group_id"] is None for i in images),
                 "empty_image_count": sum(retained_counts[i["image_id"]] == 0 for i in images),
                 "native_empty_night_image_count": sum(native_night_counts[i["image_id"]] == 0 for i in images),
-                "excluded_non_night_image_count": len(by_native) - len(images),
+                "excluded_non_night_image_count": sum(r["daytime"] != "night" for r, _ in by_native.values()),
+                "excluded_pilot_image_count": len(excluded),
             },
         },
     }
