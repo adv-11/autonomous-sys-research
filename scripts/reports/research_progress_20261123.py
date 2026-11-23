@@ -213,6 +213,7 @@ para('Selection mAP peaked around epochs 50-60 and then softened. The fixed fina
 para('Approximate peak memory: 7.8 GiB for A/C, 16 GiB for B/B2. All GPU work used Colab L4 sessions, not the local GPU. Mixed-precision skipped updates and the final checkpoint hashes are recorded in the source ledgers.',10)
 
 title('07 / main measured answer','A clear-day threshold loses recall at night', 'Run B: 1280 px, seed 0. Threshold chosen to reach 80% recall on clear-day selection data; then frozen.')
+para('The frozen primary arm A (640 px) was infeasible at 80%. B was added before training and supplies this feasible preregistered result.',10,8)
 img(condition_chart,240)
 para('Bars show test recall; whiskers are 95% image-bootstrap intervals conditional on this trained checkpoint. The dashed line is the source objective, not a guarantee on another sample.',9)
 table(['Test condition','Recall','False alarms / image','People / images'],[[labels[i],f"{r['operating']['recall']*100:.1f}%",f"{r['operating']['fppi']:.2f}",f"{int(r['operating']['gt']):,} / {int(r['operating']['images']):,}"] for i,r in enumerate(rows)], [136,75,139,CW-350])
@@ -230,15 +231,15 @@ para('Changing the score floor or overlap requirement changes the split. Trainin
 
 title('09 / remedies and repeats','What helped - and what did it cost?')
 img(remedy_chart,218)
-para('Measured run B night-calibration remedies, rounded from the follow-up report. The equal-FP-budget point uses its calibration budget, not an exact guarantee of the same test false-positive rate.',9)
+para('Exploratory, post hoc follow-up: measured run B night-calibration remedies, rounded from the report. The equal-FP-budget point uses its calibration budget, not an exact guarantee of the same test false-positive rate.',9)
 table(['Run B policy','Night recall','Night FPPI','Interpretation'],[['Reuse daytime threshold','67.9%','2.37','Starting point.'],['Night threshold, similar FP budget','72.3%','4.79','About +4.4 pp; more false alarms.'],['Night threshold, aim for 80% recall','81.3%','20.96','About +13.3 pp; very large FP cost.'],['Global monotone recalibration','Unchanged','Unchanged','Same ordering and equivariant threshold reselection.']], [153,66,66,CW-285])
 para('Per-condition Platt scaling changes recall little (at most about 1.2 pp in reported rows). A threshold can move along the night tradeoff curve; it cannot create missing candidates or make the curve equal to daytime.',10)
 para('<b>Uncertainty matters:</b> for B at the 80% target, 138 of 1,000 bootstrap night-calibration samples could not attain the target. The equal-recall interval uses only feasible samples. Also, a calibration FPPI budget can be exceeded on fresh test images.',10)
 
 title('10 / resolution and external context','Bigger images help recall; the night gap is less settled')
 img(seed_chart,215)
-para('At source FPPI budget 1, night recall improves by 9.4 pp for B vs A and 11.3 pp for B2 vs C. That resolution benefit appears in both seed-matched comparisons. The improvement in the <b>night-minus-day gap</b> differs by seed pair: +0.8 pp loss for seed 0 versus -2.7 pp for seed 1.',10)
-table(['Important result','What it means'],[['High recall is sometimes infeasible','All-height source ceilings are about 77% at 640 and 88% at 1280. The original 90% and 95% targets cannot be reached by lowering these thresholds.'],['B2 repeats the main night pattern','At source 80%, B2 has 81.6% clear-day vs 69.6% night recall (B: 81.1% vs 67.9%).'],['ACDC is a harder domain','B/B2 recall is about 48-75% across adverse conditions, and only 54-63% on normal reference views.'],['ACDC reference is not a perfect control','Different people, sizes, cameras and related recordings prevent a simple causal weather interpretation.']], [165,CW-165])
+para('<b>Exploratory, post hoc comparison.</b> At source FPPI budget 1, night recall improves by 9.4 pp for B vs A and 11.3 pp for B2 vs C. That resolution benefit appears in both seed-matched comparisons. The change in <b>clear-day-minus-night recall loss</b> differs by seed pair: +0.8 pp loss for seed 0 versus -2.7 pp for seed 1.',10)
+table(['Important result','What it means'],[['High recall is sometimes infeasible','All-height source ceilings are about 77% at 640 and 88% at 1280. The original 90% and 95% targets cannot be reached by lowering these thresholds. A/C also cannot reach 80% on the all-height population.'],['B2 repeats the main night pattern','At source 80%, B2 has 81.6% clear-day vs 69.6% night recall (B: 81.1% vs 67.9%).'],['ACDC is a harder domain','B/B2 recall is about 48-75% across adverse conditions, and only 54-63% on normal reference views.'],['ACDC reference is not a perfect control','Different people, sizes, cameras and related recordings prevent a simple causal weather interpretation.']], [165,CW-165])
 para('Only two seeds per size were trained. Image-bootstrap intervals do not estimate training-seed variability or dependence between routes and drivers. A new model-family comparison must retain those limits.',10)
 
 title('11 / independent test','NightOwls: ready for scoring, not a result yet')

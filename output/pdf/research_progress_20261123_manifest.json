@@ -10,6 +10,6 @@
     "C_640": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a",
     "B2_1280": "22ab1811f8216ff722b956b5a69541c12bc25d65029a07a8c06cf16280e937cc"
   },
-  "pdf_sha256": "b680e003b2f63a0ee95ad50264a36d1d5c93d1e6ad99e7b9f3a234db0d7a2bd6",
+  "pdf_sha256": "865ff639f0c995c572cfb051ea58ab0bbe651bdb17049043e04602bc729bc4ee",
   "note": "Synthesis only; no new inference or NightOwls scoring."
 }
