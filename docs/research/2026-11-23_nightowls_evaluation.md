@@ -156,8 +156,14 @@ preserve versions, hashes, checks and commands. Restricted evidence, exact
 per-image/GT scores, recording mapping, paired draws and executed source copies
 remain in canonical ignored `outputs/nightowls_evaluation_20261123/`.
 
-**Required next step:** a separate independent reviewer task must inspect this
-commit, the frozen contracts, actual private evidence, fast/reference equivalence,
-source reselection, pairing, feasibility/null handling and exported results.
-No review assent is claimed or inferred. No outcomes were sent to the active
-RT-DETR study task. My explicit GitHub approval remains required for any merge.
+**Independent review completed:** a separate GPT Sol task reviewed original
+implementation commit `02486e747279585e6d690397b832f0fde3299aeb`; its
+[review and bounded checker](../reviews/2026-11-23_nightowls_evaluation_review.md)
+are preserved at review commit `f7877444a2d14f6b519e0f84c1692e54f63711ea`.
+The reviewer independently reproduced the primary and R3-out counts, source
+thresholds, oracle costs, definition sensitivities, 48 weighted operating points
+and 2,912 sampled matching checks. No blocking finding or implementation fix
+was requested. These checks support this provisional descriptive result; they
+do not remove the recording, annotation, input-scale or derived-padding limits.
+No outcomes were sent to the RT-DETR study task before its recipe freeze.
+My explicit GitHub approval remains required for any merge. G0 remains pending.
