@@ -1,0 +1,16 @@
+{
+ "aggregate.json.gz": {
+  "uncompressed_bytes": 12923642,
+  "compressed_bytes": 570381,
+  "uncompressed_sha256": "b7d8115b5efbf6253673e6b4295fea30e72d31265141cd641389f94970a47b25",
+  "sha256": "b7cbbd516245808cbaf1b9adf6e4251948a4485a3041a932200fdc6c00fec683",
+  "content": "Full counts-only JSON; no identity/box/native-key data; lossless compression"
+ },
+ "uncertainty.json.gz": {
+  "uncompressed_bytes": 12643144,
+  "compressed_bytes": 477449,
+  "uncompressed_sha256": "95e5c0cd723632de83196ebe59728df94fa322f653541c97e206209a8978a1a1",
+  "sha256": "84ab6f132fc8cffa59b9e0e7962a7b3404d324ea01b7a0e862020aa51be40f9a",
+  "content": "Full counts-only JSON; no identity/box/native-key data; lossless compression"
+ }
+}
