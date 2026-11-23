@@ -238,4 +238,3 @@ all three directly, retained the review and verified final rendering/hash integr
 No invented dialogue or new scientific result is implied. No model computation
 or extra review loop was used. Next milestone: fixed NightOwls scoring, then a
 bounded RT-DETR study rather than further evaluator infrastructure.
-
