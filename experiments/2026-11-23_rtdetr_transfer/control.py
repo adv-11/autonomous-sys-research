@@ -164,6 +164,11 @@ def run():
             raise RuntimeError(f'Admission failed: rate {rate}, assignments {assignments}')
         state.update({'status': 'SETUP', 'live_rate_CU_per_hour': rate})
         write_state(state)
+        cell('import subprocess, pathlib\n'
+             'gpu=subprocess.check_output(["nvidia-smi","--query-gpu=name,memory.total","--format=csv,noheader"],text=True)\n'
+             'print(gpu)\nassert "L4" in gpu, "Requested L4 did not become available"\n'
+             'pathlib.Path("/content/evidence").mkdir(exist_ok=True)\n'
+             'pathlib.Path("/content/evidence/hardware.txt").write_text(gpu)\n', 'hardware')
         cli(['upload', '-s', SESSION, str(OUT / 'packet.tar.gz'), '/content/packet.tar.gz'], 'upload.log', timeout=240)
         cell('import tarfile\nwith tarfile.open("/content/packet.tar.gz") as archive: archive.extractall("/content/packet",filter="data")\n', 'unpack')
         stage('setup', '"setup"', 'setup.json')
