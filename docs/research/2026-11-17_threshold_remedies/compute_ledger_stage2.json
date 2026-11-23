@@ -1,0 +1,37 @@
+{
+ "executor": "Claude Opus 5.5 (designated; one Colab session, Claude-owned)",
+ "authority": "coordinator stage-2 brief after PR #13 merge: <= 30 CU, one session, verified teardown; amendment 4",
+ "session": {"name": "bddxfer2", "accelerator": "L4", "rate_CU_per_h": 1.94,
+             "allocated_utc": "2026-11-18T07:45:11Z", "stopped_utc": "2026-11-18T20:05:28Z", "allocated_hours": 12.34,
+             "teardown_verified": "colab usage: 0 active assignments, 0.00/h; colab sessions: none on server (20:05Z)"},
+ "displayed_balance_CU": {"before": 200.00, "after": 176.52, "spent": 23.48,
+                          "note": "Allocated time x 1.94 CU/h = 23.9; displayed balance may lag billing."},
+ "balance_anomaly": "Stage 1 ended at 262.56 CU (2026-11-16T13:13Z); stage 2 began at 200.00 CU (2026-11-18T07:44Z) with no Claude-owned session in between. The round value suggests an account-level reset or change rather than compute use; not verified. Claude-owned Colab spend in the project is 5.06 (before PR #13) + 32.38 + 23.48 = 60.9 displayed CU.",
+ "stages_utc": [
+  {"stage": "setup: BDD mirror download + SHA-256 (77 s), extraction incl. 2000 night-calibration images; packet (3.8 MB) and A/B/C checkpoints (3 x 19 MB) uploaded", "from": "07:45:11", "to": "07:49:49", "CU_est": 0.15},
+  {"stage": "night-calibration inference A/B/C", "from": "07:49:49", "to": "07:51:30", "CU_est": 0.05},
+  {"stage": "train B2 (1280 px, seed 1, 100 epochs); concurrently NightOwls direct download 330 s + SHA-256 (PASS) and ACDC direct download 1402 s + SHA-256 (PASS), no dataset uploaded", "from": "07:51:30", "to": "18:30:33", "CU_est": 20.66},
+  {"stage": "B2 inference: BDD selection+val and night calibration", "from": "18:30:33", "to": "18:34:55", "CU_est": 0.14},
+  {"stage": "ACDC inference A/B/C/B2 (3009 images each)", "from": "18:34:55", "to": "18:47:57", "CU_est": 0.42},
+  {"stage": "NightOwls raw-prediction inference A/B/C/B2 (51,848 images each; no metrics computed)", "from": "18:47:57", "to": "19:51:51", "CU_est": 2.07},
+  {"stage": "idle until poller retrieval, hash checks and stop", "from": "19:51:51", "to": "20:05:28", "CU_est": 0.44}
+ ],
+ "B2_training": {"attempted": 17096, "successful": 17086, "amp_skipped": 10, "effective_batch": 64, "peak_mem_gib": 16.03,
+                 "last_pt_sha256": "0cdad96fa16669dac2acb5857ca978899b7da004456dddc2247caaf54550e066"},
+ "data_downloads": {
+  "bdd_mirror": {"sha256": "afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784", "seconds": 77},
+  "acdc_rgb_anon_trainvaltest": {"bytes": 16742344108, "sha256_source": "docs/datasets/acdc_archive_manifest.json", "seconds": 1402, "route": "ACDC package API, unauthenticated token"},
+  "nightowls_validation_zip": {"bytes": 57481286834, "sha256": "6663dc5099714ffb8c18bb37942ce523de9dfdda44327284bdab12354e8fcf9d", "download_s": 330, "total_with_hash_s": 535, "parts": 16, "retries": 0, "route": "publisher URL, direct"}
+ },
+ "predictions_sha256": {
+  "B2_1280": "see docs/research/2026-11-17_threshold_remedies/B2_1280.json preds_sha256",
+  "nightowls_A_640": "411d6d95f551ec13d7ff094f2c024dc085e49b6317459b4d8afbdf6c641c908f",
+  "nightowls_B_1280": "1dca7cca79b7e4ddd509cfc7abce6d2eae3ebae14fe5db8facb1881bd75c00bc",
+  "nightowls_C_640": "9320a5a05f484d1e716eefa6ed386c55dd35a294aa9ae29be116a50ac92b0b57",
+  "nightowls_B2_1280": "5f8abfe8516c6c3e900b846ef8aca1b331a1f0184383efccc2cccc238febeeaf"
+ },
+ "nightowls_prediction_summary": {"images_each": 51848, "orig_shape_hw": [640, 1024], "cap_hits": 0,
+   "predict_batch": {"A": 16, "C": 16, "B": 4, "B2": 4}, "ped_candidates": {"A": 2056520, "B": 3466907, "C": 2407465, "B2": 2443120},
+   "seconds": {"A": 597, "B": 1310, "C": 595, "B2": 1314},
+   "status": "raw candidates only, retrieved and hash-checked; no NightOwls metric computed pending contract review (coordinator instruction)"}
+}
