@@ -1,7 +1,7 @@
 {
   "experiment": "rtdetr_transfer_20261123",
   "researcher": "GPT Sol (sole designated Colab operator, authorized 2026-11-23)",
-  "status": "FROZEN_BEFORE_ALLOCATION; target epochs subject only to declared throughput amendment",
+  "status": "FROZEN; PARALLEL_USER_RUNTIME_AUTHORIZED_2026-11-23",
   "execution_permitted": true,
   "scope": "Exploratory new-model research on previously observed BDD; no fresh-test or preregistered novelty claim; G0 pending",
   "blocker": null,
@@ -120,16 +120,29 @@
     "pilot_max_CU": 1,
     "max_failures_per_stage": 2,
     "all_inclusive": "Downloads, setup, pilots, training, inference, idle, retrieval and teardown",
-    "admission": "Read colab usage and sessions once before allocation; do not start if another compute owner is active; independent deadline/budget watchdog must be ready before allocation",
+    "admission": "Fresh usage/sessions check permits exactly protected user assignment plus this one uniquely named research runtime; reject other research assignments. Existing user session is never a cleanup target.",
     "teardown": "Retrieve candidates/checkpoints/logs, verify hashes, stop promptly and verify zero owned assignments; stop on terminal blocker",
-    "hard_deadline": "Allocation request time +25/3 hours minus180 seconds stop margin, conservatively charging ratecap even if live L4 rate lower; also <12h. Separate local guard process starts before allocation and stops named session at deadline. Controller allows max10min idle waiting for committed throughput amendment.",
+    "hard_deadline": "New owned allocation request +min(remaining24.99CU/3, remaining11.888hours) minus300s stop margin. Independent guard starts before allocation and resolves/releases ONLY the persisted exact notebook UUID. No ownership inference from account timing/enumeration.",
     "initial_account_state": {
       "balance_CU": 176.52,
       "rate_CU_per_hour": 0,
       "active_assignments": 0,
       "server_sessions": 0,
       "checked_by": "GPT Sol via colab usage/sessions on resumption, before allocation"
-    }
+    },
+    "resume_accounting": "Same stage, not a new grant: conservatively charge observed first-attempt account delta0.01CU and up to0.112allocatedhours; subsequent user-owned trust spend excluded. No automatic resumption. Original deadline and per-attempt records preserved; any later deadline must account for prior stage usage.",
+    "known_controller_limit": "Resolved for this attempt by persisting notebook UUID before installed official CLI Client.assign; guard uses same UUID to recover the exact assignment if alias registration stalls.",
+    "parallel_authorization": "User explicitly authorized one separately named research runtime alongside user-owned trust. Never use/stop/restart/modify/inspect trust. No other research owner exists.",
+    "protected_user_endpoint": "gpu-t4-s-usw4b1-15opi0xtfafn2",
+    "research_session_name": "rtdetr1123-sol3",
+    "prior_stage_charge": {
+      "CU": 0.01,
+      "allocated_hours_conservative": 0.112,
+      "same_total_stage_envelope": true
+    },
+    "remaining_CU": 24.99,
+    "remaining_allocated_hours": 11.888,
+    "accounting": "Account balance context only; user costs confound balance deltas. Charge own allocation-request-to-verified-release time at own rate (aggregate rate increment with protected user assignment presence recorded), retain measured timestamps and conservative3CU/h bound. Own rate must be <=3 even if total account rate exceeds3."
   },
   "resumption": "2026-11-23: user disabled Smart App Control; CLI help/usage/sessions work; previous blocked attempt allocated zero hours/CU",
   "training": {
@@ -168,9 +181,10 @@
     "pilot": {
       "epochs": 1,
       "images": "Full exact source_train manifest, no held-out images/labels",
-      "max_seconds": 1200,
+      "max_seconds": 1100,
       "max_CU_at_rate_cap": 1,
-      "required_successful_update_fraction": 0.95
+      "required_successful_update_fraction": 0.95,
+      "overhead_reserve_seconds_at_rate_cap": 100
     },
     "stopping_rule": "After one full-epoch pilot, usable time = hard deadline - now - 3600 seconds reserved for inference/retrieval/safety. Conservative epoch seconds = 1.25 * pilot total training seconds. Baseline epochs = min(50,floor(usable/conservative_epoch_seconds)); stop if <10. Commit proposed_plan before baseline. No loss-based early stopping/weight selection.",
     "adaptation": {

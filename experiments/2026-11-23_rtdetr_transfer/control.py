@@ -17,29 +17,20 @@ HERE = Path(__file__).resolve().parent
 ROOT = Path('C:/Users/Advait/autonomous-sys-research')
 OUT = ROOT / 'outputs/rtdetr_transfer_20261123'
 STATE = OUT / 'live_state.json'
-SESSION = 'rtdetr1123'
+SESSION = 'rtdetr1123-sol3'
 CLI = str(Path.home() / '.local/bin/colab.exe')
 CLI_PYTHON = str(Path.home() / 'AppData/Roaming/uv/tools/google-colab-cli/Scripts/python.exe')
 
 
-def orphan_endpoints(release=False):
-    """Official CLI-client recovery for a request that never saved its alias.
-
-    Admission established zero assignments and this task is the sole operator.
-    Only endpoints observed during THIS allocation request are releasable.
-    No credentials or runtime-proxy tokens are returned.
-    """
-    record = OUT / 'owned_endpoints.json'
-    script = ('import json\nfrom colab_cli.common import state\n'
-              + (f'endpoints=json.loads({str(record)!r} and open({str(record)!r}).read())\n'
-                 'for endpoint in endpoints: state.client.unassign(endpoint)\n'
-                 'print(json.dumps(endpoints))\n' if release else
-                 'print(json.dumps([a.endpoint for a in state.client.list_assignments()]))\n'))
-    result = subprocess.run([CLI_PYTHON, '-c', script], capture_output=True, text=True, timeout=45, check=True)
-    endpoints = json.loads(result.stdout)
-    if not release:
-        record.write_text(json.dumps(endpoints))
-    return endpoints
+def owned_assignment(mode):
+    result = subprocess.run([CLI_PYTHON, str(HERE / 'allocation.py'), mode],
+                            capture_output=True, text=True, timeout=120, check=True,
+                            env={**os.environ, 'COLAB_CLI_ASSIGN_RETRIES': '0',
+                                 'COLAB_CLI_REQUEST_TIMEOUT': '90'})
+    record = json.loads(result.stdout)
+    with (OUT / 'ownership_actions.jsonl').open('a') as stream:
+        stream.write(json.dumps({'unix': time.time(), 'mode': mode, **record})+'\n')
+    return record
 
 
 def write_state(value):
@@ -65,30 +56,17 @@ def cli(args, log, timeout=None):
 
 
 def guard():
-    """Independently releases this session even if the LLM/controller disappears."""
+    """Independently release ONLY the persisted notebook UUID at deadline."""
     while True:
         state = json.loads(STATE.read_text())
         if state.get('teardown_verified'):
             return
-        if state['status'] == 'ALLOCATING':
-            try:
-                orphan_endpoints()
-            except Exception:
-                pass  # Primary stop still runs at the hard deadline.
         if time.time() >= state['hard_deadline_unix']:
-            # Stop has its own bounded retry, not another training attempt.
-            for attempt in range(2):
-                try:
-                    cli(['stop', '-s', SESSION], 'watchdog_stop.log', timeout=90)
-                    break
-                except Exception as error:
-                    with (OUT / 'watchdog_stop.log').open('a') as stream:
-                        stream.write(repr(error)+'\n')
-            if (OUT / 'owned_endpoints.json').exists():
-                orphan_endpoints(release=True)
-            cli(['usage'], 'watchdog_usage.log', timeout=60)
-            cli(['sessions'], 'watchdog_sessions.log', timeout=60)
-            (OUT / 'watchdog_fired.json').write_text(json.dumps({'time': time.time(), 'session': SESSION}))
+            result = owned_assignment('release')
+            verified = not owned_assignment('resolve').get('assigned', True)
+            (OUT / 'watchdog_fired.json').write_text(json.dumps(
+                {'time': time.time(), 'session': SESSION, 'result': result,
+                 'own_assignment_gone': verified}))
             return
         time.sleep(20)
 
@@ -133,15 +111,31 @@ def retrieve():
 
 
 def run():
+    contract = json.loads((HERE / 'config.json').read_text())
+    if not contract['execution_permitted']:
+        raise RuntimeError('Compute is blocked by the saved contract; await explicit availability instruction')
+    cli(['usage'], 'parallel_admission_usage.log', timeout=60)
+    cli(['sessions'], 'parallel_admission_sessions.log', timeout=60)
+    import re, uuid
+    admission = (OUT / 'parallel_admission_usage.log').read_text()
+    base_rate = float(re.findall(r'Usage rate:\s*([\d.]+)', admission)[-1])
+    listing = (OUT / 'parallel_admission_sessions.log').read_text().splitlines()
+    protected = 'gpu-t4-s-usw4b1-15opi0xtfafn2'
+    unexpected = [line for line in listing if 'Hardware:' in line and protected not in line]
+    if unexpected:
+        raise RuntimeError('An additional unowned assignment exists; no research allocation requested')
     now = time.time()
     previous = json.loads(STATE.read_text()) if STATE.exists() else {}
+    (OUT / 'prior_live_state.json').write_text(json.dumps(previous, indent=2))
+    request = {'session': SESSION, 'notebook_uuid': str(uuid.uuid4()), 'protected_user_endpoint': protected}
+    (OUT / 'allocation_request.json').write_text(json.dumps(request, indent=2))
     run_id = time.strftime('rtdetr-20261123-sol-%Y%m%dT%H%M%SZ', time.gmtime(now))
     state = {'run_id': run_id, 'session': SESSION, 'operator': 'GPT Sol (sole designated operator)',
              'controller_pid': os.getpid(), 'allocation_request_unix': now,
-             'hard_deadline_unix': min(previous.get('hard_deadline_unix', float('inf')), now + 25/3*3600 - 180),
+             'hard_deadline_unix': now + min(24.99/3, 11.888)*3600 - 300,
              'stage_cap_CU': 25, 'rate_cap_CU_per_hour': 3, 'max_allocated_hours': 12,
-             'account_balance_before_CU': 176.52, 'historical_project_spend_CU': 60.9,
-             'guard_basis': 'Worst-case 3 CU/h; 3-minute stop margin; includes allocation setup/idle/retrieval',
+             'account_balance_context_CU': 176.41, 'preexisting_user_rate_CU_per_hour': base_rate, 'notebook_uuid': request['notebook_uuid'], 'historical_project_spend_CU': 60.9,
+             'guard_basis': 'Remaining24.99CU/11.888h, conservative3CU/h, 5-minute stop margin; exact own UUID only; user costs excluded',
              'status': 'GUARD_STARTING', 'teardown_verified': False}
     (OUT / 'owned_endpoints.json').write_text('[]')
     write_state(state)
@@ -153,15 +147,23 @@ def run():
     print(json.dumps(state), flush=True)
     allocated = False
     try:
-        cli(['new', '-s', SESSION, '--gpu', 'L4'], 'allocation.log', timeout=600)
+        ownership = owned_assignment('allocate')
+        state['endpoint'] = ownership['endpoint']
+        write_state(state)
+        print(json.dumps(ownership), flush=True)
         allocated = True
         cli(['usage'], 'usage_after_allocation.log', timeout=60)
         text = (OUT / 'usage_after_allocation.log').read_text()
         import re
-        rate = float(re.search(r'Usage rate:\s*([\d.]+)', text).group(1))
-        assignments = int(re.search(r'Active assignments:\s*(\d+)', text).group(1))
-        if not 0 < rate <= 3 or assignments != 1:
-            raise RuntimeError(f'Admission failed: rate {rate}, assignments {assignments}')
+        total_rate = float(re.findall(r'Usage rate:\s*([\d.]+)', text)[-1])
+        cli(['sessions'], 'parallel_after_sessions.log', timeout=60)
+        user_present = protected in (OUT / 'parallel_after_sessions.log').read_text()
+        rate = total_rate - (base_rate if user_present else 0)
+        if not 0 < rate <= 3:
+            raise RuntimeError(f'Owned rate admission failed: {rate}; total {total_rate}, preexisting {base_rate}')
+        state['rate_basis'] = {'total_after': total_rate, 'preexisting_user_rate': base_rate,
+                               'protected_user_assignment_still_present': user_present,
+                               'account_balance_delta_used_for_billing': False}
         state.update({'status': 'SETUP', 'live_rate_CU_per_hour': rate})
         write_state(state)
         cell('import subprocess, pathlib\n'
@@ -169,6 +171,7 @@ def run():
              'print(gpu)\nassert "L4" in gpu, "Requested L4 did not become available"\n'
              'pathlib.Path("/content/evidence").mkdir(exist_ok=True)\n'
              'pathlib.Path("/content/evidence/hardware.txt").write_text(gpu)\n', 'hardware')
+        cli(['download', '-s', SESSION, '/content/evidence/hardware.txt', str(OUT / 'hardware.txt')], 'hardware_download.log', timeout=60)
         cli(['upload', '-s', SESSION, str(OUT / 'packet.tar.gz'), '/content/packet.tar.gz'], 'upload.log', timeout=240)
         cell('import tarfile\nwith tarfile.open("/content/packet.tar.gz") as archive: archive.extractall("/content/packet",filter="data")\n', 'unpack')
         stage('setup', '"setup"', 'setup.json')
@@ -224,21 +227,11 @@ def run():
                 state['retrieval_error'] = repr(retrieval_error)
         print(json.dumps(state), flush=True)
     finally:
-        # Also stop if `new` timed out after creating a server assignment.
         try:
-            cli(['stop', '-s', SESSION], 'stop.log', timeout=120)
-            if (OUT / 'owned_endpoints.json').exists():
-                # Avoid re-unassigning an endpoint already released by `stop`.
-                owned = set(json.loads((OUT / 'owned_endpoints.json').read_text()))
-                current = set(orphan_endpoints())
-                (OUT / 'owned_endpoints.json').write_text(json.dumps(sorted(owned & current)))
-                if owned & current:
-                    orphan_endpoints(release=True)
-            cli(['usage'], 'usage_final.log', timeout=60)
-            cli(['sessions'], 'sessions_final.log', timeout=60)
-            usage = (OUT / 'usage_final.log').read_text()
-            sessions = (OUT / 'sessions_final.log').read_text()
-            state['teardown_verified'] = 'Active assignments: 0' in usage and 'No active sessions found' in sessions
+            if allocated:
+                cli(['stop', '-s', SESSION], 'stop.log', timeout=90)
+            owned_assignment('release')
+            state['teardown_verified'] = not owned_assignment('resolve').get('assigned', True)
         except Exception as error:
             state['stop_error'] = repr(error)
         state['completed_unix'] = time.time()

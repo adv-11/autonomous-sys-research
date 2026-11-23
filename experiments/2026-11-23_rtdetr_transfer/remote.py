@@ -119,7 +119,7 @@ def setup():
 
 def train(arm, epochs):
     if arm == 'pilot':
-        signal.alarm(1200)  # <= 1 CU at the maximum admitted rate
+        signal.alarm(1100)  # <= 1 CU at the maximum admitted rate
     import torch
     sys.path.insert(0, '/content/RT-DETR/rtdetrv2_pytorch')
     from src.core import YAMLConfig

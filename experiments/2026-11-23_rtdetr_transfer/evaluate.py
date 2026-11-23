@@ -57,6 +57,8 @@ def match(names, gt, predictions):
 
 def curve(pop):
     scores = np.r_[pop.tp_all, pop.fp_all]
+    if not len(scores):
+        return {k: np.zeros(0) for k in ('thresholds', 'recall', 'fppi')}
     flags = np.r_[np.ones(len(pop.tp_all)), np.zeros(len(pop.fp_all))]
     order = np.argsort(-scores, kind='stable')
     scores, flags = scores[order], flags[order]
@@ -65,6 +67,11 @@ def curve(pop):
     fp = (np.arange(1, len(flags)+1)-np.cumsum(flags))[end]
     # Aggregate curve retains every distinct boundary privately; display may thin.
     return {'thresholds': scores[end], 'recall': tp/pop.G.sum(), 'fppi': fp/pop.n}
+
+
+def choose_fppi(pop, weights=None):
+    # No observed score boundary exists in a candidate-empty source population.
+    return select_fppi(pop, 1.0, weights) if len(pop.tp_all)+len(pop.fp_all) else None
 
 
 def main():
@@ -109,7 +116,7 @@ def main():
         policies = {'recall_0.8': lambda p, w=None: p.select(0.8, w),
                     'recall_0.9': lambda p, w=None: p.select(0.9, w),
                     'recall_0.95': lambda p, w=None: p.select(0.95, w),
-                    'source_fppi_1': lambda p, w=None: select_fppi(p, 1.0, w)}
+                    'source_fppi_1': choose_fppi}
         all_reps[arm] = {}
         for policy, select in policies.items():
             threshold = select(sel)
