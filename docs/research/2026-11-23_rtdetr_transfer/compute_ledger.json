@@ -1,7 +1,7 @@
 {
   "researcher": "GPT Sol (sole designated Colab operator)",
   "recorded_utc": "2026-11-23T20:39:35Z",
-  "status": "READY_FOR_GUARDED_ALLOCATION",
+  "status": "FIRST_ALLOCATION_REQUEST_FAILED_AND_RELEASED; one final bounded readiness attempt authorized by original failure cap",
   "historical_spend_CU": {
     "value": 60.9,
     "basis": "User brief and historical Claude stage-2 ledger; not a new account measurement"
@@ -66,5 +66,23 @@
     "usage_stdout": "Current balance: 176.52 compute units; Usage rate: 0.00/hr; Active assignments: 0",
     "sessions_stdout": "[colab] No active sessions found on server.",
     "checked_by": "GPT Sol, colab usage/sessions both exit0"
+  },
+  "allocation_attempts": [
+    {
+      "run_id": "rtdetr-20261123-sol-20261123T212519Z",
+      "request": "colab new -s rtdetr1123 --gpu L4",
+      "result": "Timed out after240s; server listed unnamed CPU/DEFAULT at0.08CU/h; no ready L4, no setup/pilot/training/inference",
+      "endpoint": "m-s-use4b0-fc1b0zilfqzh",
+      "recovery": "CLI stop alias/endpoint not found; killed remaining request descendants and used installed official CLI client.unassign for exact observed endpoint; existing auth unchanged",
+      "balance_before_CU": 176.52,
+      "balance_after_CU": 176.51,
+      "displayed_spend_CU": 0.01,
+      "teardown_verified": true
+    }
+  ],
+  "bounded_second_attempt": {
+    "basis": "Installed official client explicitly documents slow allocations; first outer240s deadline may have cut off readiness. Use600s outer readiness limit and480s official request timeout, with internal assignment retries disabled. One second attempt only; then stop.",
+    "safeguard_fix": "Guard now records the sole request-created server endpoint while allocation is pending, so an unsaved alias can be released via official CLI client. Windows request timeout kills process tree. Original first-request hard deadline persists; no fresh25CU envelope.",
+    "remaining_stage_CU_from_displayed_spend": 24.99
   }
 }

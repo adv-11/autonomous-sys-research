@@ -19,6 +19,27 @@ OUT = ROOT / 'outputs/rtdetr_transfer_20261123'
 STATE = OUT / 'live_state.json'
 SESSION = 'rtdetr1123'
 CLI = str(Path.home() / '.local/bin/colab.exe')
+CLI_PYTHON = str(Path.home() / 'AppData/Roaming/uv/tools/google-colab-cli/Scripts/python.exe')
+
+
+def orphan_endpoints(release=False):
+    """Official CLI-client recovery for a request that never saved its alias.
+
+    Admission established zero assignments and this task is the sole operator.
+    Only endpoints observed during THIS allocation request are releasable.
+    No credentials or runtime-proxy tokens are returned.
+    """
+    record = OUT / 'owned_endpoints.json'
+    script = ('import json\nfrom colab_cli.common import state\n'
+              + (f'endpoints=json.loads({str(record)!r} and open({str(record)!r}).read())\n'
+                 'for endpoint in endpoints: state.client.unassign(endpoint)\n'
+                 'print(json.dumps(endpoints))\n' if release else
+                 'print(json.dumps([a.endpoint for a in state.client.list_assignments()]))\n'))
+    result = subprocess.run([CLI_PYTHON, '-c', script], capture_output=True, text=True, timeout=45, check=True)
+    endpoints = json.loads(result.stdout)
+    if not release:
+        record.write_text(json.dumps(endpoints))
+    return endpoints
 
 
 def write_state(value):
@@ -29,10 +50,18 @@ def write_state(value):
 
 def cli(args, log, timeout=None):
     with (OUT / log).open('a', encoding='utf-8') as stream:
-        result = subprocess.run([CLI, *args], stdout=stream, stderr=subprocess.STDOUT,
-                                timeout=timeout, encoding='utf-8')
-    if result.returncode:
-        raise RuntimeError(f'colab {args[0]} failed ({result.returncode}); see {log}')
+        process = subprocess.Popen([CLI, *args], stdout=stream, stderr=subprocess.STDOUT,
+                                   encoding='utf-8', env={**os.environ, 'COLAB_CLI_ASSIGN_RETRIES': '0',
+                                                         'COLAB_CLI_REQUEST_TIMEOUT': '480'})
+        try:
+            result = process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            # The Windows console launcher creates Python descendants. Stop the
+            # entire owned process tree before releasing an uncertain assignment.
+            subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'], stdout=stream, stderr=stream)
+            raise
+    if result:
+        raise RuntimeError(f'colab {args[0]} failed ({result}); see {log}')
 
 
 def guard():
@@ -41,6 +70,11 @@ def guard():
         state = json.loads(STATE.read_text())
         if state.get('teardown_verified'):
             return
+        if state['status'] == 'ALLOCATING':
+            try:
+                orphan_endpoints()
+            except Exception:
+                pass  # Primary stop still runs at the hard deadline.
         if time.time() >= state['hard_deadline_unix']:
             # Stop has its own bounded retry, not another training attempt.
             for attempt in range(2):
@@ -50,6 +84,8 @@ def guard():
                 except Exception as error:
                     with (OUT / 'watchdog_stop.log').open('a') as stream:
                         stream.write(repr(error)+'\n')
+            if (OUT / 'owned_endpoints.json').exists():
+                orphan_endpoints(release=True)
             cli(['usage'], 'watchdog_usage.log', timeout=60)
             cli(['sessions'], 'watchdog_sessions.log', timeout=60)
             (OUT / 'watchdog_fired.json').write_text(json.dumps({'time': time.time(), 'session': SESSION}))
@@ -98,14 +134,16 @@ def retrieve():
 
 def run():
     now = time.time()
+    previous = json.loads(STATE.read_text()) if STATE.exists() else {}
     run_id = time.strftime('rtdetr-20261123-sol-%Y%m%dT%H%M%SZ', time.gmtime(now))
     state = {'run_id': run_id, 'session': SESSION, 'operator': 'GPT Sol (sole designated operator)',
              'controller_pid': os.getpid(), 'allocation_request_unix': now,
-             'hard_deadline_unix': now + 25/3*3600 - 180,
+             'hard_deadline_unix': min(previous.get('hard_deadline_unix', float('inf')), now + 25/3*3600 - 180),
              'stage_cap_CU': 25, 'rate_cap_CU_per_hour': 3, 'max_allocated_hours': 12,
              'account_balance_before_CU': 176.52, 'historical_project_spend_CU': 60.9,
              'guard_basis': 'Worst-case 3 CU/h; 3-minute stop margin; includes allocation setup/idle/retrieval',
              'status': 'GUARD_STARTING', 'teardown_verified': False}
+    (OUT / 'owned_endpoints.json').write_text('[]')
     write_state(state)
     process = subprocess.Popen([sys.executable, str(HERE / 'control.py'), 'guard'],
                                creationflags=subprocess.CREATE_NO_WINDOW)
@@ -115,7 +153,7 @@ def run():
     print(json.dumps(state), flush=True)
     allocated = False
     try:
-        cli(['new', '-s', SESSION, '--gpu', 'L4'], 'allocation.log', timeout=240)
+        cli(['new', '-s', SESSION, '--gpu', 'L4'], 'allocation.log', timeout=600)
         allocated = True
         cli(['usage'], 'usage_after_allocation.log', timeout=60)
         text = (OUT / 'usage_after_allocation.log').read_text()
@@ -184,6 +222,13 @@ def run():
         # Also stop if `new` timed out after creating a server assignment.
         try:
             cli(['stop', '-s', SESSION], 'stop.log', timeout=120)
+            if (OUT / 'owned_endpoints.json').exists():
+                # Avoid re-unassigning an endpoint already released by `stop`.
+                owned = set(json.loads((OUT / 'owned_endpoints.json').read_text()))
+                current = set(orphan_endpoints())
+                (OUT / 'owned_endpoints.json').write_text(json.dumps(sorted(owned & current)))
+                if owned & current:
+                    orphan_endpoints(release=True)
             cli(['usage'], 'usage_final.log', timeout=60)
             cli(['sessions'], 'sessions_final.log', timeout=60)
             usage = (OUT / 'usage_final.log').read_text()
