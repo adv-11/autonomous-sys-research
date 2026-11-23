@@ -191,3 +191,19 @@ All 36 relevant tests passed; a console-only zero-GT reporting failure is
 fixed with failed attempts preserved. No NightOwls prediction access, local
 GPU/Colab action, new delegate, PR or merge occurred in this implementation
 task. My explicit merge approval still applies; **G0 remains pending**.
+# 2026-11-23 first frozen NightOwls evaluation and independent review
+
+GPT Sol scored saved Claude Opus predictions under the merged v1/v2 contract;
+no new GPU work was needed. The fixed 51,782-image cohort retains empty and
+unkeyed frames. Primary A/B/C recall is 60.14/61.05/62.50%, and excluding the
+predeclared dominant recording reduces it to 46.87/50.74/49.41%. The corresponding
+candidate ceilings and target-oracle FP costs remain diagnostic, not deployment
+guarantees. Recording dependence, conditional unkeyed uncertainty, annotation
+and scale mismatch and unrecorded tensor padding remain explicit.
+
+A separate independent GPT Sol review of `02486e7`, committed as `f787744`,
+found no blocking scientific or code issues. It independently reproduced the
+decisive raw-evidence results and bounded weighted/matching checks. No new
+review loop or model inference follows from publication. The [report](research/2026-11-23_nightowls_evaluation.md)
+and [review](reviews/2026-11-23_nightowls_evaluation_review.md) preserve evidence
+and limits. **G0 remains pending; my explicit merge approval is still required.**

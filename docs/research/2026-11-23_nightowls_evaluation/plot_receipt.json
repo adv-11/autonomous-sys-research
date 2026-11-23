@@ -1,0 +1,16 @@
+{
+ "attribution": "GPT Sol",
+ "matplotlib": "3.11.2",
+ "numpy_for_plotting": "2.5.5",
+ "script_sha256": "e546f0224d72bb1043c39dc9312980d3ebee480e62fee976350ff50975349141",
+ "files": {
+  "bootstrap_distribution.png": "2c9225493a621481100733de2ec40e42fff4a6809f7df0952d3ddbdb88d7d3df",
+  "bootstrap_distribution.svg": "13056938b6a5eb46e8abed9ad59c9ce310d97ac785a2a566a5c296d5a4584870",
+  "height_sensitivity.png": "1745b1e92395159eb4e88aeabff1b6ca002f79d72daa1a493303e793fb3cff67",
+  "height_sensitivity.svg": "24a79ec3b5e58bb85ceabde955c539f4b51b1a077ca364f45153be536d3b9c8d",
+  "primary_transfer.png": "0bd0c2c1896b00a67ddfc599e5a31bd7ce21dc6b4cd2f7492759948bb10dc3c0",
+  "primary_transfer.svg": "e9872c4e7918b6470774cbed7a1cd55e93a58b1a8f14b50615417c04d135f11f",
+  "recording_sensitivity.png": "1a2a7195e62fad93db9207f672dd2d9f499a5b20d3dc44211eeb26281ac1aeca",
+  "recording_sensitivity.svg": "70f9cbe2a6a142503bca300d68839c35181da2406bcdca591ed3b22f5f0d63e3"
+ }
+}
