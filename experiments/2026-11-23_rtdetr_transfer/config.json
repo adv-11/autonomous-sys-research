@@ -1,0 +1,82 @@
+{
+  "experiment": "rtdetr_transfer_20261123",
+  "researcher": "GPT Sol (sole designated Colab operator, authorized 2026-11-23)",
+  "status": "BLOCKED_BEFORE_ALLOCATION; incomplete contract, not executable",
+  "execution_permitted": false,
+  "scope": "Exploratory new-model research on previously observed BDD; no fresh-test or preregistered novelty claim; G0 pending",
+  "blocker": "Windows Application Control blocked C:/Users/Advait/.local/bin/colab.exe on the first invocation (colab --help). No allocation attempted.",
+  "model": {
+    "family": "official RT-DETRv2-S / R18",
+    "repository": "https://github.com/lyuwenyu/RT-DETR",
+    "official_config": "rtdetrv2_pytorch/configs/rtdetrv2/rtdetrv2_r18vd_120e_coco.yml",
+    "official_checkpoint_url": "https://github.com/lyuwenyu/storage/releases/download/v0.2/rtdetrv2_r18vd_120e_coco_rerun_48.1.pth",
+    "identity_source": "https://raw.githubusercontent.com/lyuwenyu/RT-DETR/main/rtdetrv2_pytorch/README.md",
+    "source_access_date_utc": "2026-11-23",
+    "code_commit": null,
+    "checkpoint_sha256": null,
+    "environment_versions": null,
+    "verification_limit": "Official README lists this config and checkpoint. Checkpoint bytes, compatibility and native runtime behavior were not verified. Exact code/version/weights must be committed before inference or evaluation. No alternative model authorized."
+  },
+  "data": {
+    "canonical_root": "C:/Users/Advait/autonomous-sys-research",
+    "existing_private_manifests": "outputs/bdd_transfer_20261115/private",
+    "private_output": "outputs/rtdetr_transfer_20261123",
+    "labels": "BDD100K legacy 2018 labels; not Detection 2020",
+    "labels_archive_sha256": "7f1f9043c70a6ff0788a323cfb914aeced109a37b7150740d670a347c881394a",
+    "images_url": "https://huggingface.co/datasets/Xing1210/bdd100k/resolve/c45de4b70434647956b4fea75fbbbadc18218f08/bdd100k_images_100k.zip",
+    "images_archive_sha256": "afd149eadb49657ef5ad7bb6e9d77cc8b7927a576ee2b475b720028274e02784",
+    "image_provenance_limit": "Mirror publisher identity unverified; inherited from existing experiment",
+    "delivery": "Direct download inside Colab from saved hash-pinned routes; no PC dataset uploads",
+    "manifests": {
+      "manifest_source_train.json": {"images": 10635, "sha256": "ddd6f7f9e4104e61c5be22398d7f2489b37d9d45f311d46d1dc46d9d65d444ec"},
+      "manifest_selection.json": {"images": 1842, "sha256": "a3714ba25749e427b46e91218d566ac12f5a3f0101a9c24e9f6e1998b42e307d"},
+      "manifest_val.json": {"images": 10000, "sha256": "2c401e660bf6694557d1019efa0c2cf439e777f9ff514912c1183f31c73edbe3"}
+    },
+    "gt_pedestrian_sha256": "37929323cb4943766a163a8ea8bf1e02ba1e244c5ae29fe6cebe02ce5a257bbf",
+    "existing_night_calibration_exclusion": {"images": 2000, "manifest_sha256": "4c30b228bc29fb5d9f8382e3cd51f9852a39231ceec8b7b888f058ac55483234"},
+    "classes": ["pedestrian", "rider", "car", "truck", "bus", "train", "motorcycle", "bicycle", "traffic light", "traffic sign"],
+    "legacy_to_class": {"person": "pedestrian", "rider": "rider", "car": "car", "truck": "truck", "bus": "bus", "train": "train", "motor": "motorcycle", "bike": "bicycle", "traffic light": "traffic light", "traffic sign": "traffic sign"}
+  },
+  "training_intent": {
+    "imgsz": 640,
+    "seed": 0,
+    "baseline": "Official pretrained initialization; exact existing source_train manifest only; target 50 epochs if feasible",
+    "selection_labels_in_weights": false,
+    "checkpoint_choice": "Final completed predeclared epoch; no test-based or selection-label-based weight selection",
+    "stopping_rule": "Commit exact recipe and development/throughput-only stopping rule before execution; first bounded pilot <=1 CU; choose feasible epochs from projected completion without held-out outcomes",
+    "optional_adaptation": "Only if budget and baseline correctness permit: bounded balanced day/night fine-tuning, at most 10 epochs; freeze exact subset/hash and mix before outcomes; exclude existing 2000 night-calibration images and every source-selection/val/test image",
+    "adaptation_subset_sha256": null,
+    "exact_recipe": null
+  },
+  "inference_intent": {
+    "implementation": "Official native RT-DETRv2 inference",
+    "nms": false,
+    "preprocessing": null,
+    "query_count_topk_class_filter_order": null,
+    "requirement": "Freeze pinned native preprocessing, query count, global query-class top-k, class-filter order, score floor, box geometry, precision and candidate ceiling limitations before inference; do not infer semantics from YOLO"
+  },
+  "evaluation": {
+    "evaluator": "threshold_transfer.metrics.ReferenceEvaluator unchanged",
+    "matching": "Pedestrian, IoU >= 0.5, greedy score order, legacy-label ignore policy reject",
+    "recall_targets": [0.8, 0.9, 0.95],
+    "source_threshold": "Highest observed selection score with recall >= target, whole ties inclusive; report INFEASIBLE explicitly",
+    "secondary_source_fppi": 1.0,
+    "fppi_threshold": "Lowest observed selection score with FP/images <= 1, whole ties inclusive; undefined if no such score",
+    "test": "All 10000 existing val images, original strata; clear_day and night primary comparison",
+    "miss_split": "Report absolute unmatched share 1-M_night separately from signed ceiling difference M_clear-M_night and signed threshold part (M_night-R_night)-(M_clear-R_clear)",
+    "nightowls": "No scores requested, read or coordinated in this task"
+  },
+  "budget": {
+    "historical_spend_CU_reported": 60.9,
+    "project_checkin_CU": 100,
+    "stage_max_CU": 25,
+    "stage_max_allocated_hours": 12,
+    "rate_max_CU_per_hour": 3,
+    "owned_sessions_max": 1,
+    "pilot_max_CU": 1,
+    "max_failures_per_stage": 2,
+    "all_inclusive": "Downloads, setup, pilots, training, inference, idle, retrieval and teardown",
+    "admission": "Read colab usage and sessions once before allocation; do not start if another compute owner is active; independent deadline/budget watchdog must be ready before allocation",
+    "teardown": "Retrieve candidates/checkpoints/logs, verify hashes, stop promptly and verify zero owned assignments; stop on terminal blocker"
+  }
+}

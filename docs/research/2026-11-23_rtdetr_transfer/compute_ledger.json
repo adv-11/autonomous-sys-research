@@ -1,0 +1,52 @@
+{
+  "researcher": "GPT Sol (sole designated Colab operator)",
+  "recorded_utc": "2026-11-23T20:39:35Z",
+  "status": "BLOCKED_BEFORE_ALLOCATION",
+  "historical_spend_CU": {"value": 60.9, "basis": "User brief and historical Claude stage-2 ledger; not a new account measurement"},
+  "project_checkin_CU": 100,
+  "authorized_stage_limits": {"CU": 25, "allocated_hours": 12, "CU_per_hour": 3, "owned_sessions": 1, "pilot_CU": 1},
+  "prospective_envelope_unmeasured": {
+    "basis": "Conservative planning caps at 3 CU/h, not measured throughput or a completion claim",
+    "setup_download_hours": 0.75,
+    "pilot_hours": 0.3333333333333333,
+    "training_hours_baseline_and_optional_adaptation": 6,
+    "inference_retrieval_teardown_hours": 0.75,
+    "reserve_CU": 1.5,
+    "total_CU_with_reserve": 25,
+    "maximum_hours_at_rate_cap_with_reserve": 8.333333333333334,
+    "admission": "No allocation while CLI blocked. On resumption, save actual rate/deadline and independent watchdog first; pilot projection determines whether 50 baseline epochs and any adaptation fit. Commit a smaller development-only budget before results or leave adaptation pending."
+  },
+  "attempts": [{
+    "stage": "CLI availability, before allocation",
+    "command": "colab --help",
+    "resolved_executable": "C:/Users/Advait/.local/bin/colab.exe",
+    "executable_sha256": "afd48d325cdd9ba1aa1097f58bc1a11d506a3b47ca5722dbb84ae9b9649d713d",
+    "result": "Windows PowerShell NativeCommandFailed: An Application Control policy has blocked this file",
+    "disposition": "Terminal environment blocker. No retry, policy change, alternate executable, runtime allocation or fallback model."
+  }],
+  "usage_and_sessions": {
+    "queried": false,
+    "reason": "Installed CLI rejected by OS before execution; no retry through the same blocked executable",
+    "current_balance_CU": null,
+    "current_account_assignments": null,
+    "current_rate_CU_per_hour": null
+  },
+  "new_stage_activity": {
+    "allocations_issued": 0,
+    "allocated_hours_by_this_task": 0,
+    "CU_from_allocations_by_this_task": 0,
+    "account_balance_delta_CU": null,
+    "local_GPU_operations": 0,
+    "remote_GPU_operations": 0,
+    "training_runs": 0,
+    "inference_runs": 0,
+    "evaluation_runs": 0,
+    "dataset_uploads": 0
+  },
+  "teardown": {
+    "session_created_by_this_task": false,
+    "stop_required_for_this_task": false,
+    "zero_owned_assignments_verified_via_server": false,
+    "limitation": "This task created no assignments. Account-wide and server-side assignment state cannot be verified while the CLI is blocked; historical teardown is not current verification."
+  }
+}
