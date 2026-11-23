@@ -6,6 +6,7 @@ rows equal a whole-population run. A whole-population ReferenceEvaluator check o
 the selection split and val clear_day verifies the fast aggregate path.
 Native zero-area boxes follow docs/decisions/2026-11-10_native_zero_area.md:
 explicit FP rows, counted separately, never repaired.
+GPT Sol's 2026-11-18 v2 fix only guards console display of undefined metrics.
 
     PYTHONPATH=src;<pylib> python evaluate_transfer.py --preds P.npz --gt gt_pedestrian.json --label NAME --out-json A.json
 """
@@ -257,8 +258,12 @@ def main(argv=None):
         for s in STRATA:
             if s in tr:
                 e = tr[s]
-                print(f"  {s:22s} n={pops[s].n:5d} G={int(pops[s].G.sum()):5d} R@t*={e['operating']['recall']:.3f} "
-                      f"FPPI={e['operating']['fppi']:.3f} ceil={e['ceiling_recall']:.3f}")
+                recall = e["operating"]["recall"]
+                recall_text = f"{recall:.3f}" if recall is not None else "UNDEFINED"
+                ceiling = e["ceiling_recall"]
+                ceiling_text = f"{ceiling:.3f}" if ceiling is not None else "UNDEFINED"
+                print(f"  {s:22s} n={pops[s].n:5d} G={int(pops[s].G.sum()):5d} R@t*={recall_text} "
+                      f"FPPI={e['operating']['fppi']:.3f} ceil={ceiling_text}")
 
 
 if __name__ == "__main__":

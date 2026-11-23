@@ -162,3 +162,32 @@ The remaining-body maximum is142,567,584bytes, with8,567,584ofindexheadroom. A f
 The explicitly authorized renewed CPU attempt yielded0/64verifiedimages. Cumulative total/index reservations are14,864,832bytes; attempt-confirmed bytes are a4,259,861lowerbound. Operator-reported interruption, missing exit codes and unverified deadline compliance remain explicit. Later PID absence does not establish timely teardown. There was no new GPU, Colab or inference.
 
 Opus review `4fa7de8` confirms the saved evidence and permits publication after M1. GPT Sol updated the disabled current script to charge both completed attempts, corrected historical-budget and source-identity wording, and passed the eight no-network guards including one byte above the remaining index cap. No new access or review loop follows. External images remain unavailable, no new research result is claimed, and **G0 remains pending**. My explicit approval still governs the PR merge.
+
+### 2026-11-17 NightOwls external preparation (GPT Sol)
+
+The [full archive verification](datasets/2026-11-17_nightowls_archive_verification.md)
+passed exact size, first-reference SHA-256 and every member CRC. The
+[external contract](research/2026-11-17_nightowls_external_contract.md) was
+committed before NightOwls predictions; the existing adapter now supports
+the BDD pedestrian token, frozen pilot exclusions and four SDK-inspired GT
+setups. Synthetic checks and real label/image-coverage counts are distinct
+from inference. Direct Colab source download is the only dataset route;
+no PC uploads, local GPU or Colab operation occurred in this CPU task.
+The coordinator retains inference authorization and independent review;
+my explicit GitHub approval still governs merges. **G0 remains pending.**
+
+### 2026-11-18 NightOwls v2 contract amendment (GPT Sol)
+
+The independent Claude Opus [review](reviews/2026-11-18_opus_review_nightowls_contract.md)
+of `8a89a635` is preserved unedited. The [v2 amendment](research/2026-11-18_nightowls_contract_v2.md)
+was committed at `af7f442` during raw prediction generation, before any
+NightOwls scoring according to the coordinator's hold. It reselects ≥50 BDD
+source thresholds and aligns clear/night references, selects the less
+absorbing NightOwls profile for cross-dataset comparisons, and adds input-scale,
+recording/support, correction-history and ZIP/download-budget rules.
+New [CPU BDD reference results](research/2026-11-18_nightowls_v2_bdd_reference.md)
+are exploratory on BDD and distinct from unscored NightOwls predictions.
+All 36 relevant tests passed; a console-only zero-GT reporting failure is
+fixed with failed attempts preserved. No NightOwls prediction access, local
+GPU/Colab action, new delegate, PR or merge occurred in this implementation
+task. My explicit merge approval still applies; **G0 remains pending**.
