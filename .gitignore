@@ -17,6 +17,7 @@ papers/**
 *.engine
 *.ckpt
 outputs/
+tmp/
 *.egg-info/
 build/
 dist/
