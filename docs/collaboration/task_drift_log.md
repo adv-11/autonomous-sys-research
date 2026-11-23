@@ -229,3 +229,13 @@ The stopped-pilot/supervision review approved the record and one direct-launch c
 ### 2026-11-14 failed-access review closed
 
 Claude Opus independently reproduced seven private hashes, the zero-image result and cumulative reservations (`4fa7de8`). It caught a latent stale-budget constant in the disabled utility, not a defect in the executed result. GPT Sol updated the current constant to14,864,832, clarified consumed authorization and historical config budgets, and checked the exact remaining-index boundary offline. Operator-reported interruption stays distinct from saved receipts. No new access or extra review/probe loop followed. The record is ready for a compact failure/preflight PR; it establishes neither external-data readiness nor G0 passage.
+# 2026-11-23 briefing checkpoint (GPT Sol coordinator)
+
+Deliverable: explain the complete project in a dated PDF before further research.
+Independent Sol review found omitted exploratory labels, reversed wording for a
+signed loss, and Windows PDF checkout byte conversion. The coordinator corrected
+all three directly, retained the review and verified final rendering/hash integrity.
+No invented dialogue or new scientific result is implied. No model computation
+or extra review loop was used. Next milestone: fixed NightOwls scoring, then a
+bounded RT-DETR study rather than further evaluator infrastructure.
+
