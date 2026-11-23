@@ -1,7 +1,7 @@
 {
   "researcher": "GPT Sol (sole designated Colab operator)",
   "recorded_utc": "2026-11-23T21:38:20.329954+00:00",
-  "status": "PARALLEL_COMPUTE_AUTHORIZED; READY_FOR_EXACT_OWNED_ALLOCATION",
+  "status": "BLOCKED_L4_ALLOCATION_FAILED_TWICE_CLAUDE; NO_GPU_WORK",
   "historical_spend_CU": {
     "value": 60.9,
     "basis": "User brief and historical Claude stage-2 ledger; not a new account measurement"
@@ -124,5 +124,46 @@
     "remaining_owned_hours": 11.888,
     "identity_safeguard": "Unique notebook UUID persisted before allocation; independent guard and final release target only this UUID/endpoint; protected trust endpoint explicitly forbidden",
     "balance_attribution": "Subsequent account balance deltas cannot establish project spend; user costs excluded; own time/rate ledger required"
+  },
+  "claude_resumption": {
+    "operator": "Claude Opus 5.5 (sole designated operator after GPT Sol credits exhausted)",
+    "authorization": "User via coordinator: 'switch to claude opus medium and continue'; max 2 more attempts, plain CLI only",
+    "amendment_commit": "7e33d18 (amendment_1_claude_operator.json; scientific contract unchanged)",
+    "watchdog": "Windows scheduled task created before attempt 1 (deadline 2026-11-24T06:00:19Z); removed after both attempts failed with no owned session",
+    "attempts": [
+      {
+        "n": 1,
+        "session": "rtdetr1123-cl1",
+        "request_utc": "2026-11-23T21:51:29Z",
+        "end_utc": "2026-11-23T22:00:46Z",
+        "command": "colab new -s rtdetr1123-cl1 --gpu L4 (CLI defaults: 120 s read timeout, 3 retries)",
+        "result": "exit 1: requests ReadTimeout on POST /tun/m/assign (read timeout=120) after CLI internal retries",
+        "admission": "balance 176.22, rate 1.15/h, 1 assignment (trust only)",
+        "after": "balance 176.03, rate 1.15/h, 1 assignment (trust only); no own assignment created",
+        "log": "outputs/rtdetr_transfer_20261123/claude_alloc_attempt_1.log sha256 0184b62a319085b8081740526798fe097c4948459be0def93c766af818a09c75"
+      },
+      {
+        "n": 2,
+        "session": "rtdetr1123-cl2",
+        "request_utc": "2026-11-23T22:01:21Z",
+        "end_utc": "2026-11-23T22:09:33Z",
+        "command": "COLAB_CLI_REQUEST_TIMEOUT=600 COLAB_CLI_ASSIGN_RETRIES=1 colab new -s rtdetr1123-cl2 --gpu L4",
+        "result": "exit 1: ColabRequestError POST /tun/m/assign?variant=GPU&accelerator=L4: Bad Gateway (502)",
+        "admission": "balance 175.93, rate 1.15/h, 1 assignment (trust only)",
+        "after": "balance 175.84, rate 1.15/h, 1 assignment (trust only); no own assignment created",
+        "log": "outputs/rtdetr_transfer_20261123/claude_alloc_attempt_2.log sha256 45f4640242f65c0559e71db17eeb3cb445820b177848dd88b597909045557930"
+      }
+    ],
+    "own_assignments_created": 0,
+    "own_allocated_hours": 0.0,
+    "own_CU_charged": 0.0,
+    "balance_deltas_note": "Account deltas over the window (176.22 -> 175.84) match trust at 1.15 CU/h (~0.35 CU over ~18 min) and are not charged to this stage",
+    "stage_total_charged_CU": 0.3,
+    "stage_total_allocated_hours_conservative": 0.138,
+    "remaining_CU": 24.7,
+    "remaining_allocated_hours": 11.862,
+    "teardown": "colab sessions at 2026-11-23T22:09:44Z lists only user-owned trust; trust never used, stopped or modified",
+    "hardware_fallback": "Not taken: no T4 pilot, no A100. Further attempts exceed the authorized 2.",
+    "disposition": "STOPPED: concrete blocker is Colab L4 assignment endpoint failing (120 s read timeouts, then 502 Bad Gateway). Awaiting user/coordinator decision."
   }
 }
