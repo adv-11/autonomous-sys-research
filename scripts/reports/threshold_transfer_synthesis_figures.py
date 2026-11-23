@@ -22,7 +22,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -117,6 +116,7 @@ def fig_summary():
     ax.axhline(0.8, color="0.5", lw=0.8, ls="--")
     ax.set_xticks(range(4), strata)
     ax.set_ylim(0.4, 0.9)
+    ax.set_ylabel("pedestrian recall at BDD t*(0.80)")
     ax.set_title("(b) ACDC at BDD t*(0.80), descriptive")
     ax.legend(frameon=False, fontsize=7.5, ncol=2, loc="lower left")
     ax.text(0.99, 0.98, "no intervals: 4–6 recordings per condition",
@@ -215,6 +215,7 @@ def fig_remedies():
 def fig_decomposition():
     rem = {a: jload(REM / f"remedies_trainnight_{a}.json")["arms"][a] for a in ["A", "B", "C", "B2"]}
     now = nightowls_rows()
+    agg = jload(NOW / "aggregate.json.gz")
     rows = []  # label, recall, removable, unmatched, ceiling_diff
     for arm, op, lab in [("A", "L1.0", "A, BDD night, FPPI 1"), ("C", "L1.0", "C, BDD night, FPPI 1"),
                          ("B", "L1.0", "B, BDD night, FPPI 1"), ("B2", "L1.0", "B2, BDD night, FPPI 1"),
@@ -229,25 +230,29 @@ def fig_decomposition():
         gt = float(r["eligible_gt"])
         rec = float(r["recall"])
         mn = float(r["ceiling_recall"])
-        rows.append((f"{lab}, NightOwls ≥50 px, t*(0.80)", rec, mn - rec, 1 - mn, None))
+        m_clear = agg["arms"][arm]["bdd_h50"]["clear"]["ceiling"]["recall"]
+        rows.append((f"{lab}, NightOwls ≥50 px, t*(0.80)", rec, mn - rec, 1 - mn, m_clear - mn))
         assert abs((1 - mn) * gt - float(r["no_matched_candidate"])) < 0.5
     fig, ax = plt.subplots(figsize=(9.5, 4.6))
     y = list(range(len(rows)))[::-1]
     for yi, (lab, rec, remv, unm, cd) in zip(y, rows):
         ax.barh(yi, rec, color="#3b7d4f")
         ax.barh(yi, remv, left=rec, color="#e3b448")
-        ax.barh(yi, unm, left=rec + remv, color="#9a3b3b")
-        if cd is not None:
-            ax.plot([1 - cd, 1 - cd], [yi - 0.4, yi + 0.4], color="black", lw=1.2)
+        # red segment = 1 - M_night, split into the clear-day-level share (1 - M_clear, solid)
+        # and the excess over clear day (M_clear - M_night = ceiling difference, hatched)
+        ax.barh(yi, unm - cd, left=rec + remv, color="#9a3b3b")
+        ax.barh(yi, cd, left=1 - cd, color="#d9a0a0", hatch="///", edgecolor="#9a3b3b", lw=0)
     ax.set_yticks(y, [r[0] for r in rows], fontsize=8)
     ax.set_xlim(0, 1)
     ax.set_xlabel("share of eligible night pedestrians")
     handles = [Patch(color="#3b7d4f", label="detected at transferred threshold"),
                Patch(color="#e3b448", label="matched candidate removed by threshold (M − R)"),
-               Patch(color="#9a3b3b", label="no matched candidate (1 − M)"),
-               Line2D([], [], color="black", label="clear-day unmatched share (1 − M_clear), BDD rows")]
+               Patch(color="#9a3b3b", label="no matched candidate, clear-day level (1 − M_clear)"),
+               Patch(facecolor="#d9a0a0", hatch="///", edgecolor="#9a3b3b",
+                     label="no matched candidate, excess over clear day (M_clear − M_night)")]
     ax.legend(handles=handles, frameon=False, fontsize=7.5, loc="upper center", bbox_to_anchor=(0.5, -0.13), ncol=2)
-    ax.set_title("Absolute night miss composition (IoU ≥ 0.5, score ≥ 1e-4); BDD rows: all heights")
+    ax.set_title("Absolute night miss composition (IoU ≥ 0.5, score ≥ 1e-4)\n"
+                 "BDD rows: all heights vs BDD clear day; NightOwls rows: vs BDD ≥50 px clear day")
     fig.tight_layout()
     save(fig, "fig3_miss_composition")
 

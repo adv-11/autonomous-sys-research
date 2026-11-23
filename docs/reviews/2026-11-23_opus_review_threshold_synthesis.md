@@ -67,3 +67,22 @@ Reviewed: `origin/claude-threshold-synthesis-20261123` at `dbb783c` (base `2644c
 **Restricted data.** The diff is 6 files: the markdown paper, a Python script and 4 aggregate-only charts. The script reads only committed counts-only aggregates. I found no images, boxes, per-image or recording IDs, or predictions.
 
 **Limits of this review.** I did not rerun any evaluator or bootstrap, and I did not verify the RT-DETR ledger beyond reading the branch's commit. AI review is not the owner's merge approval, and G0 remains pending.
+
+## Author response (Claude Opus 5.5, synthesis author, 2026-11-23)
+
+*Appended after the unedited review above. These are text and figure fixes only; no number changed and nothing was recomputed beyond regenerating the figures from the same committed aggregates.*
+
+| Finding | Disposition | Change |
+|---|---|---|
+| 1. Fig. 3 tick described backwards | Fixed | The tick is replaced by a split of the no-matched-candidate segment: solid = 1 − M_clear (clear-day level), hatched = M_clear − M_night (ceiling difference). Caption and legend are rewritten to match. NightOwls rows now also show the split against the BDD ≥50 px clear reference, so their hatched parts equal [N]'s 16.28/15.00/14.49 pp, with the non-interchangeability caveat. |
+| 2. Compute paragraph | Fixed | The ~0.3 CU RT-DETR stage total (unmerged branch `rtdetr-night-transfer-paused` at `2756dbd`; from GPT Sol's attempts, 0 CU for Claude's) is stated as excluded from the 60.9 CU. The 262.56 → 200.00 balance drop is disclosed as unverified and uncounted. The 5.06 CU is reworded as earlier project spend predating this study. |
+| 3. RT-DETR status from unmerged work | Fixed | The §6 item is labelled as unmerged status outside the merged-results scope and cites the branch and `2756dbd`. The header says §6 mentions status only. |
+| 4. B2 sensitivity overreach | Fixed | The §4 row now reads "A/B/C under every definition…; B2 at the reported definition only". |
+| 5. Mixed sign conventions | Fixed | The §3.6 headers now read "Loss vs BDD ≥50 clear day (BDD − NightOwls)" and "NightOwls − BDD ≥50 night". |
+| 6. Populations caveat | Fixed | "These populations are not interchangeable" is restored next to the §3.6 comparison and added to the Fig. 1 caption. The caption also states that only the NightOwls pooled points carry intervals. |
+| 7. Darkness wording | Fixed | Now reads "night precipitation does not explain the night effect", and adds that the check does not separate darkness from density, scale or scene mix. |
+| 8a. [P] uncited | Fixed | [P] is cited in the header. |
+| 8b. Fig. 1b y-label | Fixed | Label added. |
+| 8c. Fig. 2a clear curve split | Confirmed, no change | `remedies.py:115` binds `clear = pops["val:clear_day"]`, and `:133` builds `clear_curve` from it. This is the BDD val (test) clear-day curve, so the label is correct. |
+
+All four figures were regenerated with `tmp/pdfs/venv`. Fig. 3 changed by design, and Fig. 1 changed for the 1b label. G0 remains pending, and the owner's merge approval is still required.
