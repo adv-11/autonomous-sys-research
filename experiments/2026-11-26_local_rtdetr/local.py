@@ -217,6 +217,11 @@ def guard(args):
             code = process.wait(timeout=30)
             save('deadline_stop.json', dict(pid=process.pid, exit_code=code, time_unix=time.time()))
         save(f'{args.child}_{args.arm}_b{args.batch}_exit.json',dict(exit_code=code,time_unix=time.time()))
+        snapshot = subprocess.run(['nvidia-smi','--query-compute-apps=pid,process_name,used_memory',
+                                   '--format=csv'],capture_output=True,text=True)
+        save(f'{args.child}_{args.arm}_cleanup.json',dict(owned_child_pid=process.pid,
+             owned_child_exited=process.poll() is not None,gpu_query_exit=snapshot.returncode,
+             compute_processes=snapshot.stdout,gpu_query_error=snapshot.stderr,time_unix=time.time()))
 
 
 if __name__ == '__main__':
@@ -245,6 +250,8 @@ if __name__ == '__main__':
             with (OUT/'evaluate.log').open('ab') as stream:
                 subprocess.run([sys.executable,'-u',str(HERE/'evaluate.py')],stdout=stream,
                                stderr=subprocess.STDOUT,check=True,creationflags=subprocess.CREATE_NO_WINDOW)
+            subprocess.run([sys.executable,str(HERE/'report.py')],check=True,
+                           creationflags=subprocess.CREATE_NO_WINDOW)
             save('study_complete.json',dict(status='PASS',time_unix=time.time(),plan_sha256=sha(HERE/'plan.json')))
         else: train(a.arm,a.epochs,a.batch)
     except BaseException as error:
