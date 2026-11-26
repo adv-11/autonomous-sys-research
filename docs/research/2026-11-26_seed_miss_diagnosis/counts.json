@@ -1,0 +1,1272 @@
+{
+  "source_FPPI_1": {
+    "selection": {
+      "gt": 2376,
+      "state_matrix_B_rows_B2_columns": [
+        [
+          202,
+          65,
+          10
+        ],
+        [
+          63,
+          261,
+          99
+        ],
+        [
+          19,
+          105,
+          1552
+        ]
+      ],
+      "both_detected": 1552,
+      "B_only_detected": 124,
+      "B2_only_detected": 109,
+      "neither_detected_stable_misses": 591,
+      "one_detected_swapped_misses": 233,
+      "missed_by_either_union": 824,
+      "B_misses": 700,
+      "B2_misses": 715,
+      "both_ceiling_absent": 202,
+      "B_absent_B2_below": 65,
+      "B_below_B2_absent": 63,
+      "both_below": 261,
+      "B_ceiling_absent": 277,
+      "B2_ceiling_absent": 284,
+      "images": 1842,
+      "by_height": {
+        "0-16": {
+          "gt": 78,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              47,
+              3,
+              1
+            ],
+            [
+              1,
+              9,
+              3
+            ],
+            [
+              2,
+              1,
+              11
+            ]
+          ],
+          "both_detected": 11,
+          "B_only_detected": 3,
+          "B2_only_detected": 4,
+          "neither_detected_stable_misses": 60,
+          "one_detected_swapped_misses": 7,
+          "missed_by_either_union": 67,
+          "B_misses": 64,
+          "B2_misses": 63,
+          "both_ceiling_absent": 47,
+          "B_absent_B2_below": 3,
+          "B_below_B2_absent": 1,
+          "both_below": 9,
+          "B_ceiling_absent": 51,
+          "B2_ceiling_absent": 50
+        },
+        "16-32": {
+          "gt": 513,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              90,
+              27,
+              4
+            ],
+            [
+              24,
+              90,
+              25
+            ],
+            [
+              10,
+              37,
+              206
+            ]
+          ],
+          "both_detected": 206,
+          "B_only_detected": 47,
+          "B2_only_detected": 29,
+          "neither_detected_stable_misses": 231,
+          "one_detected_swapped_misses": 76,
+          "missed_by_either_union": 307,
+          "B_misses": 260,
+          "B2_misses": 278,
+          "both_ceiling_absent": 90,
+          "B_absent_B2_below": 27,
+          "B_below_B2_absent": 24,
+          "both_below": 90,
+          "B_ceiling_absent": 121,
+          "B2_ceiling_absent": 124
+        },
+        "32-64": {
+          "gt": 950,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              50,
+              28,
+              4
+            ],
+            [
+              29,
+              107,
+              49
+            ],
+            [
+              4,
+              42,
+              637
+            ]
+          ],
+          "both_detected": 637,
+          "B_only_detected": 46,
+          "B2_only_detected": 53,
+          "neither_detected_stable_misses": 214,
+          "one_detected_swapped_misses": 99,
+          "missed_by_either_union": 313,
+          "B_misses": 267,
+          "B2_misses": 260,
+          "both_ceiling_absent": 50,
+          "B_absent_B2_below": 28,
+          "B_below_B2_absent": 29,
+          "both_below": 107,
+          "B_ceiling_absent": 82,
+          "B2_ceiling_absent": 83
+        },
+        "64-128": {
+          "gt": 641,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              9,
+              6,
+              1
+            ],
+            [
+              7,
+              47,
+              17
+            ],
+            [
+              2,
+              19,
+              533
+            ]
+          ],
+          "both_detected": 533,
+          "B_only_detected": 21,
+          "B2_only_detected": 18,
+          "neither_detected_stable_misses": 69,
+          "one_detected_swapped_misses": 39,
+          "missed_by_either_union": 108,
+          "B_misses": 87,
+          "B2_misses": 90,
+          "both_ceiling_absent": 9,
+          "B_absent_B2_below": 6,
+          "B_below_B2_absent": 7,
+          "both_below": 47,
+          "B_ceiling_absent": 16,
+          "B2_ceiling_absent": 18
+        },
+        ">=128": {
+          "gt": 194,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              6,
+              1,
+              0
+            ],
+            [
+              2,
+              8,
+              5
+            ],
+            [
+              1,
+              6,
+              165
+            ]
+          ],
+          "both_detected": 165,
+          "B_only_detected": 7,
+          "B2_only_detected": 5,
+          "neither_detected_stable_misses": 17,
+          "one_detected_swapped_misses": 12,
+          "missed_by_either_union": 29,
+          "B_misses": 22,
+          "B2_misses": 24,
+          "both_ceiling_absent": 6,
+          "B_absent_B2_below": 1,
+          "B_below_B2_absent": 2,
+          "both_below": 8,
+          "B_ceiling_absent": 7,
+          "B2_ceiling_absent": 9
+        }
+      },
+      "FP": {
+        "B": 1842,
+        "B2": 1842
+      }
+    },
+    "clear_day": {
+      "gt": 2450,
+      "state_matrix_B_rows_B2_columns": [
+        [
+          187,
+          49,
+          17
+        ],
+        [
+          57,
+          258,
+          93
+        ],
+        [
+          24,
+          119,
+          1646
+        ]
+      ],
+      "both_detected": 1646,
+      "B_only_detected": 143,
+      "B2_only_detected": 110,
+      "neither_detected_stable_misses": 551,
+      "one_detected_swapped_misses": 253,
+      "missed_by_either_union": 804,
+      "B_misses": 661,
+      "B2_misses": 694,
+      "both_ceiling_absent": 187,
+      "B_absent_B2_below": 49,
+      "B_below_B2_absent": 57,
+      "both_below": 258,
+      "B_ceiling_absent": 253,
+      "B2_ceiling_absent": 268,
+      "images": 1764,
+      "by_height": {
+        "0-16": {
+          "gt": 77,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              43,
+              7,
+              0
+            ],
+            [
+              5,
+              10,
+              1
+            ],
+            [
+              1,
+              2,
+              8
+            ]
+          ],
+          "both_detected": 8,
+          "B_only_detected": 3,
+          "B2_only_detected": 1,
+          "neither_detected_stable_misses": 65,
+          "one_detected_swapped_misses": 4,
+          "missed_by_either_union": 69,
+          "B_misses": 66,
+          "B2_misses": 68,
+          "both_ceiling_absent": 43,
+          "B_absent_B2_below": 7,
+          "B_below_B2_absent": 5,
+          "both_below": 10,
+          "B_ceiling_absent": 50,
+          "B2_ceiling_absent": 49
+        },
+        "16-32": {
+          "gt": 483,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              95,
+              18,
+              6
+            ],
+            [
+              22,
+              79,
+              31
+            ],
+            [
+              8,
+              32,
+              192
+            ]
+          ],
+          "both_detected": 192,
+          "B_only_detected": 40,
+          "B2_only_detected": 37,
+          "neither_detected_stable_misses": 214,
+          "one_detected_swapped_misses": 77,
+          "missed_by_either_union": 291,
+          "B_misses": 251,
+          "B2_misses": 254,
+          "both_ceiling_absent": 95,
+          "B_absent_B2_below": 18,
+          "B_below_B2_absent": 22,
+          "both_below": 79,
+          "B_ceiling_absent": 119,
+          "B2_ceiling_absent": 125
+        },
+        "32-64": {
+          "gt": 999,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              35,
+              22,
+              10
+            ],
+            [
+              19,
+              124,
+              41
+            ],
+            [
+              9,
+              51,
+              688
+            ]
+          ],
+          "both_detected": 688,
+          "B_only_detected": 60,
+          "B2_only_detected": 51,
+          "neither_detected_stable_misses": 200,
+          "one_detected_swapped_misses": 111,
+          "missed_by_either_union": 311,
+          "B_misses": 251,
+          "B2_misses": 260,
+          "both_ceiling_absent": 35,
+          "B_absent_B2_below": 22,
+          "B_below_B2_absent": 19,
+          "both_below": 124,
+          "B_ceiling_absent": 67,
+          "B2_ceiling_absent": 63
+        },
+        "64-128": {
+          "gt": 701,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              11,
+              2,
+              0
+            ],
+            [
+              10,
+              38,
+              18
+            ],
+            [
+              5,
+              29,
+              588
+            ]
+          ],
+          "both_detected": 588,
+          "B_only_detected": 34,
+          "B2_only_detected": 18,
+          "neither_detected_stable_misses": 61,
+          "one_detected_swapped_misses": 52,
+          "missed_by_either_union": 113,
+          "B_misses": 79,
+          "B2_misses": 95,
+          "both_ceiling_absent": 11,
+          "B_absent_B2_below": 2,
+          "B_below_B2_absent": 10,
+          "both_below": 38,
+          "B_ceiling_absent": 13,
+          "B2_ceiling_absent": 26
+        },
+        ">=128": {
+          "gt": 190,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              3,
+              0,
+              1
+            ],
+            [
+              1,
+              7,
+              2
+            ],
+            [
+              1,
+              5,
+              170
+            ]
+          ],
+          "both_detected": 170,
+          "B_only_detected": 6,
+          "B2_only_detected": 3,
+          "neither_detected_stable_misses": 11,
+          "one_detected_swapped_misses": 9,
+          "missed_by_either_union": 20,
+          "B_misses": 14,
+          "B2_misses": 17,
+          "both_ceiling_absent": 3,
+          "B_absent_B2_below": 0,
+          "B_below_B2_absent": 1,
+          "both_below": 7,
+          "B_ceiling_absent": 4,
+          "B2_ceiling_absent": 5
+        }
+      },
+      "FP": {
+        "B": 1970,
+        "B2": 1932
+      }
+    },
+    "night": {
+      "gt": 2843,
+      "state_matrix_B_rows_B2_columns": [
+        [
+          345,
+          112,
+          26
+        ],
+        [
+          131,
+          449,
+          207
+        ],
+        [
+          27,
+          151,
+          1395
+        ]
+      ],
+      "both_detected": 1395,
+      "B_only_detected": 178,
+      "B2_only_detected": 233,
+      "neither_detected_stable_misses": 1037,
+      "one_detected_swapped_misses": 411,
+      "missed_by_either_union": 1448,
+      "B_misses": 1270,
+      "B2_misses": 1215,
+      "both_ceiling_absent": 345,
+      "B_absent_B2_below": 112,
+      "B_below_B2_absent": 131,
+      "both_below": 449,
+      "B_ceiling_absent": 483,
+      "B2_ceiling_absent": 503,
+      "images": 3929,
+      "by_height": {
+        "0-16": {
+          "gt": 78,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              48,
+              9,
+              0
+            ],
+            [
+              4,
+              12,
+              0
+            ],
+            [
+              2,
+              0,
+              3
+            ]
+          ],
+          "both_detected": 3,
+          "B_only_detected": 2,
+          "B2_only_detected": 0,
+          "neither_detected_stable_misses": 73,
+          "one_detected_swapped_misses": 2,
+          "missed_by_either_union": 75,
+          "B_misses": 73,
+          "B2_misses": 75,
+          "both_ceiling_absent": 48,
+          "B_absent_B2_below": 9,
+          "B_below_B2_absent": 4,
+          "both_below": 12,
+          "B_ceiling_absent": 57,
+          "B2_ceiling_absent": 54
+        },
+        "16-32": {
+          "gt": 439,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              118,
+              30,
+              7
+            ],
+            [
+              31,
+              96,
+              29
+            ],
+            [
+              8,
+              24,
+              96
+            ]
+          ],
+          "both_detected": 96,
+          "B_only_detected": 32,
+          "B2_only_detected": 36,
+          "neither_detected_stable_misses": 275,
+          "one_detected_swapped_misses": 68,
+          "missed_by_either_union": 343,
+          "B_misses": 311,
+          "B2_misses": 307,
+          "both_ceiling_absent": 118,
+          "B_absent_B2_below": 30,
+          "B_below_B2_absent": 31,
+          "both_below": 96,
+          "B_ceiling_absent": 155,
+          "B2_ceiling_absent": 157
+        },
+        "32-64": {
+          "gt": 1121,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              99,
+              35,
+              12
+            ],
+            [
+              52,
+              203,
+              119
+            ],
+            [
+              5,
+              75,
+              521
+            ]
+          ],
+          "both_detected": 521,
+          "B_only_detected": 80,
+          "B2_only_detected": 131,
+          "neither_detected_stable_misses": 389,
+          "one_detected_swapped_misses": 211,
+          "missed_by_either_union": 600,
+          "B_misses": 520,
+          "B2_misses": 469,
+          "both_ceiling_absent": 99,
+          "B_absent_B2_below": 35,
+          "B_below_B2_absent": 52,
+          "both_below": 203,
+          "B_ceiling_absent": 146,
+          "B2_ceiling_absent": 156
+        },
+        "64-128": {
+          "gt": 905,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              52,
+              30,
+              3
+            ],
+            [
+              31,
+              107,
+              50
+            ],
+            [
+              6,
+              35,
+              591
+            ]
+          ],
+          "both_detected": 591,
+          "B_only_detected": 41,
+          "B2_only_detected": 53,
+          "neither_detected_stable_misses": 220,
+          "one_detected_swapped_misses": 94,
+          "missed_by_either_union": 314,
+          "B_misses": 273,
+          "B2_misses": 261,
+          "both_ceiling_absent": 52,
+          "B_absent_B2_below": 30,
+          "B_below_B2_absent": 31,
+          "both_below": 107,
+          "B_ceiling_absent": 85,
+          "B2_ceiling_absent": 89
+        },
+        ">=128": {
+          "gt": 300,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              28,
+              8,
+              4
+            ],
+            [
+              13,
+              31,
+              9
+            ],
+            [
+              6,
+              17,
+              184
+            ]
+          ],
+          "both_detected": 184,
+          "B_only_detected": 23,
+          "B2_only_detected": 13,
+          "neither_detected_stable_misses": 80,
+          "one_detected_swapped_misses": 36,
+          "missed_by_either_union": 116,
+          "B_misses": 93,
+          "B2_misses": 103,
+          "both_ceiling_absent": 28,
+          "B_absent_B2_below": 8,
+          "B_below_B2_absent": 13,
+          "both_below": 31,
+          "B_ceiling_absent": 40,
+          "B2_ceiling_absent": 47
+        }
+      },
+      "FP": {
+        "B": 1793,
+        "B2": 2136
+      }
+    }
+  },
+  "source_recall_080_sensitivity": {
+    "selection": {
+      "gt": 2376,
+      "state_matrix_B_rows_B2_columns": [
+        [
+          202,
+          45,
+          30
+        ],
+        [
+          38,
+          92,
+          68
+        ],
+        [
+          44,
+          54,
+          1803
+        ]
+      ],
+      "both_detected": 1803,
+      "B_only_detected": 98,
+      "B2_only_detected": 98,
+      "neither_detected_stable_misses": 377,
+      "one_detected_swapped_misses": 196,
+      "missed_by_either_union": 573,
+      "B_misses": 475,
+      "B2_misses": 475,
+      "both_ceiling_absent": 202,
+      "B_absent_B2_below": 45,
+      "B_below_B2_absent": 38,
+      "both_below": 92,
+      "B_ceiling_absent": 277,
+      "B2_ceiling_absent": 284,
+      "images": 1842,
+      "by_height": {
+        "0-16": {
+          "gt": 78,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              47,
+              2,
+              2
+            ],
+            [
+              0,
+              4,
+              2
+            ],
+            [
+              3,
+              1,
+              17
+            ]
+          ],
+          "both_detected": 17,
+          "B_only_detected": 4,
+          "B2_only_detected": 4,
+          "neither_detected_stable_misses": 53,
+          "one_detected_swapped_misses": 8,
+          "missed_by_either_union": 61,
+          "B_misses": 57,
+          "B2_misses": 57,
+          "both_ceiling_absent": 47,
+          "B_absent_B2_below": 2,
+          "B_below_B2_absent": 0,
+          "both_below": 4,
+          "B_ceiling_absent": 51,
+          "B2_ceiling_absent": 50
+        },
+        "16-32": {
+          "gt": 513,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              90,
+              17,
+              14
+            ],
+            [
+              11,
+              27,
+              17
+            ],
+            [
+              23,
+              14,
+              300
+            ]
+          ],
+          "both_detected": 300,
+          "B_only_detected": 37,
+          "B2_only_detected": 31,
+          "neither_detected_stable_misses": 145,
+          "one_detected_swapped_misses": 68,
+          "missed_by_either_union": 213,
+          "B_misses": 176,
+          "B2_misses": 182,
+          "both_ceiling_absent": 90,
+          "B_absent_B2_below": 17,
+          "B_below_B2_absent": 11,
+          "both_below": 27,
+          "B_ceiling_absent": 121,
+          "B2_ceiling_absent": 124
+        },
+        "32-64": {
+          "gt": 950,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              50,
+              19,
+              13
+            ],
+            [
+              20,
+              41,
+              37
+            ],
+            [
+              13,
+              23,
+              734
+            ]
+          ],
+          "both_detected": 734,
+          "B_only_detected": 36,
+          "B2_only_detected": 50,
+          "neither_detected_stable_misses": 130,
+          "one_detected_swapped_misses": 86,
+          "missed_by_either_union": 216,
+          "B_misses": 180,
+          "B2_misses": 166,
+          "both_ceiling_absent": 50,
+          "B_absent_B2_below": 19,
+          "B_below_B2_absent": 20,
+          "both_below": 41,
+          "B_ceiling_absent": 82,
+          "B2_ceiling_absent": 83
+        },
+        "64-128": {
+          "gt": 641,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              9,
+              6,
+              1
+            ],
+            [
+              5,
+              17,
+              10
+            ],
+            [
+              4,
+              13,
+              576
+            ]
+          ],
+          "both_detected": 576,
+          "B_only_detected": 17,
+          "B2_only_detected": 11,
+          "neither_detected_stable_misses": 37,
+          "one_detected_swapped_misses": 28,
+          "missed_by_either_union": 65,
+          "B_misses": 48,
+          "B2_misses": 54,
+          "both_ceiling_absent": 9,
+          "B_absent_B2_below": 6,
+          "B_below_B2_absent": 5,
+          "both_below": 17,
+          "B_ceiling_absent": 16,
+          "B2_ceiling_absent": 18
+        },
+        ">=128": {
+          "gt": 194,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              6,
+              1,
+              0
+            ],
+            [
+              2,
+              3,
+              2
+            ],
+            [
+              1,
+              3,
+              176
+            ]
+          ],
+          "both_detected": 176,
+          "B_only_detected": 4,
+          "B2_only_detected": 2,
+          "neither_detected_stable_misses": 12,
+          "one_detected_swapped_misses": 6,
+          "missed_by_either_union": 18,
+          "B_misses": 14,
+          "B2_misses": 16,
+          "both_ceiling_absent": 6,
+          "B_absent_B2_below": 1,
+          "B_below_B2_absent": 2,
+          "both_below": 3,
+          "B_ceiling_absent": 7,
+          "B2_ceiling_absent": 9
+        }
+      },
+      "FP": {
+        "B": 7995,
+        "B2": 9476
+      }
+    },
+    "clear_day": {
+      "gt": 2450,
+      "state_matrix_B_rows_B2_columns": [
+        [
+          187,
+          31,
+          35
+        ],
+        [
+          42,
+          91,
+          76
+        ],
+        [
+          39,
+          61,
+          1888
+        ]
+      ],
+      "both_detected": 1888,
+      "B_only_detected": 100,
+      "B2_only_detected": 111,
+      "neither_detected_stable_misses": 351,
+      "one_detected_swapped_misses": 211,
+      "missed_by_either_union": 562,
+      "B_misses": 462,
+      "B2_misses": 451,
+      "both_ceiling_absent": 187,
+      "B_absent_B2_below": 31,
+      "B_below_B2_absent": 42,
+      "both_below": 91,
+      "B_ceiling_absent": 253,
+      "B2_ceiling_absent": 268,
+      "images": 1764,
+      "by_height": {
+        "0-16": {
+          "gt": 77,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              43,
+              5,
+              2
+            ],
+            [
+              5,
+              5,
+              5
+            ],
+            [
+              1,
+              0,
+              11
+            ]
+          ],
+          "both_detected": 11,
+          "B_only_detected": 1,
+          "B2_only_detected": 7,
+          "neither_detected_stable_misses": 58,
+          "one_detected_swapped_misses": 8,
+          "missed_by_either_union": 66,
+          "B_misses": 65,
+          "B2_misses": 59,
+          "both_ceiling_absent": 43,
+          "B_absent_B2_below": 5,
+          "B_below_B2_absent": 5,
+          "both_below": 5,
+          "B_ceiling_absent": 50,
+          "B2_ceiling_absent": 49
+        },
+        "16-32": {
+          "gt": 483,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              95,
+              8,
+              16
+            ],
+            [
+              15,
+              22,
+              16
+            ],
+            [
+              15,
+              16,
+              280
+            ]
+          ],
+          "both_detected": 280,
+          "B_only_detected": 31,
+          "B2_only_detected": 32,
+          "neither_detected_stable_misses": 140,
+          "one_detected_swapped_misses": 63,
+          "missed_by_either_union": 203,
+          "B_misses": 172,
+          "B2_misses": 171,
+          "both_ceiling_absent": 95,
+          "B_absent_B2_below": 8,
+          "B_below_B2_absent": 15,
+          "both_below": 22,
+          "B_ceiling_absent": 119,
+          "B2_ceiling_absent": 125
+        },
+        "32-64": {
+          "gt": 999,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              35,
+              16,
+              16
+            ],
+            [
+              13,
+              45,
+              43
+            ],
+            [
+              15,
+              25,
+              791
+            ]
+          ],
+          "both_detected": 791,
+          "B_only_detected": 40,
+          "B2_only_detected": 59,
+          "neither_detected_stable_misses": 109,
+          "one_detected_swapped_misses": 99,
+          "missed_by_either_union": 208,
+          "B_misses": 168,
+          "B2_misses": 149,
+          "both_ceiling_absent": 35,
+          "B_absent_B2_below": 16,
+          "B_below_B2_absent": 13,
+          "both_below": 45,
+          "B_ceiling_absent": 67,
+          "B2_ceiling_absent": 63
+        },
+        "64-128": {
+          "gt": 701,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              11,
+              2,
+              0
+            ],
+            [
+              9,
+              16,
+              11
+            ],
+            [
+              6,
+              16,
+              630
+            ]
+          ],
+          "both_detected": 630,
+          "B_only_detected": 22,
+          "B2_only_detected": 11,
+          "neither_detected_stable_misses": 38,
+          "one_detected_swapped_misses": 33,
+          "missed_by_either_union": 71,
+          "B_misses": 49,
+          "B2_misses": 60,
+          "both_ceiling_absent": 11,
+          "B_absent_B2_below": 2,
+          "B_below_B2_absent": 9,
+          "both_below": 16,
+          "B_ceiling_absent": 13,
+          "B2_ceiling_absent": 26
+        },
+        ">=128": {
+          "gt": 190,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              3,
+              0,
+              1
+            ],
+            [
+              0,
+              3,
+              1
+            ],
+            [
+              2,
+              4,
+              176
+            ]
+          ],
+          "both_detected": 176,
+          "B_only_detected": 6,
+          "B2_only_detected": 2,
+          "neither_detected_stable_misses": 6,
+          "one_detected_swapped_misses": 8,
+          "missed_by_either_union": 14,
+          "B_misses": 8,
+          "B2_misses": 12,
+          "both_ceiling_absent": 3,
+          "B_absent_B2_below": 0,
+          "B_below_B2_absent": 0,
+          "both_below": 3,
+          "B_ceiling_absent": 4,
+          "B2_ceiling_absent": 5
+        }
+      },
+      "FP": {
+        "B": 7988,
+        "B2": 9671
+      }
+    },
+    "night": {
+      "gt": 2843,
+      "state_matrix_B_rows_B2_columns": [
+        [
+          345,
+          81,
+          57
+        ],
+        [
+          95,
+          167,
+          167
+        ],
+        [
+          63,
+          112,
+          1756
+        ]
+      ],
+      "both_detected": 1756,
+      "B_only_detected": 175,
+      "B2_only_detected": 224,
+      "neither_detected_stable_misses": 688,
+      "one_detected_swapped_misses": 399,
+      "missed_by_either_union": 1087,
+      "B_misses": 912,
+      "B2_misses": 863,
+      "both_ceiling_absent": 345,
+      "B_absent_B2_below": 81,
+      "B_below_B2_absent": 95,
+      "both_below": 167,
+      "B_ceiling_absent": 483,
+      "B2_ceiling_absent": 503,
+      "images": 3929,
+      "by_height": {
+        "0-16": {
+          "gt": 78,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              48,
+              6,
+              3
+            ],
+            [
+              1,
+              4,
+              4
+            ],
+            [
+              5,
+              1,
+              6
+            ]
+          ],
+          "both_detected": 6,
+          "B_only_detected": 6,
+          "B2_only_detected": 7,
+          "neither_detected_stable_misses": 59,
+          "one_detected_swapped_misses": 13,
+          "missed_by_either_union": 72,
+          "B_misses": 66,
+          "B2_misses": 65,
+          "both_ceiling_absent": 48,
+          "B_absent_B2_below": 6,
+          "B_below_B2_absent": 1,
+          "both_below": 4,
+          "B_ceiling_absent": 57,
+          "B2_ceiling_absent": 54
+        },
+        "16-32": {
+          "gt": 439,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              118,
+              14,
+              23
+            ],
+            [
+              15,
+              32,
+              30
+            ],
+            [
+              24,
+              14,
+              169
+            ]
+          ],
+          "both_detected": 169,
+          "B_only_detected": 38,
+          "B2_only_detected": 53,
+          "neither_detected_stable_misses": 179,
+          "one_detected_swapped_misses": 91,
+          "missed_by_either_union": 270,
+          "B_misses": 232,
+          "B2_misses": 217,
+          "both_ceiling_absent": 118,
+          "B_absent_B2_below": 14,
+          "B_below_B2_absent": 15,
+          "both_below": 32,
+          "B_ceiling_absent": 155,
+          "B2_ceiling_absent": 157
+        },
+        "32-64": {
+          "gt": 1121,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              99,
+              27,
+              20
+            ],
+            [
+              46,
+              77,
+              78
+            ],
+            [
+              11,
+              57,
+              706
+            ]
+          ],
+          "both_detected": 706,
+          "B_only_detected": 68,
+          "B2_only_detected": 98,
+          "neither_detected_stable_misses": 249,
+          "one_detected_swapped_misses": 166,
+          "missed_by_either_union": 415,
+          "B_misses": 347,
+          "B2_misses": 317,
+          "both_ceiling_absent": 99,
+          "B_absent_B2_below": 27,
+          "B_below_B2_absent": 46,
+          "both_below": 77,
+          "B_ceiling_absent": 146,
+          "B2_ceiling_absent": 156
+        },
+        "64-128": {
+          "gt": 905,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              52,
+              26,
+              7
+            ],
+            [
+              23,
+              43,
+              45
+            ],
+            [
+              14,
+              30,
+              665
+            ]
+          ],
+          "both_detected": 665,
+          "B_only_detected": 44,
+          "B2_only_detected": 52,
+          "neither_detected_stable_misses": 144,
+          "one_detected_swapped_misses": 96,
+          "missed_by_either_union": 240,
+          "B_misses": 196,
+          "B2_misses": 188,
+          "both_ceiling_absent": 52,
+          "B_absent_B2_below": 26,
+          "B_below_B2_absent": 23,
+          "both_below": 43,
+          "B_ceiling_absent": 85,
+          "B2_ceiling_absent": 89
+        },
+        ">=128": {
+          "gt": 300,
+          "state_matrix_B_rows_B2_columns": [
+            [
+              28,
+              8,
+              4
+            ],
+            [
+              10,
+              11,
+              10
+            ],
+            [
+              9,
+              10,
+              210
+            ]
+          ],
+          "both_detected": 210,
+          "B_only_detected": 19,
+          "B2_only_detected": 14,
+          "neither_detected_stable_misses": 57,
+          "one_detected_swapped_misses": 33,
+          "missed_by_either_union": 90,
+          "B_misses": 71,
+          "B2_misses": 76,
+          "both_ceiling_absent": 28,
+          "B_absent_B2_below": 8,
+          "B_below_B2_absent": 10,
+          "both_below": 11,
+          "B_ceiling_absent": 40,
+          "B2_ceiling_absent": 47
+        }
+      },
+      "FP": {
+        "B": 9293,
+        "B2": 12797
+      }
+    }
+  }
+}
