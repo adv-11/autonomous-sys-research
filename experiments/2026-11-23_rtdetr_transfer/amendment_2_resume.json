@@ -1,0 +1,26 @@
+{
+  "amendment": 2,
+  "date_utc": "2026-11-26",
+  "author": "Claude Opus 5.5 (sole designated Colab operator, resumed training)",
+  "authority": "docs/decisions/2026-11-26_training_resume.md (b408e9d): retry RT-DETR within the same stage envelope; 140 CU project check-in",
+  "committed_before": "Any allocation in this recovery batch and any RT-DETR training, inference or evaluation outcome. No detector result exists.",
+  "scientific_contract": "UNCHANGED from d45e142: model, checkpoint, manifests, recipe.yml, remote.py stages, seed 0, fixed 640, throughput stopping rule, adaptation enable rule, native top-300 query-class inference without NMS, ReferenceEvaluator, source-only targets .80/.90/.95 and secondary source FPPI 1.",
+  "operational_changes": {
+    "python_isolation": "remote.py stages run in a dedicated uv virtual environment /content/rtvenv (CPython 3.12, inside the contract's 3.11/3.12 range, created with --seed so remote.py's own `python -m pip` pins install there). Reason: B/B2 ran on Colab's Python 3.13, where remote.py asserts and torch 2.4.1 wheels do not exist, and installing torch 2.4.1 system-wide would alter the environment of the later YOLO seed stage. claude_queue_a.sh/claude_queue_b.sh are invoked unchanged with the venv first on PATH.",
+    "packet": "Unchanged frozen packet outputs/rtdetr_transfer_20261123/packet_claude.tar.gz (PACKET_SHA256.txt inside; remote.py a766389d..., config.json 2131220d..., recipe.yml 75e7ccd2...), plus experiments/2026-11-26_training_resume/rt_session.sh (venv bootstrap and queue launcher).",
+    "session_names": "rt1126-cl1 (allocation attempt 1); rt1126-cl2 only if attempt 1 fails. At most two allocation attempts in this recovery batch across RT-DETR and both seeds.",
+    "allocation_command": "COLAB_CLI_REQUEST_TIMEOUT=600 COLAB_CLI_ASSIGN_RETRIES=1 colab new -s NAME --gpu L4, outer limit 900 s, full stdout/stderr saved. A non-L4 assignment is stopped immediately (T4 only under a further committed amendment with the <=1 CU pilot; A100 forbidden).",
+    "admission": "Fresh colab usage + sessions immediately before the request; any pre-existing session is recorded as not owned and never targeted.",
+    "deadline": "Initial conservative RT-DETR stage deadline = request time + min(24.7/3, 11.862) h - 300 s = +8.233 h - 5 min. After the own rate r (0 < r <= 3, account rate increase attributable to this session) is verified, deadline = request + min(24.7/r, 11.862) h - 300 s. Both values persisted. The throughput plan uses the deadline in force when the pilot finishes.",
+    "watchdog": "Windows scheduled task 'rt1126-watchdog' created before the request; runs experiments/2026-11-26_training_resume/watchdog.cmd NAME at the deadline: `colab stop -s NAME` for ONLY the exact owned session name, then logs sessions/usage. Requires this PC to be on.",
+    "shared_runtime_with_seed2": "After QUEUE_B_DONE and hash-checked retrieval of RT-DETR evidence, the YOLO seed-2 stage (experiments/2026-11-15_bdd_clearday_transfer/amendment_5_seeds.json) may start in the same owned runtime, in Colab's untouched system Python, only if projected total runtime age stays <= 22 h. Otherwise the session is stopped and seed 2 uses the second allocation. RT-DETR stage time = request to seed-stage start; the watchdog is then moved to the seed-stage deadline."
+  },
+  "budget": {
+    "stage_charged_before": {"CU": 0.3, "allocated_hours": 0.138},
+    "remaining_CU": 24.7,
+    "remaining_allocated_hours": 11.862,
+    "rate_cap_CU_per_hour": 3,
+    "accounting": "Own allocated time (request to verified stop or stage hand-over) x verified own rate; account balance deltas are context only."
+  },
+  "failure_limits": "At most 2 failures per stage, then stop and hand back; no optimisation loops, no automatic retry schedule."
+}

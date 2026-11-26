@@ -1,0 +1,16 @@
+{
+  "amends": "Adds two exact training-seed repeats of arm B (1280 px). Committed before any B3/B4 training, inference or result.",
+  "author": "Claude Opus 5.5 (designated Colab operator)",
+  "written_utc": "2026-11-26",
+  "authority": "docs/decisions/2026-11-26_training_resume.md (b408e9d)",
+  "arms": [
+    {"id": "B3", "imgsz": 1280, "batch": 16, "seed": 2, "epochs": 100},
+    {"id": "B4", "imgsz": 1280, "batch": 16, "seed": 3, "epochs": 100}
+  ],
+  "unchanged_from_B_B2": "remote.py (current committed version, as used for B2) `train --name ID --epochs 100 --imgsz 1280 --batch 16 --seed S`; ultralytics==8.4.197; yolo11s.pt COCO init (sha256 85a76fe8...); 10 classes with pedestrian/rider separate; 10,635 clear-day train / 1,842 selection / 10,000 val manifests and yolo_labels_source.json (hashes in config.json); nbs 64, SGD lr0 0.01, Ultralytics defaults (mosaic, close_mosaic 10, warmup 3); deterministic, cache ram, workers 8, patience 0, AMP; evaluated checkpoint last.pt (final EMA), best.pt retained unused.",
+  "inference": "remote.py `infer --weights runs/ID/weights/last.pt --out preds/ID_1280.npz --imgsz 1280` (prediction batch 4), FP32, floor 1e-4, cap 3000, class-aware NMS 0.70, pedestrian kept after cap; selection + all val.",
+  "evaluation": "Unchanged evaluate_transfer.py exactly as for B2: preregistered targets 0.80/0.90/0.95 on all pedestrians, plus the amendment-2 low-target and h32 populations; matched_fppi.py with the original source-target and matched-FPPI policies (source FPPI 1 included). Image bootstrap as before.",
+  "environment": "Colab system Python/torch at run time, recorded (B/B2: Python 3.13.16, torch 2.14.1+cu130, L4). A differing default torch version is reported as an environment difference, not corrected by tuning.",
+  "reporting": "B, B2, B3, B4 reported descriptively as four 1280 px training seeds with the 640 px A/C comparators. Image-bootstrap intervals condition on each set of trained weights; four seeds are not an IID training-seed confidence guarantee.",
+  "not_allowed": "Shortened training labelled as a repeat; batch/recipe changes to fit hardware; OOM/optimisation loops. If a run cannot complete, it is reported as incomplete with its partial curves."
+}
