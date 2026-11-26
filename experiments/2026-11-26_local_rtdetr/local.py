@@ -252,6 +252,16 @@ if __name__ == '__main__':
                                stderr=subprocess.STDOUT,check=True,creationflags=subprocess.CREATE_NO_WINDOW)
             subprocess.run([sys.executable,str(HERE/'report.py')],check=True,
                            creationflags=subprocess.CREATE_NO_WINDOW)
+            # Plotting is isolated from the existing GPU environment and is not
+            # a training prerequisite. One bounded attempt; no dependency loop.
+            try:
+                with (OUT/'figures.log').open('ab') as stream:
+                    subprocess.run(['uv','run','--no-project','--with','matplotlib','--with','numpy',
+                                    '--python',sys.executable,str(HERE/'figures.py')],
+                                   stdout=stream,stderr=subprocess.STDOUT,check=True,timeout=300,
+                                   creationflags=subprocess.CREATE_NO_WINDOW)
+            except (OSError,subprocess.SubprocessError) as error:
+                save('figures_failure.json',dict(type=type(error).__name__,message=str(error)))
             save('study_complete.json',dict(status='PASS',time_unix=time.time(),plan_sha256=sha(HERE/'plan.json')))
         else: train(a.arm,a.epochs,a.batch)
     except BaseException as error:

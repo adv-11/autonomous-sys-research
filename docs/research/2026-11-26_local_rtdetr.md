@@ -85,7 +85,40 @@ coordinator owns that later review. Silence is not recorded as agreement.
 
 ## Measured status
 
-Preparation and the real-image pilot are underway. No local trained detection
-performance is available yet. The measured epoch plan and outcomes follow only
-after real throughput is available. Private artifacts are under the canonical
+Preparation completed: 26,477 image files extracted; source 10,635 images /
+204,523 objects, day control 8,000 / 152,897, mixed 8,000 / 142,622. Source,
+selection, validation and mixed manifest hashes match the frozen configuration;
+all training sets exclude calibration, selection and validation. The exact
+private day-control manifest SHA256 is in `plan.json`.
+
+The sole pilot completed 128 physical-batch-16 updates on 2,048 real source
+images in 356.164 seconds including checkpoint saving (5.750 images/second).
+Native epoch-loop time was 354.976 seconds. Of 128 attempted updates, 123
+succeeded and five were skipped during AMP startup; no further skips after
+those first five. Peak PyTorch allocated memory was 5.665 GiB, reserved 6.459
+GiB. This excludes desktop and other non-PyTorch GPU allocations. No OOM,
+batch fallback, dependency change, driver reset or unrelated process closure
+occurred. Mean native training loss 18.551 is not detection performance.
+The pilot exited zero; a fresh process query found desktop applications and
+no Python training process before the scientific run.
+
+The throughput-only rule selected **20 baseline epochs**, with augmentation
+cutoff 17. Both continuations are five epochs with cutoff two, 2,500 attempted
+updates each, same final baseline EMA and fresh matched optimizer/EMA. Batch
+16 is frozen across all three arms. Pilot weights are discarded for baseline
+initialization. The exact plan is committed before baseline fit or held-outs.
+
+At freeze, 85,310 seconds remained before the conservative 2026-11-27
+14:19 PST hard deadline, anchored to initial task/source reading rather than
+the later extraction start. Factored total projections including two-hour
+reserve were 140,185 seconds for 50 epochs, 93,948 for 30, 70,829 for 20, and
+52,334 for 12. Thus 20 is the largest fitting declared option; its projected
+finish is about 10:17 PST on November 27. These are throughput projections,
+not promises of completion or model-quality qualifications. Original and
+tightened deadline records are both preserved privately.
+
+Three inherited evaluator tests passed (synthetic geometry/ties/empty candidates);
+syntax compilation passed. These are implementation checks, separate from the
+real-image training pilot. No held-out model inference or detection-performance
+result exists at this checkpoint. Private artifacts are under the canonical
 `outputs/local_rtdetr_20261126` directory; public artifacts remain aggregate only.
