@@ -1,0 +1,60 @@
+{
+  "operator": "Claude Opus 5.5 (sole designated Colab operator, recovery batch 2026-11-26)",
+  "authority": "docs/decisions/2026-11-26_training_resume.md (b408e9d); amendments committed before each allocation: 7d14006 (RT-DETR amendment 2, BDD amendment 5), 9fd98ee (RT-DETR amendment 3, T4)",
+  "status": "STOPPED_ALLOCATION_LIMIT_REACHED; RT-DETR_NOT_FEASIBLE_ON_T4; YOLO_SEEDS_NOT_STARTED",
+  "initial_admission": {"utc": "2026-11-26T21:31:40Z", "balance_CU": 170.13, "rate_CU_per_h": 0.0, "assignments": 0, "sessions": 0},
+  "allocation_attempts": [
+    {
+      "n": 1, "session": "rt1126-cl1", "gpu": "L4",
+      "command": "COLAB_CLI_REQUEST_TIMEOUT=600 COLAB_CLI_ASSIGN_RETRIES=1 timeout 900 colab new -s rt1126-cl1 --gpu L4",
+      "request_utc": "2026-11-26T21:31:44Z", "end_utc": "2026-11-26T21:39:57Z",
+      "result": "exit 1: ColabRequestError POST /tun/m/assign?variant=GPU&accelerator=L4: Bad Gateway (502)",
+      "after": "balance 170.13, 0.00/h, 0 assignments, no sessions",
+      "own_assignment_created": false, "CU": 0.0,
+      "log": "outputs/research_resume_20261126/alloc_attempt_1.log sha256 43c268a721855eb7471df634f2feb386b6bb117f7d5f0621f2318b3cfbc04475"
+    },
+    {
+      "n": 2, "session": "rt1126-cl2", "gpu": "T4 (amendment 3, RT-DETR only)",
+      "command": "COLAB_CLI_REQUEST_TIMEOUT=600 COLAB_CLI_ASSIGN_RETRIES=1 timeout 900 colab new -s rt1126-cl2 --gpu T4",
+      "admission_utc": "2026-11-26T21:40:43Z (170.13 CU, 0.00/h, 0 assignments)",
+      "request_utc": "2026-11-26T21:40:47Z", "ready_utc": "2026-11-26T21:40:52Z",
+      "endpoint": "gpu-t4-s-usw4a0-1w04col508zmx",
+      "own_rate_CU_per_h": 1.24,
+      "rate_basis": "account rate 0.00 -> 1.24/h with this as the only assignment",
+      "deadlines_utc": {"initial_conservative": "2026-11-27T05:49:45Z (+8.233 h - 300 s)", "after_rate_verification": "2026-11-27T09:27:30Z (+11.862 h - 300 s)"},
+      "watchdog": "Windows task rt1126-watchdog targeting only rt1126-cl2; removed after verified stop",
+      "vm": "Tesla T4 15 GiB, 2 vCPU, 12 GiB RAM, system Python 3.13.16; RT-DETR venv CPython 3.12.3",
+      "stop_utc": "2026-11-26T22:12:20Z",
+      "teardown_verified_utc": "2026-11-26T22:12:23Z: no sessions on server, 0 assignments, 0.00/h, balance 169.50",
+      "own_allocated_hours": 0.526,
+      "own_CU": 0.652,
+      "displayed_balance_delta_CU": 0.63
+    }
+  ],
+  "rtdetr_t4_stage": {
+    "segments_utc": [
+      {"stage": "packet upload (two path-conversion upload errors, then success) and launch", "from": "21:40:52", "to": "21:42:24"},
+      {"stage": "venv (CPython 3.12.3) + setup: pinned packages, official source df2a96c, direct BDD mirror and label downloads with SHA-256 PASS, extraction, COCO json", "from": "21:42:24", "to": "21:51:51", "setup_s": 542},
+      {"stage": "1-epoch heavy-augmentation pilot, killed by frozen 1100 s alarm before epoch end", "from": "21:51:51", "to": "22:10:11", "CU": 0.38},
+      {"stage": "evidence retrieval with remote/local SHA-256 match, stop", "from": "22:10:11", "to": "22:12:20"}
+    ],
+    "data": {"source_json_sha256": "0d22e9d9a17ae8e6e91c8039e5c26ef8a584bd1236656e303b86aef36f67d116", "source_images": 10635, "source_objects": 204523,
+             "adaptation_json_sha256": "02476f5ef50a0562e6b657ab7668e27992cd0025d8e112bab428773c3cc50b03", "adaptation_images": 8000, "adaptation_objects": 142622},
+    "initialization": "official checkpoint 2ace5218... loaded; only denoising_class_embed and enc/dec score heads unmatched (as contracted)",
+    "pilot_throughput": {"iterations_per_epoch": 665, "steady_s_per_iter": [1.73, 1.90, 1.87, 1.94, 1.91], "data_s_per_iter": [0.56, 0.60, 0.54, 0.74, 0.74],
+                         "peak_mem_MiB": 5801, "last_logged_iter": 500, "eta_at_500_s": 320, "projected_epoch_s": 1290,
+                         "loss_mean_at_iters_0_100_200_300_400_500": [18.69, 18.62, 18.24, 17.26, 16.32, 15.57]},
+    "frozen_rule_projection": "Pilot did not complete, so the frozen rule cannot be applied formally. Using the projected 1290 s epoch: conservative 1.25 x 1290 = 1612 s; usable = 09:27:30 - 22:10:11 - 3600 s = 37039 s; floor = 22-23 epochs < 25-epoch amendment-3 gate (and < 50 target). Adaptation could not be enabled (requires baseline 50).",
+    "failure_count": 1,
+    "disposition": "NOT FEASIBLE ON T4: no baseline training started; no RT-DETR weights, inference or evaluation. Not retried with changed settings."
+  },
+  "yolo_seed_stage": {"B3_seed2": "NOT STARTED", "B4_seed3": "NOT STARTED", "reason": "Both authorized allocation attempts in this batch consumed (L4 502; T4 cannot fit the exact 1280 px recipe within 12 h). CU 0."},
+  "totals": {
+    "new_work_CU": 0.652, "new_work_allocated_hours": 0.526,
+    "rtdetr_stage_total_CU": 0.952, "rtdetr_stage_total_hours": 0.664, "rtdetr_stage_remaining_CU": 24.048, "rtdetr_stage_remaining_hours": 11.336,
+    "seed_pair_remaining_CU": 45.0,
+    "project_owned_reported_CU": 61.85, "project_checkin_CU": 140,
+    "basis": "60.9 historical + 0.3 prior RT-DETR attempts + 0.652 this batch (own time x verified own rate)"
+  },
+  "local_gpu_operations": 0, "dataset_uploads_from_pc": 0
+}
