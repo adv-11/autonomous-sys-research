@@ -5,6 +5,7 @@ import importlib.metadata as md
 import itertools
 import json
 import os
+import random
 from pathlib import Path
 import subprocess
 import sys
@@ -186,7 +187,9 @@ def train(arm, epochs, batch):
         torch.save(dict(model=model.state_dict(), ema=ema.state_dict(), epoch=epoch+1,
                         optimizer=optimizer.state_dict(), scaler=scaler.state_dict(),
                         scheduler=scheduler.state_dict(), warmup=warmup.state_dict(),
-                        torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state_all()), temp)
+                        torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state_all(),
+                        python_rng=random.getstate(), numpy_rng=__import__('numpy').random.get_state(),
+                        resolved_config=cfg.yaml_cfg), temp)
         os.replace(temp, directory/'last.pth')
         print(json.dumps(dict(arm=arm, **row)),flush=True)
     save(arm+'_summary.json', dict(status='PASS', epochs=epochs, batch=batch, seconds=time.time()-start,
@@ -218,7 +221,7 @@ def guard(args):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
-    p.add_argument('stage',choices=['prepare','train','guard'])
+    p.add_argument('stage',choices=['prepare','train','guard','study'])
     p.add_argument('--child',default='train')
     p.add_argument('--arm',default='pilot')
     p.add_argument('--epochs',type=int,default=1)
@@ -229,6 +232,20 @@ if __name__ == '__main__':
     try:
         if a.stage == 'prepare': prepare()
         elif a.stage == 'guard': guard(a)
+        elif a.stage == 'study':
+            plan = load(HERE/'plan.json')
+            assert plan['batch'] == a.batch
+            for arm,epochs in [('baseline',plan['baseline_epochs']),('day_control',5),('adaptation',5)]:
+                for command in ([sys.executable,'-u',str(__file__),'train','--arm',arm,
+                                 '--epochs',str(epochs),'--batch',str(a.batch)],
+                                [sys.executable,'-u',str(HERE/'infer.py'),'--arm',arm,'--batch',str(a.batch)]):
+                    with (OUT/f'{arm}_{"infer" if "infer.py" in command[2] else "train"}.log').open('ab') as stream:
+                        subprocess.run(command,stdout=stream,stderr=subprocess.STDOUT,check=True,
+                                       creationflags=subprocess.CREATE_NO_WINDOW)
+            with (OUT/'evaluate.log').open('ab') as stream:
+                subprocess.run([sys.executable,'-u',str(HERE/'evaluate.py')],stdout=stream,
+                               stderr=subprocess.STDOUT,check=True,creationflags=subprocess.CREATE_NO_WINDOW)
+            save('study_complete.json',dict(status='PASS',time_unix=time.time(),plan_sha256=sha(HERE/'plan.json')))
         else: train(a.arm,a.epochs,a.batch)
     except BaseException as error:
         save(f'{a.stage}_{a.arm}_b{a.batch}_failure_{int(time.time())}.json',
