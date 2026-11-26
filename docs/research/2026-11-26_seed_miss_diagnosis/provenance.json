@@ -1,0 +1,57 @@
+{
+  "analyst": "GPT Sol",
+  "original_experiment": "Claude Opus 5.5",
+  "computed_utc": "2026-11-26T21:31:54Z",
+  "policies": {
+    "source_FPPI_1": {
+      "B": 0.10467208921909332,
+      "B2": 0.10264253616333008
+    },
+    "source_recall_080_sensitivity": {
+      "B": 0.014860522001981735,
+      "B2": 0.010537411086261272
+    }
+  },
+  "runs": {
+    "B": {
+      "predictions_sha256": "143534c8db25de5b8387666a2a99c8cda171a96150ce3ff651061a42a72d1d55",
+      "gt_sha256": "37929323cb4943766a163a8ea8bf1e02ba1e244c5ae29fe6cebe02ce5a257bbf",
+      "evaluator_sha256": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
+      "match_chunk_sha256": "1c2920ae5bd883d47355284e461a11c83970ccc5fc001a37cfef6a361780cbad",
+      "report_sha256": "9b88b42b6b39ccbfa1a93d1a98e11664b485bb63382f3f31eb9023d138521c58",
+      "checkpoint_sha256": "b955e5d9650f612489e6ab87506e09280ec4912c9b11a67526a02d6e6ad6ea4a",
+      "inference_summary_sha256": "0a971b0007372cd3f3b489d633762dacf6d9c327cdb263dcc5725627d9b9c670"
+    },
+    "B2": {
+      "predictions_sha256": "22ab1811f8216ff722b956b5a69541c12bc25d65029a07a8c06cf16280e937cc",
+      "gt_sha256": "37929323cb4943766a163a8ea8bf1e02ba1e244c5ae29fe6cebe02ce5a257bbf",
+      "evaluator_sha256": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
+      "match_chunk_sha256": "1c2920ae5bd883d47355284e461a11c83970ccc5fc001a37cfef6a361780cbad",
+      "report_sha256": "6cb88a5b77b2af377fb2dfcd17b64d8d27150c565aa19c84b242730a1b6e886d",
+      "checkpoint_sha256": "0cdad96fa16669dac2acb5857ca978899b7da004456dddc2247caaf54550e066",
+      "inference_summary_sha256": "bacd49e619ab34fceb919a1477acf181f5baac66453b58423005078ddd1d386c"
+    }
+  },
+  "matched_report_sha256": "ec7e3b5c66e61879f6309ec0202d06bcf5f188bf51bee47cb5a0c714186f01c8",
+  "identity": "SHA256(image name + exact float bbox); unique per GT; annotation-ID-to-geometry mapping verified; no cross-run positional join",
+  "state_order": [
+    "absent",
+    "below",
+    "detected"
+  ],
+  "validation": "PASS: exact existing report TP, FP and ceiling counts on selection, clear day and night for both policies; identical geometry key sets and heights; all height/overlap partitions sum exactly",
+  "candidate_policy": {
+    "mode": "native Ultralytics predict",
+    "imgsz": 1280,
+    "half": false,
+    "conf_floor": 0.0001,
+    "max_det_cap": 3000,
+    "nms_iou": 0.7,
+    "agnostic_nms": false,
+    "class_filter": "all classes through NMS and cap, then pedestrian class kept",
+    "checkpoint": "last.pt"
+  },
+  "IoU": 0.5,
+  "new_GPU_CU": 0,
+  "scope": "Existing B and B2 only; no NightOwls rescoring; no new threshold selection or intervals"
+}
