@@ -45,7 +45,7 @@ for ax, (policy, title) in zip(axes, panels):
     for spine in ax.spines.values():
         spine.set_visible(False)
 axes[-1].set_xlabel("Share of eligible GT (%)   |   Segment labels are measured GT counts", labelpad=9)
-fig.suptitle("Two 1280 px seeds: shared misses and changed identities", x=.02, ha="left", fontsize=15, y=.99)
+fig.suptitle("Two 1280 px seeds: shared misses and changed GT detection status", x=.02, ha="left", fontsize=14, y=.99)
 fig.legend(handles=[Patch(color=c, label=l) for c, l in zip(colors,
            ["Both runs", "B only", "B2 only", "Neither run"])],
            loc="upper center", bbox_to_anchor=(.56, .946), ncol=4, frameon=False)

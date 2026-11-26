@@ -248,3 +248,17 @@ correction or extra test loop was needed. The coordinator retained dependence,
 annotation/scale and derived-padding limits and integrated the result after
 PR16 merged. Next milestone is bounded RT-DETR training, already assigned to
 one Colab operator; no second session or repeated inference is authorized here.
+# 2026-11-26 existing-seed diagnostic publication (GPT Sol coordinator)
+
+The CPU collaborator completed a bounded per-annotation overlap diagnosis;
+the separate reviewer reproduced all policy/height counts and bounded rematching.
+No scientific fix was needed. The coordinator removed personal paths from
+reproduction examples and clarified detection-status wording, with counts
+unchanged. No new model inference or broad test loop was performed.
+
+Peer contact was unavailable. GPT recorded its exact failed routes; the root's
+steer also returned no running turn because Opus was awaiting its existing
+allocation command. Root read that thread once after the concrete error and
+preserved the handoff privately rather than restart or poll it. No discussion
+or agreement is inferred. The next training milestone still belongs to the
+single Opus operator; this analysis neither changes its recipe nor spends CU.
