@@ -1,0 +1,1076 @@
+{
+ "amendment": "amendment_4 (exploratory)",
+ "mode": "proxy split-half of val night",
+ "labels_note": "BDD100K legacy 2018 labels; HF-mirror images",
+ "arms": {
+  "B": {
+   "preds_sha256": "143534c8db25de5b8387666a2a99c8cda171a96150ce3ff651061a42a72d1d55",
+   "counts": {
+    "selection": {
+     "images": 1842,
+     "pedestrians": 2376
+    },
+    "val:clear_day": {
+     "images": 1764,
+     "pedestrians": 2450
+    },
+    "val:night": {
+     "images": 3929,
+     "pedestrians": 2843
+    },
+    "night_h0": {
+     "images": 1999,
+     "pedestrians": 1442
+    },
+    "night_h1": {
+     "images": 1930,
+     "pedestrians": 1401
+    }
+   },
+   "cal_h0_test_h1": {
+    "target0.8": {
+     "night_ceiling": 0.8329764453961456,
+     "clear_recall": 0.8114285714285714,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06375824848140543,
+     "threshold_part": 0.0638730352954886,
+     "night_removable": 0.14917915774446822,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.014860522001981735,
+       "recall": 0.6837972876516774,
+       "fppi": 2.2839378238341967,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.0004048801783937961,
+       "recall": 0.8072805139186295,
+       "fppi": 16.376683937823834,
+       "delta_recall": 0.12348322626695218,
+       "delta_fppi": 14.092746113989637,
+       "recovered_of_threshold_part": 1.9332606583622602,
+       "recovered_of_night_removable": 0.827751196172249,
+       "delta_recall_ci": [
+        0.08071741875520187,
+        0.16519225634412918
+       ],
+       "delta_fppi_ci": [
+        7.79598445595855,
+        24.601321243523316
+       ],
+       "bootstrap_undefined": 12
+      },
+      "equal_fppi": {
+       "threshold": 0.006383014377206564,
+       "recall": 0.7173447537473233,
+       "fppi": 3.8989637305699483,
+       "delta_recall": 0.03354746609564596,
+       "delta_fppi": 1.6150259067357515,
+       "recovered_of_threshold_part": 0.5252211037169146,
+       "recovered_of_night_removable": 0.2248803827751196,
+       "delta_recall_ci": [
+        0.019778369269827643,
+        0.05187203858573991
+       ],
+       "delta_fppi_ci": [
+        0.9709067357512953,
+        2.5747927461139897
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.009508842631544188,
+       "recall": 0.6987865810135617,
+       "fppi": 3.0362694300518136,
+       "delta_recall": 0.01498929336188437,
+       "delta_fppi": 0.7523316062176169,
+       "recovered_of_threshold_part": 0.23467325910755762,
+       "recovered_of_night_removable": 0.10047846889952156,
+       "delta_recall_ci": [
+        0.006499680468875971,
+        0.0317930347454014
+       ],
+       "delta_fppi_ci": [
+        0.3569430051813472,
+        1.4848445595854913
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.8001427551748751,
+      "fppi": 13.71139896373057
+     },
+     "source": {
+      "t": 0.014860522001981735,
+      "recall": 0.8000841750841751,
+      "fppi": 4.340390879478828
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9252779735492801,
+      0.2695372393180023
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.037194138725489254,
+      0.09253468199702848
+     ]
+    },
+    "L0.5": {
+     "night_ceiling": 0.8329764453961456,
+     "clear_recall": 0.6722448979591836,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06375824848140543,
+     "threshold_part": 0.11669507203309581,
+     "night_removable": 0.3411848679514632,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.2014438807964325,
+       "recall": 0.4917915774446824,
+       "fppi": 0.2077720207253886,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.023022480309009552,
+       "recall": 0.6616702355460385,
+       "fppi": 1.6886010362694301,
+       "delta_recall": 0.16987865810135616,
+       "delta_fppi": 1.4808290155440416,
+       "recovered_of_threshold_part": 1.4557483460242175,
+       "recovered_of_night_removable": 0.497907949790795,
+       "delta_recall_ci": [
+        0.11716600551334636,
+        0.21107002073528208
+       ],
+       "delta_fppi_ci": [
+        0.6583937823834197,
+        2.7533419689119167
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_fppi": {
+       "threshold": 0.0943823754787445,
+       "recall": 0.5653104925053534,
+       "fppi": 0.516580310880829,
+       "delta_recall": 0.07351891506067099,
+       "delta_fppi": 0.3088082901554404,
+       "recovered_of_threshold_part": 0.630008737985271,
+       "recovered_of_night_removable": 0.2154811715481173,
+       "delta_recall_ci": [
+        0.05190169453121209,
+        0.09633183619032672
+       ],
+       "delta_fppi_ci": [
+        0.20304404145077723,
+        0.4357901554404145
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.1852963732161474,
+       "recall": 0.5003568879371877,
+       "fppi": 0.24145077720207253,
+       "delta_recall": 0.008565310492505307,
+       "delta_fppi": 0.03367875647668392,
+       "recovered_of_threshold_part": 0.07339907627012822,
+       "recovered_of_night_removable": 0.02510460251046012,
+       "delta_recall_ci": [
+        -0.0018011260518065754,
+        0.01990298507462683
+       ],
+       "delta_fppi_ci": [
+        -0.007772020725388601,
+        0.07617875647668394
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.6495360456816559,
+      "fppi": 1.455958549222798
+     },
+     "source": {
+      "t": 0.2014438807964325,
+      "recall": 0.6494107744107744,
+      "fppi": 0.5
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9252779735492801,
+      0.2695372393180023
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.07938941227186429,
+      0.15262477633332033
+     ]
+    },
+    "L1.0": {
+     "night_ceiling": 0.8329764453961456,
+     "clear_recall": 0.730204081632653,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06375824848140543,
+     "threshold_part": 0.1082730993896488,
+     "night_removable": 0.27480371163454675,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.10467208921909332,
+       "recall": 0.5581727337615988,
+       "fppi": 0.46632124352331605,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.006761964410543442,
+       "recall": 0.7166309778729479,
+       "fppi": 3.7683937823834195,
+       "delta_recall": 0.15845824411134912,
+       "delta_fppi": 3.3020725388601035,
+       "recovered_of_threshold_part": 1.4635052012420562,
+       "recovered_of_night_removable": 0.5766233766233769,
+       "delta_recall_ci": [
+        0.11575814920760817,
+        0.20097822575401428
+       ],
+       "delta_fppi_ci": [
+        1.524844559585492,
+        5.675854922279792
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_fppi": {
+       "threshold": 0.04522141441702843,
+       "recall": 0.6195574589578873,
+       "fppi": 0.9932642487046632,
+       "delta_recall": 0.06138472519628846,
+       "delta_fppi": 0.5269430051813472,
+       "recovered_of_threshold_part": 0.5669434563370134,
+       "recovered_of_night_removable": 0.2233766233766237,
+       "delta_recall_ci": [
+        0.04288535243639925,
+        0.08381524141448486
+       ],
+       "delta_fppi_ci": [
+        0.354339378238342,
+        0.7441191709844559
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.08746120617100038,
+       "recall": 0.5703069236259815,
+       "fppi": 0.5585492227979275,
+       "delta_recall": 0.012134189864382638,
+       "delta_fppi": 0.09222797927461146,
+       "recovered_of_threshold_part": 0.11207021811313088,
+       "recovered_of_night_removable": 0.04415584415584435,
+       "delta_recall_ci": [
+        0.002174711969235335,
+        0.02648722701348026
+       ],
+       "delta_fppi_ci": [
+        0.023834196891191706,
+        0.17461139896373057
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.7059243397573162,
+      "fppi": 3.333160621761658
+     },
+     "source": {
+      "t": 0.10467208921909332,
+      "recall": 0.7053872053872053,
+      "fppi": 1.0
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9252779735492801,
+      0.2695372393180023
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.07426039459492417,
+      0.142602622303238
+     ]
+    },
+    "L2.0": {
+     "night_ceiling": 0.8329764453961456,
+     "clear_recall": 0.7742857142857142,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06375824848140543,
+     "threshold_part": 0.09168378272079702,
+     "night_removable": 0.21413276231263378,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.04592994228005409,
+       "recall": 0.6188436830835118,
+       "fppi": 0.9823834196891191,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.0021392146591097116,
+       "recall": 0.7601713062098501,
+       "fppi": 7.264766839378239,
+       "delta_recall": 0.1413276231263383,
+       "delta_fppi": 6.282383419689119,
+       "recovered_of_threshold_part": 1.5414680648236423,
+       "recovered_of_night_removable": 0.6599999999999999,
+       "delta_recall_ci": [
+        0.10282889815421552,
+        0.18536701747385578
+       ],
+       "delta_fppi_ci": [
+        3.4418911917098445,
+        12.881295336787563
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_fppi": {
+       "threshold": 0.019252870231866837,
+       "recall": 0.6730906495360457,
+       "fppi": 1.927461139896373,
+       "delta_recall": 0.05424696645253391,
+       "delta_fppi": 0.9450777202072539,
+       "recovered_of_threshold_part": 0.5916746107403882,
+       "recovered_of_night_removable": 0.2533333333333334,
+       "delta_recall_ci": [
+        0.0350253916622412,
+        0.0740798073615411
+       ],
+       "delta_fppi_ci": [
+        0.6268523316062176,
+        1.2549352331606218
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.03415749598991656,
+       "recall": 0.6374018558172734,
+       "fppi": 1.2518134715025906,
+       "delta_recall": 0.01855817273376159,
+       "delta_fppi": 0.26943005181347146,
+       "recovered_of_threshold_part": 0.20241499841118532,
+       "recovered_of_night_removable": 0.08666666666666666,
+       "delta_recall_ci": [
+        0.006868927827897273,
+        0.03249761146822582
+       ],
+       "delta_fppi_ci": [
+        0.10309585492227981,
+        0.4586139896373057
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.755174875089222,
+      "fppi": 6.689637305699482
+     },
+     "source": {
+      "t": 0.04592994228005409,
+      "recall": 0.7550505050505051,
+      "fppi": 2.0
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9252779735492801,
+      0.2695372393180023
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.06152004184377557,
+      0.12209503311615481
+     ]
+    },
+    "L4.5": {
+     "night_ceiling": 0.8329764453961456,
+     "clear_recall": 0.8146938775510204,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06375824848140543,
+     "threshold_part": 0.06428323792043578,
+     "night_removable": 0.14632405424696637,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.013896138407289982,
+       "recall": 0.6866523911491792,
+       "fppi": 2.3911917098445596,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.000334526295773685,
+       "recall": 0.8108493932905068,
+       "fppi": 17.845077720207254,
+       "delta_recall": 0.12419700214132756,
+       "delta_fppi": 15.453886010362694,
+       "recovered_of_threshold_part": 1.932027790744577,
+       "recovered_of_night_removable": 0.8487804878048781,
+       "delta_recall_ci": [
+        0.08362754361242396,
+        0.1552054994170229
+       ],
+       "delta_fppi_ci": [
+        6.920518134715026,
+        26.02036269430051
+       ],
+       "bootstrap_undefined": 67
+      },
+      "equal_fppi": {
+       "threshold": 0.006000801920890808,
+       "recall": 0.7201998572448252,
+       "fppi": 4.0461139896373055,
+       "delta_recall": 0.03354746609564596,
+       "delta_fppi": 1.6549222797927459,
+       "recovered_of_threshold_part": 0.5218695756608918,
+       "recovered_of_night_removable": 0.22926829268292692,
+       "delta_recall_ci": [
+        0.020016634197882917,
+        0.050033424374964226
+       ],
+       "delta_fppi_ci": [
+        1.1051295336787565,
+        2.27470207253886
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.008814769127855743,
+       "recall": 0.7016416845110636,
+       "fppi": 3.182901554404145,
+       "delta_recall": 0.01498929336188437,
+       "delta_fppi": 0.7917098445595854,
+       "recovered_of_threshold_part": 0.2331757678484836,
+       "recovered_of_night_removable": 0.10243902439024398,
+       "delta_recall_ci": [
+        0.005002915852854459,
+        0.030499475378993373
+       ],
+       "delta_fppi_ci": [
+        0.3688989637305702,
+        1.3234974093264247
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.8044254104211278,
+      "fppi": 15.031088082901555
+     },
+     "source": {
+      "t": 0.013896138407289982,
+      "recall": 0.8038720538720538,
+      "fppi": 4.5
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9252779735492801,
+      0.2695372393180023
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.037108255411601836,
+      0.09082836449408989
+     ]
+    }
+   },
+   "cal_h1_test_h0": {
+    "target0.8": {
+     "night_ceiling": 0.8273231622746186,
+     "clear_recall": 0.8114285714285714,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06941153160293245,
+     "threshold_part": 0.06725975827224084,
+     "night_removable": 0.15256588072122046,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.014860522001981735,
+       "recall": 0.6747572815533981,
+       "fppi": 2.443721860930465,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.0005963606527075171,
+       "recall": 0.7891816920943134,
+       "fppi": 15.134067033516759,
+       "delta_recall": 0.11442441054091534,
+       "delta_fppi": 12.690345172586294,
+       "recovered_of_threshold_part": 1.701231367465977,
+       "recovered_of_night_removable": 0.75,
+       "delta_recall_ci": [
+        0.06872325376221958,
+        0.1652090671814336
+       ],
+       "delta_fppi_ci": [
+        6.389219609804902,
+        26.002513756878436
+       ],
+       "bootstrap_undefined": 16
+      },
+      "equal_fppi": {
+       "threshold": 0.005309071857482195,
+       "recall": 0.7163661581137309,
+       "fppi": 4.83791895947974,
+       "delta_recall": 0.04160887656033285,
+       "delta_fppi": 2.394197098549275,
+       "recovered_of_threshold_part": 0.6186295881694461,
+       "recovered_of_night_removable": 0.2727272727272727,
+       "delta_recall_ci": [
+        0.025779235587403623,
+        0.060825793787408274
+       ],
+       "delta_fppi_ci": [
+        1.437718859429715,
+        3.63784392196098
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.008728334730208811,
+       "recall": 0.6927877947295423,
+       "fppi": 3.549274637318659,
+       "delta_recall": 0.018030513176144236,
+       "delta_fppi": 1.105552776388194,
+       "recovered_of_threshold_part": 0.2680728215400933,
+       "recovered_of_night_removable": 0.11818181818181818,
+       "delta_recall_ci": [
+        0.009892948528259851,
+        0.03881516199915852
+       ],
+       "delta_fppi_ci": [
+        0.5677588794397199,
+        1.983554277138569
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.8002773925104022,
+      "fppi": 18.009004502251127
+     },
+     "source": {
+      "t": 0.014860522001981735,
+      "recall": 0.8000841750841751,
+      "fppi": 4.340390879478828
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9182811592860854,
+      0.3164020599776788
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.04262281118829002,
+      0.0984659213642451
+     ]
+    },
+    "L0.5": {
+     "night_ceiling": 0.8273231622746186,
+     "clear_recall": 0.6722448979591836,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06941153160293245,
+     "threshold_part": 0.10491381018426782,
+     "night_removable": 0.3294036061026352,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.2014438807964325,
+       "recall": 0.49791955617198336,
+       "fppi": 0.21210605302651325,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.02796434983611107,
+       "recall": 0.6359223300970874,
+       "fppi": 1.495247623811906,
+       "delta_recall": 0.13800277392510407,
+       "delta_fppi": 1.2831415707853926,
+       "recovered_of_threshold_part": 1.315391879131257,
+       "recovered_of_night_removable": 0.41894736842105285,
+       "delta_recall_ci": [
+        0.09177036686077027,
+        0.1988923190567115
+       ],
+       "delta_fppi_ci": [
+        0.5601800900450226,
+        3.1674712356178074
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_fppi": {
+       "threshold": 0.09726002812385559,
+       "recall": 0.5568654646324549,
+       "fppi": 0.48624312156078037,
+       "delta_recall": 0.05894590846047154,
+       "delta_fppi": 0.2741370685342671,
+       "recovered_of_threshold_part": 0.5618508026440039,
+       "recovered_of_night_removable": 0.17894736842105258,
+       "delta_recall_ci": [
+        0.035223733045414665,
+        0.08351172958032993
+       ],
+       "delta_fppi_ci": [
+        0.1640445222611306,
+        0.4007503751875938
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.1760725090521785,
+       "recall": 0.5069348127600555,
+       "fppi": 0.2481240620310155,
+       "delta_recall": 0.009015256588072118,
+       "delta_fppi": 0.03601800900450225,
+       "recovered_of_threshold_part": 0.08593012275731823,
+       "recovered_of_night_removable": 0.02736842105263157,
+       "delta_recall_ci": [
+        0.001407213648128214,
+        0.02231376625674603
+       ],
+       "delta_fppi_ci": [
+        0.006990995497748878,
+        0.08354177088544273
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.6497919556171984,
+      "fppi": 1.7543771885942971
+     },
+     "source": {
+      "t": 0.2014438807964325,
+      "recall": 0.6494107744107744,
+      "fppi": 0.5
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9182811592860854,
+      0.3164020599776788
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.06852949412669805,
+      0.14024145421211998
+     ]
+    },
+    "L1.0": {
+     "night_ceiling": 0.8273231622746186,
+     "clear_recall": 0.730204081632653,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06941153160293245,
+     "threshold_part": 0.11224886070933227,
+     "night_removable": 0.2787794729542302,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.10467208921909332,
+       "recall": 0.5485436893203883,
+       "fppi": 0.4467233616808404,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.008205260150134563,
+       "recall": 0.6941747572815534,
+       "fppi": 3.6858429214607304,
+       "delta_recall": 0.1456310679611651,
+       "delta_fppi": 3.23911955977989,
+       "recovered_of_threshold_part": 1.2973946197839445,
+       "recovered_of_night_removable": 0.5223880597014927,
+       "delta_recall_ci": [
+        0.09479768150989988,
+        0.20001121914734485
+       ],
+       "delta_fppi_ci": [
+        1.2753251625812905,
+        6.761618309154578
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_fppi": {
+       "threshold": 0.044863633811473846,
+       "recall": 0.6151178918169209,
+       "fppi": 1.006503251625813,
+       "delta_recall": 0.06657420249653256,
+       "delta_fppi": 0.5597798899449726,
+       "recovered_of_threshold_part": 0.5930946833298028,
+       "recovered_of_night_removable": 0.23880597014925364,
+       "delta_recall_ci": [
+        0.03732782929342236,
+        0.08378300062080828
+       ],
+       "delta_fppi_ci": [
+        0.3341170585292646,
+        0.8160705352676336
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.08211596862577929,
+       "recall": 0.5693481276005548,
+       "fppi": 0.5692846423211606,
+       "delta_recall": 0.020804438280166426,
+       "delta_fppi": 0.12256128064032018,
+       "recovered_of_threshold_part": 0.1853420885405634,
+       "recovered_of_night_removable": 0.07462686567164176,
+       "delta_recall_ci": [
+        0.008109826794756438,
+        0.035408585889347255
+       ],
+       "delta_fppi_ci": [
+        0.0565032516258129,
+        0.21964732366183085
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.7059639389736477,
+      "fppi": 4.170585292646323
+     },
+     "source": {
+      "t": 0.10467208921909332,
+      "recall": 0.7053872053872053,
+      "fppi": 1.0
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9182811592860854,
+      0.3164020599776788
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.07906010525582599,
+      0.14517424082757838
+     ]
+    },
+    "L2.0": {
+     "night_ceiling": 0.8273231622746186,
+     "clear_recall": 0.7742857142857142,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06941153160293245,
+     "threshold_part": 0.091143253417872,
+     "night_removable": 0.21359223300970875,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.04592994228005409,
+       "recall": 0.6137309292649098,
+       "fppi": 0.9864932466233116,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.0024797392543405294,
+       "recall": 0.7454923717059639,
+       "fppi": 7.425712856428214,
+       "delta_recall": 0.13176144244105414,
+       "delta_fppi": 6.439219609804903,
+       "recovered_of_threshold_part": 1.4456521739130441,
+       "recovered_of_night_removable": 0.616883116883117,
+       "delta_recall_ci": [
+        0.08529834227307748,
+        0.17849684135618554
+       ],
+       "delta_fppi_ci": [
+        2.845697848924462,
+        12.446985992996494
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_fppi": {
+       "threshold": 0.018194284290075302,
+       "recall": 0.6643550624133149,
+       "fppi": 2.097048524262131,
+       "delta_recall": 0.05062413314840508,
+       "delta_fppi": 1.1105552776388194,
+       "recovered_of_threshold_part": 0.5554347826086967,
+       "recovered_of_night_removable": 0.2370129870129874,
+       "delta_recall_ci": [
+        0.030142581173092653,
+        0.0734326364066594
+       ],
+       "delta_fppi_ci": [
+        0.6916208104052025,
+        1.6153201600800402
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.03172170186889826,
+       "recall": 0.628987517337032,
+       "fppi": 1.35767883941971,
+       "delta_recall": 0.015256588072122157,
+       "delta_fppi": 0.3711855927963983,
+       "recovered_of_threshold_part": 0.16739130434782726,
+       "recovered_of_night_removable": 0.07142857142857191,
+       "delta_recall_ci": [
+        0.005710546753368931,
+        0.029819106236580115
+       ],
+       "delta_fppi_ci": [
+        0.19608554277138576,
+        0.6059029514757378
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.7552011095700416,
+      "fppi": 8.05552776388194
+     },
+     "source": {
+      "t": 0.04592994228005409,
+      "recall": 0.7550505050505051,
+      "fppi": 2.0
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9182811592860854,
+      0.3164020599776788
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.06033079815815335,
+      0.12261673257189896
+     ]
+    },
+    "L4.5": {
+     "night_ceiling": 0.8273231622746186,
+     "clear_recall": 0.8146938775510204,
+     "clear_ceiling": 0.896734693877551,
+     "ceiling_part_unrecoverable": 0.06941153160293245,
+     "threshold_part": 0.06775113929066767,
+     "night_removable": 0.14979195561719827,
+     "remedies": {
+      "transfer": {
+       "threshold": 0.013896138407289982,
+       "recall": 0.6775312066574203,
+       "fppi": 2.572786393196598,
+       "delta_recall": 0.0,
+       "delta_fppi": 0.0,
+       "recovered_of_threshold_part": 0.0,
+       "recovered_of_night_removable": 0.0,
+       "delta_recall_ci": [
+        0.0,
+        0.0
+       ],
+       "delta_fppi_ci": [
+        0.0,
+        0.0
+       ],
+       "bootstrap_undefined": 0
+      },
+      "equal_recall": {
+       "threshold": 0.0004894118756055832,
+       "recall": 0.7940360610263523,
+       "fppi": 16.55727863931966,
+       "delta_recall": 0.11650485436893199,
+       "delta_fppi": 13.984492246123061,
+       "recovered_of_threshold_part": 1.7195999298122482,
+       "recovered_of_night_removable": 0.7777777777777778,
+       "delta_recall_ci": [
+        0.07375652829630593,
+        0.1553684730601206
+       ],
+       "delta_fppi_ci": [
+        6.061230615307653,
+        27.400450225112557
+       ],
+       "bootstrap_undefined": 48
+      },
+      "equal_fppi": {
+       "threshold": 0.004978066310286522,
+       "recall": 0.7184466019417476,
+       "fppi": 5.025012506253127,
+       "delta_recall": 0.040915395284327305,
+       "delta_fppi": 2.4522261130565286,
+       "recovered_of_threshold_part": 0.6039071182078729,
+       "recovered_of_night_removable": 0.27314814814814814,
+       "delta_recall_ci": [
+        0.025540589725180404,
+        0.0586375374374531
+       ],
+       "delta_fppi_ci": [
+        1.6133941970985497,
+        3.263956978489244
+       ],
+       "bootstrap_undefined": 0
+      },
+      "platt_per_condition": {
+       "threshold": 0.008086090867159086,
+       "recall": 0.6962552011095701,
+       "fppi": 3.7243621810905454,
+       "delta_recall": 0.018723994452149784,
+       "delta_fppi": 1.1515757878939472,
+       "recovered_of_threshold_part": 0.2763642744341113,
+       "recovered_of_night_removable": 0.125,
+       "delta_recall_ci": [
+        0.007744721995616397,
+        0.033742882201537296
+       ],
+       "delta_fppi_ci": [
+        0.6627438719359682,
+        1.7971485742871438
+       ],
+       "bootstrap_undefined": 0
+      }
+     },
+     "oracle_equal_recall_on_test": {
+      "recall": 0.8044382801664355,
+      "fppi": 19.630815407703853
+     },
+     "source": {
+      "t": 0.013896138407289982,
+      "recall": 0.8038720538720538,
+      "fppi": 4.5
+     },
+     "platt_clear_ab": [
+      1.0397002061150589,
+      0.33129612928789814
+     ],
+     "platt_night_ab": [
+      0.9182811592860854,
+      0.3164020599776788
+     ],
+     "platt_global_check": "a>0: global map strictly monotone; reselected detections identical, recovery 0",
+     "threshold_part_ci": [
+      0.0420062800042883,
+      0.09379273846988534
+     ]
+    }
+   }
+  }
+ }
+}

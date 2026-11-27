@@ -1,0 +1,5 @@
+B cal_trainnight_test_valnight target0.8 thrPart=0.066 ceilPart=0.067 transfer:R0.679/F2.37/dR+0.000 equal_recall:R0.813/F20.96/dR+0.133 equal_fppi:R0.723/F4.79/dR+0.044 platt_per_condition:R0.688/F2.81/dR+0.009
+B cal_trainnight_test_valnight L0.5 thrPart=0.111 ceilPart=0.067 transfer:R0.495/F0.21/dR+0.000 equal_recall:R0.629/F1.22/dR+0.134 equal_fppi:R0.569/F0.55/dR+0.075 platt_per_condition:R0.498/F0.22/dR+0.003
+B cal_trainnight_test_valnight L1.0 thrPart=0.110 ceilPart=0.067 transfer:R0.553/F0.46/dR+0.000 equal_recall:R0.693/F3.11/dR+0.139 equal_fppi:R0.622/F1.10/dR+0.068 platt_per_condition:R0.561/F0.50/dR+0.007
+B cal_trainnight_test_valnight L2.0 thrPart=0.091 ceilPart=0.067 transfer:R0.616/F0.98/dR+0.000 equal_recall:R0.760/F8.33/dR+0.144 equal_fppi:R0.676/F2.26/dR+0.060 platt_per_condition:R0.623/F1.12/dR+0.007
+B cal_trainnight_test_valnight L4.5 thrPart=0.066 ceilPart=0.067 transfer:R0.682/F2.48/dR+0.000 equal_recall:R0.815/F22.37/dR+0.133 equal_fppi:R0.727/F4.96/dR+0.045 platt_per_condition:R0.690/F2.96/dR+0.008

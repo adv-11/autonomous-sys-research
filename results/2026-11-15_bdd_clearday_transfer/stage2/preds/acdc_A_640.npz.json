@@ -1,0 +1,1 @@
+{"images": 3009, "image_set": "acdc", "imgsz": 640, "predict_batch": 16, "orig_shapes_hw": [[1080, 1920]], "ped_candidates": 79379, "seconds": 178, "cap_hits": 0, "weights_sha256": "281e87917f017901d9f32b1222c29e7fc571fcc67021264d7c7d6bdf640529ed", "ultralytics": "8.4.197", "out_sha256": "c27041671d028488b1bfcb90d94c470bff15f8d9035ab6ba5723ffba78b7431e"}
