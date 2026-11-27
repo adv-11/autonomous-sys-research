@@ -1,0 +1,8 @@
+A cal_h0_test_h1 L0.5 thrPart=0.083 ceilPart=0.079 transfer:R0.403/F0.21/dR+0.000 equal_recall:R0.556/F1.37/dR+0.153 equal_fppi:R0.462/F0.45/dR+0.059 platt_per_condition:R0.403/F0.21/dR+0.000
+A cal_h0_test_h1 L1.0 thrPart=0.088 ceilPart=0.079 transfer:R0.460/F0.44/dR+0.000 equal_recall:R0.593/F2.44/dR+0.133 equal_fppi:R0.519/F0.92/dR+0.059 platt_per_condition:R0.465/F0.46/dR+0.004
+A cal_h0_test_h1 L2.0 thrPart=0.076 ceilPart=0.079 transfer:R0.527/F0.98/dR+0.000 equal_recall:R0.661/F6.85/dR+0.134 equal_fppi:R0.577/F1.87/dR+0.050 platt_per_condition:R0.534/F1.09/dR+0.007
+A cal_h0_test_h1 L4.5 thrPart=0.051 ceilPart=0.079 transfer:R0.603/F2.67/dR+0.000 equal_recall:undef equal_fppi:R0.628/F4.24/dR+0.025 platt_per_condition:R0.610/F3.04/dR+0.006
+A cal_h1_test_h0 L0.5 thrPart=0.069 ceilPart=0.096 transfer:R0.402/F0.21/dR+0.000 equal_recall:R0.519/F1.21/dR+0.118 equal_fppi:R0.466/F0.56/dR+0.064 platt_per_condition:R0.413/F0.24/dR+0.012
+A cal_h1_test_h0 L1.0 thrPart=0.074 ceilPart=0.096 transfer:R0.458/F0.49/dR+0.000 equal_recall:R0.588/F2.50/dR+0.130 equal_fppi:R0.510/F1.08/dR+0.052 platt_per_condition:R0.468/F0.58/dR+0.010
+A cal_h1_test_h0 L2.0 thrPart=0.077 ceilPart=0.096 transfer:R0.510/F1.07/dR+0.000 equal_recall:R0.643/F6.39/dR+0.133 equal_fppi:R0.576/F2.13/dR+0.066 platt_per_condition:R0.524/F1.31/dR+0.015
+A cal_h1_test_h0 L4.5 thrPart=0.040 ceilPart=0.096 transfer:R0.598/F2.89/dR+0.000 equal_recall:R0.693/F20.68/dR+0.096 equal_fppi:R0.628/F4.79/dR+0.031 platt_per_condition:R0.615/F3.65/dR+0.017

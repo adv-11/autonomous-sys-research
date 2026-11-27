@@ -1,0 +1,12 @@
+A      L=0.5  t*=0.215679332613945 clearR=0.691 nightR=0.475 ceilPart=+0.103 thrPart=+0.112 nightFPPI=0.21
+A      L=1.0  t*=0.12647993862628937 clearR=0.745 nightR=0.539 ceilPart=+0.103 thrPart=+0.102 nightFPPI=0.48
+A      L=2.0  t*=0.06006069481372833 clearR=0.793 nightR=0.601 ceilPart=+0.103 thrPart=+0.089 nightFPPI=1.06
+A      L=4.5  t*=0.017790518701076508 clearR=0.833 nightR=0.681 ceilPart=+0.103 thrPart=+0.048 nightFPPI=2.86
+B      L=0.5  t*=0.1960247904062271 clearR=0.776 nightR=0.570 ceilPart=+0.072 thrPart=+0.134 nightFPPI=0.21
+B      L=1.0  t*=0.09996094554662704 clearR=0.820 nightR=0.623 ceilPart=+0.072 thrPart=+0.125 nightFPPI=0.47
+B      L=2.0  t*=0.04301569610834122 clearR=0.853 nightR=0.679 ceilPart=+0.072 thrPart=+0.103 nightFPPI=1.02
+B      L=4.5  t*=0.013037419877946377 clearR=0.885 nightR=0.741 ceilPart=+0.072 thrPart=+0.072 nightFPPI=2.54
+C      L=0.5  t*=0.2123454213142395 clearR=0.699 nightR=0.478 ceilPart=+0.071 thrPart=+0.150 nightFPPI=0.23
+C      L=1.0  t*=0.12417762726545334 clearR=0.752 nightR=0.539 ceilPart=+0.071 thrPart=+0.143 nightFPPI=0.52
+C      L=2.0  t*=0.058897487819194794 clearR=0.792 nightR=0.605 ceilPart=+0.071 thrPart=+0.115 nightFPPI=1.13
+C      L=4.5  t*=0.016874300315976143 clearR=0.835 nightR=0.686 ceilPart=+0.071 thrPart=+0.078 nightFPPI=3.06

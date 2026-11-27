@@ -1,0 +1,1 @@
+{"status": "PASS", "images": 3009, "seconds": 1450, "roles": {"adverse_train": 1600, "adverse_val": 406, "ref_train": 800, "ref_val": 203}}

@@ -1,0 +1,17 @@
+target 0.8 FEASIBLE
+  selection              n= 1842 G= 2376 R@t*=0.800 FPPI=5.144 ceil=0.880
+  val:clear_day          n= 1764 G= 2450 R@t*=0.816 FPPI=5.482 ceil=0.891
+  val:cloudy_day         n= 1677 G= 2561 R@t*=0.815 FPPI=6.032 ceil=0.885
+  val:rainy_day          n=  396 G=  544 R@t*=0.783 FPPI=6.424 ceil=0.877
+  val:snowy_day          n=  422 G=  678 R@t*=0.805 FPPI=6.664 ceil=0.894
+  val:foggy              n=    5 G=    2 R@t*=1.000 FPPI=1.400 ceil=1.000
+  val:night              n= 3929 G= 2843 R@t*=0.696 FPPI=3.257 ceil=0.823
+  val:dawn_dusk          n=  778 G= 1046 R@t*=0.778 FPPI=5.724 ceil=0.872
+  val:undefined          n= 1029 G= 3138 R@t*=0.839 FPPI=12.464 ceil=0.902
+  val2:night_clear       n= 3274 G= 2230 R@t*=0.707 FPPI=3.087 ceil=0.826
+  val2:night_rain_snow   n=  559 G=  499 R@t*=0.653 FPPI=3.853 ceil=0.820
+  val2:rainy_all         n=  738 G=  822 R@t*=0.730 FPPI=5.138 ceil=0.850
+  val2:snowy_all         n=  769 G= 1137 R@t*=0.792 FPPI=6.390 ceil=0.897
+  val:all                n=10000 G=13262 R@t*=0.791 FPPI=5.522 ceil=0.876
+target 0.9 INFEASIBLE_SOURCE_TARGET
+target 0.95 INFEASIBLE_SOURCE_TARGET

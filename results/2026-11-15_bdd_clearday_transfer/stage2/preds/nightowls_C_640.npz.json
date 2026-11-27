@@ -1,0 +1,1 @@
+{"images": 51848, "image_set": "nightowls", "imgsz": 640, "predict_batch": 16, "orig_shapes_hw": [[640, 1024]], "ped_candidates": 2407465, "seconds": 595, "cap_hits": 0, "weights_sha256": "38ab49762a469a41df531ce275ff8c65a113f5ef7bef95ba3c8133585ad43ced", "ultralytics": "8.4.197", "out_sha256": "9320a5a05f484d1e716eefa6ed386c55dd35a294aa9ae29be116a50ac92b0b57"}

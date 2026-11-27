@@ -1,0 +1,30 @@
+target 0.6 FEASIBLE
+  selection              n= 1842 G= 2376 R@t*=0.600 FPPI=0.278 ceil=0.883
+  val:clear_day          n= 1764 G= 2450 R@t*=0.613 FPPI=0.303 ceil=0.897
+  val:cloudy_day         n= 1677 G= 2561 R@t*=0.596 FPPI=0.286 ceil=0.882
+  val:rainy_day          n=  396 G=  544 R@t*=0.596 FPPI=0.263 ceil=0.882
+  val:snowy_day          n=  422 G=  678 R@t*=0.606 FPPI=0.341 ceil=0.903
+  val:foggy              n=    5 G=    2 R@t*=0.500 FPPI=0.200 ceil=1.000
+  val:night              n= 3929 G= 2843 R@t*=0.446 FPPI=0.106 ceil=0.830
+  val:dawn_dusk          n=  778 G= 1046 R@t*=0.557 FPPI=0.265 ceil=0.890
+  val:undefined          n= 1029 G= 3138 R@t*=0.616 FPPI=0.634 ceil=0.906
+  val2:night_clear       n= 3274 G= 2230 R@t*=0.453 FPPI=0.101 ceil=0.829
+  val2:night_rain_snow   n=  559 G=  499 R@t*=0.429 FPPI=0.114 ceil=0.832
+  val2:rainy_all         n=  738 G=  822 R@t*=0.536 FPPI=0.195 ceil=0.855
+  val2:snowy_all         n=  769 G= 1137 R@t*=0.575 FPPI=0.281 ceil=0.905
+  val:all                n=10000 G=13262 R@t*=0.569 FPPI=0.254 ceil=0.881
+target 0.7 FEASIBLE
+  selection              n= 1842 G= 2376 R@t*=0.700 FPPI=0.894 ceil=0.883
+  val:clear_day          n= 1764 G= 2450 R@t*=0.721 FPPI=1.016 ceil=0.897
+  val:cloudy_day         n= 1677 G= 2561 R@t*=0.700 FPPI=1.044 ceil=0.882
+  val:rainy_day          n=  396 G=  544 R@t*=0.697 FPPI=0.947 ceil=0.882
+  val:snowy_day          n=  422 G=  678 R@t*=0.690 FPPI=1.050 ceil=0.903
+  val:foggy              n=    5 G=    2 R@t*=1.000 FPPI=0.200 ceil=1.000
+  val:night              n= 3929 G= 2843 R@t*=0.543 FPPI=0.404 ceil=0.830
+  val:dawn_dusk          n=  778 G= 1046 R@t*=0.671 FPPI=0.923 ceil=0.890
+  val:undefined          n= 1029 G= 3138 R@t*=0.721 FPPI=2.364 ceil=0.906
+  val2:night_clear       n= 3274 G= 2230 R@t*=0.550 FPPI=0.391 ceil=0.829
+  val2:night_rain_snow   n=  559 G=  499 R@t*=0.509 FPPI=0.411 ceil=0.832
+  val2:rainy_all         n=  738 G=  822 R@t*=0.635 FPPI=0.713 ceil=0.855
+  val2:snowy_all         n=  769 G= 1137 R@t*=0.662 FPPI=0.876 ceil=0.905
+  val:all                n=10000 G=13262 R@t*=0.672 FPPI=0.910 ceil=0.881

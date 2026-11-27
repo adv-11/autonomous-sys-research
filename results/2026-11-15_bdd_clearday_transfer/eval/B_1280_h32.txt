@@ -1,0 +1,31 @@
+target 0.8 FEASIBLE
+  selection              n= 1842 G= 1785 R@t*=0.800 FPPI=1.120 ceil=0.941
+  val:clear_day          n= 1764 G= 1890 R@t*=0.826 FPPI=1.240 ceil=0.956
+  val:cloudy_day         n= 1677 G= 1869 R@t*=0.810 FPPI=1.299 ceil=0.944
+  val:rainy_day          n=  396 G=  445 R@t*=0.773 FPPI=1.174 ceil=0.919
+  val:snowy_day          n=  422 G=  537 R@t*=0.790 FPPI=1.332 ceil=0.946
+  val:foggy              n=    5 G=    2 R@t*=1.000 FPPI=0.200 ceil=1.000
+  val:night              n= 3929 G= 2326 R@t*=0.634 FPPI=0.536 ceil=0.883
+  val:dawn_dusk          n=  778 G=  808 R@t*=0.767 FPPI=1.143 ceil=0.943
+  val:undefined          n= 1029 G= 2339 R@t*=0.819 FPPI=2.839 ceil=0.955
+  val2:night_clear       n= 3274 G= 1826 R@t*=0.638 FPPI=0.515 ceil=0.884
+  val2:night_rain_snow   n=  559 G=  408 R@t*=0.615 FPPI=0.553 ceil=0.887
+  val2:rainy_all         n=  738 G=  667 R@t*=0.724 FPPI=0.888 ceil=0.901
+  val2:snowy_all         n=  769 G=  924 R@t*=0.751 FPPI=1.135 ceil=0.946
+  val:all                n=10000 G=10216 R@t*=0.769 FPPI=1.131 ceil=0.934
+target 0.9 FEASIBLE
+  selection              n= 1842 G= 1785 R@t*=0.900 FPPI=9.081 ceil=0.941
+  val:clear_day          n= 1764 G= 1890 R@t*=0.908 FPPI=9.629 ceil=0.956
+  val:cloudy_day         n= 1677 G= 1869 R@t*=0.906 FPPI=10.288 ceil=0.944
+  val:rainy_day          n=  396 G=  445 R@t*=0.861 FPPI=11.048 ceil=0.919
+  val:snowy_day          n=  422 G=  537 R@t*=0.899 FPPI=11.507 ceil=0.946
+  val:foggy              n=    5 G=    2 R@t*=1.000 FPPI=1.600 ceil=1.000
+  val:night              n= 3929 G= 2326 R@t*=0.792 FPPI=5.720 ceil=0.883
+  val:dawn_dusk          n=  778 G=  808 R@t*=0.887 FPPI=10.429 ceil=0.943
+  val:undefined          n= 1029 G= 2339 R@t*=0.914 FPPI=20.581 ceil=0.955
+  val2:night_clear       n= 3274 G= 1826 R@t*=0.794 FPPI=5.380 ceil=0.884
+  val2:night_rain_snow   n=  559 G=  408 R@t*=0.789 FPPI=6.801 ceil=0.887
+  val2:rainy_all         n=  738 G=  667 R@t*=0.831 FPPI=8.878 ceil=0.901
+  val2:snowy_all         n=  769 G=  924 R@t*=0.885 FPPI=11.010 ceil=0.946
+  val:all                n=10000 G=10216 R@t*=0.879 FPPI=9.524 ceil=0.934
+target 0.95 INFEASIBLE_SOURCE_TARGET

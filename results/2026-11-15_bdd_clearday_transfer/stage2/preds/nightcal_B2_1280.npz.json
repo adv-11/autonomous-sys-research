@@ -1,0 +1,1 @@
+{"images": 2000, "image_set": "nightcal", "imgsz": 1280, "predict_batch": 4, "orig_shapes_hw": [[720, 1280]], "ped_candidates": 56747, "seconds": 37, "cap_hits": 0, "weights_sha256": "0cdad96fa16669dac2acb5857ca978899b7da004456dddc2247caaf54550e066", "ultralytics": "8.4.197", "out_sha256": "0ccb9b3fb6307e09e9bced5775a15c978f55cc39798a64b7f554653a8c9236af"}
