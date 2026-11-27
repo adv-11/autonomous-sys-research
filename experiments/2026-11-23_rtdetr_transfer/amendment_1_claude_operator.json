@@ -1,0 +1,31 @@
+{
+  "amendment": 1,
+  "date_utc": "2026-11-23",
+  "author": "Claude Opus 5.5 (sole designated Colab operator after GPT Sol's workspace ran out of credits)",
+  "committed_before": "Any allocation by this operator and any training, inference or evaluation outcome. No detector result exists.",
+  "authorization": "User to coordinator: 'switch to claude opus medium and continue'. Coordinator brief permits at most 2 more allocation attempts, plain colab CLI only.",
+  "scientific_contract": "UNCHANGED. Model, checkpoint, manifests, recipe, remote.py stages, stopping rule, adaptation rule, inference policy and evaluator are exactly as frozen at d45e142 (config.json/recipe.yml/remote.py/evaluate.py).",
+  "operational_changes": {
+    "operator": "Claude Opus replaces GPT Sol as executor. GPT Sol's control.py and allocation.py (colab_cli internals) are NOT used; retained as history only.",
+    "cli": "Plain CLI only: colab usage / sessions / new -s NAME --gpu L4 / exec / upload / download / stop -s NAME. Full stdout/stderr of each allocation attempt saved to outputs/rtdetr_transfer_20261123/claude_alloc_attempt_N.log.",
+    "session_name": "rtdetr1123-cl1 (attempt 2, if needed: rtdetr1123-cl2)",
+    "protected_user_session": "trust (endpoint gpu-t4-s-usw4b1-15opi0xtfafn2). Never used, stopped or modified; all stop commands name only this task's session.",
+    "orchestration": "Remote work runs as a detached queue inside the owned VM (claude_queue_a.sh: setup + 1-epoch pilot; claude_queue_b.sh: baseline [+adaptation] + inference). Each remote.py stage is invoked unchanged.",
+    "plan_window": "Sol's 10-minute automatic plan window is replaced by: Claude computes the throughput plan with the frozen formula immediately after the pilot, commits it, then starts queue B. Idle time between pilot and baseline is charged to the stage."
+  },
+  "budget": {
+    "prior_stage_charge": {"CU": 0.3, "allocated_hours": 0.138,
+                           "basis": "Coordinator-stated <=0.3 CU; Sol attempts 1 (0.112 h conservative) + 3 (0.026 h upper bound, no assignment created)"},
+    "remaining_CU": 24.7,
+    "remaining_allocated_hours": 11.862,
+    "hard_deadline": "allocation request time + min(24.7/3, 11.862) h - 300 s = +8.233 h - 5 min (conservative 3 CU/h)",
+    "own_rate_check": "After allocation, own rate = account rate - 1.15 if trust still listed; must be 0 < rate <= 3 or the session is stopped.",
+    "accounting": "Own allocated time (request to verified stop) x measured own rate; account balance deltas not used because trust spend is mixed in."
+  },
+  "watchdog": {
+    "mechanism": "Windows Task Scheduler one-shot task 'rtdetr1123-cl-watchdog', created BEFORE the allocation request, runs claude_watchdog.cmd at the hard deadline: 'colab stop -s <own session>' then 'colab sessions' logged to watchdog.log. Independent of any LLM process.",
+    "limit": "Requires this PC to be on and the user logged in at the deadline. It cannot release an unnamed assignment from a stalled 'colab new'; a stalled request is checked manually via 'colab sessions'."
+  },
+  "hardware": "L4 required. If L4 is not granted: no silent switch. T4 only after a separate committed amendment backed by a <=1 CU throughput pilot showing the baseline fits; A100 forbidden.",
+  "failure_limits": "At most 2 more allocation attempts; at most 2 failures per stage; no optimisation loops. After 2 allocation failures: stop and report the blocker."
+}

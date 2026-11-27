@@ -1,0 +1,31 @@
+{
+  "researcher": "GPT Sol",
+  "frozen_unix": 1795732629.7045233,
+  "pilot_sha256": "ffea26e5279ca8f8edb9d4f6dd1fb99e3514ca7f338f3edf62695bafb0dabb20",
+  "pilot_images": 2048,
+  "pilot_seconds": 356.1640667915344,
+  "seconds_per_image": 0.17390823573805392,
+  "batch": 16,
+  "baseline_epochs": 20,
+  "continuation_epochs": 5,
+  "continuation_images": 8000,
+  "continuation_attempted_updates": 2500,
+  "safety_factor": 1.25,
+  "inference_evaluation_reserve_seconds": 7200,
+  "remaining_seconds": 85310.29547667503,
+  "projected_all_stages_seconds": {
+    "50": 140185.4540159431,
+    "30": 93947.60183908802,
+    "20": 70828.67575066048,
+    "12": 52333.53487991844
+  },
+  "status": "FROZEN",
+  "pilot_weights_discarded": true,
+  "day_control_manifest_sha256": "4dd5ce1ff9fff1e32f8e2bd68ed229aaf4f9cbc7cb380a5b912f4810c5bc98bc",
+  "mixed_manifest_sha256": "7decfb9d9025d4a96d98ee2ab0f60de29a126993d41d35a1e6e8672b05209eea",
+  "baseline_augmentation_stop_epoch": 17,
+  "continuation_augmentation_stop_epoch": 2,
+  "initialization": "Official init for baseline; same final baseline EMA for both continuations; fresh AdamW/EMA seed0",
+  "selection": "Final declared EMA; no held-out checkpoint/policy changes",
+  "deadline_unix": 1795817940.0
+}

@@ -1,0 +1,169 @@
+{
+  "researcher": "GPT Sol (sole designated Colab operator)",
+  "recorded_utc": "2026-11-23T21:38:20.329954+00:00",
+  "status": "BLOCKED_L4_ALLOCATION_FAILED_TWICE_CLAUDE; NO_GPU_WORK",
+  "historical_spend_CU": {
+    "value": 60.9,
+    "basis": "User brief and historical Claude stage-2 ledger; not a new account measurement"
+  },
+  "project_checkin_CU": 100,
+  "authorized_stage_limits": {
+    "CU": 25,
+    "allocated_hours": 12,
+    "CU_per_hour": 3,
+    "owned_sessions": 1,
+    "pilot_CU": 1
+  },
+  "prospective_envelope_unmeasured": {
+    "basis": "Conservative planning caps at 3 CU/h, not measured throughput or a completion claim",
+    "setup_download_hours": 0.75,
+    "pilot_hours": 0.3333333333333333,
+    "training_hours_baseline_and_optional_adaptation": 6,
+    "inference_retrieval_teardown_hours": 0.75,
+    "reserve_CU": 1.5,
+    "total_CU_with_reserve": 25,
+    "maximum_hours_at_rate_cap_with_reserve": 8.333333333333334,
+    "admission": "Executable contract now frozen; initial1epoch heavy-augmentation source-only pilot <=1200s; deterministic throughput-only amendment before baseline; guard conservative25CU at3CU/h minus3min stop margin"
+  },
+  "attempts": [
+    {
+      "stage": "CLI availability, before allocation",
+      "command": "colab --help",
+      "resolved_executable": "C:/Users/Advait/.local/bin/colab.exe",
+      "executable_sha256": "afd48d325cdd9ba1aa1097f58bc1a11d506a3b47ca5722dbb84ae9b9649d713d",
+      "result": "Windows PowerShell NativeCommandFailed: An Application Control policy has blocked this file",
+      "disposition": "Terminal environment blocker. No retry, policy change, alternate executable, runtime allocation or fallback model."
+    }
+  ],
+  "usage_and_sessions": {
+    "queried_before_first_request": true,
+    "initial_balance_CU": 176.52,
+    "initial_rate_CU_per_hour": 0,
+    "initial_active_assignments": 0,
+    "initial_server_sessions": 0,
+    "first_recovery_balance_CU": 176.51,
+    "first_recovery_rate_CU_per_hour": 0,
+    "first_recovery_active_assignments": 0,
+    "later_snapshot": "User-owned trust active at1.15CU/h; do not poll further",
+    "current_balance_CU": null,
+    "reason_current_balance_unmeasured": "User instructed no further session polling; user session spend is excluded from this task"
+  },
+  "new_stage_activity": {
+    "allocation_requests_issued": 2,
+    "ready_research_GPU_sessions": 0,
+    "first_request_uncertain_CPU_assignment_released": true,
+    "conservative_allocated_hours_charged_to_stage": 0.112,
+    "observed_account_balance_delta_charged_CU": 0.01,
+    "CU_limit_remaining_after_displayed_charge": 24.99,
+    "allocated_hours_remaining_after_conservative_charge": 11.888,
+    "balance_delta_limit": "Rounded displayed account delta; not a precise hardware billing reconciliation",
+    "local_GPU_operations": 0,
+    "remote_GPU_operations": 0,
+    "remote_setup_runs": 0,
+    "training_runs": 0,
+    "inference_runs": 0,
+    "evaluation_runs_on_model_predictions": 0,
+    "dataset_uploads": 0,
+    "CPU_adapter_tests_passed": 3
+  },
+  "teardown": {
+    "first_request_endpoint_released": true,
+    "zero_account_assignments_verified_after_first_recovery": true,
+    "second_pending_request_process_tree_stopped": true,
+    "all_task_controller_and_guard_processes_stopped": true,
+    "ready_owned_research_session": false,
+    "zero_account_assignments_now": false,
+    "reason": "User-owned trust remains active; intentionally untouched. No account-wide zero-session claim or further polling.",
+    "waiting_for": "User later instruction that compute is available"
+  },
+  "resumption": {
+    "date_utc": "2026-11-23",
+    "authorization": "Original same25CU/12h cap; user disabled Smart App Control; existing authentication works; no prior allocation by task",
+    "usage_stdout": "Current balance: 176.52 compute units; Usage rate: 0.00/hr; Active assignments: 0",
+    "sessions_stdout": "[colab] No active sessions found on server.",
+    "checked_by": "GPT Sol, colab usage/sessions both exit0"
+  },
+  "allocation_attempts": [
+    {
+      "run_id": "rtdetr-20261123-sol-20261123T212519Z",
+      "request": "colab new -s rtdetr1123 --gpu L4",
+      "result": "Timed out after240s; server listed unnamed CPU/DEFAULT at0.08CU/h; no ready L4, no setup/pilot/training/inference",
+      "endpoint": "m-s-use4b0-fc1b0zilfqzh",
+      "recovery": "CLI stop alias/endpoint not found; killed remaining request descendants and used installed official CLI client.unassign for exact observed endpoint; existing auth unchanged",
+      "balance_before_CU": 176.52,
+      "balance_after_CU": 176.51,
+      "displayed_spend_CU": 0.01,
+      "teardown_verified": true
+    },
+    {
+      "run_id": "rtdetr-20261123-sol-20261123T213215Z",
+      "request": "colab new -s rtdetr1123 --gpu L4",
+      "result": "Pending request aborted by terminating only its controller/guard/request process tree when active differently named trust T4 session was observed",
+      "research_session_ready": false,
+      "remote_setup_or_GPU_work": false,
+      "other_session_ownership": "User explicitly confirmed trust is theirs; leave untouched and await availability",
+      "guard_correction": "A timing-based endpoint collector had observed trust. It never released/used it; controller and guard killed. Collector now accepts only the endpoint saved under this task alias.",
+      "admission_error": "Second request relied on an earlier zero-assignment snapshot; a fresh pre-request check was missing. Fresh admission checks added for future requests, but execution remains disabled."
+    }
+  ],
+  "bounded_second_attempt": {
+    "basis": "Installed official client explicitly documents slow allocations; first outer240s deadline may have cut off readiness. Use600s outer readiness limit and480s official request timeout, with internal assignment retries disabled. One second attempt only; then stop.",
+    "safeguard_fix": "Guard now records the sole request-created server endpoint while allocation is pending, so an unsaved alias can be released via official CLI client. Windows request timeout kills process tree. Original first-request hard deadline persists; no fresh25CU envelope.",
+    "remaining_stage_CU_from_displayed_spend": 24.99,
+    "disposition": "ABORTED_FOR_USER_OWNED_SESSION; no further requests or scheduled retries"
+  },
+  "parallel_resumption": {
+    "authorization": "User: compute is available go for it; clarified run in parallel. One separately named owned project runtime; trust entirely untouched. Same stage budget.",
+    "account_context": {
+      "balance_CU": 176.41,
+      "user_rate_CU_per_hour": 1.15,
+      "existing_user_assignments": 1,
+      "source": "Coordinator check supplied in user brief; fresh research admission follows"
+    },
+    "remaining_CU": 24.99,
+    "remaining_owned_hours": 11.888,
+    "identity_safeguard": "Unique notebook UUID persisted before allocation; independent guard and final release target only this UUID/endpoint; protected trust endpoint explicitly forbidden",
+    "balance_attribution": "Subsequent account balance deltas cannot establish project spend; user costs excluded; own time/rate ledger required"
+  },
+  "claude_resumption": {
+    "operator": "Claude Opus 5.5 (sole designated operator after GPT Sol credits exhausted)",
+    "authorization": "User via coordinator: 'switch to claude opus medium and continue'; max 2 more attempts, plain CLI only",
+    "amendment_commit": "7e33d18 (amendment_1_claude_operator.json; scientific contract unchanged)",
+    "watchdog": "Windows scheduled task created before attempt 1 (deadline 2026-11-24T06:00:19Z); removed after both attempts failed with no owned session",
+    "attempts": [
+      {
+        "n": 1,
+        "session": "rtdetr1123-cl1",
+        "request_utc": "2026-11-23T21:51:29Z",
+        "end_utc": "2026-11-23T22:00:46Z",
+        "command": "colab new -s rtdetr1123-cl1 --gpu L4 (CLI defaults: 120 s read timeout, 3 retries)",
+        "result": "exit 1: requests ReadTimeout on POST /tun/m/assign (read timeout=120) after CLI internal retries",
+        "admission": "balance 176.22, rate 1.15/h, 1 assignment (trust only)",
+        "after": "balance 176.03, rate 1.15/h, 1 assignment (trust only); no own assignment created",
+        "log": "outputs/rtdetr_transfer_20261123/claude_alloc_attempt_1.log sha256 0184b62a319085b8081740526798fe097c4948459be0def93c766af818a09c75"
+      },
+      {
+        "n": 2,
+        "session": "rtdetr1123-cl2",
+        "request_utc": "2026-11-23T22:01:21Z",
+        "end_utc": "2026-11-23T22:09:33Z",
+        "command": "COLAB_CLI_REQUEST_TIMEOUT=600 COLAB_CLI_ASSIGN_RETRIES=1 colab new -s rtdetr1123-cl2 --gpu L4",
+        "result": "exit 1: ColabRequestError POST /tun/m/assign?variant=GPU&accelerator=L4: Bad Gateway (502)",
+        "admission": "balance 175.93, rate 1.15/h, 1 assignment (trust only)",
+        "after": "balance 175.84, rate 1.15/h, 1 assignment (trust only); no own assignment created",
+        "log": "outputs/rtdetr_transfer_20261123/claude_alloc_attempt_2.log sha256 45f4640242f65c0559e71db17eeb3cb445820b177848dd88b597909045557930"
+      }
+    ],
+    "own_assignments_created": 0,
+    "own_allocated_hours": 0.0,
+    "own_CU_charged": 0.0,
+    "balance_deltas_note": "Account deltas over the window (176.22 -> 175.84) match trust at 1.15 CU/h (~0.35 CU over ~18 min) and are not charged to this stage",
+    "stage_total_charged_CU": 0.3,
+    "stage_total_allocated_hours_conservative": 0.138,
+    "remaining_CU": 24.7,
+    "remaining_allocated_hours": 11.862,
+    "teardown": "colab sessions at 2026-11-23T22:09:44Z lists only user-owned trust; trust never used, stopped or modified",
+    "hardware_fallback": "Not taken: no T4 pilot, no A100. Further attempts exceed the authorized 2.",
+    "disposition": "STOPPED: concrete blocker is Colab L4 assignment endpoint failing (120 s read timeouts, then 502 Bad Gateway). Awaiting user/coordinator decision."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "amendment": 3,
+  "date_utc": "2026-11-26",
+  "author": "Claude Opus 5.5 (sole designated Colab operator)",
+  "authority": "docs/decisions/2026-11-26_training_resume.md (b408e9d): 'RT-DETR may use a T4 only under a committed operational amendment and the existing at-most-1-CU throughput pilot demonstrating a meaningful baseline fits.'",
+  "committed_before": "The second and final allocation attempt of this recovery batch and any RT-DETR outcome. No detector result exists.",
+  "trigger": "Allocation attempt 1 (rt1126-cl1, L4, 2026-11-26T21:31:44Z-21:39:57Z) failed: ColabRequestError POST /tun/m/assign?variant=GPU&accelerator=L4: Bad Gateway (502). No assignment created (0 assignments, 0.00/h before and after). This is the third consecutive L4 assign failure (2026-11-23 read timeouts, 2026-11-23 502, 2026-11-26 502). Log: outputs/research_resume_20261126/alloc_attempt_1.log.",
+  "scientific_contract": "UNCHANGED (d45e142 + amendment 2): same model, weights, recipe (batch 16, AMP, fixed 640, seed 0), manifests, stopping rule, adaptation rule, inference policy and evaluator. Only the GPU type changes; numerics may differ slightly from an L4 run and that is reported.",
+  "operational_changes": {
+    "hardware": "Final allocation attempt: `colab new -s rt1126-cl2 --gpu T4` (same CLI timeouts, outer 900 s). RT-DETR only. A100 or any rate above 3 CU/h forbidden.",
+    "pilot_gate": "The frozen 1-epoch pilot (signal.alarm 1100 s, <=1 CU) runs first. The baseline proceeds only if the frozen stopping rule yields >= 25 baseline epochs (half the 50-epoch target) under the deadline in force; otherwise the session is stopped after the pilot and the stage reported as not feasible on T4. An out-of-memory or alarm failure in the pilot is a stage failure, not retried with changed settings.",
+    "yolo_seeds": "Not run on this T4 runtime (exact B recipe needs ~10.6 h on L4; it cannot fit 12 h on a T4 and batch/recipe changes are not allowed). Seeds 2 and 3 remain pending without further allocation authority in this batch. The shared-runtime clause of amendment 2 therefore does not apply.",
+    "watchdog": "Scheduled task rt1126-watchdog retargeted to rt1126-cl2 before the request; deadline rules of amendment 2 unchanged."
+  }
+}
