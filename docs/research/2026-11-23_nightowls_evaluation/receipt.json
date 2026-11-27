@@ -1,0 +1,265 @@
+{
+ "researcher": "GPT Sol",
+ "base_commit": "c922cdacfe4e69232db454d82b3fc2b77e0bbc43",
+ "merged_policy": "5251312",
+ "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+ "numpy": "2.5.4",
+ "hashes": {
+  "experiments/2026-11-23_nightowls_evaluation/evaluate.py": "663e3f84fd6c7436f3e8f5ec53bc2b6cc32bd4dd34f6db42cdfcda8f119960fa",
+  "experiments/2026-11-15_bdd_clearday_transfer/evaluate_transfer.py": "1c2920ae5bd883d47355284e461a11c83970ccc5fc001a37cfef6a361780cbad",
+  "experiments/2026-11-15_bdd_clearday_transfer/sensitivity.py": "45029dae4f2ce07c08a9fa1e3a184e5ea3918665b6357a148da71eb9c3716b0f",
+  "src/threshold_transfer/metrics.py": "fa58a9e286fa1ef6baa03924547fb781c3c5191c92f9caa6931c5dd18699a931",
+  "src/threshold_transfer/nightowls.py": "f4ae2c84ebd04185fd1694fdce30c35875ca7393c5e5ffb7a7509b1ee54312ad",
+  "docs/research/2026-11-17_nightowls_external_contract.md": "4dfb6d43376ea84e319673a677fe995d0064b408205ec83d346a29dead625903",
+  "docs/research/2026-11-18_nightowls_contract_v2.md": "dfba9bb62a1691f9b1bf7e062fd37e74daf9e4614e77646b2f1cf19434f86df2",
+  "docs/research/2026-11-18_nightowls_v2_bdd_reference.md": "6153fd1793ceadd195ad52f10a199534c1b7d09261405b47625bbe51d443b744",
+  "annotations": "584c0dc11f0d086fc5bcbaca0385cf2dd9794074f815f2727fbf9a093fd9a9b6",
+  "pilot": "4f31e685cd3d2d263448e7faf207d80f7befe8c6738b041c3bc4d6614b5de99a",
+  "bdd_gt": "37929323cb4943766a163a8ea8bf1e02ba1e244c5ae29fe6cebe02ce5a257bbf",
+  "bdd_A_640": "6f9f4b0aae68d3f40bf341375168998cf64b29aab8be62b04dc23f15cfb32f57",
+  "nightowls_A_640": "411d6d95f551ec13d7ff094f2c024dc085e49b6317459b4d8afbdf6c641c908f",
+  "bdd_B_1280": "143534c8db25de5b8387666a2a99c8cda171a96150ce3ff651061a42a72d1d55",
+  "nightowls_B_1280": "1dca7cca79b7e4ddd509cfc7abce6d2eae3ebae14fe5db8facb1881bd75c00bc",
+  "bdd_C_640": "dcb674956035a497a8c68d56a44b80729df674bc2b6610ce6269fdce4df0035a",
+  "nightowls_C_640": "9320a5a05f484d1e716eefa6ed386c55dd35a294aa9ae29be116a50ac92b0b57",
+  "experiments/2026-11-23_nightowls_evaluation/uncertainty.py": "cbe7b59dc32e101bcecba981350b71386d74b3899c315e6c94cac317db910c19",
+  "bootstrap_draws.npz": "a74bae48e9eafe70076507a258a94e39cc2bc2cd1793d414744586d6cb4065ca",
+  "experiments/2026-11-15_bdd_clearday_transfer/common.py": "d96dce1cfc1a9e0dc448ce54aaa5031d965c19af78d45213529fffde8ddf3225",
+  "experiments/2026-11-15_bdd_clearday_transfer/matched_fppi.py": "22ce2cbc893c558c0defc9276764492e0b702ad20d9760d7f24819b4e539b5ea",
+  "experiments/2026-11-15_bdd_clearday_transfer/config.json": "4e3c0eef0171460bd0a96014d10aaab38695031a538b650f0e5b7765f6ab8b81",
+  "experiments/2026-11-15_bdd_clearday_transfer/amendment_3.json": "7d4f86d82ca18c3d01fe6ddfb6bdcc2b392702666cf34c76f9ff0f6215c2304a",
+  "src/threshold_transfer/schema.py": "b313768dea0e57d535a5d4dbed461dd0f0f9b38c30d76e3748c182c44660c3dd",
+  "src/threshold_transfer/data.py": "4c5d9332fbc160054370fc9fecf08c10b4bf9e9dfaa7e3d0e2d5ed6395d969b7",
+  "experiments/2026-11-23_nightowls_evaluation/verify.py": "a5acdc204d02cae6de663d5ebe0d9abb319752ed04b51c010b7c6de52b7b4c12",
+  "experiments/2026-11-23_nightowls_evaluation/figures.py": "e546f0224d72bb1043c39dc9312980d3ebee480e62fee976350ff50975349141",
+  "experiments/2026-11-23_nightowls_evaluation/package_aggregates.py": "f3e0fdd5a3a079beba3f8e6f66c154eea45255b67b03918902e8da94062d8dc0",
+  "experiments/2026-11-23_nightowls_evaluation/finalize_report.py": "0e5d9413b19686d6e94b5124b5ff20c36976f1166ace9f1bf2038a29819ec984"
+ },
+ "checks": {
+  "A_640_BDD": "PASS unchanged match_chunk; exact stored thresholds all policies; h50 primary TP reference",
+  "A_640/reasonable/unused_nonpedestrian": {
+   "images": 3047,
+   "gt": 443,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/reasonable/person_compatible_ignore": {
+   "images": 3047,
+   "gt": 443,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/reasonable_small/unused_nonpedestrian": {
+   "images": 3047,
+   "gt": 139,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/reasonable_small/person_compatible_ignore": {
+   "images": 3047,
+   "gt": 139,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/reasonable_heavy/unused_nonpedestrian": {
+   "images": 3047,
+   "gt": 61,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/reasonable_heavy/person_compatible_ignore": {
+   "images": 3047,
+   "gt": 61,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/all/unused_nonpedestrian": {
+   "images": 3047,
+   "gt": 588,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "A_640/all/person_compatible_ignore": {
+   "images": 3047,
+   "gt": 588,
+   "candidates": 120655,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280_BDD": "PASS unchanged match_chunk; exact stored thresholds all policies; h50 primary TP reference",
+  "B_1280/reasonable/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 442,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/reasonable/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 442,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/reasonable_small/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 139,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/reasonable_small/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 139,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/reasonable_heavy/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 61,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/reasonable_heavy/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 61,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/all/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 587,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "B_1280/all/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 587,
+   "candidates": 204969,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640_BDD": "PASS unchanged match_chunk; exact stored thresholds all policies; h50 primary TP reference",
+  "C_640/reasonable/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 442,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/reasonable/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 442,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/reasonable_small/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 139,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/reasonable_small/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 139,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/reasonable_heavy/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 61,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/reasonable_heavy/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 61,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/all/unused_nonpedestrian": {
+   "images": 3046,
+   "gt": 587,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "C_640/all/person_compatible_ignore": {
+   "images": 3046,
+   "gt": 587,
+   "candidates": 141319,
+   "status": "PASS: exact TP/FP/ignored, per-GT scores, thresholds and ceilings"
+  },
+  "final_accounting": {
+   "attribution": "GPT Sol implementation check; independent review pending",
+   "status": "PASS",
+   "aggregate_rows_checked": 2376,
+   "weighted_reference_points_checked": 43,
+   "weighted_height_intervals_checked": 24,
+   "bdd_image_order_pairing": "exact across A/B/C",
+   "checks": [
+    "24 sampled real-data ReferenceEvaluator equivalence checks retained in receipt",
+    "BDD exact frozen source thresholds and decisive h50 TP references",
+    "recording sums, empty-image candidate accounting, both ignore profiles",
+    "full-assignment height counts and zero-support undefined values",
+    "miss and signed clear-reference identities",
+    "1000 interval supports; source infeasibility propagation",
+    "source/target reselection and weighted counts at fixed actual bootstrap replicates",
+    "public JSON identity/geometry/native-key scan"
+   ],
+   "model_framework_modules_loaded": []
+  }
+ },
+ "status": "COMPLETE",
+ "started_utc": "2026-11-23T20:41:57Z",
+ "elapsed_s": 1086.63,
+ "bootstrap_elapsed_s": 475.67,
+ "completed_utc": "2026-11-23T21:08:38Z",
+ "private_artifacts": {
+  "A_640_cache.pkl": {
+   "sha256": "30323be4adfa570202eb3932d75a236bd4954fe107f7e7bb31c4db4d3ce64ec9",
+   "bytes": 225912952
+  },
+  "B_1280_cache.pkl": {
+   "sha256": "4effb5af27a86a03f43c851531afa3f0537c85c4eb6623d025b5cf821368b121",
+   "bytes": 318081839
+  },
+  "C_640_cache.pkl": {
+   "sha256": "5e940c271e131eb1da88d6ceceed8a1027ccc2391da5a246e3d80ef1a263dc1d",
+   "bytes": 248504486
+  },
+  "A_640_bootstrap_metrics.pkl": {
+   "sha256": "19546d4d491be50cdcc5eb6abf60cbb5deadcd4e08caf407b1fa51ab6fc0cd83",
+   "bytes": 19786920
+  },
+  "B_1280_bootstrap_metrics.pkl": {
+   "sha256": "90066801c08f4dcc14ca589dc3b44122a8e271aecccd1fb4b1ba611c10c2abb9",
+   "bytes": 19786920
+  },
+  "C_640_bootstrap_metrics.pkl": {
+   "sha256": "98a0042bc75d95a1a842e05942a1f360e2b641b4990fc19e87cc8fc3e9817340",
+   "bytes": 19786920
+  },
+  "bootstrap_draws.npz": {
+   "sha256": "a74bae48e9eafe70076507a258a94e39cc2bc2cd1793d414744586d6cb4065ca",
+   "bytes": 16473282
+  },
+  "point_estimates.json": {
+   "sha256": "b7d8115b5efbf6253673e6b4295fea30e72d31265141cd641389f94970a47b25",
+   "bytes": 12923642
+  },
+  "uncertainty.json": {
+   "sha256": "95e5c0cd723632de83196ebe59728df94fa322f653541c97e206209a8978a1a1",
+   "bytes": 12643144
+  },
+  "bootstrap.log": {
+   "sha256": "b959e5e8c0629b315e2ddc90b4fb129d35f6ad4c841ee181bf82822871476693",
+   "bytes": 20554
+  }
+ },
+ "plot_layout_revision": {
+  "attribution": "GPT Sol",
+  "reason": "Visual QA found caption/axis collisions and crowded support labels; fixed layout only. Metric outputs unchanged.",
+  "initial_source_sha256": "0c746736fc2acbfa42a3ee11e0660649b01cd009581c034d4f979aa2c773c7df",
+  "final_source_sha256": "e546f0224d72bb1043c39dc9312980d3ebee480e62fee976350ff50975349141",
+  "visual_qa": "PASS: all four final PNGs inspected; captions and labels legible; no overlap.",
+  "svg_format": "Whitespace normalized for git diff --check; four PNG hashes unchanged and four SVGs XML-parsed.",
+  "preserved_prior_sources": [
+   "figures_checked_layout_817c35592f78878011aac1f838755338576b4bac40bba29168bc11545056d704.py",
+   "figures_first_layout_0c746736fc2acbfa42a3ee11e0660649b01cd009581c034d4f979aa2c773c7df.py"
+  ]
+ }
+}

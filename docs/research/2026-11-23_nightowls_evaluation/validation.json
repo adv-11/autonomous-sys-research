@@ -1,0 +1,19 @@
+{
+ "attribution": "GPT Sol implementation check; independent review pending",
+ "status": "PASS",
+ "aggregate_rows_checked": 2376,
+ "weighted_reference_points_checked": 43,
+ "weighted_height_intervals_checked": 24,
+ "bdd_image_order_pairing": "exact across A/B/C",
+ "checks": [
+  "24 sampled real-data ReferenceEvaluator equivalence checks retained in receipt",
+  "BDD exact frozen source thresholds and decisive h50 TP references",
+  "recording sums, empty-image candidate accounting, both ignore profiles",
+  "full-assignment height counts and zero-support undefined values",
+  "miss and signed clear-reference identities",
+  "1000 interval supports; source infeasibility propagation",
+  "source/target reselection and weighted counts at fixed actual bootstrap replicates",
+  "public JSON identity/geometry/native-key scan"
+ ],
+ "model_framework_modules_loaded": []
+}
