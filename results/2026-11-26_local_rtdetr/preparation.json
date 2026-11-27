@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "extracted_images": 26477,
+  "day_control_manifest_sha256": "4dd5ce1ff9fff1e32f8e2bd68ed229aaf4f9cbc7cb380a5b912f4810c5bc98bc",
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "Pillow": "13.0.0",
+    "faster-coco-eval": "1.8.0",
+    "PyYAML": "6.0.3"
+  },
+  "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+  "official_source_commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+  "note": "Existing local runtime; no numerical equivalence to Colab asserted."
+}

@@ -1,0 +1,8 @@
+{
+  "attempted_updates": 125,
+  "successful_updates": 120,
+  "seconds": 346.5250337123871,
+  "peak_allocated_gib": 5.6653218269348145,
+  "peak_reserved_gib": 6.458984375,
+  "batch": 16
+}
