@@ -1,0 +1,28 @@
+{
+  "researcher": "Claude Opus",
+  "start_unix": 1795849360.587024,
+  "seed": 1,
+  "limit_hours": 9.0,
+  "gate": {
+    "steps": 200,
+    "median_seconds": 1.6
+  },
+  "bonus_hours": 5.5,
+  "git_commit": "593d0fb0a2b1d84095a0e4eb93bc82ace0e4cf3a",
+  "run_sha256": "69568cf40f10818c5026623e125d04799d2de7e971b43d0ca27381bcb5f172b7",
+  "seed0_seconds": {
+    "baseline": {
+      "train": 28464.84249162674,
+      "infer": 398.82986187934875
+    },
+    "day_control": {
+      "train": 2849.0543785095215,
+      "infer": 387.4486458301544
+    },
+    "adaptation": {
+      "train": 2835.555579662323,
+      "infer": 391.9530005455017
+    }
+  },
+  "approval": "User approved the overnight run and GPU self-approval on 2026-11-27"
+}
