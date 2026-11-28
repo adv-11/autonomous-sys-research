@@ -1,0 +1,53 @@
+PResNet:
+  pretrained: false
+__include__:
+- <home>\autonomous-sys-research\outputs\rtdetr_transfer_20261123\official\rtdetrv2_pytorch\configs\rtdetrv2\rtdetrv2_r18vd_120e_coco.yml
+clip_max_norm: 0.1
+device: cuda
+ema:
+  decay: 0.9999
+  type: ModelEMA
+  warmups: 2000
+lr_scheduler:
+  gamma: 0.1
+  milestones:
+  - 1000
+  type: MultiStepLR
+lr_warmup_scheduler:
+  type: LinearWarmup
+  warmup_duration: 200
+num_classes: 10
+optimizer:
+  betas:
+  - 0.9
+  - 0.999
+  lr: 1.0e-05
+  params:
+  - params: ^(?=.*(?:norm|bn)).*$
+    weight_decay: 0.0
+  type: AdamW
+  weight_decay: 0.0001
+print_freq: 100
+remap_mscoco_category: false
+seed: 0
+train_dataloader:
+  collate_fn:
+    scales: null
+  dataset:
+    ann_file: <home>\autonomous-sys-research\outputs\local_rtdetr_seed1_20261127\main\data\day_control.json
+    img_folder: <home>\autonomous-sys-research\outputs\local_rtdetr_seed1_20261127\main\data\images\train
+    transforms:
+      policy:
+        epoch: 2
+  drop_last: false
+  num_workers: 4
+  pin_memory: false
+  total_batch_size: 16
+use_amp: true
+use_ema: true
+val_dataloader:
+  dataset:
+    ann_file: /content/data/source.json
+    img_folder: /content/data/images/train
+  num_workers: 0
+  total_batch_size: 16

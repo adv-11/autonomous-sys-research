@@ -1,0 +1,154 @@
+[
+  {
+    "event": "launch",
+    "stage": "train",
+    "arm": "baseline",
+    "workers": 4,
+    "pid": 20272,
+    "out": "<home>\\autonomous-sys-research\\outputs\\local_rtdetr_seed1_20261127\\main",
+    "elapsed_h": 0.0
+  },
+  {
+    "event": "speed_gate",
+    "median_step_s": 0.7039434432983398,
+    "projected_baseline_h": 2.6006799432966443,
+    "samples": [
+      [
+        1,
+        25.905550479888916
+      ],
+      [
+        25,
+        42.94635033607483
+      ],
+      [
+        50,
+        60.740474462509155
+      ],
+      [
+        75,
+        78.0929274559021
+      ],
+      [
+        100,
+        95.63567209243774
+      ],
+      [
+        125,
+        113.19269895553589
+      ],
+      [
+        150,
+        130.84755945205688
+      ],
+      [
+        175,
+        148.44614553451538
+      ],
+      [
+        200,
+        166.27151012420654
+      ]
+    ],
+    "passed": true,
+    "elapsed_h": 0.052
+  },
+  {
+    "event": "decision",
+    "workers": 4,
+    "bonus_continuations": true,
+    "elapsed_h": 0.052
+  },
+  {
+    "event": "epoch2_projection",
+    "mean_epoch_s": 481.03100657463074,
+    "projected_total_h": 2.792720223797692,
+    "elapsed_h": 0.277
+  },
+  {
+    "event": "exit",
+    "label": "train baseline",
+    "exit_code": 0,
+    "elapsed_h": 2.736
+  },
+  {
+    "event": "launch",
+    "stage": "infer",
+    "arm": "baseline",
+    "workers": 0,
+    "pid": 32924,
+    "out": "<home>\\autonomous-sys-research\\outputs\\local_rtdetr_seed1_20261127\\main",
+    "elapsed_h": 2.736
+  },
+  {
+    "event": "exit",
+    "label": "infer baseline",
+    "exit_code": 0,
+    "elapsed_h": 2.85
+  },
+  {
+    "event": "launch",
+    "stage": "train",
+    "arm": "day_control",
+    "workers": 4,
+    "pid": 5940,
+    "out": "<home>\\autonomous-sys-research\\outputs\\local_rtdetr_seed1_20261127\\main",
+    "elapsed_h": 2.85
+  },
+  {
+    "event": "exit",
+    "label": "train day_control",
+    "exit_code": 0,
+    "elapsed_h": 3.382
+  },
+  {
+    "event": "launch",
+    "stage": "infer",
+    "arm": "day_control",
+    "workers": 0,
+    "pid": 30196,
+    "out": "<home>\\autonomous-sys-research\\outputs\\local_rtdetr_seed1_20261127\\main",
+    "elapsed_h": 3.382
+  },
+  {
+    "event": "exit",
+    "label": "infer day_control",
+    "exit_code": 0,
+    "elapsed_h": 3.497
+  },
+  {
+    "event": "launch",
+    "stage": "train",
+    "arm": "adaptation",
+    "workers": 4,
+    "pid": 5516,
+    "out": "<home>\\autonomous-sys-research\\outputs\\local_rtdetr_seed1_20261127\\main",
+    "elapsed_h": 3.497
+  },
+  {
+    "event": "exit",
+    "label": "train adaptation",
+    "exit_code": 0,
+    "elapsed_h": 4.02
+  },
+  {
+    "event": "launch",
+    "stage": "infer",
+    "arm": "adaptation",
+    "workers": 0,
+    "pid": 8776,
+    "out": "<home>\\autonomous-sys-research\\outputs\\local_rtdetr_seed1_20261127\\main",
+    "elapsed_h": 4.02
+  },
+  {
+    "event": "exit",
+    "label": "infer adaptation",
+    "exit_code": 0,
+    "elapsed_h": 4.134
+  },
+  {
+    "event": "evaluation",
+    "exit_code": 0,
+    "elapsed_h": 4.145
+  }
+]
